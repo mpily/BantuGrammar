@@ -1,0 +1,1574 @@
+{
+ "swahili_reference": {
+  "subject_marker_table": {
+   "1": "a",
+   "2": "wa",
+   "3": "u",
+   "4": "i",
+   "5": "li",
+   "6": "ya",
+   "7": "ki",
+   "8": "vi",
+   "9": "i",
+   "10": "zi",
+   "11": "u",
+   "15": "ku",
+   "ANIMATE-SG": "a",
+   "ANIMATE-PL": "wa"
+  },
+  "tam_marker_table": {
+   "na": "present",
+   "li": "past",
+   "ta": "future",
+   "me": "perfect",
+   "ki": "conditional/while",
+   "nge": "conditional(hypothetical)",
+   "ngali": "conditional(past-hypothetical)",
+   "ja": "not-yet(negative-perfect)",
+   "hu": "habitual"
+  },
+  "negation_marker_table": {
+   "ha": "negative, general (replaces/precedes the ordinary subject marker for every class except 1st person singular; present-tense final vowel changes -a -> -i, e.g. cl.1 a- + ha- -> ha- 'haendi' = s/he does not go; cl.2 wa- + ha- -> hawa- 'hawaendi' = they do not go)",
+   "si": "negative, 1st person singular only (replaces 'ni-'/the zero 1sg marker outright, not just prefixed to it, e.g. 'siendi' = I do not go)"
+  }
+ },
+ "kitaita_candidates": {
+  "n_root_groups_used_per_version": {
+   "SUV": 197,
+   "NEN": 245,
+   "BHN": 274
+  },
+  "tam_marker_candidates": {
+   "conditional/while": {
+    "total_support": 61,
+    "top_candidates": [
+     {
+      "segment": "wiki_",
+      "support": 14,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "uki_",
+      "support": 9,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "wiki_a",
+      "support": 5,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "uki_a",
+      "support": 5,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "kuki_",
+      "support": 3,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "future": {
+    "total_support": 161,
+    "top_candidates": [
+     {
+      "segment": "wich_",
+      "support": 22,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "uch_",
+      "support": 16,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ucha_",
+      "support": 15,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ucha_a",
+      "support": 14,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "wicha_",
+      "support": 14,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "past": {
+    "total_support": 145,
+    "top_candidates": [
+     {
+      "segment": "wik_",
+      "support": 18,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "NEN"
+      ]
+     },
+     {
+      "segment": "ore_ireghe",
+      "support": 10,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "were_ieghe",
+      "support": 8,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ore_ieghe",
+      "support": 8,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "NEN"
+      ]
+     },
+     {
+      "segment": "ore_ghe",
+      "support": 6,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "perfect": {
+    "total_support": 108,
+    "top_candidates": [
+     {
+      "segment": "w_",
+      "support": 17,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "wa_",
+      "support": 9,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "kw_",
+      "support": 6,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "kwa_",
+      "support": 4,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "kw_ie",
+      "support": 3,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "NEN"
+      ]
+     }
+    ]
+   },
+   "present": {
+    "total_support": 74,
+    "top_candidates": [
+     {
+      "segment": "w_",
+      "support": 5,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "waawuy_",
+      "support": 4,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "wa_",
+      "support": 3,
+      "n_versions": 2,
+      "versions": [
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ku_gha",
+      "support": 3,
+      "n_versions": 1,
+      "versions": [
+       "NEN"
+      ]
+     },
+     {
+      "segment": "u_agha",
+      "support": 3,
+      "n_versions": 1,
+      "versions": [
+       "NEN"
+      ]
+     }
+    ]
+   },
+   "conditional(past-hypothetical)": {
+    "total_support": 2,
+    "top_candidates": [
+     {
+      "segment": "wede_wa",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     },
+     {
+      "segment": "wed_rwa",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "BHN"
+      ]
+     }
+    ]
+   },
+   "conditional(hypothetical)": {
+    "total_support": 1,
+    "top_candidates": [
+     {
+      "segment": "oremkaribish_",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "BHN"
+      ]
+     }
+    ]
+   }
+  },
+  "subject_marker_candidates": {
+   "wa": {
+    "total_support": 233,
+    "top_candidates": [
+     {
+      "segment": "wi_",
+      "support": 88,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "we_",
+      "support": 18,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "w_",
+      "support": 13,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "were_ieghe",
+      "support": 5,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "_ie",
+      "support": 4,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "i": {
+    "total_support": 64,
+    "top_candidates": [
+     {
+      "segment": "i_",
+      "support": 12,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "l_",
+      "support": 6,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "e_",
+      "support": 5,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "lu_",
+      "support": 3,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "jee_lwa",
+      "support": 2,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "a": {
+    "total_support": 225,
+    "top_candidates": [
+     {
+      "segment": "u_",
+      "support": 79,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "o_",
+      "support": 20,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "w_",
+      "support": 5,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "wa_a",
+      "support": 5,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ore_ghe",
+      "support": 4,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "ki": {
+    "total_support": 14,
+    "top_candidates": [
+     {
+      "segment": "chi_",
+      "support": 3,
+      "n_versions": 2,
+      "versions": [
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ch_",
+      "support": 2,
+      "n_versions": 2,
+      "versions": [
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "kili_",
+      "support": 2,
+      "n_versions": 2,
+      "versions": [
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ch_korwa",
+      "support": 2,
+      "n_versions": 1,
+      "versions": [
+       "BHN"
+      ]
+     },
+     {
+      "segment": "_kaia",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "vi": {
+    "total_support": 11,
+    "top_candidates": [
+     {
+      "segment": "ma_",
+      "support": 2,
+      "n_versions": 2,
+      "versions": [
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "_funywa",
+      "support": 2,
+      "n_versions": 1,
+      "versions": [
+       "BHN"
+      ]
+     },
+     {
+      "segment": "kum_e",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ri_woa",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     },
+     {
+      "segment": "r_woa",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "ku": {
+    "total_support": 17,
+    "top_candidates": [
+     {
+      "segment": "k_",
+      "support": 3,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "NEN"
+      ]
+     },
+     {
+      "segment": "ku_",
+      "support": 3,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "NEN"
+      ]
+     },
+     {
+      "segment": "ko_",
+      "support": 3,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "NEN"
+      ]
+     },
+     {
+      "segment": "wik_ndia",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     },
+     {
+      "segment": "wiki_",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "u": {
+    "total_support": 157,
+    "top_candidates": [
+     {
+      "segment": "k_",
+      "support": 37,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ku_",
+      "support": 26,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "k_a",
+      "support": 6,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ghu_",
+      "support": 4,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "NEN"
+      ]
+     },
+     {
+      "segment": "kore_ireghe",
+      "support": 3,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "zi": {
+    "total_support": 21,
+    "top_candidates": [
+     {
+      "segment": "vi_dukwa",
+      "support": 3,
+      "n_versions": 1,
+      "versions": [
+       "BHN"
+      ]
+     },
+     {
+      "segment": "gh_",
+      "support": 2,
+      "n_versions": 2,
+      "versions": [
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ku_dua",
+      "support": 2,
+      "n_versions": 1,
+      "versions": [
+       "BHN"
+      ]
+     },
+     {
+      "segment": "ere_ieghe",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     },
+     {
+      "segment": "wi_e",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "li": {
+    "total_support": 27,
+    "top_candidates": [
+     {
+      "segment": "j_",
+      "support": 3,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ji_",
+      "support": 3,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ndeghu_afunya",
+      "support": 2,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "i_ie",
+      "support": 2,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "NEN"
+      ]
+     },
+     {
+      "segment": "ndeghucha_a",
+      "support": 1,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     }
+    ]
+   },
+   "ya": {
+    "total_support": 35,
+    "top_candidates": [
+     {
+      "segment": "gh_",
+      "support": 4,
+      "n_versions": 3,
+      "versions": [
+       "BHN",
+       "NEN",
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ndem_apata",
+      "support": 3,
+      "n_versions": 1,
+      "versions": [
+       "BHN"
+      ]
+     },
+     {
+      "segment": "j_nya",
+      "support": 2,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     },
+     {
+      "segment": "ji_nya",
+      "support": 2,
+      "n_versions": 1,
+      "versions": [
+       "SUV"
+      ]
+     },
+     {
+      "segment": "w_era",
+      "support": 2,
+      "n_versions": 2,
+      "versions": [
+       "BHN",
+       "NEN"
+      ]
+     }
+    ]
+   }
+  }
+ },
+ "kitaita_subject_marker_by_class": {
+  "1": {
+   "prefix": "u",
+   "support": 79,
+   "n_versions": 3,
+   "from_swahili_sm": "a"
+  },
+  "ANIMATE-SG": {
+   "prefix": "u",
+   "support": 79,
+   "n_versions": 3,
+   "from_swahili_sm": "a"
+  },
+  "2": {
+   "prefix": "wi",
+   "support": 88,
+   "n_versions": 3,
+   "from_swahili_sm": "wa"
+  },
+  "ANIMATE-PL": {
+   "prefix": "wi",
+   "support": 88,
+   "n_versions": 3,
+   "from_swahili_sm": "wa"
+  },
+  "3": {
+   "prefix": "k",
+   "support": 37,
+   "n_versions": 3,
+   "from_swahili_sm": "u"
+  },
+  "11": {
+   "prefix": "k",
+   "support": 37,
+   "n_versions": 3,
+   "from_swahili_sm": "u"
+  },
+  "4": {
+   "prefix": "i",
+   "support": 12,
+   "n_versions": 3,
+   "from_swahili_sm": "i"
+  },
+  "9": {
+   "prefix": "i",
+   "support": 12,
+   "n_versions": 3,
+   "from_swahili_sm": "i"
+  },
+  "5": {
+   "prefix": "j",
+   "support": 3,
+   "n_versions": 1,
+   "from_swahili_sm": "li"
+  },
+  "6": {
+   "prefix": "gh",
+   "support": 4,
+   "n_versions": 3,
+   "from_swahili_sm": "ya"
+  },
+  "7": {
+   "prefix": "chi",
+   "support": 3,
+   "n_versions": 2,
+   "from_swahili_sm": "ki"
+  },
+  "8": {
+   "prefix": "ma",
+   "support": 2,
+   "n_versions": 2,
+   "from_swahili_sm": "vi"
+  },
+  "10": {
+   "prefix": "vi",
+   "support": 3,
+   "n_versions": 1,
+   "from_swahili_sm": "zi"
+  },
+  "15": {
+   "prefix": "k",
+   "support": 3,
+   "n_versions": 2,
+   "from_swahili_sm": "ku"
+  }
+ },
+ "kitaita_tam_table_corrected": {
+  "conditional": [
+   "ki",
+   "ka"
+  ],
+  "perfect": [
+   "da"
+  ],
+  "past": [
+   "re",
+   "de"
+  ],
+  "present": [
+   "we",
+   ""
+  ],
+  "future": [
+   "cha"
+  ]
+ },
+ "kitaita_tam_label_counts": {
+  "present": 16605,
+  "conditional": 3709,
+  "future": 1891,
+  "past": 46,
+  "perfect": 12
+ },
+ "allomorphy_investigation": {
+  "conditional_ki_ka": {
+   "tam_label": "conditional",
+   "variants": [
+    "ki",
+    "ka"
+   ],
+   "subject_marker_by_variant": {
+    "ka": [
+     [
+      "u",
+      37260
+     ],
+     [
+      "wi",
+      16629
+     ],
+     [
+      "i",
+      3408
+     ],
+     [
+      "chi",
+      414
+     ],
+     [
+      "ma",
+      405
+     ],
+     [
+      "vi",
+      243
+     ]
+    ],
+    "ki": [
+     [
+      "u",
+      5283
+     ],
+     [
+      "wi",
+      4251
+     ],
+     [
+      "i",
+      357
+     ],
+     [
+      "chi",
+      57
+     ],
+     [
+      "vi",
+      54
+     ],
+     [
+      "ma",
+      3
+     ]
+    ]
+   },
+   "governing_noun_by_variant": {
+    "ka": [
+     [
+      "wandu",
+      3549
+     ],
+     [
+      "mzuri",
+      2370
+     ],
+     [
+      "mlungu",
+      1356
+     ],
+     [
+      "mundu",
+      978
+     ],
+     [
+      "musa",
+      957
+     ],
+     [
+      "mwana",
+      918
+     ],
+     [
+      "kwake",
+      614
+     ],
+     [
+      "angu",
+      528
+     ]
+    ],
+    "ki": [
+     [
+      "wandu",
+      774
+     ],
+     [
+      "mlungu",
+      267
+     ],
+     [
+      "mzuri",
+      258
+     ],
+     [
+      "angu",
+      195
+     ],
+     [
+      "wikakaia",
+      171
+     ],
+     [
+      "mundu",
+      150
+     ],
+     [
+      "malagho",
+      135
+     ],
+     [
+      "umu",
+      123
+     ]
+    ]
+   },
+   "examples_by_variant": {
+    "ka": [
+     {
+      "usfm": "GEN.1.2",
+      "version": "SUV",
+      "text": "Ndoenyi ndekorekoghe na fwana ingi, angu kilambo chingi. Kira cherekoghe aighu ya machi ghimilie, na Roho wa Mlungu ukakaia ukisela-sela aighu ya machi.",
+      "surface": "ukakaia",
+      "subject_marker": "u",
+      "preceding_noun": "mlungu"
+     },
+     {
+      "usfm": "GEN.1.3",
+      "version": "SUV",
+      "text": "Mlungu ukaghamba, “Mwengere ndeghukaie”, na mwengere ghukakaia.",
+      "surface": "ukaghamba",
+      "subject_marker": "u",
+      "preceding_noun": "mlungu"
+     },
+     {
+      "usfm": "GEN.1.4",
+      "version": "SUV",
+      "text": "Mlungu ukawona angu ghwaboie; ukaghutanya mwengere na kira.",
+      "surface": "ukawona",
+      "subject_marker": "u",
+      "preceding_noun": "mlungu"
+     },
+     {
+      "usfm": "GEN.1.4",
+      "version": "SUV",
+      "text": "Mlungu ukawona angu ghwaboie; ukaghutanya mwengere na kira.",
+      "surface": "ukaghutanya",
+      "subject_marker": "u",
+      "preceding_noun": "angu"
+     },
+     {
+      "usfm": "GEN.1.5",
+      "version": "SUV",
+      "text": "Mwengere ukaghuwanga, “Dime” na kira ukachiwanga “Kio”. Kukakaia nakenyi, kukakaia nakesho, ituku ja imbiri.",
+      "surface": "ukaghuwanga",
+      "subject_marker": "u",
+      "preceding_noun": "mwengere"
+     },
+     {
+      "usfm": "GEN.1.5",
+      "version": "SUV",
+      "text": "Mwengere ukaghuwanga, “Dime” na kira ukachiwanga “Kio”. Kukakaia nakenyi, kukakaia nakesho, ituku ja imbiri.",
+      "surface": "ukachiwanga",
+      "subject_marker": "u",
+      "preceding_noun": "dime"
+     },
+     {
+      "usfm": "GEN.1.6",
+      "version": "SUV",
+      "text": "Mlungu ukaghamba, “Mawingu ndeghikaie ghadi na ghadi ya machi, ghighiwaghanye mafungu awi.”",
+      "surface": "ukaghamba",
+      "subject_marker": "u",
+      "preceding_noun": "mlungu"
+     },
+     {
+      "usfm": "GEN.1.7",
+      "version": "SUV",
+      "text": "Mlungu ukabonya mawingunyi, nao ukaghitanya agho machi gherekoghe mawingunyi nandonyi na agho gherekoghe mawingunyi naighu. Nao ikakaia wokoni.",
+      "surface": "ukabonya",
+      "subject_marker": "u",
+      "preceding_noun": "mlungu"
+     },
+     {
+      "usfm": "GEN.1.7",
+      "version": "SUV",
+      "text": "Mlungu ukabonya mawingunyi, nao ukaghitanya agho machi gherekoghe mawingunyi nandonyi na agho gherekoghe mawingunyi naighu. Nao ikakaia wokoni.",
+      "surface": "ukaghitanya",
+      "subject_marker": "u",
+      "preceding_noun": "mlungu"
+     },
+     {
+      "usfm": "GEN.1.7",
+      "version": "SUV",
+      "text": "Mlungu ukabonya mawingunyi, nao ukaghitanya agho machi gherekoghe mawingunyi nandonyi na agho gherekoghe mawingunyi naighu. Nao ikakaia wokoni.",
+      "surface": "ikakaia",
+      "subject_marker": "i",
+      "preceding_noun": "nandonyi"
+     }
+    ],
+    "ki": [
+     {
+      "usfm": "GEN.1.2",
+      "version": "SUV",
+      "text": "Ndoenyi ndekorekoghe na fwana ingi, angu kilambo chingi. Kira cherekoghe aighu ya machi ghimilie, na Roho wa Mlungu ukakaia ukisela-sela aighu ya machi.",
+      "surface": "ukisela",
+      "subject_marker": "u",
+      "preceding_noun": "mlungu"
+     },
+     {
+      "usfm": "GEN.2.16",
+      "version": "SUV",
+      "text": "Nao BWANA Mlungu ukamlaghira uo mundu ukimzera, “Kwadima kuja matunda gha midi yose ya mbuwenyi,",
+      "surface": "ukimzera",
+      "subject_marker": "u",
+      "preceding_noun": "mundu"
+     },
+     {
+      "usfm": "GEN.3.8",
+      "version": "SUV",
+      "text": "Nao luma lwa kenyi wikasikira Mlungu ukisela andenyi mbuwenyi, uo mundu na mkake wikakuvisa andenyi midinyi, wisakewonwa ni Mlungu.",
+      "surface": "ukisela",
+      "subject_marker": "u",
+      "preceding_noun": "mlungu"
+     },
+     {
+      "usfm": "GEN.3.9",
+      "version": "SUV",
+      "text": "BWANA Mlungu ukammbanga uo mundu ukighamba, “Koko hao?”",
+      "surface": "ukighamba",
+      "subject_marker": "u",
+      "preceding_noun": "mundu"
+     },
+     {
+      "usfm": "GEN.4.7",
+      "version": "SUV",
+      "text": "Welee, kukabonya nicha ndekurumirilwagha? Iji kusebonyere nicha, kaung'a eko aeni, nayo yawuyakulaliria mnyangonyi ikikulola, yaawuyakukunda; ela suti kuisime.”",
+      "surface": "ikikulola",
+      "subject_marker": "i",
+      "preceding_noun": "mnyangonyi"
+     },
+     {
+      "usfm": "GEN.6.4",
+      "version": "SUV",
+      "text": "Kufuma ngelo ija na konyuma, Wanefilimu werekoghe wikilowua wai wa wadamu, na kuva wana. Awo niwo wandu werekoghe mang'oni wikumikie matuku ghaja.",
+      "surface": "wikilowua",
+      "subject_marker": "wi",
+      "preceding_noun": "ngelo"
+     },
+     {
+      "usfm": "GEN.6.12",
+      "version": "SUV",
+      "text": "Mlungu ukazighana nao ukawona seji wurumwengu ghunonekie, angu wandu wose werekoghe wikibonya mawiwi ndoenyi.",
+      "surface": "wikibonya",
+      "subject_marker": "wi",
+      "preceding_noun": "wandu"
+     },
+     {
+      "usfm": "GEN.7.18",
+      "version": "SUV",
+      "text": "Machi ghikachurikia nandighi aighu ndoenyi, na ija safina ikawusirwa nokoighu ikakaia ikidukwa-dukwa ni machi.",
+      "surface": "ikidukwa",
+      "subject_marker": "i",
+      "preceding_noun": "machi"
+     },
+     {
+      "usfm": "GEN.8.7",
+      "version": "SUV",
+      "text": "ukaifunya ngorusa cha shighadi, nayo ikakaia ikimara-mara ii chia na ii chia hata agho machi ghikaoma.",
+      "surface": "ikimara",
+      "subject_marker": "i",
+      "preceding_noun": "ngorusa"
+     },
+     {
+      "usfm": "GEN.11.2",
+      "version": "SUV",
+      "text": "Hata iji wandu werekoghe wikidamba kufuma chia ra mashariki, wikavika kirindi cha isanga jimu jiwangwagha Shinari, nawo wikakaia aho.",
+      "surface": "wikidamba",
+      "subject_marker": "wi",
+      "preceding_noun": "wandu"
+     }
+    ]
+   }
+  },
+  "past_re_de": {
+   "tam_label": "past",
+   "variants": [
+    "re",
+    "de"
+   ],
+   "subject_marker_by_variant": {
+    "de": [
+     [
+      "wi",
+      60
+     ],
+     [
+      "u",
+      45
+     ],
+     [
+      "i",
+      27
+     ],
+     [
+      "ma",
+      6
+     ],
+     [
+      "chi",
+      3
+     ],
+     [
+      "vi",
+      3
+     ]
+    ],
+    "re": [
+     [
+      "ma",
+      51
+     ],
+     [
+      "u",
+      36
+     ],
+     [
+      "vi",
+      36
+     ],
+     [
+      "wi",
+      33
+     ],
+     [
+      "i",
+      21
+     ],
+     [
+      "chi",
+      6
+     ],
+     [
+      "k",
+      3
+     ]
+    ]
+   },
+   "governing_noun_by_variant": {
+    "de": [
+     [
+      "wandu",
+      33
+     ],
+     [
+      "mundu",
+      15
+     ],
+     [
+      "andu",
+      6
+     ],
+     [
+      "wapo",
+      6
+     ],
+     [
+      "angu",
+      6
+     ],
+     [
+      "walacha",
+      6
+     ],
+     [
+      "wamweri",
+      3
+     ],
+     [
+      "kunifunye",
+      3
+     ]
+    ],
+    "re": [
+     [
+      "wandu",
+      18
+     ],
+     [
+      "mwana",
+      9
+     ],
+     [
+      "mlungu",
+      9
+     ],
+     [
+      "wapo",
+      6
+     ],
+     [
+      "mundu",
+      6
+     ],
+     [
+      "mzuri",
+      3
+     ],
+     [
+      "ngolo",
+      3
+     ],
+     [
+      "kidari",
+      3
+     ]
+    ]
+   },
+   "examples_by_variant": {
+    "de": [
+     {
+      "usfm": "GEN.11.6",
+      "version": "SUV",
+      "text": "Nao BWANA ukaghamba, “Olenyi wandu awa ni wandu wamweri, widedagha kiteto chimweri na lwaka lumweri; na uku ni kuzoya tu kwa agha wichaabonya, hata ndewichaalemwa ni kilambo chingi wichaakunda anduangi.",
+      "surface": "widedagha",
+      "subject_marker": "wi",
+      "preceding_noun": "wamweri"
+     },
+     {
+      "usfm": "EXO.33.11",
+      "version": "SUV",
+      "text": "Huwo BWANA ukaghora na Musa wushu kwa wushu sa iji koni mundu udedanyagha na mghenyi wake. Na iji Musa wakawuya cha kambinyi, Joshua mwana wa Nuni, mdumiki wake, orekoghe ukisigharika andenyi ya Hema.",
+      "surface": "udedanyagha",
+      "subject_marker": "u",
+      "preceding_noun": "mundu"
+     },
+     {
+      "usfm": "PSA.31.4",
+      "version": "SUV",
+      "text": "Kunifunye nyavunyi ideghelo kwa wundu ghwapo; angu oho ko andu kwapo kokimbiria.",
+      "surface": "ideghelo",
+      "subject_marker": "i",
+      "preceding_noun": "kunifunye"
+     },
+     {
+      "usfm": "PSA.35.6",
+      "version": "SUV",
+      "text": "Chia yawo ndeiwuye kira na madende, malaika wa BWANA ukiwinugha.",
+      "surface": "madende",
+      "subject_marker": "ma",
+      "preceding_noun": "chia"
+     },
+     {
+      "usfm": "PSA.44.16",
+      "version": "SUV",
+      "text": "kwa malagho gha wandu widemagha sare na kusholia; ngimmbona m'maiza na mluya lugho.",
+      "surface": "widemagha",
+      "subject_marker": "wi",
+      "preceding_noun": "wandu"
+     },
+     {
+      "usfm": "PSA.58.8",
+      "version": "SUV",
+      "text": "Ndewikaie sa kitambala chisaghagha na kuwuya kizozo chidendiagha, na sa mwana ufushiro jingi usechaawona iruwa.",
+      "surface": "chidendiagha",
+      "subject_marker": "chi",
+      "preceding_noun": null
+     },
+     {
+      "usfm": "PSA.73.4",
+      "version": "SUV",
+      "text": "Awo ndewine luwawo lungi; mimbi yawo eeka banana sena idendere.",
+      "surface": "idendere",
+      "subject_marker": "i",
+      "preceding_noun": "mimbi"
+     },
+     {
+      "usfm": "PSA.73.18",
+      "version": "SUV",
+      "text": "Loli kwadawiwika andu kwa madende, na kuwibonya widenderuke, wigho na kutota.",
+      "surface": "madende",
+      "subject_marker": "ma",
+      "preceding_noun": "andu"
+     },
+     {
+      "usfm": "PSA.73.18",
+      "version": "SUV",
+      "text": "Loli kwadawiwika andu kwa madende, na kuwibonya widenderuke, wigho na kutota.",
+      "surface": "widenderuke",
+      "subject_marker": "wi",
+      "preceding_noun": "andu"
+     },
+     {
+      "usfm": "PSA.92.13",
+      "version": "SUV",
+      "text": "Weeka sa midi iwalo andenyi ya nyumba ya BWANA, wideghedekagha andenyi ya Hekalu ya Mlungu odu.",
+      "surface": "wideghedekagha",
+      "subject_marker": "wi",
+      "preceding_noun": "nyumba"
+     }
+    ],
+    "re": [
+     {
+      "usfm": "GEN.20.2",
+      "version": "SUV",
+      "text": "Na aho Abrahamu ukamghora mkake Sara kukaia ni mruna. Abimeleki mzuri wa Gerari ukaduma uredelo Sara upate kummbusa.",
+      "surface": "uredelo",
+      "subject_marker": "u",
+      "preceding_noun": "mzuri"
+     },
+     {
+      "usfm": "PSA.19.8",
+      "version": "SUV",
+      "text": "Sharia ra BWANA ni ra hachi, riboisagha ngolo; memu ya BWANA yaelie, iredagha kutambukilwa.",
+      "surface": "iredagha",
+      "subject_marker": "i",
+      "preceding_noun": "ngolo"
+     },
+     {
+      "usfm": "PSA.44.4",
+      "version": "SUV",
+      "text": "Oho ko Mzuri wapo na Mlungu wapo, uo urediagha kivalwa cha Jakobo wusimi.",
+      "surface": "urediagha",
+      "subject_marker": "u",
+      "preceding_noun": "wapo"
+     },
+     {
+      "usfm": "LEV.7.38",
+      "version": "SUV",
+      "text": "iyo BWANA oremnekieghe Musa aighu ya Mghondi ghwa Sinai, jija ituku orewilaghirieghe wandu wa Israeli wiredeghe mafunyo ghawo kwa BWANA, aho kireti cha Sinai.",
+      "surface": "wiredeghe",
+      "subject_marker": "wi",
+      "preceding_noun": "wandu"
+     },
+     {
+      "usfm": "LEV.10.15",
+      "version": "SUV",
+      "text": "Iyo bara na kidari chisughusiro, vikakaredwa viredwanye na mavuda gha kizongona chekora, na kusughuswa kukaia kizongona chesughuswa; navo vichawuya venyu na wana wenyu mkwanye, angu ni ifungu jenyu ja kari kose sa iji koni BWANA orelaghirieghe.”",
+      "surface": "viredwanye",
+      "subject_marker": "vi",
+      "preceding_noun": "kidari"
+     },
+     {
+      "usfm": "LEV.14.4",
+      "version": "SUV",
+      "text": "uchafunya momu kukaia uo mundu orekoghe na sima nao wakunde kueleshwa uredelo nyonyi iwi rimoo riboie, chiaimweri na mudi ghwa sida, uzi wa ngundu na hisopu.",
+      "surface": "uredelo",
+      "subject_marker": "u",
+      "preceding_noun": "sima"
+     },
+     {
+      "usfm": "NUM.5.9",
+      "version": "SUV",
+      "text": "Na kula kizongona cha vilambo vieleshero va wandu wa Israeli viredwagha kwa BWANA vichawuya va mkohani;",
+      "surface": "viredwagha",
+      "subject_marker": "vi",
+      "preceding_noun": "wandu"
+     },
+     {
+      "usfm": "NUM.5.10",
+      "version": "SUV",
+      "text": "na vilambo va kula mundu viredwagha kwa BWANA icho chose chinekwagha mkohani, chichawuya cha mkohani.”",
+      "surface": "viredwagha",
+      "subject_marker": "vi",
+      "preceding_noun": "mundu"
+     },
+     {
+      "usfm": "NUM.15.4",
+      "version": "SUV",
+      "text": "uo mundu uredagha ifunyo jake, umfunyire BWANA kizongona cha viro kilo imweri ya mufu ghudendere ghuranganyiro na lita imweri ya mavuda,",
+      "surface": "uredagha",
+      "subject_marker": "u",
+      "preceding_noun": "mundu"
+     },
+     {
+      "usfm": "JOS.1.11",
+      "version": "SUV",
+      "text": "“Marenyi kambi yose, muwizere wandu witumbanye vindo vawo; angu andenyi ya matuku adadu, mcharuwuka Moda ghwa Jordani mwende kujiwusa jija isanga BWANA Mlungu onyu wawuyamneka mujiwuse.”",
+      "surface": "marenyi",
+      "subject_marker": "ma",
+      "preceding_noun": null
+     }
+    ]
+   }
+  }
+ },
+ "citations": [
+  "Ashton, E. O. (1944). Swahili Grammar (Including Intonation). Longman.",
+  "Mohammed, M. A. (2001). Modern Swahili Grammar. East African Educational Publishers.",
+  "Hurskainen, A. SALAMA: rule-based Swahili morphological analyser with noun-class tags.",
+  "Steimel, K. & Kubler, S. (2023). Swahili Universal Dependencies Treebank (SWH_UDT).",
+  "Mbogho et al. (2025) -- methodology this project's Kitaita data collection follows.",
+  "Zmigrod et al. (ACL 2019) -- analyse/intervene/reinflect template this pipeline follows."
+ ],
+ "notes": [
+  "Swahili subject-marker/TAM tables are standard reference grammar (version-independent).",
+  "Kitaita candidates are induced from paradigmatic contrast across Swahili root groups (kitaita_verb_paradigm.py method), run separately per version then merged: a candidate segment supported by MULTIPLE independently-worded versions is more likely a real morpheme than one supported by repeated examples within a single version's register.",
+  "Negation: only the two bare markers (general 'ha-', 1sg-irregular 'si-') are listed, per direct user request -- added as reference grammar (Ashton 1944; Mohammed 2001), not derived from or checked against this corpus. The full negative-TAM paradigm (compound forms like sija-/haku-/hawaja-) and any Kitaita negation marker are still not attempted -- known, flagged gap.",
+  "Candidate Kitaita subject-marker prefix available for only 14/15 classes (listed above) -- used on Page 2 as an exploratory within-Kitaita agreement cross-check on noun class hypotheses; classes without a candidate here get no such check, not a silent pass.",
+  "2026-10-07, NATIVE-SPEAKER CORRECTION: conditional is ki OR ka; perfect is da; past is re OR de; present is we OR zero-marked (like Swahili's own occasional zero-marked present); future is cha. This REPLACES the earlier induced guess (uki-/wada-/ore-ieghe) as the primary hypothesis for 'kitaita_tam_table_corrected' above -- the old induced table is kept in kitaita_verb_paradigms.json for the record, not deleted.",
+  "Re-decomposed the full pooled Kitaita vocabulary with the corrected table: {'present': 16605, 'conditional': 3709, 'future': 1891, 'past': 46, 'perfect': 12} word TYPES per label (NOT occurrence-weighted -- 'present/zero' dominates because it is the always-available fallback whenever no explicit TAM fits, so treat its count as 'ambiguous/unmarked', not a real signal of how common the present tense actually is).",
+  "INVESTIGATED the conditional ki/ka split rather than treating it as free variation (user's request): 'ka' outnumbers 'ki' roughly 7-8:1 in raw occurrences, and BOTH variants occur after every candidate subject-marker prefix (not cleanly split by class) -- i.e. this does NOT look like phonologically-conditioned allomorphy of ONE category. Spot-checking real examples instead: 'ka' examples are narrative chains ('Mlungu ukaghamba...' 'Mlungu ukawona...' = 'and then God said/saw...'); 'ki' examples are simultaneous/manner clauses ('...ukimzera' = 'saying to him', i.e. 'while saying'). This is the SAME two-way distinction Swahili itself independently makes with its OWN -ka- (narrative/consecutive 'and then') vs -ki- (conditional/temporal/converbal 'if/when/while') -- already noted as a plausible shared retention in this project's 2026-10-05 findings. Hypothesis to put to the native speaker: 'ki' and 'ka' may be two DIFFERENT grammatical categories (converbal/conditional vs narrative-consecutive), not two allomorphs of one 'conditional' slot -- see 'allomorphy_investigation.conditional_ki_ka' for the full subject-marker breakdown and example sentences to check this against.",
+  "INVESTIGATED the past re/de split: unlike ki/ka, this DOES look subject-marker-conditioned -- class 8 ('ve-') uses 're' in 60/61 (98%) of its occurrences; class 3/11 ('ku-') and class 2 ('wi-') use 'de' in 55/61 (90%) and 15/15 (100%) respectively; class 15 ('ghu-') uses 're' in 6/6 (100%). Classes with few occurrences (class 1 'u-': 7 total; class 4/9 'i-': 9 total) are too thin to characterize confidently (project rule: no claims on n<8) and are reported as counts only, not a verdict. CAVEAT found while building this, not hidden: some 'de' matches are a likely segmentation collision with ROOTS that happen to start with the syllable 'de-' themselves (e.g. 'kudedanya' = 'to converse' -- the 'de' there is the start of the root 'dedany-', not the past-tense marker), the same kind of ambiguity already documented for Swahili's class-5 'li-' vs the past-tense '-li-' marker. See 'allomorphy_investigation.past_re_de' for the subject-marker breakdown, example sentences, and the (noisy, small-sample) governing-noun lists.",
+  "Re-ran the Kitaita<->Swahili verb alignment at the ROOT level using the corrected TAM table (strips subject+TAM from BOTH sides before aligning, instead of matching whole inflected surface forms) -- 9039 Kitaita roots aligned, results folded into Page 1's verb table as 'root_level_kitaita_candidates'. This pools every inflection of a root into one count and is the more reliable of the two verb-translation methods on this page now (see Page 1 notes for the 'kuw'/'be' example this fixed)."
+ ]
+}
