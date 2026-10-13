@@ -37,6 +37,33 @@ VERIFIED_ROOTS = {
                         # (see VERIFIED_SUBJECT_MARKERS) in the same judgment.
 }
 
+# 2026-10-12: 12 verb-root gaps filled via the Kitaita Word Bank Artifact
+# (https://claude.ai/artifact/6eozxX4HtKZhce3FTfWnY2, collection
+# "contributions") -- these are COMMON Bible-corpus roots (>=3 occurrences)
+# that previously had NO Kitaita candidate at all (not low-confidence,
+# zero). Same trust tier as the hand-corrected entries above (direct
+# submission, not a corpus statistic), not yet cross-checked by a 2nd
+# independent round. NOTE: "ish" (live) submitted the SAME as the
+# Swahili root itself -- plausible shared-cognate/loan, not flagged as
+# an error (unlike the dogo/'ri' noun-table case) since nothing here
+# contradicts it.
+VERIFIED_ROOTS.update({
+    "ahid": "laghir",       # promise
+    "eleke": "gheenda",     # head towards / approach
+    "fiki": "viki",         # arrive (at) -- cf. "fik"->"vik" above, same f/v cognate pattern
+    "fuati": "nughia",      # follow
+    "ish": "ish",           # live
+    "maliz": "merea",       # finish
+    "ongoz": "longoza",     # lead
+    "reje": "wuya",         # return
+    "taraji": "kund",       # expect/hope
+    "tarajiw": "kunde",     # be expected (passive)
+    "wasil": "vik",         # arrive -- SAME Kitaita root as "fiki"->"viki" (minus final i);
+                              # both Swahili roots gloss "arrive", consistent rather than conflicting.
+    "zungumzi": "dedanya",  # converse/talk -- cf. the existing "kudedanya" (converse) note
+                              # elsewhere in this project re: re/de segmentation collisions.
+})
+
 # "kuwa" (be) splits by whether a predicate complement (adjective)
 # follows -- a real distinction Swahili's own "kuwa" does not mark but
 # Kitaita apparently does. The 'kai' root-level-alignment candidate
@@ -84,6 +111,53 @@ VERIFIED_NOUN_TRANSLATIONS = {
     # DEVERBAL_SM_HYPOTHESIS below for the subject-marker side of this same test.
     "kuseka": "kuseka",
 }
+
+# 2026-10-12: 41 noun-translation gaps filled via the Kitaita Word Bank
+# Artifact (https://claude.ai/artifact/6eozxX4HtKZhce3FTfWnY2, collection
+# "contributions") -- these are all words from the project's own 319-word
+# hand-built Swahili lexicon that had ZERO Kitaita match on file at all
+# (not low-confidence, missing entirely). Same trust tier as every other
+# direct-submission table in this file. 8 of the 41 were submitted
+# IDENTICAL to the Swahili word (dirisha, machungwa, masanduku, mchango,
+# mfuko, mwavuli, walimu, kuchelewa) -- plausible shared loanwords (all
+# are either Arabic/Swahili loans into Swahili itself, or modern/
+# administrative vocabulary, both classes where Bantu-internal borrowing
+# into Kitaita is independently plausible), kept as submitted since
+# nothing here contradicts them, but flagged here as not yet cross-
+# checked the way a flagged contradiction (see DOGO_FORM_BY_SM) would be.
+VERIFIED_NOUN_TRANSLATIONS.update({
+    "choo": "choronyi", "dirisha": "dirisha", "goti": "kitemberu",
+    "huduma": "wutesia", "jambo": "ilagho", "jicho": "iriso",
+    "kuchelewa": "kuchelewa", "kufikiri": "kughesha", "kumaliza": "kumerea",
+    "kuogelea": "kuogelia", "kupika": "kudeka", "kupumzika": "kughoresha",
+    "kushuka": "kusea", "machungwa": "machungwa", "mahindi": "mabemba",
+    "masanduku": "masanduku", "mashamba": "mbuwa", "mchango": "mchango",
+    "mchezo": "msarigho", "mfuko": "mfuko", "mioyo": "ngolo",
+    "mwavuli": "mwavuli", "mzee": "mghosi",
+    "mzizi": "muri", "paka": "boi", "pesa": "maghome",
+    "sababu": "wundu", "tembo": "chovu", "udogo": "wutini",
+    "ukweli": "loli", "uongozi": "wulongozi", "usalama": "wusalama",
+    "ustawi": "wubinana", "utoto": "wanake", "viazi": "makaji",
+    "visu": "ndagaa", "vyoo": "vyoronyi", "walimu": "walimu",
+    "wanaume": "womi", "yai": "ighi",
+    # 2026-10-13 (cont. 4): "mwamba" (rock) RETRACTED and replaced -- the
+    # user resubmitted it via the Word Bank with a different translation
+    # ("mbanga", not "igho") and a class ("ghu"). NOT applying the class
+    # side of this update: "mbanga" already exists in this project's own
+    # Class Sorter data (noun_sort_data.json) as the Kitaita word for
+    # "pango" (cave), classed "i" -- a genuine conflict with the new
+    # "ghu" tag, not resolved here (see VERIFIED_SUBJECT_MARKERS note
+    # below). The translation itself is applied; "mwamba"'s class is left
+    # unset pending that conflict's resolution.
+    "mwamba": "mbanga",
+    # 2026-10-13 (cont. 4): 17 more nouns added via the Kitaita Word Bank
+    # (same artifact/collection as the 2026-10-12 round above).
+    "bega": "ionge", "fuvu": "ngoma", "misitu": "misidu", "mkopo": "mkopo",
+    "mkristo": "mkristo", "mkurugenzi": "waziri", "mpishi": "mpishi",
+    "msichana": "mwai", "mtoto": "mwana", "mvulana": "mndwawomi",
+    "mwandishi": "mwandiki", "waandishi": "waandishi", "vitambaa": "vitambaa",
+    "nyani": "fuwe", "sungura": "kwaru", "ushirikiano": "mapatano", "uzi": "uzi",
+})
 
 # ----------------------------------------------------------------- deverbal/infinitive-noun subject marker: HYPOTHESIS, not corpus-induced
 # 2026-10-08 cont. 13. Kitaita class-15-style infinitive-as-noun subjects
@@ -153,7 +227,21 @@ FUTURE_KUWA_FULL_ROOT_MARKERS = {"wi", "chi"}
 VERIFIED_SUBJECT_MARKERS = {
     "ituku": "ji",    # was "ku" -- confirmed 2x (s8 sem+ka, and isanga's twin case s10)
     "isanga": "ji",   # was "ku" -- confirmed 2x (s10 sem+ka, s11 ta+kuw)
-    "nyumba": "i",     # no prior marker at all (cluster had no subject-marker data) -- new, 1x (s16)
+    # 2026-10-13 (cont. 3): direct user correction -- nyumba is "i_nasal"
+    # (class 2, same group as "ndagha"/knife, adjective prefix "nd-"), NOT
+    # "i_plain" (class 1, "midi"/trees, adjective prefix "mi-") as cont. 2
+    # assumed by analogy from Swahili noun shape alone. The SUBJECT MARKER
+    # is still plain "i-" (TAM_SM_ALIAS handles that, unchanged) -- only
+    # the noun's class IDENTITY changes, which only matters for the
+    # adjective tables. baya's native-speaker-verified "izamie" for nyumba
+    # (s49) is NOT a counterexample: baya (and zuri) use the bare subject-
+    # marker prefix UNIFORMLY, never the mi-/nd- split -- see the comment
+    # above BAYA_STEM ("baya... does NOT take the subject-marker prefix at
+    # all" was about kubwa; zuri's own comment already says it uses "the
+    # SAME strategy as baya", i.e. bare prefix). Only kubwa/refu/dogo/geni/
+    # fupi/zito/chafu (the DICT-based "special paradigm" adjectives) use
+    # the real class identity and therefore see the split.
+    "nyumba": "i_nasal",
     "samaki": "ri",    # no prior marker at all -- new, 1x (s14 "samaki rikawona"). NOTE: samaki
                         # is ANIMATE-SG like mundu/mlungu (which use 'u'), so 'ri' is a genuinely
                         # different marker for a noun this project's Swahili-derived label called
@@ -246,8 +334,15 @@ VERIFIED_SUBJECT_MARKERS = {
     # already has (see kogh_re_o_shift below) -- now a 3rd confirmed
     # instance of that pattern (ji, i, and the person-marker 'ni'->'ne'
     # from cont. 1).
-    "shimba": "i",
-    "choka": "i",      # nyoka (snake)'s Kitaita word; had NO class/marker data at all --
+    # 2026-10-13 (cont. 3): "shimba"/"choka" moved to "i_nasal" alongside
+    # "nyumba" -- this project's OWN established precedent (below, and the
+    # 2026-10-08 cont.10/cont.6 findings) is that these two share nyumba's
+    # SUBJECT-MARKER/TAM behavior exactly ("dissolves entirely into
+    # nyumba's class" / "the SAME 'i' class as nyumba/shimba/miti") -- that
+    # finding is untouched (TAM_SM_ALIAS keeps it true). What's NEW is the
+    # adjective-class identity, which that finding never tested.
+    "shimba": "i_nasal",
+    "choka": "i_nasal",   # nyoka (snake)'s Kitaita word; had NO class/marker data at all --
                         # s123/s124 (batch 9) confirm the SAME 'i' class as nyumba/shimba/miti
                         # ("Choka ikaghamba"/"Choka yawemanya..."), a 4th independent member.
     # "modo": "ghu" -- REMOVED 2026-10-08 cont. 16: this entry, and the matching
@@ -436,6 +531,49 @@ VERIFIED_SUBJECT_MARKERS = {
     "wana": "wi", "wadumiki": "wi",
 }
 
+# 2026-10-13 (cont. 4): per-noun Kitaita class, now collected directly in
+# the Kitaita Word Bank (the per-noun class dropdown added cont. 2) --
+# covers both the 2026-10-12 noun batch (translation only, no class until
+# now) and the 17 new nouns added this round. Checked each against the
+# existing Class Sorter data (noun_sort_data.json, folded into the big
+# dict above) before adding -- 3 apparent collisions found, 2 resolved,
+# 1 left genuinely unresolved:
+#   - "mbuwa" (shamba/farm, existing "i") vs the new "mashamba"->"mbuwa"
+#     cls "ri": NOT a conflict -- "mbuwa" is already in NUMBER_INVARIANT_
+#     NOUNS, and "i" (singular default) / "ri" (plural default) are
+#     EXACTLY the existing documented pair for number-invariant nouns.
+#     No override added; already correctly handled.
+#   - "ngolo" (moyo/heart, existing "i") vs the new "mioyo"->"ngolo" cls
+#     "i_nasal": the old "i" entry predates the i/i_nasal split entirely
+#     (it could not have chosen "i_nasal" -- the option didn't exist) --
+#     treated as a refinement, not a contradiction; overridden below.
+#   - "mbanga": existing Class Sorter entry is "pango" (cave) -> "mbanga",
+#     class "i". The new submission is "mwamba" (rock) -> "mbanga", class
+#     "ghu" -- a REAL, unresolved conflict (same Kitaita surface form,
+#     two different Swahili glosses, two different classes). NOT
+#     overridden -- "mwamba"'s translation update is applied above
+#     (VERIFIED_NOUN_TRANSLATIONS), but no class is set for it here.
+#     Needs a native speaker: is "mbanga" one word covering both cave
+#     and rock (and if so, which class), or two distinct words that
+#     happen to be homophones?
+VERIFIED_SUBJECT_MARKERS.update({
+    "ngolo": "i_nasal",   # moyo/heart -- UPDATE, see note above
+    "choronyi": "chi", "kitemberu": "chi", "wutesia": "ghu", "ilagho": "ji",
+    "iriso": "ji", "kuchelewa": "ku", "kughesha": "ku", "kumerea": "ku",
+    "kuogelia": "ku", "kudeka": "ku", "kughoresha": "ku", "kusea": "ku",
+    "machungwa": "ghi", "mabemba": "ghi", "masanduku": "ghi", "mchango": "ghu",
+    "msarigho": "ghu", "mfuko": "ghu", "mghosi": "u", "muri": "ghu",
+    "boi": "i", "maghome": "ghi", "wundu": "ghu", "wutini": "ghu",
+    "loli": "ghu", "wulongozi": "ghu", "wusalama": "ghu", "wubinana": "ghu",
+    "wanake": "ghu", "makaji": "ghi", "ndagaa": "ri", "vyoronyi": "va",
+    "walimu": "wi", "womi": "wi", "ighi": "ji",
+    # 17 new nouns (2026-10-13 cont. 4):
+    "ionge": "ji", "ngoma": "i_nasal", "misidu": "i", "mkopo": "ghu",
+    "mkristo": "u", "waziri": "u", "mpishi": "u", "mwai": "u",
+    "mndwawomi": "u", "mwandiki": "u", "waandishi": "wi", "vitambaa": "va",
+    "fuwe": "i_nasal", "kwaru": "i_nasal", "mapatano": "ghi", "uzi": "ghu",
+})
+
 # ----------------------------------------------------------------- adjective concord
 # NO Kitaita adjective-concord table existed before this round -- every
 # entry here is first-pass seed data, not a mature paradigm. Keyed by
@@ -508,6 +646,36 @@ KUBWA_FORM_BY_SM = {"ji": "ibaa", "chi": "kibaa", "va": "vibaa"}
 # confirmed m-/i-/ki- pattern (va is chi's plural counterpart, vi-baa
 # matches chi's ki-baa the same way Swahili's own ki-/vi- pair does).
 KUBWA_DEFAULT_FORM = "mbaa"
+
+# 2026-10-12: Kitaita Word Bank submissions (live Artifact, https://
+# claude.ai/artifact/6eozxX4HtKZhce3FTfWnY2, collection "contributions")
+# filled every remaining gap in kubwa's table in one round. Real finding:
+# this is NOT a uniform "m-" default outside ji/chi/va as KUBWA_DEFAULT_FORM
+# implied -- ku/lu/wi/ghi each take their OWN prefix (kubaa/lubaa/wabaa/
+# mabaa), only u/ghu/ri actually collapse to the "mbaa" default.
+# Merged directly into the same dict (not native-speaker-judgment-tier like
+# VERIFIED_ADJECTIVES, but a direct Word Bank submission, trusted the same
+# way every other n=1 direct-submission table in this file is).
+# 2026-10-13 (cont. 3): the submitted "i":"ibaa" entry is PULLED BACK --
+# it assumed the "i" class's adjective prefix matches its subject marker
+# ("i-"), which the user's direct correction shows is wrong (the real
+# class-1/"i" adjective prefix is "mi-", e.g. "milacha"/"mivui" -- see
+# LACHA_FORM_BY_SM/FUPI_FORM_BY_SM below). No confirmed "mi-" form for
+# kubwa exists yet, so this falls back to KUBWA_DEFAULT_FORM, flagged,
+# rather than guessing "mibaa".
+KUBWA_FORM_BY_SM.update({
+    "ghi": "mabaa", "ghu": "mbaa", "ku": "kubaa",
+    "lu": "lubaa", "ri": "mbaa", "u": "mbaa", "wi": "wabaa",
+    # 2026-10-13 (cont. 4): "i" and "i_nasal" BOTH explicitly confirmed
+    # "mbaa" via the Word Bank (submitted 20s apart, same value both
+    # times -- a deliberate statement, not a duplicate-row error like the
+    # earlier dogo/'ri' case). Unlike refu/dogo/fupi, kubwa does NOT split
+    # between the two i-subclasses -- both just take the ordinary "m-"
+    # default, same as u/ghu/ri. Recorded explicitly rather than left to
+    # fall through to KUBWA_DEFAULT_FORM, since this is now confirmed data,
+    # not an absence of data.
+    "i": "mbaa", "i_nasal": "mbaa",
+})
 
 # ----------------------------------------------------------------- flagged conflicts
 # Reported, not merged: two judgments that should (on this project's own
@@ -1182,6 +1350,86 @@ PERSON_SUBJECT_MARKERS_1PL_PAST_ALTERNATE = "da"  # n=2, zero/narrative-looking,
 # conflate them.
 BAYA_STEM = "zamie"
 
+# ----------------------------------------------------------------- 2026-10-13: 'i' class split (ADJECTIVE CONCORD ONLY)
+# Direct user correction: this project's kit_sm "i" class may be
+# conflating two historically distinct Bantu classes that happen to
+# share ONE subject marker -- Swahili class 4 ("mi-", e.g. miti) and
+# class 9/10 (nasal "N-", e.g. ndizi) both take "i-" subject agreement,
+# but DIFFERENT adjective concord ("miti mirefu" vs "ndizi ndefu").
+# Real signal already in this project's OWN data pointed the same way
+# before this was raised: the 2026-10-12 Kitaita Word Bank round gave
+# "nd-"-prefixed forms (ndini/ndui) for 'dogo'/'fupi' at the 'i' cell,
+# while 6 OTHER roots (kubwa/chafu/zito/refu/geni/zuri) gave plain
+# "i-" forms for the SAME cell -- the Word Bank never distinguished
+# which noun-type the submitter had in mind, so that split looked like
+# noise until the user's correction explained it structurally.
+#
+# CHECKED DIRECTLY before assigning any noun to the nasal subgroup
+# (do not repeat the "label lies" mistake by analogy alone): this
+# project's HIGHEST-trust data (native-speaker Judge Artifact, not the
+# Word Bank) already tested 'baya' on nyumba (s49) and simba (s117) --
+# BOTH independently confirm the PLAIN form "izamie", not a nasal
+# "ndzamie". This POSITIVELY RULES OUT nyumba/simba as the nasal
+# subgroup. mbwa/nyoka/ndege/chui are grouped with them here by this
+# project's own established precedent that every 'i'-class member
+# behaves identically elsewhere (2026-10-08 cont. 10: "shimba dissolves
+# entirely into nyumba's 'i' class") -- ASSUMED by that precedent, NOT
+# independently confirmed for any adjective yet. 'miti' (the other
+# historical source of kit_sm "i", Swahili class 4) is plain by
+# definition, not by inference.
+#
+# 2026-10-13 (cont. 3) -- direct user correction, replacing the 'ndizi'
+# analogy with real tracked examples: "class 1 should be like midi
+# [miti/trees] and class 2 like nyumba. the whole ndizi thing was an
+# analogy not to be used for the tables." So: class 1 ("i", plain) =
+# miti-type, adjective prefix "mi-" (confirmed: "milacha"/tall,
+# "mivui"/short -- NOT bare "i-" as cont. 2 guessed by assuming the
+# adjective prefix always matches the subject marker). Class 2
+# ("i_nasal") = nyumba-type (also "ndagha"/knife, adjective "ndacha"/
+# tall), adjective prefix "nd-" -- unchanged from cont. 2's guess, this
+# part happened to be right. nyumba/shimba/choka moved from "i" to
+# "i_nasal" above (VERIFIED_SUBJECT_MARKERS) to reflect this.
+#
+# 2026-10-13 (cont. 2) -- REARCHITECTED per direct user instruction:
+# "it would be just easier to come up with a new -i- class that has
+# the same subject markers as the existing i- class but that has
+# different adjective markers the way in Swahili they are treated as
+# different classes." The previous version of this fix (same day,
+# cont. 0) treated the split as an invisible lookup-time hack keyed off
+# a hardcoded noun set -- it worked, but a noun's "real" class was
+# never recorded anywhere a human (or the Word Bank) could see or set
+# it. Now "i_nasal" is a GENUINE, independently selectable class, same
+# status as "u"/"ghu"/"ji"/etc: a noun's class CAN be stored as
+# "i_nasal" directly (VERIFIED_SUBJECT_MARKERS, noun_class_of, the
+# Word Bank's noun dropdown) and that is what feeds the adjective
+# FORM_BY_SM tables below, directly, with NO per-noun lookup table at
+# all -- i.e. exactly the architecture every OTHER class already uses.
+# The only thing "i_nasal" needs that no other class does is to tell
+# the TAM/verb-subject-marker machinery "treat me as 'i'" (since that
+# half of the paradigm genuinely IS shared, per the Swahili class
+# 4-vs-9/10 precedent) -- that is TAM_SM_ALIAS below, applied ONCE,
+# immediately after a noun's class is first resolved, before any TAM-
+# conditioned vowel-shift logic runs.
+TAM_SM_ALIAS = {"i_nasal": "i"}
+# 2026-10-13 (cont. 3) -- IMPORTANT exception found while fixing cont. 2's
+# nyumba/baya mistake: 'baya' and 'zuri' do NOT use the mi-/nd- split at
+# all -- both use the BARE subject marker directly (kit_sm, already
+# TAM_SM_ALIAS-normalized), same as every other class. This is why
+# nyumba's native-speaker-verified baya ("izamie", s49) is correct even
+# though nyumba is class 2 ("i_nasal") -- baya was never going to say
+# "ndzamie" regardless of which i-subclass nyumba is in. Confirmed by
+# this project's OWN existing comments: BAYA_STEM's "kubwa does NOT take
+# the subject-marker prefix at all... separate ADJ_BASE-style paradigm"
+# (i.e. kubwa is the one that varies independently of kit_sm, not baya),
+# and ZURI_ROOT's "the SAME strategy as baya... NOT kubwa's reduced
+# series". So ONLY the DICT-based "special paradigm" adjectives (kubwa/
+# refu/dogo/geni/fupi/zito/chafu) see the mi-/nd- split -- they use the
+# raw, un-normalized class (kit_class in translate(), or kit_sm directly
+# in compute_adjective_concord(), which never normalizes at all). baya/
+# zuri use the TAM-normalized kit_sm instead. No separate "formula
+# prefix" table is needed -- kit_sm already collapses "i_nasal" back to
+# "i" for exactly this purpose.
+
 # ----------------------------------------------------------------- adjective concord: beyond kubwa/baya
 # 2026-10-11, direct user request: "a per class table that gives the
 # adjective's prefix for every adjective and an adjective root table,
@@ -1238,16 +1486,24 @@ ZURI_ROOT = "ghokie"  # corpus statistical candidate (Dice 0.40-0.58), NOT speak
 # match ("mtini") is more likely a collision with the UNRELATED noun
 # "mtini" (fig tree) than a real adjective-concord form (the 2026-10-08
 # "mdogo swallowed as a noun" bug was exactly this word pair).
-ADJ_SINGLE_CLASS_CANDIDATE = {
-    "dogo": {"swahili_class_seen": "1", "kitaita_word": "mtini", "dice": 0.60,
-             "note": "LOW TRUST -- likely the same mdogo/mtini noun-collision artifact already found 2026-10-08"},
-    "geni": {"swahili_class_seen": "1", "kitaita_word": "mghenyi", "dice": 0.60, "note": "single data point"},
-    # 'refu' PROMOTED below (2026-10-11 cont. 8) to its own kit_sm-keyed table --
-    # removed from here, it is no longer a single-data-point candidate.
-    "zito": {"swahili_class_seen": "5", "kitaita_word": "jikambie", "dice": 0.44, "note": "single data point, low Dice"},
-    "chafu": {"swahili_class_seen": "2", "kitaita_word": "makakala", "dice": 0.58, "note": "single data point"},
-    "fupi": {"swahili_class_seen": "6", "kitaita_word": "ivui", "dice": 0.67, "note": "single data point"},
-}
+# 2026-10-12: 'dogo'/'geni'/'zito'/'chafu'/'fupi' ALL PROMOTED out of this
+# table (same way 'refu' was on 2026-10-11) -- the Kitaita Word Bank round
+# (see DOGO_FORM_BY_SM etc. below) supplied real per-kit_sm-class data for
+# every one of them, superseding these single-point corpus guesses. Kept
+# commented, not deleted, per this file's own convention:
+#   "dogo":  {"swahili_class_seen": "1", "kitaita_word": "mtini", "dice": 0.60} -- LOW TRUST,
+#            likely the mdogo/mtini noun-collision artifact (2026-10-08); the new
+#            DOGO_FORM_BY_SM data for 'u'/'ghu' independently also gives "mtini",
+#            so this guess happened to be right despite the flagged collision risk.
+#   "geni":  {"swahili_class_seen": "1", "kitaita_word": "mghenyi", "dice": 0.60} -- confirmed
+#            correct by the new data (u/ghu -> "mghenyi").
+#   "zito":  {"swahili_class_seen": "5", "kitaita_word": "jikambie", "dice": 0.44} -- WRONG,
+#            shares no root at all with the new data's "lemere"-based forms.
+#   "chafu": {"swahili_class_seen": "2", "kitaita_word": "makakala", "dice": 0.58} -- WRONG,
+#            shares no root at all with the new data's "lue"-based forms.
+#   "fupi":  {"swahili_class_seen": "6", "kitaita_word": "ivui", "dice": 0.67} -- confirmed
+#            correct by the new data (ji class -> "ivui" exactly).
+ADJ_SINGLE_CLASS_CANDIDATE: dict[str, dict] = {}
 
 # 2026-10-11 (cont. 8): direct user instruction -- "For mrefu-> tall we
 # already have a very good concord for it in page one of the Kitaita
@@ -1276,11 +1532,169 @@ ADJ_SINGLE_CLASS_CANDIDATE = {
 LACHA_ROOT = "lacha"
 LACHA_DEFAULT_FORM = "mlacha"          # mrefu, class 1/3 default/'u' bucket -- LOW confidence, Dice 0.53, n=1 version
 LACHA_FORM_BY_SM = {"wi": "walacha"}   # warefu, class 2 human plural, kit_sm 'wi' -- HIGH confidence, Dice 0.86, n=3 versions
+
+# 2026-10-12: Kitaita Word Bank submissions filled every other class.
+# REVERSAL worth flagging explicitly: the 'ri' answer submitted is
+# "ndacha" -- the EXACT form this file previously dismissed above as
+# "the WEAKER of two competing [statistical] candidates... a losing
+# competitor, not a second attested form... kept out as noise". A
+# direct submission for exactly that cell independently landing on
+# "ndacha" is real evidence it was never noise for the 'ri' class
+# specifically, just wrongly excluded by a statistical-only check that
+# had no way to see per-class irregularity. Also note a likely
+# nasal-assimilation pattern across roots (Bantu class 9/10 N- prefix
+# + stop/continuant-initial stem): 'ri'+'lacha' -> 'ndacha' here lines
+# up with 'i'/'ri'+'tini'/'vui' also surfacing as 'nd-' elsewhere in
+# this same submission round (see DOGO_FORM_BY_SM/FUPI_FORM_BY_SM) --
+# a hypothesis from 2-3 roots, not asserted as a general rule.
+LACHA_FORM_BY_SM.update({
+    "chi": "kilacha", "ghi": "malacha", "ghu": "mlacha",
+    "ji": "ilacha", "ku": "kulacha", "lu": "lulacha", "ri": "ndacha",
+    "u": "mlacha", "va": "vilacha",
+    # 2026-10-13 (cont. 3): direct user correction -- the class-1/"i"
+    # ("midi"/trees) adjective prefix is "mi-", not bare "i-" (the
+    # original "ilacha" submission assumed the adjective prefix always
+    # matches the subject marker, which is wrong for this class).
+    # "milacha" is the user's own confirmed example for "tall". Class-2/
+    # "i_nasal" ("nyumba"/"ndagha") gets "ndacha" -- the user's OTHER
+    # confirmed example, independently matching the 'ri' class's own
+    # "ndacha" above (the nasal augment "nd-" is plausibly invariant
+    # across classes, not specific to 'ri').
+    "i": "milacha",
+    "i_nasal": "ndacha",
+})
 LACHA_CLASS4_CANDIDATE = {
     "kitaita_word": "milacha", "dice": 0.57,
     "note": "mirefu, class 4 (mi-, plural non-human, e.g. 'misida milacha' = tall forests) -- HIGH-dice "
             "statistical candidate but NO confirmed Kitaita kit_sm cross-reference for this class exists "
             "elsewhere in the project yet; kept unmapped rather than guessed at which kit_sm it belongs to.",
+}
+
+# ----------------------------------------------------------------- 2026-10-12: Kitaita Word Bank round
+# Four more adjective roots filled with near-complete per-kit_sm-class
+# data in one round (Kitaita Word Bank Artifact, https://claude.ai/
+# artifact/6eozxX4HtKZhce3FTfWnY2, collection "contributions",
+# submittedAt 2026-10-12). Same trust tier as every other direct-
+# submission table in this file (KUBWA_FORM_BY_SM/LACHA_FORM_BY_SM
+# above) -- a real answer, not a corpus statistic, but NOT yet cross-
+# checked by a second independent judgment round the way VERIFIED_
+# ADJECTIVES' Judge-Artifact entries are. Each DEFAULT_FORM is kept only
+# as a defensive fallback for a kit_sm this round didn't cover (should
+# rarely fire -- coverage below is near-complete).
+DOGO_DEFAULT_FORM = "mtini"
+DOGO_FORM_BY_SM = {
+    "chi": "kitini", "ghi": "matini", "ghu": "mtini",
+    "ji": "itini", "ku": "kutini", "lu": "lutini", "u": "mtini",
+    "va": "vitini", "wi": "watini",
+    # 2026-10-13: was keyed "i" -- RELABELED "i_nasal" (its own genuine
+    # class now, see TAM_SM_ALIAS above) after the user's class-split
+    # correction. No noun currently has class "i_nasal", so a plain "i"
+    # noun like nyumba now correctly falls to DOGO_DEFAULT_FORM (flagged
+    # unconfirmed) instead of silently getting this nasal form it never
+    # actually confirmed.
+    "i_nasal": "ndini",
+}
+# 'ri' DELIBERATELY EXCLUDED: the submitted value was "mbaa" -- IDENTICAL
+# to kubwa's ('big') own 'ri' answer, submitted 20 SECONDS after it
+# (2026-10-12T12:01:09 vs 12:01:29), and sharing no root at all with
+# every other dogo ('small') answer's "-tini"/"-dini" shape. Overwhelming
+# likelihood this is a stray duplicate/copy-paste from the adjacent
+# kubwa row, not a real answer for "small" -- flagged for re-submission
+# rather than silently used or silently dropped from the record.
+DOGO_RI_SUBMITTED_BUT_REJECTED = "mbaa"  # likely data-entry error, see note above -- NOT in DOGO_FORM_BY_SM
+
+GENI_DEFAULT_FORM = "mghenyi"
+GENI_FORM_BY_SM = {
+    "chi": "kighenyi", "ghi": "maghenyi", "ghu": "mghenyi",
+    "ji": "ighenyi", "ku": "kughenyi", "lu": "lughenyi", "ri": "mghenyi",
+    "u": "mghenyi", "va": "vighenyi", "wi": "waghenyi",
+    # 2026-10-13 (cont. 3): "i":"ighenyi" PULLED BACK, same reasoning as
+    # KUBWA_FORM_BY_SM above -- geni shows the SAME reduced-series pattern
+    # kubwa/dogo/fupi/refu do (chi->ki-, wi->wa-, ghi->ma-), so it's in
+    # the same "needs the real mi-/nd- split" group, and no "mi-" form is
+    # confirmed for it yet. Falls back to GENI_DEFAULT_FORM, flagged.
+    # 2026-10-13 (cont. 4): "i_nasal" now CONFIRMED via the Word Bank:
+    # "mghenyi" -- identical to geni's own "m-" default (u/ghu/ri), so
+    # geni's nasal subgroup does NOT take an "nd-" form, unlike refu/
+    # dogo/fupi. The plain "i" cell is still unconfirmed (see above).
+    "i_nasal": "mghenyi",
+}
+
+FUPI_DEFAULT_FORM = "mvui"
+FUPI_FORM_BY_SM = {
+    "chi": "kivui", "ghi": "mavui", "ghu": "mvui",
+    "ji": "ivui", "ku": "kuvui", "lu": "luvui", "ri": "ndui",
+    "u": "mvui", "va": "vivui", "wi": "wavui",
+    # 2026-10-13 (cont. 2): what was the original "i"-keyed Word Bank
+    # submission ("ndui") is kept here under "i_nasal" -- it was answered
+    # for the nasal subgroup all along, just mislabeled before the split
+    # existed. 'ri' is left AS-IS (ndui) -- this is a SEPARATE, still-
+    # open question (see LACHA_FORM_BY_SM's 'ri' note vs GENI_FORM_BY_SM's
+    # 'ri'->"mghenyi"), not folded into this fix.
+    "i_nasal": "ndui",
+    # 2026-10-13 (cont. 3): direct user correction -- "mivui" is the
+    # user's own confirmed example for class-1/"i" ("midi"/trees)
+    # "short", previously unconfirmed/no-data.
+    "i": "mivui",
+}
+# 'ri' -> "ndui" (not the "default -m-" or own-prefix pattern every
+# other class here follows) -- same "nd-" pattern noted at
+# LACHA_FORM_BY_SM's 'ri' entry above, now seen on a 2nd root with a
+# v-initial stem; still a hypothesis across 2-3 roots, not a general rule.
+
+# zito ('heavy') and chafu ('dirty') previously had only a single, LOW-
+# Dice statistical guess each (ADJ_SINGLE_CLASS_CANDIDATE above, now
+# commented out) with roots ("jikambie", "makakala") that share NOTHING
+# with the roots submitted here ("lemere", "lue") -- those guesses were
+# simply wrong, not approximately right; replaced outright, not merged.
+# Both tables use the submitter's LITERAL per-class answer, not a
+# formula -- unlike zuri/baya, zito and chafu do NOT reduce ji/chi/va/
+# ghi/wi the way dogo/geni/fupi/kubwa do (e.g. chafu 'chi' -> "chilue",
+# not "kilue"; chafu 'wi' -> "wilue", not "walue"; zito 'ghi' ->
+# "ghilemere", not "malemere") -- a genuinely different adjective
+# concord sub-pattern, not an inconsistency to resolve away.
+ZITO_DEFAULT_FORM = "ulemere"
+ZITO_FORM_BY_SM = {
+    "chi": "chilemere", "ghi": "ghilemere", "ghu": "ghulemere",
+    "ji": "jilemere", "ku": "kulemere", "lu": "lulemere", "ri": "rilemere",
+    "u": "ulemere", "va": "vilemere", "wi": "wilemere",
+    # 2026-10-13 (cont. 3): "i":"ilemere" PULLED BACK -- same reasoning as
+    # kubwa/geni, pending a confirmed "mi-" form. WORTH FLAGGING: unlike
+    # kubwa/dogo/geni/fupi/refu, zito does NOT show the reduced-series
+    # pattern at all (chi/wi/ghi here use the noun's OWN full subject-
+    # marker string unreduced -- "chilemere" not "kilemere", "wilemere"
+    # not "walemere", "ghilemere" not "malemere") -- same "always bare
+    # subject marker" shape as baya/zuri. If that holds, zito might NOT
+    # need the mi-/nd- split at all, and "ilemere" could simply be
+    # correct as the uniform i-class answer -- not acted on without
+    # confirmation (would need re-wiring zito to use kit_sm like baya/
+    # zuri, not kit_class/adj_class).
+    # 2026-10-13 (cont. 4): the flag above is PARTIALLY RESOLVED -- a
+    # fresh "i_nasal" submission gives "ndilemere", which is NOT the
+    # same as the (still-unconfirmed) plain form, so zito DOES
+    # distinguish the two i-subclasses after all for at least this cell.
+    # Note the SHAPE is different from refu/dogo/fupi's nd-REPLACES-
+    # stem-initial-consonant pattern ("ndacha" from "lacha", not
+    # "ndlacha"): here it looks like "nd-" simply PREFIXES onto the
+    # already-"i"-shaped form ("nd"+"ilemere"="ndilemere"). Recorded
+    # as-is, not forced into the other roots' pattern.
+    "i_nasal": "ndilemere",
+}
+
+CHAFU_DEFAULT_FORM = "ulue"
+CHAFU_FORM_BY_SM = {
+    "chi": "chilue", "ghi": "ghilue", "ghu": "ghulue",
+    "ji": "jilue", "ku": "kulue", "lu": "lulue", "ri": "rilue",
+    "u": "ulue", "va": "vilue", "wi": "wilue",
+    # 2026-10-13 (cont. 3): "i":"ilue" PULLED BACK -- same reasoning and
+    # same "possibly doesn't need the split at all" flag as ZITO_FORM_
+    # BY_SM above (chafu shows the identical unreduced chi/wi/ghi shape:
+    # "chilue" not "kilue", "wilue" not "walue", "ghilue" not "malue").
+    # 2026-10-13 (cont. 4): same resolution as zito above -- "i_nasal"
+    # confirmed "ndilue" ("nd-" prefixed onto the "i"-shaped "ilue", same
+    # pattern as zito's "ndilemere", not refu/dogo/fupi's stem-initial
+    # replacement). Plain "i" is still unconfirmed.
+    "i_nasal": "ndilue",
 }
 
 # 2026-10-11 (cont.): direct correction -- route via KITAITA class

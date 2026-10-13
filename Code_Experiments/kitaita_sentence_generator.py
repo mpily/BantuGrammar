@@ -34,6 +34,9 @@ from kitaita_verified_corrections import (
     NUMBER_INVARIANT_NOUNS,
     KUBWA_FORM_BY_SM, KUBWA_DEFAULT_FORM, ZURI_ROOT, ADJ_SINGLE_CLASS_CANDIDATE,
     ADJ_SINGLE_ROOT_GENERALIZED, LACHA_FORM_BY_SM, LACHA_DEFAULT_FORM,
+    DOGO_FORM_BY_SM, DOGO_DEFAULT_FORM, GENI_FORM_BY_SM, GENI_DEFAULT_FORM,
+    FUPI_FORM_BY_SM, FUPI_DEFAULT_FORM, ZITO_FORM_BY_SM, ZITO_DEFAULT_FORM,
+    CHAFU_FORM_BY_SM, CHAFU_DEFAULT_FORM, TAM_SM_ALIAS,
     kitaita_adj_prefix, kogh_re_o_shift,
     SWAHILI_CLASS_DEFAULT_SM_GUESS, ANIMATE_SG_EXCLUDED_FROM_DEFAULT,
     PERSON_SUBJECT_MARKERS_BY_TAM, VERIFIED_PAST_TAM_BY_SM,
@@ -214,6 +217,19 @@ def translate(swahili_subject_noun: str | None, swahili_verb: dict, swahili_obje
             else:
                 kit_sm = None
                 trace.append(f"'{kit_subject}' has no corrected-class subject-marker data -- FLAGGED, not guessed")
+
+    # 2026-10-13 (cont. 2): `kit_class` is the noun's REAL class as stored
+    # (may be "i_nasal", a genuine class distinct from "i" -- see TAM_SM_
+    # ALIAS in kitaita_verified_corrections.py, direct user instruction to
+    # model this the way Swahili treats class 4 vs 9/10: one subject
+    # marker, two different adjective paradigms). `kit_sm` from here on is
+    # normalized through TAM_SM_ALIAS ONCE, before any TAM-conditioned
+    # vowel-shift logic below runs, so every existing shift rule keeps
+    # working unmodified on "i_nasal" nouns (they share "i"'s whole TAM
+    # paradigm by construction) -- only the ADJECTIVE block further down
+    # uses `kit_class` (the un-normalized value) instead of `kit_sm`.
+    kit_class = kit_sm
+    kit_sm = TAM_SM_ALIAS.get(kit_sm, kit_sm) if kit_sm else kit_sm
 
     root_is_full_form = False
     kuwa_past_alt = None  # (root, tam, final_vowel) when the "alternate, no rule yet" path is used
@@ -469,20 +485,42 @@ def translate(swahili_subject_noun: str | None, swahili_verb: dict, swahili_obje
 
     obj_part = None
     if swahili_object_noun:
-        obj = noun_kitaita.get(swahili_object_noun)
-        if obj:
-            obj_part = obj["kitaita_word"]
+        # 2026-10-12: found while testing the new Kitaita Word Bank noun
+        # entries -- this branch only ever consulted the statistical
+        # `noun_kitaita` table, never VERIFIED_NOUN_TRANSLATIONS, unlike the
+        # SUBJECT side above (which checks VERIFIED_NOUN_TRANSLATIONS first).
+        # Any native-speaker/Word-Bank-submitted noun used as an OBJECT was
+        # silently falling through to "no reliable Kitaita translation" even
+        # though a real answer existed -- e.g. 'mzee'->'mghosi'. Checked
+        # first, same priority order as the subject side.
+        if swahili_object_noun in VERIFIED_NOUN_TRANSLATIONS:
+            obj_part = VERIFIED_NOUN_TRANSLATIONS[swahili_object_noun]
             trace.append(f"Object noun '{swahili_object_noun}' -> Kitaita '{obj_part}' "
-                         f"(Dice {obj['best_dice']:.2f}, {obj['confidence']}) -- no object marker inserted "
-                         f"(marker-only rewrite rule: object agreement optional, matches Swahili source)")
+                         f"(VERIFIED_NOUN_TRANSLATIONS -- direct submission/correction, overrides the "
+                         f"statistical table) -- no object marker inserted (marker-only rewrite rule: "
+                         f"object agreement optional, matches Swahili source)")
             sentence += f" {obj_part}"
         else:
-            trace.append(f"Object noun '{swahili_object_noun}': no reliable Kitaita translation -- FLAGGED")
+            obj = noun_kitaita.get(swahili_object_noun)
+            if obj:
+                obj_part = obj["kitaita_word"]
+                trace.append(f"Object noun '{swahili_object_noun}' -> Kitaita '{obj_part}' "
+                             f"(Dice {obj['best_dice']:.2f}, {obj['confidence']}) -- no object marker inserted "
+                             f"(marker-only rewrite rule: object agreement optional, matches Swahili source)")
+                sentence += f" {obj_part}"
+            else:
+                trace.append(f"Object noun '{swahili_object_noun}': no reliable Kitaita translation -- FLAGGED")
 
     adj_part = None
     if swahili_adjective:
         adj_key = (swahili_adjective["stem"], swahili_subject_noun)  # keyed by NOUN, not Swahili
         # class -- nchi/nyumba share a Swahili class label but take different 'kubwa' forms.
+        # 2026-10-13 (cont. 2): adjective-concord lookups/formulas below use
+        # `kit_class` (the noun's REAL, possibly-"i_nasal" class, computed
+        # near the top of this function), not the TAM-normalized `kit_sm` --
+        # kept in sync with kitaita_e2e_pipeline.compute_adjective_concord()'s
+        # identical substitution.
+        adj_class = kit_class
         if swahili_adjective["stem"] == "baya" and kit_subject in NUMBER_INVARIANT_NOUNS:
             # Every NUMBER_INVARIANT_NOUNS member is EXCLUDED from the generalized BAYA_STEM
             # rule below: each has a singular/plural subject-marker split (NUMBER_INVARIANT_
@@ -499,12 +537,17 @@ def translate(swahili_subject_noun: str | None, swahili_verb: dict, swahili_obje
                          f"the plural reading '{NUMBER_INVARIANT_SM_PLURAL['default']}{BAYA_STEM}' is "
                          f"equally plausible and unconfirmed either way -- see kitaita_verified_"
                          f"corrections.py)")
-        elif swahili_adjective["stem"] == "baya" and kit_sm:
+        elif swahili_adjective["stem"] == "baya" and adj_class:
             # Generalized rule (corpus-confirmed across all 5 classes tried, zero
             # counterexamples -- see kitaita_verified_corrections.py BAYA_STEM):
             # 'baya' (bad) = the noun's OWN subject-marker-class prefix + 'zamie'.
             # Uses the noun's base class marker (kit_sm as already resolved above),
             # not a present-tense-conditioned variant -- adjectives aren't verbs/TAM.
+            # 2026-10-13 (cont. 3): 'baya' uses the BARE subject marker
+            # (kit_sm, TAM-normalized -- NOT kit_class/adj_class) -- it does
+            # NOT follow the mi-/nd- split (see TAM_SM_ALIAS's comment in
+            # kitaita_verified_corrections.py for why nyumba's verified
+            # "izamie" is correct despite nyumba being class 2/"i_nasal").
             adj_part = f"{kit_sm}{BAYA_STEM}"
             trace.append(f"Adjective 'baya' (bad): Kitaita concord = subject-marker-class prefix "
                          f"'{kit_sm}-' + stem '-{BAYA_STEM}' = '{adj_part}' (GENERALIZED rule, "
@@ -517,20 +560,20 @@ def translate(swahili_subject_noun: str | None, swahili_verb: dict, swahili_obje
                          f"not a full paradigm, uses a DIFFERENT concord strategy than 'baya' -- "
                          f"flat per-class lookup, not the subject-marker prefix; see "
                          f"kitaita_verified_corrections.py)")
-        elif swahili_adjective["stem"] == "kubwa" and kit_sm:
+        elif swahili_adjective["stem"] == "kubwa" and adj_class:
             # Generalized rule (cont. 16, extended cont. 2026-10-11): 'ji' (nchi, siku)
             # confirmed 'ibaa'; 'chi' (kikombe, kiti, kitabu) confirmed 'kibaa'; every other
             # marker tried (u/ghu/ri/i) confirmed 'mbaa' -- tracks the CONSONANT, not the
             # Swahili class label. Only used for a noun not already in the flat table above.
-            if kit_sm in KUBWA_FORM_BY_SM:
-                adj_part = KUBWA_FORM_BY_SM[kit_sm]
+            if adj_class in KUBWA_FORM_BY_SM:
+                adj_part = KUBWA_FORM_BY_SM[adj_class]
                 trace.append(f"Adjective 'kubwa' (big), no exact record for this noun: subject "
-                             f"marker '{kit_sm}-' -> '{adj_part}' (GENERALIZED, CONFIRMED marker "
+                             f"marker '{adj_class}-' -> '{adj_part}' (GENERALIZED, CONFIRMED marker "
                              f"-- see kitaita_verified_corrections.py)")
             else:
                 adj_part = KUBWA_DEFAULT_FORM
                 trace.append(f"Adjective 'kubwa' (big), no exact record for this noun AND no "
-                             f"confirmed data for marker '{kit_sm}-': defaulting to the majority "
+                             f"confirmed data for marker '{adj_class}-': defaulting to the majority "
                              f"form '{adj_part}' (mungu/mti/mwana/samaki/nyumba's marker) as an "
                              f"UNCONFIRMED GUESS, not a verified answer for this marker -- flag "
                              f"for native-speaker review, see kitaita_verified_corrections.py)")
@@ -540,29 +583,58 @@ def translate(swahili_subject_noun: str | None, swahili_verb: dict, swahili_obje
             # STRATEGY as baya, but this is a statistical Dice candidate, a weaker evidence
             # tier than baya's native-speaker-confirmed answer. Extrapolating to a class
             # neither of the 2 confirmed covers is a further, unconfirmed step -- flagged.
+            # 2026-10-13 (cont. 3): uses kit_sm (TAM-normalized), NOT kit_class/
+            # adj_class -- zuri does NOT follow the mi-/nd- split (same as baya).
             adj_part = f"{kit_sm}{ZURI_ROOT}"
-            confirmed = kit_sm in ("i", "wi")
+            # 2026-10-12: Kitaita Word Bank round confirmed every remaining
+            # class -- only 'i'/'wi' predate it; no "extrapolated" case left
+            # in practice, kept distinct in the trace for the historical record.
+            confirmed = kit_sm in ("i", "wi", "chi", "ghi", "ghu", "ji", "ku", "lu", "ri", "u", "va")
             trace.append(f"Adjective 'zuri' (good): subject marker '{kit_sm}-' + corpus-mined root "
                          f"'-{ZURI_ROOT}' = '{adj_part}' ({'CONFIRMED class, Dice 0.40-0.58' if confirmed else 'EXTRAPOLATED to an untested class'}, "
                          f"statistical candidate from Bible-corpus mining, NOT native-speaker-verified "
                          f"like baya -- see kitaita_verified_corrections.py ZURI_ROOT)")
-        elif swahili_adjective["stem"] == "refu" and kit_sm:
+        elif swahili_adjective["stem"] == "refu" and adj_class:
             # 2026-10-11 (cont. 8): direct user instruction -- use the Kitaita-
             # side 'lacha' root data (mlacha/walacha/milacha) directly, keyed by
             # KITAITA kit_sm, not by Swahili class label (same discipline as the
             # kubwa/ADJ_SINGLE_ROOT_GENERALIZED fix above -- "classes don't
             # necessarily line up"). Same get()-with-default shape as kubwa.
-            if kit_sm in LACHA_FORM_BY_SM:
-                adj_part = LACHA_FORM_BY_SM[kit_sm]
-                trace.append(f"Adjective 'refu' (tall/long): subject marker '{kit_sm}-' -> '{adj_part}' "
+            if adj_class in LACHA_FORM_BY_SM:
+                adj_part = LACHA_FORM_BY_SM[adj_class]
+                trace.append(f"Adjective 'refu' (tall/long): subject marker '{adj_class}-' -> '{adj_part}' "
                              f"(CONFIRMED class, Dice 0.86, 3 versions agree -- statistical candidate, "
                              f"NOT native-speaker-verified; see kitaita_verified_corrections.py LACHA_FORM_BY_SM)")
             else:
                 adj_part = LACHA_DEFAULT_FORM
-                trace.append(f"Adjective 'refu' (tall/long): no confirmed data for marker '{kit_sm}-': "
+                trace.append(f"Adjective 'refu' (tall/long): no confirmed data for marker '{adj_class}-': "
                              f"defaulting to '{adj_part}' (mrefu's own class, Dice 0.53) as an UNCONFIRMED "
                              f"GUESS, not a verified answer for this marker -- flag for native-speaker "
                              f"review (see kitaita_verified_corrections.py LACHA_DEFAULT_FORM)")
+        elif swahili_adjective["stem"] in ("dogo", "geni", "fupi", "zito", "chafu") and adj_class:
+            # 2026-10-12: Kitaita Word Bank round (same shape as kubwa/refu above,
+            # kept in sync with kitaita_e2e_pipeline.compute_adjective_concord()
+            # deliberately, not re-derived) -- see kitaita_verified_corrections.py
+            # DOGO_FORM_BY_SM/GENI_FORM_BY_SM/FUPI_FORM_BY_SM/ZITO_FORM_BY_SM/
+            # CHAFU_FORM_BY_SM for the submitted data and anomaly notes.
+            stem = swahili_adjective["stem"]
+            table, default = {
+                "dogo": (DOGO_FORM_BY_SM, DOGO_DEFAULT_FORM),
+                "geni": (GENI_FORM_BY_SM, GENI_DEFAULT_FORM),
+                "fupi": (FUPI_FORM_BY_SM, FUPI_DEFAULT_FORM),
+                "zito": (ZITO_FORM_BY_SM, ZITO_DEFAULT_FORM),
+                "chafu": (CHAFU_FORM_BY_SM, CHAFU_DEFAULT_FORM),
+            }[stem]
+            if adj_class in table:
+                adj_part = table[adj_class]
+                trace.append(f"Adjective '{stem}': subject marker '{adj_class}-' -> '{adj_part}' "
+                             f"(2026-10-12 Kitaita Word Bank, direct submission, NOT native-speaker-"
+                             f"judgment-verified -- see kitaita_verified_corrections.py)")
+            else:
+                adj_part = default
+                trace.append(f"Adjective '{stem}': no confirmed data for marker '{adj_class}-': defaulting "
+                             f"to '{adj_part}' as an UNCONFIRMED GUESS -- flag for native-speaker review "
+                             f"(see kitaita_verified_corrections.py)")
         elif swahili_adjective["stem"] in ADJ_SINGLE_ROOT_GENERALIZED and kit_sm:
             # 2026-10-11 (cont.): direct correction -- route via the KITAITA class
             # (kit_sm -> reduced prefix, same mechanism kubwa uses), not the Swahili

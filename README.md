@@ -147,9 +147,20 @@ the full record if you have it):
 ## Running it
 
 ```
-python3 probe_pipeline_regression.py      # 12-case regression battery
+git clone https://github.com/mpily/BantuGrammar.git
+cd BantuGrammar
+pip install -r requirements.txt           # torch + transformers + sentencepiece
+cd Code_Experiments
+python3 probe_pipeline_regression.py      # 12-case regression battery, no download needed
 python3 kitaita_local_webapp.py 8765      # local browser UI, both pipelines
 ```
+
+The regression battery only needs the files already in this repo (the probes
+are checked in as trained weights, not retrained). `kitaita_local_webapp.py`
+additionally downloads `facebook/nllb-200-distilled-1.3B` (~5.5GB) from
+Hugging Face on first run — needs a few GB of free disk and RAM; a GPU is not
+required but makes each translation noticeably faster. Open
+`http://localhost:8765/` once the terminal prints "Ready."
 
 `kitaita_relations.py` can also be used directly, one step at a time:
 

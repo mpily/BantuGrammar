@@ -87,6 +87,9 @@ from kitaita_verified_corrections import (
     NUMBER_INVARIANT_NOUNS, NUMBER_INVARIANT_SM_SINGULAR, BAYA_STEM, KUBWA_FORM_BY_SM, KUBWA_DEFAULT_FORM,
     ZURI_ROOT, ADJ_SINGLE_CLASS_CANDIDATE, ADJ_SINGLE_ROOT_GENERALIZED, kitaita_adj_prefix, VERIFIED_ADJECTIVES,
     LACHA_FORM_BY_SM, LACHA_DEFAULT_FORM, FUNCTION_WORD_TRANSLATIONS, POSS_PERSON_FORM_CLASS1,
+    DOGO_FORM_BY_SM, DOGO_DEFAULT_FORM, GENI_FORM_BY_SM, GENI_DEFAULT_FORM,
+    FUPI_FORM_BY_SM, FUPI_DEFAULT_FORM, ZITO_FORM_BY_SM, ZITO_DEFAULT_FORM,
+    CHAFU_FORM_BY_SM, CHAFU_DEFAULT_FORM, TAM_SM_ALIAS,
 )
 from kitaita_sentence_generator import load_pages, build_lookup_tables, translate
 
@@ -211,6 +214,8 @@ class Decomposition:
     secondary_nouns: list[tuple] = field(default_factory=list)  # (idx, swahili_lemma, kitaita_or_None)
     passthrough: list[tuple] = field(default_factory=list)      # (idx, original_token_text)
     flags: list[str] = field(default_factory=list)
+    coordinated_subject: tuple | None = None  # (primary_lemma, secondary_lemma) when detected -- see
+                                                # the "na"-adjacency check in decompose_sentence() below
     # 2026-10-09, direct user directive: "remove the one verb restriction...
     # we can handle multiple verbs." ONE clause per verb found, each with its
     # OWN subject/object/adjective (a noun CAN be the shared, pro-dropped
@@ -262,7 +267,17 @@ def compute_adjective_concord(kitaita_noun: str, swahili_noun: str, stem: str, n
     the EXACT SAME rules (same tables, same generalized-rule conditions),
     just keyed by whichever noun the amod probe says the adjective
     actually modifies. Returns (kitaita_form_or_None, explanation)."""
-    kit_sm = resolve_class_marker(kitaita_noun, noun_class_of)
+    # 2026-10-13 (cont. 3): `kit_class` is the noun's REAL class (may be
+    # "i_nasal") -- used for the DICT-based "special paradigm" adjectives
+    # (kubwa/refu/dogo/geni/fupi/zito/chafu), which genuinely see the mi-/
+    # nd- split. `kit_sm` is TAM_SM_ALIAS-normalized (i_nasal -> i) -- used
+    # for 'baya'/'zuri', which use the BARE subject marker uniformly and
+    # do NOT see the split (see TAM_SM_ALIAS's comment in kitaita_verified_
+    # corrections.py for why nyumba's native-speaker-verified baya,
+    # "izamie", is correct despite nyumba being class 2/"i_nasal").
+    kit_class = resolve_class_marker(kitaita_noun, noun_class_of)
+    kit_sm = TAM_SM_ALIAS.get(kit_class, kit_class) if kit_class else kit_class
+    adj_class = kit_class
     if stem == "baya" and kitaita_noun in NUMBER_INVARIANT_NOUNS:
         return (f"{NUMBER_INVARIANT_SM_SINGULAR['default']}{BAYA_STEM}",
                 "number-invariant noun, defaulted to singular prefix (same rule as the subject case)")
@@ -271,27 +286,56 @@ def compute_adjective_concord(kitaita_noun: str, swahili_noun: str, stem: str, n
     adj_key = (stem, swahili_noun)
     if adj_key in VERIFIED_ADJECTIVES:
         return (VERIFIED_ADJECTIVES[adj_key], "native-speaker-VERIFIED flat per-class lookup")
-    if stem == "kubwa" and kit_sm:
-        if kit_sm in KUBWA_FORM_BY_SM:
-            return (KUBWA_FORM_BY_SM[kit_sm], f"generalized 'kubwa' rule, CONFIRMED class marker '{kit_sm}-'")
-        return (KUBWA_DEFAULT_FORM, f"'kubwa' rule, UNCONFIRMED default for marker '{kit_sm}-' -- flag for review")
+    if stem == "kubwa" and adj_class:
+        if adj_class in KUBWA_FORM_BY_SM:
+            return (KUBWA_FORM_BY_SM[adj_class], f"generalized 'kubwa' rule, CONFIRMED class marker '{adj_class}-'")
+        return (KUBWA_DEFAULT_FORM, f"'kubwa' rule, UNCONFIRMED default for marker '{adj_class}-' -- flag for review")
     # 2026-10-11: same tables as translate()'s own adjective branch (kitaita_
     # verified_corrections.py) -- kept in sync deliberately, not re-derived,
     # after this exact "same rule forked into 2 copies" shape caused a real
     # bug this morning (the object-marker suppress_tam fix).
     if stem == "zuri" and kit_sm:
-        confirmed = kit_sm in ("i", "wi")
+        # 2026-10-12: Kitaita Word Bank round confirmed every remaining class
+        # (chi/ghi/ghu/ji/ku/lu/ri/u/va) exactly matches this formula -- only
+        # 'i'/'wi' predate this round; kept the distinction in the trace for
+        # the record, but there is no longer an "extrapolated" case in practice.
+        confirmed = kit_sm in ("i", "wi", "chi", "ghi", "ghu", "ji", "ku", "lu", "ri", "u", "va")
         return (f"{kit_sm}{ZURI_ROOT}",
                 f"corpus-mined 'zuri' rule ({'CONFIRMED' if confirmed else 'EXTRAPOLATED'} class "
                 f"marker '{kit_sm}-'), statistical candidate, NOT native-speaker-verified")
-    if stem == "refu" and kit_sm:
+    if stem == "refu" and adj_class:
         # 2026-10-11 (cont. 8): same tables/logic as translate()'s own 'refu'
         # branch (kitaita_verified_corrections.py LACHA_FORM_BY_SM/LACHA_
         # DEFAULT_FORM) -- kept in sync deliberately, not re-derived.
-        if kit_sm in LACHA_FORM_BY_SM:
-            return (LACHA_FORM_BY_SM[kit_sm], f"'refu' rule, CONFIRMED class marker '{kit_sm}-' "
+        if adj_class in LACHA_FORM_BY_SM:
+            return (LACHA_FORM_BY_SM[adj_class], f"'refu' rule, CONFIRMED class marker '{adj_class}-' "
                     f"(Dice 0.86, 3 versions agree), statistical candidate, NOT native-speaker-verified")
-        return (LACHA_DEFAULT_FORM, f"'refu' rule, UNCONFIRMED default for marker '{kit_sm}-' -- flag for review")
+        return (LACHA_DEFAULT_FORM, f"'refu' rule, UNCONFIRMED default for marker '{adj_class}-' -- flag for review")
+    if stem == "dogo" and adj_class:
+        if adj_class in DOGO_FORM_BY_SM:
+            return (DOGO_FORM_BY_SM[adj_class], f"'dogo' rule (2026-10-12 Kitaita Word Bank), CONFIRMED "
+                    f"class marker '{adj_class}-', direct submission, NOT native-speaker-judgment-verified")
+        return (DOGO_DEFAULT_FORM, f"'dogo' rule, UNCONFIRMED default for marker '{adj_class}-' -- flag for review")
+    if stem == "geni" and adj_class:
+        if adj_class in GENI_FORM_BY_SM:
+            return (GENI_FORM_BY_SM[adj_class], f"'geni' rule (2026-10-12 Kitaita Word Bank), CONFIRMED "
+                    f"class marker '{adj_class}-', direct submission, NOT native-speaker-judgment-verified")
+        return (GENI_DEFAULT_FORM, f"'geni' rule, UNCONFIRMED default for marker '{adj_class}-' -- flag for review")
+    if stem == "fupi" and adj_class:
+        if adj_class in FUPI_FORM_BY_SM:
+            return (FUPI_FORM_BY_SM[adj_class], f"'fupi' rule (2026-10-12 Kitaita Word Bank), CONFIRMED "
+                    f"class marker '{adj_class}-', direct submission, NOT native-speaker-judgment-verified")
+        return (FUPI_DEFAULT_FORM, f"'fupi' rule, UNCONFIRMED default for marker '{adj_class}-' -- flag for review")
+    if stem == "zito" and adj_class:
+        if adj_class in ZITO_FORM_BY_SM:
+            return (ZITO_FORM_BY_SM[adj_class], f"'zito' rule (2026-10-12 Kitaita Word Bank), CONFIRMED "
+                    f"class marker '{adj_class}-', direct submission, NOT native-speaker-judgment-verified")
+        return (ZITO_DEFAULT_FORM, f"'zito' rule, UNCONFIRMED default for marker '{adj_class}-' -- flag for review")
+    if stem == "chafu" and adj_class:
+        if adj_class in CHAFU_FORM_BY_SM:
+            return (CHAFU_FORM_BY_SM[adj_class], f"'chafu' rule (2026-10-12 Kitaita Word Bank), CONFIRMED "
+                    f"class marker '{adj_class}-', direct submission, NOT native-speaker-judgment-verified")
+        return (CHAFU_DEFAULT_FORM, f"'chafu' rule, UNCONFIRMED default for marker '{adj_class}-' -- flag for review")
     if stem in ADJ_SINGLE_ROOT_GENERALIZED and kit_sm:
         # 2026-10-11 (cont.): direct correction -- route via the KITAITA class
         # (kit_sm -> reduced prefix, SAME mechanism as kubwa and the SAME helper
@@ -490,6 +534,27 @@ def decompose_sentence(text: str, noun_kitaita: dict) -> Decomposition:
                            "verb's agreement still reflects only the PRIMARY subject (closest-conjunct; " \
                            "see note above, this project has no settled rule for coordinated-subject " \
                            "agreement)"
+                # 2026-10-13: cheap, zero-probe DETECTION per direct user request --
+                # the literal adjacency "Subject na Noun2 Verb" (si+1 == "na" token,
+                # oi == si+2, oi immediately precedes the verb) is read straight off
+                # tokenization, no NLLB/probe needed. Deliberately detection-ONLY:
+                # this does NOT choose a plural Kitaita form -- CLAUDE.md already
+                # flags which plural rule applies (closest-conjunct vs shared-class
+                # vs human-plural-override) as unresolved with no native-speaker
+                # ruling, so guessing one here would just hide the ambiguity instead
+                # of flagging it. Only fires on this exact adjacency, not any
+                # pre-verbal secondary noun (e.g. a relative-clause subject would
+                # wrongly fire the coordinated_subject label without "na" present).
+                if (si + 1 < len(tokens) and tokens[si + 1] == "na" and oi == si + 2
+                        and oi + 1 == d.verb_idx):
+                    d.coordinated_subject = (slemma, olemma)
+                    d.flags.append(f"COORDINATED SUBJECT detected ('{slemma} na {olemma}' immediately "
+                                    f"before the verb) -- Swahili agreement here is almost certainly "
+                                    f"PLURAL, but this project has NO settled rule for which Kitaita "
+                                    f"plural form applies (three candidate rules, no native-speaker "
+                                    f"ruling -- see CLAUDE.md). The verb output below uses only the "
+                                    f"PRIMARY subject's (singular) marker and is likely WRONG for this "
+                                    f"sentence -- flagged, not corrected.")
             else:
                 relation = "additional/coordinated noun beyond the primary subject and object"
             if kit:
@@ -610,6 +675,7 @@ def translate_sentence(text: str, tables) -> dict:
     report["kitaita_sentence"] = assemble_in_order(d, result, noun_kitaita)
     report["trace"] = result["trace"]
     report["components"] = result["components"]
+    report["coordinated_subject"] = d.coordinated_subject  # see Decomposition field docstring -- detection-only
     return report
 
 
