@@ -26915,3 +26915,16 @@ round with a 10-tile rack; a foreign Origin is refused.
 for a few rooms, not load-tested); the room code is the only access control
 (anyone with the link can join); "distinct rooms" for promotion can be gamed by
 one person opening two rooms.
+
+## 2026-10-26 cont. 8: the Space was still running old code — added automatic Space sync
+
+The deployed game page reached `mpily-bantugrammar.hf.space`, but the user
+confirmed `/api/health` there shows the Gradio page: the Space never received
+the new `hf_space/` files (a Space is its own git repo; merging on GitHub does
+not update it). Added `.github/workflows/sync_space.yml`: on every merge to
+`main` that touches `hf_space/` (or when run by hand) it runs the API tests
+without torch, then uploads `hf_space/` to the Space with `upload_folder`
+(tests, caches, local data and the Dockerfile excluded; files already on the
+Space but not in `hf_space/` are left alone). Needs the GitHub secret `HF_TOKEN`
+with write access to the Space. Not run yet; it can't be tested from this
+sandbox (Hugging Face is not reachable from here).
