@@ -433,5 +433,17 @@ with gr.Blocks(title="Kitaita Translator") as demo:
             dash_timer = gr.Timer(60)
             dash_timer.tick(refresh_dashboard, inputs=[], outputs=dash_outputs)
 
+# 2026-10-26 (hackathon Space API, CLAUDE.md "Space API" section): the REST
+# API (api/ package) and this Gradio UI share ONE process and ONE loaded
+# model -- Gradio is mounted onto the FastAPI app at "/", so /api/* and
+# /at/* are served alongside the existing tabs. The API only wraps the
+# pipeline (same translate_sentence_with_probes/_tables as the UI above).
+from api.server import build_app  # noqa: E402
+
+app = build_app(_tables)
+app = gr.mount_gradio_app(app, demo, path="/")
+
 if __name__ == "__main__":
-    demo.launch()
+    import uvicorn
+
+    uvicorn.run(app, host="0.0.0.0", port=int(os.environ.get("PORT", 7860)))

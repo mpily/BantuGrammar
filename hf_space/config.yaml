@@ -1,0 +1,46 @@
+# Space API configuration (see api/CONTRACT.md). Secrets never go here:
+# HF_TOKEN, PHONE_HASH_SALT, AT_API_KEY, TRUSTED_REVIEWER_KEYS, AT_WEBHOOK_TOKEN
+# live in Space secrets / a local .env.
+api_version: "1"
+
+promotion:
+  # A Kitaita sentence becomes `verified` when at least this many DISTINCT
+  # speakers submit the identical normalized native_output for one translation...
+  min_distinct_speakers: 2
+  # ...or a trusted reviewer approves it (request carries an X-Reviewer-Key
+  # header matching one of the TRUSTED_REVIEWER_KEYS secret's values).
+  trusted_reviewer_approval: true
+
+storage:
+  # Private HF Dataset repo; created on first commit if missing.
+  dataset_repo: "mpily/bantugrammar-feedback"
+  commit_every_minutes: 5
+  # Local JSONL buffer. NOT persistent on a free Space -- CommitScheduler
+  # pushes it to the dataset repo.
+  local_dir: "api_data"
+
+translate:
+  # "probes" = full pipeline (NLLB encoder + trained probes); "heuristic" =
+  # adjacency decomposer kept for comparison.
+  default_mode: "probes"
+  lru_cache_size: 512
+  max_chars: 1000
+
+progress:
+  low_n_threshold: 5
+
+cors:
+  # The app repo's GitHub Pages origin. localhost (any port) is always allowed
+  # for development.
+  allow_origins:
+    - "https://mpily.github.io"
+
+africas_talking:
+  # "sandbox" for development and the demo.
+  environment: "sandbox"
+  username: "sandbox"
+  # Conversation state (awaiting rating/correction) expires after this long.
+  sms_state_ttl_minutes: 60
+  # USSD must answer in < 2 s; a translation not already cached is sent by
+  # SMS instead.
+  ussd_budget_seconds: 1.5

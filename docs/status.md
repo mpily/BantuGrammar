@@ -26837,3 +26837,53 @@ appendix without breaking it) visually verified via `pdftoppm`+Read.
 Files: `Results/kitaita_subspace_transfer_extended_abstract.tex`
 (§4.1 and §4.2 replace the old TODO comment block; no other sections
 touched).
+
+## 2026-10-26 cont. 6: Space API wrapper for the hackathon (no pipeline changes)
+
+Built the public REST API from the CLAUDE.md §10 "Space API" spec. **No
+pipeline logic changed** — `api/` only calls `translate_sentence_with_probes`
+/ `translate_sentence` (same functions and `_tables` as the Gradio UI) and
+re-labels their output. Not an experiment; no research claim.
+
+**What exists now** (`hf_space/api/`, contract in `hf_space/api/CONTRACT.md`):
+`POST /api/translate`, `POST /api/feedback`, `GET /api/progress`,
+`GET /api/verified_pairs`, `GET /api/health`, `POST /at/sms`,
+`POST /at/ussd`. Gradio is mounted onto FastAPI at `/` in `app.py`, so UI
+and API share one process and one loaded model. Promotion rule in
+`hf_space/config.yaml` (≥2 distinct speakers with identical normalized
+output, or trusted-reviewer approval via `X-Reviewer-Key`). Feedback goes
+to the private dataset `mpily/bantugrammar-feedback` via `CommitScheduler`
+(per-process shards, flushed on shutdown, replayed on startup).
+
+**Checks run (this session, local container, no GPU, no HF token):**
+- `pytest hf_space/tests`: 50 passed — schemas, promotion rule, progress
+  stats incl. low-n flag (t-interval and Wilson values checked against hand
+  computation), verified_pairs never returns unverified rows or speaker data
+  (raw-response string check), phone hashing (salted, refuses without salt,
+  no raw number in any written shard), SMS/USSD flows, LRU cache, CORS,
+  shutdown flush, restart replay. 48 use a fake pipeline; 2 run the real
+  pipeline in heuristic mode.
+- **Found while testing**: the pipeline passes untranslated Swahili words
+  straight into its Kitaita output (e.g. heuristic `Nyoka aja.` →
+  `Choka aja.`, with `aja` flagged "No Kitaita translation/mechanism"). The
+  API now reports these in `unknown_words` and as `[?aja]` in
+  `kitaita_marked`, so passed-through Swahili is never shown as Kitaita.
+- Booted the real `app.py` with the NLLB/probe load stubbed out and the API
+  pinned to heuristic mode: Gradio UI 200 at `/`, all API routes OK,
+  `scripts/smoke.sh` against it → SMOKE OK.
+
+**NOT yet measured (needs a deploy — do before the demo):** probes-mode
+latency p50/p95 on the Space (target < 5 s/sentence), cold-start time,
+deploy SHA. Run `scripts/smoke.sh` after deploying and log the numbers
+here. CTranslate2 was not used (would change the pipeline; see CLAUDE.md
+§10 implementation notes).
+
+**Needs setting in Space secrets before the demo:** `HF_TOKEN` (write access
+to `mpily/bantugrammar-feedback`; without it `/api/health` reports
+`persistence: local_only` and data is lost on restart), `PHONE_HASH_SALT`
+(AT endpoints return 503 without it), `AT_API_KEY` (+ `AT_USERNAME=sandbox`),
+optionally `TRUSTED_REVIEWER_KEYS`, `AT_WEBHOOK_TOKEN`.
+
+**Open:** the existing Gradio feedback form still writes to the older
+`mpily/kitaita-translation-feedback` dataset; the API writes to the new one.
+Whether to merge them is undecided.
