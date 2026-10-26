@@ -1,4 +1,4 @@
-gradio>=4.0
+gradio==6.30.0  # the version the Gradio-SDK Space used; Docker installs from this file
 torch>=2.1
 transformers>=4.40
 sentencepiece>=0.2.0

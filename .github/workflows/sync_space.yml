@@ -56,7 +56,7 @@ jobs:
           commit = api.upload_folder(
               repo_id="mpily/BantuGrammar", repo_type="space", folder_path="hf_space",
               commit_message=f"Sync hf_space from GitHub {os.environ['GITHUB_SHA'][:12]}",
-              ignore_patterns=["tests/**", "**/__pycache__/**", "api_data/**", ".env", "*.pyc", "Dockerfile"],
+              ignore_patterns=["tests/**", "**/__pycache__/**", "api_data/**", ".env", "*.pyc"],
           )
           print("uploaded:", commit)
           PY
