@@ -283,7 +283,7 @@ def align_concord_and_tam(tokens: list[str], noun_idxs: list[int], verb_idxs: li
     reassembly step would need, without this function assembling
     anything itself. `pieces[idx]` is None where no Kitaita form could
     be computed (flagged in "trace", never silently guessed)."""
-    noun_kitaita, root_kitaita, root_kitaita_fallback, noun_class_of, allomorphy = tables
+    noun_kitaita, root_kitaita, root_kitaita_fallback, noun_class_of, allomorphy, root_kitaita_derived = tables
 
     # find_relations/find_adjective_targets run the sentence through NLLB
     # as given (original case matters for its own tokenization/alignment,

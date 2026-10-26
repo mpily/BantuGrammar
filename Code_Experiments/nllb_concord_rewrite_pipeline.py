@@ -89,6 +89,13 @@ POSS_TABLE = {1: "w", 2: "w", 3: "w", 4: "y", 5: "l", 6: "y", 7: "ch", 8: "vy", 
 # strip-and-reconstruct.
 DEM_PROXIMAL_TABLE = {1: "huyu", 2: "hawa", 3: "huu", 4: "hii", 5: "hili",
                        6: "haya", 7: "hiki", 8: "hivi", 9: "hii", 10: "hizi"}
+# 2026-10-15: THREE distance degrees, not two -- direct correction.
+# Swahili demonstratives are proximal ("hii", near speaker) / referential
+# ("hiyo", near listener or already-mentioned) / distal ("ile", far from
+# both) -- standard reference-grammar fact, same closed-set-lookup
+# treatment as the other two series (no shared stem to strip).
+DEM_REFERENTIAL_TABLE = {1: "huyo", 2: "hao", 3: "huo", 4: "hiyo", 5: "hilo",
+                          6: "hayo", 7: "hicho", 8: "hivyo", 9: "hiyo", 10: "hizo"}
 DEM_DISTAL_TABLE = {1: "yule", 2: "wale", 3: "ule", 4: "ile", 5: "lile",
                      6: "yale", 7: "kile", 8: "vile", 9: "ile", 10: "zile"}
 

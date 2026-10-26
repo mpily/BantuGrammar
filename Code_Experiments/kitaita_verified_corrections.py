@@ -18,6 +18,9 @@ one.
 """
 from __future__ import annotations
 
+import json as _json
+from pathlib import Path as _Path
+
 # ----------------------------------------------------------------- verb roots
 # swahili_root -> kitaita_root, overriding root_kitaita/root_kitaita_fallback.
 VERIFIED_ROOTS = {
@@ -63,6 +66,634 @@ VERIFIED_ROOTS.update({
     "zungumzi": "dedanya",  # converse/talk -- cf. the existing "kudedanya" (converse) note
                               # elsewhere in this project re: re/de segmentation collisions.
 })
+
+# 2026-10-20: 4 more root gaps, submitted alongside the descriptive-associative
+# examples below (KITAITA_ASSOCIATIVE_DESCRIPTOR_VERIFIED) -- same n=1,
+# direct-submission trust tier as every other entry in this table, and
+# apply project-wide (any finite verb using these roots too), not just
+# inside that construction.
+VERIFIED_ROOTS.update({
+    "chom": "kor",     # burn/roast ("mti wa kuchoma" -> "mudi ghokora", firewood)
+    "onge": "ghor",    # talk/converse ("ulimi wa kuongea" -> "lumi loghora")
+    "lind": "lindi",   # guard/protect ("mbwa wa kulinda" -> "koshi elindia") -- NOTE:
+                        # decompose_verb("kulinda") itself mis-segments this as
+                        # tam='li'(past)+root='nd' (a real, separate bug: 'li' is
+                        # both the past-TAM marker AND a legitimate class-5 object
+                        # marker elsewhere, so the decomposer's general-purpose
+                        # ambiguity-resolution doesn't flag it here as spurious --
+                        # same root-vs-prefix collision class as 'ka'/'kabili-').
+                        # This entry is keyed by the CORRECT bare root 'lind'
+                        # (ku+lind+a); any caller must derive 'lind', not trust
+                        # decompose_verb()'s own root_guess for this specific word.
+    "chek": "sek",     # laugh ("mtu wa kucheka" -> "mundu oseka") -- ch/s correspondence,
+                        # consistent with proto-Bantu *-sek- "laugh" (Swahili's own
+                        # "cheka" is independently a reflex of the same proto-root).
+})
+
+# 2026-10-20 (cont.): reverse-inference pilot (docs/status.md) -- found by
+# stripping concord on BOTH sides of the full parallel Bible corpus
+# (31,102 verse pairs) and reading the aligned verses directly, same
+# confidence tier as every hand-corrected entry above (direct confirmation,
+# trusted at n=1 for a SINGLE clean example -- but both entries below have
+# far more than that):
+VERIFIED_ROOTS.update({
+    "saidi": "tesi",  # help -- 6 independent, near-identical "help me" prayers agree
+                        # EXACTLY on both sides (kunisaidia/unisaidie <-> kunitesie/
+                        # kunitesia: PSA.22.19, 35.2, 38.22, 40.13, 70.1, 71.12), plus
+                        # the NOUN "msaidizi" (helper) <-> "mtesia" independently
+                        # confirming the same root in a DIFFERENT word class
+                        # (PSA.22.11, 30.10, 72.12). 82 total "saidi"-containing
+                        # Swahili tokens found project-wide.
+    "fany": "bony",    # do/make -- even stronger: 116 "fanya"-containing Swahili
+                        # tokens found, every one of the first 8 read directly
+                        # (GEN.7.5, GEN.18.17, EXO.7.6, EXO.16.17, EXO.18.17,
+                        # EXO.18.24, EXO.25.13, EXO.28.13) shows a clean "fanya"/
+                        # "bonya" match regardless of subject/tense (akafanya<->
+                        # ukabonya, wakafanya<->wikabonya, fanya[imperative]<->
+                        # kubonye/kubonya). Found as a SIDE EFFECT of explaining
+                        # "tawala" (rule) below, not one of the 3 originally
+                        # reported candidates -- flagging that explicitly since it
+                        # wasn't part of what was directly confirmed before adding.
+})
+
+# 2026-10-20 (cont. 3): full-corpus reverse-inference run (all 31,102 verse
+# pairs, not a hand-picked few) -- extended decompose_kitaita_verb()
+# (kitaita_tam_allomorphy.py) to strip the 3 person object markers found
+# earlier today before computing root_guess (fixes the undercounting bug
+# that same tool's own sanity check caught), then ran root-level Dice
+# alignment (same method as align_roots(), same MIN_FREQ=3 convention)
+# restricted to this project's own CURRENT verb-root gap list. 35 of 115
+# listed gaps got some candidate; MANUALLY read the verses for every
+# candidate with cooccur>=3 before adding anything (same discipline as
+# the 'kusudi' retraction earlier today) -- most did NOT survive that
+# check (see docs/status.md for the full table and the rejected ones:
+# 'hesab'->'tal' was noun/verb-decomposer contamination -- 'tal' is really
+# the NOUN 'mtalo' misread as a verb by the SM-stripping prefix match;
+# 'agiz'->'laghir' and 'tegeme'->'kusaghik' did not hold up on direct
+# reading at all; 'shuhudi' aligned strongly with the DIFFERENT word
+# 'memu', but only as a noun sense, not this verb-root slot). Only 2
+# survived:
+VERIFIED_ROOTS.update({
+    "oko": "kir",   # save/rescue -- confirmed 3/3 directly (PSA.80.2 "utuokoe"->
+                      # "kudikire"; PSA.118.25 "utuokoe"->"kudikire"; MAT.14.30
+                      # "niokoe"->"Nikire"), PLUS this independently reconfirms
+                      # BOTH person object markers found earlier today in the
+                      # SAME verses (di=us, ni=me -- see KITAITA_PERSON_OBJECT_
+                      # MARKER_HYPOTHESIS below, n counts updated). 'kir' is NOT
+                      # a generic/overloaded root either -- checked directly: only
+                      # ONE other Swahili root ('fun') ever ranks it as the #1
+                      # candidate project-wide, out of 2,646 roots checked.
+    "ondo": "inj",  # remove (transitive sense ONLY -- "ondoka"/arise is a
+                      # DIFFERENT root string, 'ondok' not 'ondo', already kept
+                      # separate by the decomposer; confirmed this is genuinely
+                      # two different Kitaita answers, not a missed split, same
+                      # class of polysemy as 'kuwa'[existential vs copula]
+                      # already documented elsewhere in this file). Confirmed
+                      # directly: PRO.25.4 "Ondoa takataka" (remove the dross)
+                      # -> "Kukainja wuchafu" (ku+ka+inj+a).
+})
+
+# 2026-10-20 (cont. 9): direct user bug report ("hata uharibifu uipate
+# ngome" -> decompose_verb() returned None outright for 'uipate' -- a
+# SEPARATE grammar-gap fix, see extract_swahili_grammar.decompose_verb()'s
+# new subjunctive/suffixed-relative branches -- but once that's fixed, the
+# ROOT 'pat' itself still had no translation at all). Checked 'pata'
+# broadly first (not just this one sentence's sense) -- it turns out to be
+# a DIRECT, repeatedly-confirmed SHARED COGNATE, retained VERBATIM in
+# Kitaita in at least 6 independent verses, not translated to a different
+# word at all: EXO.13.9 "ipate kuwa"->"kupate kuiwadia", LEV.14.21
+# "kupata"->"kupata" and "atatwaa...awe"->"upate kubonya", EXO.31.6 "wapate
+# kufanya"->"upate/wipate kubonya", JAS.4.13 "kupata faida"->"kupata
+# fwaida", PRO.19.25 "atapata kutambua"->"uchapata kumanya". Most of these
+# are the GRAMMATICALIZED "SM-pate-VERB" purpose-clause auxiliary ("so
+# that... may...", not the literal "get/obtain" sense) -- the literal/
+# physical sense in the user's own example ("uharibifu uipate ngome",
+# destruction OVERTAKES the fortress) was NOT separately verse-confirmed
+# this round, but since the Kitaita word is identical either way, this is
+# a safe, low-risk addition either way (worst case: the SAME real Kitaita
+# word, not demonstrably wrong for the untested sense).
+VERIFIED_ROOTS.update({
+    "pat": "pat",
+})
+
+# NOT added, found by the same run, explicitly rejected after reading the
+# actual verses (kept for the record, same "log a retraction, don't
+# silently drop it" discipline as everywhere else in this file):
+#   'hesab'  (count/calculate) -> automated top pick 'tal', Dice 0.265,
+#       cooccur 18 -- but 'tal' turned out to be the NOUN "mtalo" (count/
+#       record), not a verb root at all: decompose_kitaita_verb() matched
+#       its "m-" as a subject-marker prefix (a real, separate contamination
+#       risk this run exposed -- the SAME SM-prefix list doesn't distinguish
+#       "this word is a noun" from "this word is a verb"). The genuine
+#       correspondence appears to be sense-dependent (isabu/mtalo, both
+#       nouns) -- not resolved to a single verb root.
+#   'agiz' (order/command) -> top pick 'laghir', Dice 0.176, cooccur 23 --
+#       read both short-verse examples directly, NEITHER shows 'laghir' at
+#       all. Likely contamination from 'ahid' (promise), which already,
+#       correctly, uses 'laghir' -- the two concepts co-occur often in
+#       covenant/legal passages without being the same word.
+#   'tegeme' (depend/rely on) -> top pick 'kusaghik', Dice 0.196, cooccur 5
+#       -- the 2 examples read directly give 2 DIFFERENT, inconsistent
+#       Kitaita renderings ("lindia"/guard, "saghi"), not a stable match.
+#   'shuhudi' (witness/testify) -> top pick 'shuhudi' (same string,
+#       Dice 0.272) did not actually appear in any of the 4 verses read;
+#       the REAL, highly consistent pattern in those same 4 verses is
+#       "shuhuda"(testimonies) <-> "memu", 4/4 clean -- but that is the
+#       NOUN sense (the content of what is witnessed), not this verb-root
+#       gap's VERB sense ("to testify/bear witness" as an act) -- not
+#       assumed to be the same without separate verification.
+#   'himiz' (urge/press) -> no example verses found at all this round
+#       (0 hits even before filtering) -- the automated candidate 'shashir'
+#       is UNCHECKED, not merely rejected; flagged as literally untested.
+# One promising lead, NOT added (single example, needs more before trusting
+# it even at this project's own "flag, don't guess" bar):
+#   'peleke' (send) -> 'dumi' (imperative "duma" <-> "duma", ACT.10.5,
+#       "peleka watu Yafa" -> "duma wandu Jopa") -- exactly 1 clean example
+#       found; the automated score (Dice 0.146, cooccur 6) suggests more
+#       support exists in longer verses this pass's short-verse filter
+#       skipped, worth a second look, not relied on yet.
+
+# 2026-10-20 (cont. 4): verb root from the SAME run as the noun pass above
+# (VERIFIED_NOUN_TRANSLATIONS['kusikia']) -- same underlying root, kept in
+# the verb table too since finite forms ("anasikia"/"alisikia") go through
+# a completely separate lookup than the noun one.
+VERIFIED_ROOTS.update({
+    "siki": "sikir",  # hear -- confirmed via the recurring "kusikia habari" (hear
+                        # news) collocation, 3/3 clean (see the matching noun entry
+                        # above for the citations).
+})
+
+# 2026-10-20: "kupa" (to give) -- direct user request ("pea (to give)
+# verb ... Kila kikundi kitapewa pesa nyingi"). Root "p" (Swahili
+# monosyllabic irregular verb) read directly in all LITERAL-giving
+# verses found (not the idiomatic "give honor/glory/justice" sense,
+# which this Bible consistently renders with a DIFFERENT, sense-
+# specific verb instead -- "kumpa Kaisari kodi"->"kumfunyira" (render/
+# pay), "kumpa Mungu utukufu"->"kumkasa" (glorify), "kupewa haki"->
+# "kuwoneka"/"kupata wubaa" (be shown/grant justice) -- same "idiom
+# dissolves, not a counterexample" pattern as VERIFIED_IDIOMS elsewhere
+# in this file, just not yet promoted to that table since no single
+# fixed object/periphrasis is obviously shared across all of them):
+#   LUK.22.5 "kumpa fedha"(give him money) -> "kumneka feza"
+#   REV.2.28 "nitampa ile nyota"(I will give him that star) -> "nicha-
+#     mneka ija nyerinyeri"
+#   JHN.4.7 "Nipe maji"(give me water) -> "Nineke machi"
+#   MAT.5.42 "mpe"(give him!) -> "mneke"
+#   LUK.6.30 "Mpe kila akuombaye"(give everyone who asks you) -> "Uo ose
+#     ukulombagha kilambo chingi kumneke"
+#   PRO.31.31 "Mpe mapato"(give him the profits -- object paraphrased as
+#     "ishima"/honor, but the VERB itself still matches) -> "Mneke ishima"
+# 6 independent verses, zero counterexamples for the literal sense.
+VERIFIED_ROOTS.update({
+    "p": "nek",
+})
+# "pew" (fused root+passive "-ew-", decompose_verb() never separates
+# passive morphology -- see its own docstring) is kept as its OWN entry
+# rather than assumed to regularly derive from "p"+passive: the only 2
+# corpus examples of "kupewa" itself (ISA.43.26, LUK.23.52) were BOTH
+# idiomatic ("be shown justice", "asked to be given" via "kuomba", not
+# a literal passive at all), so "nekwa" is NOT directly verse-confirmed
+# the way "p"->"nek" is -- it is the PRODUCTIVE Bantu passive suffix
+# "-w-" applied to the confirmed active root as a single best-effort
+# guess, same confidence tier as this file's "single corpus-mined data
+# point, generalized" adjective entries, explicitly weaker than "p"
+# itself. (The existing root_kitaita_fallback statistical table
+# independently proposed the SAME "nekwa" at Dice 0.18/weak before this
+# was added, which is modest independent support, not confirmation.)
+VERIFIED_ROOTS.update({
+    "pew": "nekw",
+})
+
+# 2026-10-20: "piga" (to hit/strike), direct user request ("piga -> kaba,
+# verify with reverse inference"). Read every short akapiga/wakapiga/
+# alipiga/mpige/piga-piga verse found. "piga" is extremely idiomatic in
+# Swahili (piga vita=wage war, piga mishale=shoot arrows, piga kelele=
+# shout, piga magoti=kneel, piga kambi=pitch camp, piga mbio=run, piga
+# moyo konde=take courage) -- EVERY one of those dissolves into a
+# DIFFERENT, sense-specific Kitaita verb (bonya+wuda, fumya, kema/ghora
+# kwa lwaka, dunga ngokoro, bonya kambi, ghenda na iseghe, kaia na
+# ngolo respectively), same "idiom dissolves, not a counterexample"
+# pattern as VERIFIED_IDIOMS elsewhere. The user's "kaba" IS confirmed,
+# but only for the LITERAL sense (physically strike/hit something/
+# someone), 4 independent verses, zero counterexamples within that
+# sense: MRK.15.19 "Wakampiga mwanzi wa kichwa"(struck him on the head
+# with a reed)->"Wikamkaba na mrangi chongonyi kwake", 2SA.22.14 "alipiga
+# radi"(struck/sent lightning)->"orekabieghe lukuwa", MAT.27.30
+# "wakampiga-piga kichwani"(struck him repeatedly on the head)->
+# "kumkaba...chongonyi", PSA.18.38 "Nitawapiga-piga"(I will strike them
+# down)->"Nerewikabieghe".
+VERIFIED_ROOTS.update({
+    "pig": "kab",
+})
+
+# 2026-10-20: "lia" (to cry/weep), direct user request ("lia -> lila,
+# verify with reverse inference"). LUK.22.62 "akalia kwa majonzi"(he
+# wept bitterly)->"ukalila nandighi" -- 1 direct verb-form confirmation,
+# but independently corroborated by this project's OWN existing "kulila"
+# (the infinitive used nominally, "the act of crying" -- see
+# DEVERBAL_SM_HYPOTHESIS/VERIFIED_SUBJECT_MARKERS above) already using
+# the SAME "lil" stem in a totally different grammatical construction --
+# 2 independent sources, not just 1 verse. JHN.11.35 "Akalia machozi"
+# (lit. "wept tears", an intensified/specific phrasing, "Jesus wept")->
+# "ukadikwa ni mbori" uses a DIFFERENT verb+construction ("was overcome
+# by tears"), consistent with "akalia machozi" being its own idiom
+# distinct from plain "akalia", same "idiom dissolves" pattern as
+# "piga" above -- not treated as a counterexample to "lia"->"lil".
+VERIFIED_ROOTS.update({
+    "li": "lil",
+})
+
+# 2026-10-20: "ambia" (to tell, root "ambi") -> Kitaita "ghore". Found
+# while investigating the PASSIVE-extension correspondence (see the
+# "verb EXTENSIONS" section below): "akaambiwa"(was told) -> "ukaghorelwa"
+# in all 5 short verses read (GEN.31.22, 1SA.19.19, 1SA.27.4, 2SA.19.1,
+# 2SA.21.11), zero exceptions -- the PASSIVE form is directly confirmed,
+# the ACTIVE base "ghore" is inferred from it (passive = base + "-lwa"),
+# not independently verse-confirmed on its own.
+VERIFIED_ROOTS.update({
+    "ambi": "ghore",
+})
+
+# 2026-10-20: "penda" (to love, root "pend") -> Kitaita "kund". Also
+# found while investigating the passive-extension correspondence:
+# "mpendwa"(the-beloved-one, class-1 m- + PASSIVE) -> "Mkundwa" (m- +
+# kund + wa) in all 6 short verses read (SNG.1.13, 1.14, 1.16, 2.8,
+# 2.10, 3.1), zero exceptions -- same shape as "ambi"->"ghore" above,
+# the ACTIVE base is inferred from the passive, not independently
+# verse-confirmed alone. Bonus, not separately added: "mpenzi"
+# (darling/lover, the "-zi" AGENTIVE nominalization of the SAME root,
+# a DIFFERENT derivation than the "-wa" passive participle) ALSO maps
+# to "Mkundwa" in all 10 short verses checked (PSA.22.20, PSA.88.18,
+# SNG.1.9, 2.2, 2.10, 4.7) -- Kitaita apparently does NOT distinguish
+# these two Swahili nominalizations, both just render as "the one who
+# is loved" -- a reminder (same as the stative note above) that not
+# every Swahili morphological distinction has its own separate Kitaita
+# form.
+VERIFIED_ROOTS.update({
+    "pend": "kund",
+})
+
+# ----------------------------------------------------------------- Word Bank negation-tab predicates (one per noun class, NOT "kunda")
+# 2026-10-21, direct user report: native speakers struggle with the
+# PERSONIFICATION of using "kunda" (love) as the demo verb for EVERY
+# Word Bank negation_class row, including inanimate nouns ("the cup
+# loves" is exactly the kind of sentence that distracts a speaker from
+# the real grammatical question being asked). Replaced with a
+# DIFFERENT, semantically-natural, non-personifying verb per noun --
+# each checked directly against the full-Bible corpus (SUV/NEN/BHN)
+# before adding, same discipline as every other entry in this file.
+# Confidence varies a lot by entry (noted individually) -- this is a
+# first pass for a Word Bank ELICITATION tab, not a claim that any of
+# these are native-speaker-verified; the whole point of the tab is to
+# let a speaker correct them.
+#
+# "chomoza" (rise, of sun/moon/stars) -> root "buk". 4 independent
+# verses, including a NEGATED one (confirms the SAME root under "si-"
+# too, not just a coincidence of one construction): PSA.104.22 "Jua
+# huchomoza"/"lachomoza" -> "Iruwa jikabuka" (3 versions, identical);
+# JOB.9.7 "halichomozi" -> "jisebuke" (root "buk" negated). A SEPARATE,
+# less-attested root "jok" also appears in 2 verses (GEN.19.23,
+# MAT.13.6, both "limechomoza" -> "jajoka") -- NOT used here, kept as a
+# flagged alternate; "buk" has more independent support and matches the
+# tense (present/habitual) this row actually needs.
+VERIFIED_ROOTS.update({"chomoz": "buk"})
+# "ongezeka" (increase/multiply) -> root "churik". Extremely clean, 6+
+# independent verses, zero exceptions, across all 3 versions: GEN.9.1/
+# 9.7 "mkaongezeke" -> "mchurikie" (imperative), EXO.23.30
+# "utakapoongezeka" -> "mwachurikia", PSA.107.38 "wakaongezeka" ->
+# "wichurikie". Used here for "shamba"/farm (a farm's produce
+# increasing) -- a real semantic stretch from "people multiplying" but
+# not personifying, and far better-evidenced than the only literal
+# "zaa"(yield)-specific match found (LUK.12.16, n=1, weak: "limezaa
+# sana" -> "erevaeghe loli-loli", root "va" -- NOT used, too thin).
+VERIFIED_ROOTS.update({"ongezek": "churik"})
+# "pita" (pass, of time) -> root "si". 2 independent verses: GEN.41.53
+# "miaka...ikapita" -> "miaka...ikasia"; SNG.2.11 "kaskazi imepita" ->
+# "Kwari yasia". Used for "siku"/day passing.
+VERIFIED_ROOTS.update({"pit": "si"})
+# "kufa" (die) -> root "fw". Very clean: EXO.7.18/7.21 "watakufa"/
+# "wakafa" (of fish in the Nile) -> "richafwa"/"rikafwa", identical
+# across all 3 versions, directly about SAMAKI (fish) -- the single
+# best-evidenced and most on-topic entry in this whole batch.
+VERIFIED_ROOTS.update({"kuf": "fw"})
+# "vunjika" (break, of a vessel/fragile object) -> root "barik". Only
+# ONE verse gives a literal VESSEL breaking (not a body part/weapon,
+# which this project already knows are often separate idioms --
+# PSA.37.15/37.17 "nyuta zao zitavunjika"/"itavunjika" give a DIFFERENT
+# root, "chikany"/unclear, not used here): PSA.31.12 "chombo
+# kilichovunjika" (a broken VESSEL, directly on-topic for "kikombe"/cup
+# and, by the same physical-fragility logic, "mayai"/eggs) -> "chombo
+# chibarikie". n=1 -- flagged as the weakest-evidenced entry in this
+# batch, kept because it is directly on-topic and the alternative was
+# no data at all.
+VERIFIED_ROOTS.update({"vunjik": "barik"})
+# "chosha" (tire/exhaust) -> root "sirish". ECC.10.15 "huwachosha" ->
+# "radamsirisha ndighi" (lit. "takes-their strength"), identical across
+# SUV/NEN (same underlying verse, so really ONE independent data point,
+# not two) -- the weakest-evidenced entry in this batch, used for
+# "kukimbia"/running (running tires you) since no better-attested
+# alternative was found.
+VERIFIED_ROOTS.update({"chosh": "sirish"})
+# "tosha" (suffice/be enough) -> root "kat". EXO.36.7 "vilitosha" (of
+# building MATERIALS being enough) -> "vakata" -- directly reusable for
+# "chakula"/food (food being enough), SAME Kitaita class ('va') as the
+# attested example, so the exact surface form transfers unchanged. n=1.
+VERIFIED_ROOTS.update({"tosh": "kat"})
+
+# "upendo...utafifia" (love growing cold/fading) -> MAT.24.12, the ONE
+# verse found: "lukundo lwa wengi luchahora modo" = root "hor" + the
+# FIXED word "modo" (cold) -- a periphrasis, same shape as VERIFIED_
+# IDIOMS' other entries (root + an obligatory extra word); the actual
+# entry is added to VERIFIED_IDIOMS further below (that dict doesn't
+# exist yet at this point in the file). Used for "upendo"/love
+# specifically (not a general "poa"/"fifia" rule -- n=1, directly
+# on-topic only).
+
+# 2026-10-21: "angusha" (cause to fall/drop) -- direct user correction,
+# ONE specific sense only: "alipoangusha kikombe" (when he dropped the
+# cup, a HELD OBJECT) -> Kitaita root "to" ("...wendapotoa kikombe").
+# NOT a general override for every "angusha" occurrence -- checked
+# directly against the corpus before adding this (full-Bible SUV/NEN/
+# BHN): the corpus's own "angusha" examples are near-uniformly a
+# DIFFERENT concrete sense, toppling a STRUCTURE/CITY or casting a
+# PERSON down (GEN.19.25 "Akaangusha miji hiyo" -> "ukaighusha mizi
+# yose", root "ighush"; EXO.15.7/PSA.35.5/PSA.44.5/PSA.89.44 all use yet
+# other idioms -- "kumba...noko", "winga...noko", "kab"+"ghwa", "ng'arisha"
+# -- for "cast down" in a defeat/humiliation sense), never the "drop a
+# held object" sense this correction is for. Same "idiom dissolves by
+# concrete sense" pattern already on file for "piga"/"kasirisha" (see
+# VERIFIED_IDIOMS below) -- this entry covers ONLY the held-object sense;
+# treating it as a blanket "angusha"->"to" rule would be wrong for the
+# structure/person senses, which keep their own existing (or still-
+# unresolved) Kitaita verbs.
+VERIFIED_ROOTS.update({
+    "angush": "to",
+})
+
+# NOT added from the noun pass, explicitly rejected or left unresolved
+# after reading the verses (same "log it, don't silently drop it"
+# discipline as the verb-roots pass):
+#   'kilele'/'vilele' (peak/summit) -- 0 verses under 12 tokens contain it
+#       at all; the automated top candidate 'pisga' is almost certainly
+#       the place name "Pisgah" (kilele cha mlima Pisga, a real Biblical
+#       mountain), not a translation of "peak" -- a false positive the
+#       short-verse filter correctly avoided rather than one this session
+#       caught by reading a long verse.
+#   'pomboo' (dolphin) -- 0 short verses; automated top candidate
+#       ('wingire') unchecked, and the HIGHER-cooccurrence runner-up
+#       ('mrongo', meaning "tens"/a number) is clearly spurious -- dolphin/
+#       badger-skin offering lists in Exodus are long enumerations, likely
+#       coincidentally rich in number words.
+#   'kina' (depth), 'waokozi' (saviors) -- no example verse found at all
+#       (0 hits); flagged as untested, not rejected.
+# PARTIALLY resolved, NOT added as a noun translation (a genuine part-of-
+# speech mismatch, not a confident finding to force into this table):
+#   'ukame' (drought/dryness, abstract NOUN in Swahili) -- the one example
+#       found (EZK.19.13, "nchi kavu, ya ukame" / dry land, OF drought) ->
+#       "isanga jiomie jisena machi" (land THAT-IS-DRY, without water) --
+#       "jiomie" there is a STATIVE/ADJECTIVAL description of the land, not
+#       a free-standing abstract noun Kitaita speakers would use the way
+#       Swahili uses "ukame" as a subject/object in its own right. Possibly
+#       a genuine typological difference (Kitaita may simply lack this
+#       abstraction and use a relative clause instead), not resolved to a
+#       drop-in noun -- adding "jiomie" to VERIFIED_NOUN_TRANSLATIONS would
+#       risk translate() inserting an adjective wherever this noun is
+#       expected. Flagged for a speaker, not guessed into the table.
+
+# 2026-10-20 (cont.): 2 of the original 3 reverse-inference candidates are
+# explicitly NOT added above, after closer re-reading of the SAME verses --
+# a RETRACTION of this session's own first-pass read, same discipline as
+# every other correction in this file (never silently drop a wrong claim):
+#
+# "tawal" (rule) -- NOT a single Kitaita root. 3 independent verses (EXO.
+# 15.18, PSA.22.28, PSA.106.41) consistently render it as the Kitaita VERB
+# PHRASE "bonya nguma" (lit. "do/exercise power" -- root 'fany'/'bony' above
+# + the separate noun 'nguma', NOT fused into one word), including
+# correctly re-inflected for voice (PSA.106.41 Swahili "wakawatawala"
+# active -> Kitaita "wikabonyerwa nguma" passive, matching the Swahili
+# passive context exactly). This project's `translate()` architecture had
+# no slot for "root + an obligatory extra word" at the time -- adding
+# "tawal"->"bonyanguma" as a literal VERIFIED_ROOTS string would have
+# silently produced a wrong inflection point (the final vowel belongs
+# after 'bony', not after 'nguma'). RESOLVED 2026-10-20 (cont. 5): see
+# VERIFIED_IDIOMS below -- a real periphrastic-construction mechanism was
+# added, and "tawala" turns out to be a genuine COMPOSITIONAL paraphrase,
+# not an opaque idiom: "tawala" = "fanya mamlaka" (do authority), and BOTH
+# halves are independently, strongly confirmed elsewhere in this very file
+# ('fany'->'bony' above; 'mamlaka'->'nguma', VERIFIED_NOUN_TRANSLATIONS
+# above, 40+ clean matches) -- the 3-verse "bonya nguma" finding wasn't a
+# coincidence, it's what that compositional paraphrase predicts exactly.
+#
+# "kusudi" (intend/purpose) -- RETRACTED. The first-pass read (docs/
+# status.md, "narrowed to njama or mipango") does not survive a closer
+# re-read of the same 4 verses: in every one, "kusudi"/"makusudi" is
+# dissolved into a restructured clause ALONGSIDE "njama"/"mipango", not
+# individually equivalent to either -- e.g. PRO.16.30 "kusudi lake ni
+# kuwaza yaliyopotoka" (his PURPOSE is to PLAN perverse things, 2 separate
+# Swahili concepts) collapses to "wadabonya mipango elaghasha" (lit. "does
+# crooked plans", 1 Kitaita clause) -- the Swahili source's OWN purpose/
+# plan distinction isn't preserved, so there is no single Kitaita word
+# this evidence can pin "kusudi" to. Same idiomatic-dissolution pattern as
+# "tawal" above, not a 2-candidate narrowing as first reported.
+
+# ----------------------------------------------------------------- periphrastic verb roots (VERB + a FIXED object noun)
+# 2026-10-20 (cont. 5). Direct user request: before falling back to
+# kitaita_sentence_generator.translate()'s "Taita-fy" tier (keep the
+# Swahili root, Kitaita-inflect around it -- 2026-10-19) for a root with
+# NO single-word Kitaita answer, first check whether it's actually a
+# CONFIRMED [do/make-type root] + [fixed object noun] periphrasis, like
+# "tawala" (rule) = root 'bony' (do/make, VERIFIED_ROOTS['fany']) + fixed
+# object 'nguma' (authority, VERIFIED_NOUN_TRANSLATIONS['mamlaka']) --
+# i.e. "tawala" really does decompose as "fanya mamlaka" (do authority),
+# a genuine Swahili paraphrase, not a made-up gloss; see the 'tawal'
+# comment above for the full verse citations and the compositional cross-
+# check. Each entry is {"root": Kitaita verb root, "object": the fixed
+# Kitaita noun that always follows it, unchanged, never re-inflected,
+# "note": why}. Consulted by translate() as a tier BELOW VERIFIED_ROOTS/
+# root-level Dice/derived (those, when they exist, are a real single-word
+# answer, strictly better evidence) but ABOVE both the noisy per-surface-
+# form statistical fallback AND the Taita-fy tier -- a confirmed phrase
+# beats an unconfirmed single-word guess either way it could go wrong.
+# Scope note: only matches the PLAIN root string ('tawal', from kutawala/
+# anatawala/atatawala etc.) -- the applicative ('tawalia') and passive
+# ('tawaliwa') extensions decompose to a DIFFERENT root string entirely in
+# this project's simple one-final-vowel model (e.g. 'tawaliw', not
+# 'tawal') and are NOT covered by this entry; flagged as a known gap, not
+# silently assumed to also work.
+VERIFIED_IDIOMS = {
+    "tawal": {"root": "bony", "object": "nguma",
+              "note": "rule = do(fany/bony) + authority(mamlaka/nguma); confirmed compositionally, "
+                      "not just as a fixed phrase -- see the 'tawal' comment above"},
+    # 2026-10-21: "kasirisha" (to anger/make angry, root "kasirish") --
+    # direct user correction, RESOLVED after an initial misreading this
+    # session (see below). Real correspondence, confirmed by the user
+    # reverse-translating their own target sentence word-by-word:
+    # "Mtoto alimkasirisha mzazi" ~ "Mtoto alipandisha mzazi hasira"
+    # (lit. "the child raised the parent's anger") -> "Mwana odejosha
+    # muvi machu" -- i.e. root "josh" (raise/cause) + the PARENT noun
+    # (object 1, "mzazi"->"muvi", see VERIFIED_NOUN_TRANSLATIONS below)
+    # + the FIXED anger-object "machu" (object 2). The idiom's own fixed
+    # object is "machu", NOT "muvi" -- "muvi" is just mzazi's ordinary
+    # noun translation, substituted in before the idiom's fixed object
+    # the same way any other noun would be.
+    #
+    # Earlier pass this session (now corrected) had these swapped --
+    # "mzazi"->"machu", idiom object "muvi" -- because the two
+    # correspondences were given in a way that read as "kasirisha ->
+    # odejosha muvi" / "mzazi -> machu" taken independently. That
+    # version directly CONTRADICTED the corpus (machu is robustly,
+    # exclusively "anger" there, 150+ occurrences; "wazazi"/parents is
+    # consistently "wavi", never "machu") and was flagged rather than
+    # applied. This corrected version instead MATCHES the corpus
+    # exactly: "ukajokwa ni machu" (lit. "was angered BY anger" = became
+    # angry, PASSIVE of a root alternating "jok"/"jos" -- e.g.
+    # "Weremjosereghe BWANA machu" = "they angered BWANA [with] anger",
+    # SUV/NEN/BHN, 30-65 occurrences of "kasirisha"/"kasirika" each,
+    # zero exceptions) -- "jos" there is the SAME root as this entry's
+    # "josh", just the ACTIVE-causative vs. the user's PASSIVE example;
+    # no register conflict after all, one unified finding. "muvi" (the
+    # parent/"mzazi" noun) is NOT otherwise attested in this project's
+    # data outside this correction -- flagged, not independently
+    # corroborated, but no longer contradicted either.
+    "kasirish": {"root": "josh", "object": "machu",
+                 "note": "anger (cause) = raise(josh) + [noun] + anger(machu); direct user correction, "
+                         "2026-10-21, matches the corpus's own independent 'jos'+'machu' finding"},
+    # 2026-10-21: Word Bank negation-tab predicate for "upendo"/love -- see
+    # the "chomoz"/"ongezek"/etc. block above (VERIFIED_ROOTS) for the full
+    # citation (MAT.24.12, n=1). Keyed by "fifi" -- decompose_verb()'s
+    # root_guess for the Swahili verb "fifia" (fade/grow dim/cold), NOT by
+    # the Kitaita root "hor" itself (VERIFIED_IDIOMS is always keyed by
+    # the SWAHILI root string, same convention as "kasirish"/"tawal" above).
+    "fifi": {"root": "hor", "object": "modo",
+             "note": "love grows cold = fade(hor) + cold(modo); corpus-inferred, 2026-10-21, n=1 "
+                     "(MAT.24.12), Word Bank predicate for 'upendo' only"},
+}
+
+# 2026-10-22: "kasirika" (get angry, INTRANSITIVE) -- direct user report
+# ("kukasirika I see we are only using udejokwa instead of the full
+# phrase"). decompose_verb() strips this to root "kasirik", which had no
+# VERIFIED_ROOTS/VERIFIED_IDIOMS entry at all, so it fell to a WEAK
+# statistical candidate ("jokwa", Dice 0.17, flagged UNRELIABLE) that
+# happened to accidentally match the real root but with no indication
+# this verb is a PASSIVE+fixed-agent idiom, same shape as 'furahi'
+# (VERIFIED_ROOTS['furahi']) -- the object/agent phrase was simply never
+# attached. Reverse-inference search of the full parallel Bible corpus
+# for "alikasirika"/"kukasirika": n=8 clean verses (2SA.13.21, DAN.6.14,
+# LUK.13.14, ECC.7.9, JON.4.4, JON.4.9, 2CO.7.11, JAS.1.19), zero
+# exceptions -- "alikasirika sana" -> "ukajokwa ni machu loli-loli"
+# (2SA.13.21), "kukasirika" -> "kujokwa ni machu" (ECC.7.9 etc.). This is
+# the PASSIVE counterpart of the causative "kasirisha"/"kasirish" entry
+# just above (root alternation "jok"[passive]/"jos"[causative-active],
+# same "machu" fixed anger-object both times) -- one unified finding,
+# not two unrelated ones. Stored as the BASE (pre-passive) root "jok"
+# here, same convention as VERIFIED_ROOTS['furahi']='boi' -- translate()
+# applies kitaita_passive_form('jok') = 'jokw' (consonant-final rule) and
+# appends the FIXED "ni machu" phrase via `idiom_object` (this verb is
+# intransitive in Swahili too -- no real object ever competes for that
+# slot), not VERIFIED_IDIOMS (which has no present-tense-override hook;
+# see translate()'s own 'kasirik' branch for the thin-but-consistent,
+# n=2, present-tense '-da-' evidence: "nadajokwa"/"wadajokwa").
+VERIFIED_ROOTS["kasirik"] = "jok"
+
+# ----------------------------------------------------------------- verb EXTENSIONS (passive/stative/causative/etc)
+# 2026-10-20, direct user request: "get the various verb forms ... so we
+# don't have to duplicate effort for every single [root]. See how the
+# different endings map between Swahili and Taita" -- i.e. a GENERAL,
+# reusable Swahili-extension -> Kitaita-extension correspondence, so a
+# single VERIFIED_ROOTS entry's PASSIVE/STATIVE/etc. forms don't each
+# need their own independent reverse-inference pass.
+#
+# Checked DIRECTLY against the corpus for 3 extensions, with genuinely
+# different outcomes -- NOT assumed to generalize uniformly:
+#
+# PASSIVE ("-wa"/"-ewa" after SWAHILI root, "-w-"/"-iw-" allomorphy) --
+# CONFIRMED, GENERALIZES, wired into translate() below as an automatic
+# rule (see swahili_passive_base_candidates()/kitaita_passive_form()):
+#   - "penda"(love, root "pend") -> Kitaita "kund"; PASSIVE "mpendwa"
+#     (the-one-who-is-loved) -> "Mkundwa" (kund+wa), 6 independent
+#     verses (SNG.1.13/1.14/1.16/2.8/2.10, 3.1), zero exceptions.
+#   - "ambia"(tell, root "ambi") -> Kitaita "ghore" (NEW, added below);
+#     PASSIVE "akaambiwa"(was told) -> "ukaghorelwa" (ghore+lwa, "-lw-"
+#     allomorph since "ghore" itself ends in a vowel -- mirrors
+#     Swahili's OWN consonant/vowel-conditioned "-wa"/"-liwa" split,
+#     just with Kitaita's own "l" as the epenthetic consonant instead of
+#     Swahili's "i"), 5 independent verses (GEN.31.22, 1SA.19.19,
+#     1SA.27.4, 2SA.19.1, 2SA.21.11), zero exceptions.
+#   - "p"->"nek" (give, see VERIFIED_ROOTS above) is a 3rd, WEAKER data
+#     point in the same direction (root_kitaita_fallback independently
+#     proposed "nekwa" at Dice 0.18 before this rule existed).
+#   Rule: the KITAITA base root's OWN final sound decides the allomorph
+#   (consonant-final -> "-w-", vowel-final -> "-lw-"), NOT the Swahili
+#   root's shape -- "ambi" (Swahili, vowel-final) still gets Kitaita
+#   "ghore" (also vowel-final, coincidentally) -> "-lw-", but this is
+#   KITAITA's own root deciding, not inherited from Swahili.
+#
+# STATIVE/NEUTER ("-eka"/"-ekana") -- ONE confirmed data point, NOT
+# wired into an automatic rule (too little data to trust an automatic
+# rule yet, unlike passive above) -- kept here as a recorded finding for
+# a future round, not silently assumed:
+#   - "ona"(see, root "on") -> Kitaita "won"; STATIVE "onekana"/
+#     "ilionekana"(appear/become visible) -> "woneka" (won+eka) in
+#     REV.12.1, 1SA.10.16, REV.18.24 (3 verses) -- Swahili's compound
+#     "-ekan-" (stative+extra) corresponds to Kitaita's SIMPLE "-eka"
+#     (the "-an-" portion has NO separate Kitaita exponent here, it
+#     just doesn't carry over) -- a reminder that NOT every Swahili
+#     morphological distinction gets its own Kitaita form.
+#
+# CAUSATIVE ("-isha"/"-esha") -- CHECKED, DOES NOT GENERALIZE, explicitly
+# NOT wired into any automatic rule:
+#   - "ona"(see, root "on"->"won") -> CAUSATIVE "onyesha"(show) does NOT
+#     map to any "won"-derived form at all -- LUK.4.5 "akamwonyesha"->
+#     "ukammbonyera" (applicative of "bonya"=do/make, an idiom "do FOR"),
+#     JOB.10.2 "Nionyeshe"->"nighorie" (imperative of "ghor"=tell/say,
+#     see passive section above) -- TWO DIFFERENT verbs, NEITHER
+#     derived from "won", for the SAME Swahili causative. Same "idiom
+#     dissolves, root+affix does NOT regularly compose" pattern already
+#     seen for "piga"/"sema" -- common/basic verbs' causatives are
+#     independently lexicalized here, not transparent affixation.
+#
+# RECIPROCAL ("-ana") and APPLICATIVE ("-ia"/"-ea") alone (not fused
+# with another extension) -- NOT YET CHECKED this round (every short-
+# verse candidate tried, e.g. "pendana"/"ambiana"/"fuatana", had 0-1
+# corpus occurrences, too little to read) -- flagged as untested, not
+# assumed either way.
+
+VOWELS = "aeiou"
+
+
+def swahili_passive_base_candidates(root_guess: str) -> list[str]:
+    """Candidate BASE (pre-passive) Swahili roots for a root_guess that
+    might end in a passive marker -- enumerated, not blindly stripped
+    (same discipline as find_object_marker_candidates), since Swahili's
+    passive allomorph depends on the base root's own shape: most roots
+    just add "-w-" (pend -> pendw), but MONOSYLLABIC roots (p, j, l, ...)
+    need an epenthetic vowel first, "-ew-"/"-iw-" (p -> pew, not "pw") --
+    a well-known, independent Swahili morphophonological rule, not
+    something specific to this project. Tries the plain "-w-" strip
+    first (shorter, far more common), then the monosyllabic "-ew-"/
+    "-iw-" strip. Returns [] if root_guess doesn't end in "w" at all."""
+    if not root_guess.endswith("w"):
+        return []
+    candidates = []
+    if len(root_guess) > 2:
+        candidates.append(root_guess[:-1])
+    if len(root_guess) > 3 and root_guess[-3:-1] in ("ew", "iw"):
+        candidates.append(root_guess[:-3])
+    return candidates
+
+
+def kitaita_passive_form(kitaita_base_root: str) -> str:
+    """The Kitaita PASSIVE infix for an already-resolved Kitaita base
+    root (see this section's own comment for the evidence): "-w-" if
+    the root ends in a consonant (kund -> kundw, nek -> nekw), "-lw-" if
+    it ends in a vowel (ghore -> ghorelw) -- mirrors Swahili's OWN
+    consonant/vowel-conditioned passive split, just with Kitaita's own
+    "l" as the epenthetic consonant. The caller appends the verb's
+    ORIGINAL final vowel afterward, same as any other root (this
+    returns the CONSONANTAL part only, not a complete word)."""
+    if kitaita_base_root and kitaita_base_root[-1] in VOWELS:
+        return f"{kitaita_base_root}lw"
+    return f"{kitaita_base_root}w"
 
 # "kuwa" (be) splits by whether a predicate complement (adjective)
 # follows -- a real distinction Swahili's own "kuwa" does not mark but
@@ -159,6 +790,388 @@ VERIFIED_NOUN_TRANSLATIONS.update({
     "nyani": "fuwe", "sungura": "kwaru", "ushirikiano": "mapatano", "uzi": "uzi",
 })
 
+# 2026-10-20 (cont. 4): same full-corpus reverse-inference run as the verb-
+# roots pass above, now on the Word Bank's NOUN gap list (whole-word Dice
+# alignment -- no Kitaita noun-root stripper exists, same convention the
+# statistical noun_kitaita table itself already uses). FIRST finding,
+# before any new alignment: 58 of 136 listed noun gaps were ALREADY
+# resolved (VERIFIED_NOUN_TRANSLATIONS or the statistical noun_kitaita
+# table), e.g. "mtoto"->"mwana" -- a bigger staleness gap than the verb-
+# root list had (43% vs 12%), never cleaned up at all for nouns. Of the
+# 78 genuinely-unresolved gaps, 54 do not appear in this corpus even once
+# -- cannot be resolved by this method at all, regardless of effort.
+# Of the 24 that DO appear, same "read the verses before trusting the
+# score" discipline as the verb-root pass -- 5 survived (not the ~1-in-4
+# rate from verbs; nouns' reference/loanword nature made several of these
+# easier to confirm):
+VERIFIED_NOUN_TRANSLATIONS.update({
+    "habari": "malagho",   # news/report -- confirmed 3/4 direct short-verse matches
+                             # (PSA.18.44, PSA.22.30, PSA.68.11 "habari"<->"malagho";
+                             # GEN.37.5 restructured differently, not contradicting).
+    "kipande": "kibelele",  # piece -- confirmed via LUK.24.42 "kipande cha samaki"
+                             # ->"kibelele cha samaki"; reinforced by "kibelele"/
+                             # "vibelele" independently meaning "piece/unit" elsewhere
+                             # in the corpus (LEV.27.4, shekel units). The other 2
+                             # short verses read used a different, non-contradicting
+                             # construction (a diminutive "ka-mkate", and "madumbu").
+    "vyakula": "vindo",     # foods (plural of "chakula", already known -> "vindo") --
+                             # confirmed directly as its OWN key too (3/4 clean:
+                             # PSA.132.15, MAT.14.16, LUK.10.8) rather than assumed
+                             # from the singular; "vindo" is independently documented
+                             # elsewhere in this project as inherently plural-shaped,
+                             # so this is not a surprising number mismatch.
+    "kipimo": "kipimo",     # measure/measurement -- WEAKER evidence than the 3 above:
+                             # only 1 of 3 short verses read shows this directly
+                             # (JOB.28.25, "kwa kipimo"<->"kipimo chawo", same spelling
+                             # both sides -- plausible shared loanword, same tier as
+                             # this project's existing "ish"->"ish"/"uzi"->"uzi"
+                             # entries), the other 2 verses paraphrase the concept
+                             # differently ("kikombe"/cup; dropped entirely) rather
+                             # than contradicting it outright.
+    "kusikia": "kusikira",  # hearing (class-15 infinitive-as-noun, same category as
+                             # "kuchelewa"/"kupumzika" etc. above) -- confirmed via the
+                             # specific recurring collocation "kusikia habari" (hear
+                             # news) <-> "kusikira malagho"/"wiendasikira malagho",
+                             # 3/3 clean (PSA.18.44, 2SA.22.45, + the habari cross-
+                             # check above). See VERIFIED_ROOTS['siki'] below for the
+                             # matching FINITE-verb root (the same underlying root,
+                             # stored separately because this project's noun and verb
+                             # lookups are two separate tables, not because the root
+                             # differs).
+})
+
+# 2026-10-20 (cont. 5): direct user-prompted re-check -- "mamlaka" (authority/
+# power/dominion), found while verifying the "tawala" periphrasis (VERIFIED_
+# IDIOMS below). OVERWHELMING evidence, not a thin corpus match: 40+ distinct
+# clean matches across Daniel, Luke, Romans, Ephesians, Colossians, Revelation
+# -- "mwenye mamlaka"<->"uko na nguma"/"wibonyagha nguma", "mamlaka yangu/
+# yako/yake"<->"nguma yangu/yako/yake", "mamlaka yote"<->"nguma rose", near-
+# 1:1 throughout. NOTE: an earlier single-verse read (DAN.11.3) was
+# MISATTRIBUTED to a different word in that same sentence ("ndighi" there
+# actually glosses "hodari"/mighty, a SEPARATE Swahili word describing the
+# king, not "mamlaka") -- caught and corrected only once the FULL set of
+# matches was read, not from that one verse; kept as a reminder that even a
+# single plausible-looking match needs the broader check before trusting it.
+VERIFIED_NOUN_TRANSLATIONS.update({
+    "mamlaka": "nguma",
+})
+
+# 2026-10-21: "mzazi" (parent) -> "muvi" -- direct user correction, resolved
+# after an initial misreading this session (see VERIFIED_IDIOMS["kasirish"]'s
+# own comment for the full story: the user's worked example reverse-
+# translates as "Mtoto alipandisha mzazi hasira" = verb(josh) + mzazi(muvi)
+# + hasira/anger(machu), word-by-word). NOT independently corpus-checked
+# (no isolated singular "mzazi" exists anywhere in the full-Bible corpus to
+# check against -- every occurrence is fused with "mama" and collapses to
+# plain "mother"/"mao"/"mae"); the corpus's OWN plural "wazazi"->"wavi" is
+# at least CONSISTENT with "muvi" being the Kitaita 1/2-class singular
+# counterpart of "wavi" (wa-/m- class pairing), though that specific
+# singular-plural relationship is a plausible inference, not itself
+# directly attested.
+VERIFIED_NOUN_TRANSLATIONS.update({
+    "mzazi": "muvi",
+})
+
+# 2026-10-20: "maisha" (life) -- direct user request, reverse-inferred.
+# Checked ~30 short/medium SUV verses containing "maisha" directly:
+# "maisha" = Kitaita "irangi" in every single one, overwhelmingly (e.g.
+# PSA.23.6 "maisha yangu" -> "irangi japo", GEN.3.14 "maisha yako" ->
+# "irangi jako", JOS.1.5/1SA.7.15/1KI.4.21/1KI.11.34/1KI.15.5/1KI.15.6/
+# PRO.31.22 "maisha yake" -> "irangi jake", among 20+ more). Its Kitaita
+# class is registered below as "ji" (VERIFIED_SUBJECT_MARKERS["irangi"],
+# reusing "ituku"/day's already-registered class -- UNCONFIRMED whether
+# they're really the same class or this just happens to produce the
+# right surface form either way; see OTE_STEM's elision note). "jose"
+# ("-ote", all), "japo"/"jako"/"jake" ("-angu"/"-ako"/"-ake", see
+# POSS_PERSON_FORM_BY_CLASS below) all showed up repeatedly in those
+# exact verses, independently confirming SOME shared class, not just
+# the noun itself.
+VERIFIED_NOUN_TRANSLATIONS.update({
+    "maisha": "irangi",
+})
+
+# 2026-10-20: "asubuhi" (morning), direct user request, reverse-inferred.
+# Read all 16 short SUV verses containing it: "nakesho" in EVERY single
+# one, zero exceptions (GEN.1.13/1.19/1.23, GEN.19.27, GEN.40.6, GEN.44.3,
+# EXO.16.19, PSA.73.14, PSA.88.13, PSA.90.5/90.6, PSA.92.2, 1SA.17.16,
+# JOB.7.18, EZK.12.8, MAT.21.18) -- one of the cleanest findings in this
+# project's whole reverse-inference history. Used adverbially/temporally
+# throughout (never takes a class-concord prefix in any example found),
+# so no class registration is needed, unlike a regular noun. Bonus,
+# not requested but directly visible in the same verses: "jioni"
+# (evening) = "nakenyi" with equal consistency (GEN.1.13/1.19/1.23,
+# PSA.90.6, 1SA.17.16) -- NOT added here since it wasn't asked for, but
+# flagged for a future round.
+VERIFIED_NOUN_TRANSLATIONS.update({
+    "asubuhi": "nakesho",
+})
+
+# 2026-10-22: "jana" (yesterday), direct native-speaker correction --
+# "ighuo". Same adverbial/temporal shape as "asubuhi"/"nakesho" above
+# (not a class-concording noun), not yet corpus-cross-checked the way
+# asubuhi was (16 verses read directly) -- kept at the same trust tier
+# as every other direct correction in this file (n=1), not claimed to
+# be corpus-confirmed.
+VERIFIED_NOUN_TRANSLATIONS.update({
+    "jana": "ighuo",
+    # 2026-10-22: "leo" (today), direct native-speaker correction --
+    # "idime". Same adverbial/temporal shape as "asubuhi"/"jana" above.
+    "leo": "idime",
+    # 2026-10-22: RETRACTS the 2026-10-20 bonus note above ("jioni" ->
+    # "nakenyi", flagged but never added) -- direct native-speaker
+    # correction: the real Kitaita for "jioni" (evening) is the FULL,
+    # UNSEGMENTED PHRASE "luma lwa kenyi" ("luma" = time, lu-class --
+    # the same class as "lukundo"/love, note "lwa" is exactly this
+    # project's own already-VERIFIED lu-class associative particle,
+    # KITAITA_ASSOCIATIVE_VERIFIED['lu']='lwa' -- a nice independent
+    # cross-confirmation of that table, not newly introduced here; +
+    # "kenyi", the evening-specific stem). Native speakers confirm
+    # "kenyi" ALONE has little to no meaning -- it is NOT a synonym or
+    # a shortened form, so this must be stored and used as one fixed
+    # phrase, never decomposed or abbreviated to just "kenyi"/"luma".
+    # This also directly explains why the "Ambiguous translations" Word
+    # Bank round's 2 competing flat candidates ("kenyi" Dice 0.468,
+    # "luma" Dice 0.384) were BOTH wrong on their own -- the statistical
+    # table has no way to represent "the answer is a fixed 2-word
+    # phrase, not a single word" at all, a DIFFERENT failure shape than
+    # the singular/plural or sense-distinct cases found in that same
+    # round (matoleo/majira/mkwe etc.).
+    "jioni": "luma lwa kenyi",
+    # 2026-10-22: "wimbo" (song, singular) -> "lumbo", direct native-
+    # speaker correction -- same class as "lukundo" (love), 'lu'. And
+    # "nyimbo" (songs, plural) -> "chumbo", class 'ri' -- NOT the same
+    # root pluralized the way matoleo/majira were earlier this session;
+    # a genuinely different Kitaita word for the plural, same shape as
+    # ituku/matuku (different root AND different class, singular vs
+    # plural, not just a prefix change). See VERIFIED_SUBJECT_MARKERS
+    # below for both classes.
+    "wimbo": "lumbo",
+    "nyimbo": "chumbo",
+})
+
+# 2026-10-20: "siku" (day) is Swahili number-invariant (no plural
+# marking), but Kitaita uses a DIFFERENT WORD for plural, not just a
+# different subject marker on the same root (unlike NUMBER_INVARIANT_
+# NOUNS, which is exactly that different, simpler case): singular
+# "ituku" (already on file, e.g. JOS.4.14 "Siku ile" -> "Ituku ijo"),
+# plural "matuku". Direct user report: translating "siku" with "ituku"
+# unconditionally is wrong whenever the context is plural. Scoped fix
+# (see lookup_noun_kitaita's plural_context param in kitaita_e2e_
+# pipeline.py) covers only the ONE heavily-confirmed trigger directly
+# read in the corpus: "siku zote" -- NEVER "ituku zote", ALWAYS "matuku
+# ghose" (20+ verses: GEN.3.14, GEN.3.17, PSA.23.6, PSA.27.4, PSA.128.5,
+# DEU.4.9, DEU.16.3, JOS.1.5, JOS.4.14, 1SA.1.11, 1SA.7.15, 1KI.4.21,
+# 1KI.11.34 ("irangi jake jose", a SEPARATE -ote on "irangi" itself, same
+# verse), 1KI.15.5, 1KI.15.6, 2KI.25.29, PRO.31.22, ECC.2.3, ECC.5.18,
+# ECC.6.12, ECC.8.15, ECC.9.9x2, ISA.38.20). Plural "siku" WITHOUT "zote"
+# (e.g. DEU.6.2's 2nd clause, "siku zako ziongezwe" -> "matuku ghako
+# ghikaie mengi") is a real, confirmed counterexample to "only 'zote'
+# triggers plural" as a FULLY general rule, but is NOT yet covered --
+# this fix is deliberately narrow (one directly-evidenced trigger), not a
+# claim of general number detection. "matuku"'s own class is registered
+# below as "ghi" (VERIFIED_SUBJECT_MARKERS["matuku"] -- reusing "maji"/
+# water's already-established ma-/liquid-noun class, matching the
+# associative particle actually observed, "matuku ghose GHA irangi" --
+# "gha" is "ghi"'s own tier-1-confirmed associative form, see
+# KITAITA_ASSOCIATIVE_VERIFIED). NOTE this is a DIFFERENT Kitaita class
+# than "irangi"'s "ji", even though both are Swahili class-6 "ma-" nouns
+# -- another instance of this project's repeated finding that Kitaita
+# class does not always track Swahili class.
+SIKU_PLURAL_TRIGGER = "matuku"
+
+# 2026-10-22: direct user report -- translating English "Pope" goes
+# EN->SW "Papa" (the Swahili title for the Pope) -> Kitaita lookup falls
+# through to the statistical noun_kitaita candidate for "papa", which is
+# this project's own 319-word lexicon's SEPARATE sense of "papa" (shark,
+# swahili_noun_lexicon_agreement_v2.py) -> "kukanye"/"kukanya" (Dice 0.33,
+# 3 competing partners, page1_vocabulary.json). Checked that candidate
+# directly: its one supporting verse (GEN.30.3, "kukanye nao") is Rachel
+# telling Jacob to "go in to"/lie with her maid Bilha -- an unrelated verb,
+# not a noun for "shark" or "whale" at all, so the statistical candidate
+# was never a real translation of "papa" to begin with, let alone of the
+# Pope sense. "Papa" (Pope) is a title/loanword in Swahili itself (cf.
+# "Papa Fransisko"); treated as a direct pass-through here, same tier as
+# this file's other identical-loanword overrides (dirisha, machungwa,
+# etc. above) -- NOT a disambiguation of "papa"=shark vs "papa"=Pope in
+# general (this table has no sense-marking mechanism), just the override
+# needed for the Pope case this was reported against.
+VERIFIED_NOUN_TRANSLATIONS.update({
+    "papa": "papa",
+})
+
+# 2026-10-22: direct native-speaker corrections on the "Ambiguous
+# translations" Word Bank round (12 of the 20 rows answered directly in
+# chat; the rest -- lugha, mawazo, mapema, kijito, mbuga, viunga, and
+# "mkwe"'s exact resolution -- are still pending, NOT assumed resolved
+# by omission). Each note below records WHY the statistical table had
+# 2-3 competing candidates in the first place -- in every case checked,
+# it was not random noise, but a real, nameable distinction (singular/
+# plural, a different Swahili word entirely, or a construction this
+# project's noun-only statistical table can't represent):
+#   "mavuno" (harvest) -> "makuwido": the OTHER candidate, "ekuwida",
+#     is not a competing noun at all -- "ngelo ekuwida" = "wakati wa
+#     kuvuna" (harvest TIME), the verb "kuwida" (= kuvuna, to harvest)
+#     used relatively/associatively, not a 2nd noun reading. The verb
+#     root itself is recorded separately, see VERIFIED_ROOTS["vun"]
+#     below.
+#   "matoleo" (editions/offerings, Swahili PLURAL of "toleo") ->
+#     "mafunyo": "ifunyo" is the SINGULAR ("toleo") of the SAME word,
+#     not a competing translation -- "matoleo" itself is plural-shaped
+#     in Swahili, so the plural form is the right default here (same
+#     "which number is the Swahili lemma itself" reasoning as siku/
+#     ituku/matuku above, just the opposite direction: the Swahili
+#     lemma already IS plural).
+#   "majira" (seasons/times, Swahili PLURAL of "jira") -> "vimu": same
+#     shape as matoleo -- "kimu" is the singular ("jira"), not a
+#     competitor.
+#   "kushi" (Kush, a place/kingdom name) -> "kushi": the OTHER
+#     candidate, "ethiopia", is a DIFFERENT place name entirely (a
+#     plausible corpus co-occurrence, Kush and Ethiopia are mentioned
+#     together often) -- "kushi" itself is a direct loanword/proper
+#     name, kept unchanged, same tier as "papa" above.
+#   "viti" (chairs) -> "vifumbi": the OTHER candidate, "vifumbinyi", is
+#     not a competing plural -- it is the LOCATIVE form (for "vitini",
+#     "on/at the chairs"), the "-nyi" locative suffix already flagged
+#     elsewhere in this project (2026-10-08) acting on the SAME noun.
+#     Recorded as its own entry below, not merged into this one.
+#   "mitego" (traps) -> "midegho": direct correction AGAINST this
+#     session's own new frequency-aware reranking, which had picked
+#     "shaghala" (score 0.216) over "midegho" (score 0.197) -- a
+#     concrete, honest miss for that heuristic, kept as a reminder it's
+#     a re-ranking aid, not a validated answer (see docs/status.md
+#     2026-10-22 cont. 2's own "NOT attempted" paragraph).
+#   "maskini" (poor/destitute) and "wakawaua" (they then killed [them])
+#     are NOT noun-translation ambiguities at all -- see their own
+#     notes below/elsewhere; not added here.
+VERIFIED_NOUN_TRANSLATIONS.update({
+    "mavuno": "makuwido",
+    "matoleo": "mafunyo",
+    "majira": "vimu",
+    "kushi": "kushi",
+    "viti": "vifumbi",
+    "mitego": "midegho",
+    # 2026-10-22: bonus finding, same correction round -- "vitini"
+    # (locative of "viti", on/at the chairs) is NOT "viti"'s own
+    # ambiguity (see above) but a separate word, confirming the "-nyi"
+    # locative suffix this project already flagged in 2026-10-08
+    # (e.g. "andenyi"/"ndani") now directly on a 2nd noun.
+    "vitini": "vifumbinyi",
+    # 2026-10-22: "maskini" (poor/destitute) is Swahili NUMBER-INVARIANT
+    # (same word sg/pl), but Kitaita uses a DIFFERENT word for plural --
+    # same shape as "siku"/SIKU_PLURAL_TRIGGER above, direct user
+    # confirmation: "mkiwa" (singular) / "wakiwa" (plural). Defaulted to
+    # the singular here (no plural-detection TRIGGER wired for this word
+    # yet, unlike "siku zote" -- flag, don't guess a trigger that hasn't
+    # been checked against the corpus).
+    "maskini": "mkiwa",
+    # 2026-10-22: direct finding, same round, NOT requested but directly
+    # given -- "sadaka" (offering) -> "vizongona". Its own Kitaita class
+    # is NOT yet confirmed (see KUTEKETEZWA_ROOT_SINGLE_POINT above,
+    # which depends on it) -- flagged, not guessed.
+    "sadaka": "vizongona",
+    # 2026-10-22, separate round (AP News paragraph test) -- direct
+    # native-speaker corrections. "swali"/"maswali" classes registered
+    # in VERIFIED_SUBJECT_MARKERS (see "ikoto"/"makoto" above).
+    "swali": "ikoto",
+    "maswali": "makoto",
+    # "Wakatoliki" (Catholics) and "kanisa" (church/Church) are direct
+    # loanword pass-throughs, same tier as "papa"/"kushi" above.
+    "wakatoliki": "wakatoliki",
+    "kanisa": "kanisa",
+    # 2026-10-22, 2nd follow-up round, same 2 cases genuinely resolved to
+    # TWO coexisting valid answers rather than one winner -- "no rule
+    # found, alternate" (this project's own standing policy for this
+    # exact shape, see [[feedback_methodology_preferences]]), not forced
+    # into a single pick:
+    #   "lugha" (language): native speaker gives "lumi" AS WELL AS the
+    #   already-exported candidate pair "kiteto"(singular)/"viteto"
+    #   (plural) -- all 3 apparently usable. CHECKED DIRECTLY: "lumi" is
+    #   ALREADY this project's own word for "ulimi" (tongue) --
+    #   VERIFIED_SUBJECT_MARKERS["lumi"] = "lu", added independently,
+    #   long before this round. NOT treated as a conflict/error --
+    #   tongue/language sharing one word is a real, common cross-
+    #   linguistic pattern (English "mother tongue") -- but flagged here
+    #   explicitly rather than silently reusing a homograph without
+    #   noting it. "lumi" used here as the default (shortest, number-
+    #   invariant, no sg/pl complication to wire, and ALREADY has a
+    #   confirmed class, 'lu', unlike kiteto/viteto below); kiteto/viteto
+    #   recorded in LUGHA_ALTERNATE_SG_PL below, NOT discarded.
+    #   "mawazo" (thoughts): BOTH exported candidates confirmed valid --
+    #   "maririkanyo" used as the default (the higher-scoring of the 2
+    #   in this session's own frequency-aware reranking), "maghesho"
+    #   recorded as an equally-valid alternate, not a rejected one.
+    "lugha": "lumi",
+    "mawazo": "maririkanyo",
+})
+LUGHA_ALTERNATE_SG_PL = {"singular": "kiteto", "plural": "viteto"}  # see "lugha" note above -- NOT
+# wired as the default (no established Kitaita class confirmed for kiteto/viteto yet, unlike the
+# maskini/matoleo/majira sg/pl pairs above), kept for the record and a future round.
+MAWAZO_ALTERNATE = "maghesho"  # see "mawazo" note above -- equally valid, not a rejected candidate.
+MASKINI_PLURAL = "wakiwa"  # not wired to any plural-detection trigger yet -- see the note above.
+
+# 2026-10-22: "mavuno"'s own verb root, "kuwida" (= kuvuna, to harvest),
+# same direct-correction round -- "kuwida" = ku-wid-a (class-15
+# infinitive marker + root + final vowel), so the bare root is "wid".
+VERIFIED_ROOTS.update({
+    "vun": "wid",
+    # 2026-10-22: "furahi" (enjoy/rejoice) -> "boi", direct native-
+    # speaker correction ("furahia -> boilwa"), then CROSS-CHECKED
+    # against the full corpus by direct reverse-inference request --
+    # "boilwa" = root "boi" + this project's OWN already-established
+    # regular passive infix (kitaita_passive_form(): vowel-final root ->
+    # "-lw-", i.e. "boi"+"lw"+"a" = "boilwa", not a special form). 620
+    # corpus tokens, 90 distinct surface forms, extremely clean and
+    # consistent with every TAM/person table already on file:
+    #   ka-narrative past: "u-ka-boilwa" (EXO.18.9, Jethro/3sg),
+    #     "wi-ka-boilwa" (GEN.45.16, 3pl)
+    #   cha-future: "ni-cha-boilwa" (PSA.9.2, 1sg), "wi-cha-boilwa"
+    #     (PSA.14.7, 3pl), "m-cha-boilwa" (DEU.12.7, 2pl)
+    #   da-perfect/stative (used for a GENERAL present/habitual state,
+    #     not strictly "has become" -- a real stative-verb aspect
+    #     blur, not an error): "wa-da-boilwa" (PSA.1.2/68.3, 3pl,
+    #     "wa-" is class 'wi''s own PRESENT_SM_VOWEL_CONFIRMED-shifted
+    #     form, consistent with existing tables), "na-da-boilwa"
+    #     (PSA.16.9, 1sg)
+    #   bare/zero-TAM present-like: "na-boilwa" (GEN.30.13, 1sg, "ni-"
+    #     elided before directly-attached root -- the SAME contraction
+    #     already wired this session for "na_have"/"nafurahia"-type
+    #     verbs, an independent corpus confirmation of that mechanism)
+    #   habitual "-agha" suffix: "na-boilwagha" (EZK.18.23, 1sg),
+    #     "wi-boilwagha" (PSA.35.26, 3pl)
+    #   NEGATIVE: "nde-boilwagha" (PSA.147.10, 3sg, "He is not
+    #     pleased by..."), "si-boilwagha" (ISA.1.11, 1sg -- the
+    #     already-established irregular 1sg-negative "si-" prefix,
+    #     here keeping FV "-a"+habitual rather than the regular
+    #     negative-present "-e" shift)
+    #   bare infinitive, used NOMINALLY as "joy" itself (like Swahili
+    #     "furaha" the noun, not a verb in these examples): "kuboilwa"
+    #     (305x, by far the most common form -- GEN.18.12 "nadima
+    #     kuboilwa?"<->"nitapata furaha", PSA.4.7 "kuboilwa kubaa"<->
+    #     "Umenitia furaha" [great joy])
+    #
+    # STRUCTURAL FINDING, not yet wired into the pipeline (see docs/
+    # status.md for the open question this leaves): this verb has NO
+    # plain active transitive form in the corpus at all -- the
+    # STIMULUS ("what one rejoices in/is pleased by") is consistently
+    # introduced by the preposition "ni" ("by"), e.g. PSA.1.2
+    # "wadaboilwa ni Sharia ya BWANA" <-> "sheria ya BWANA
+    # ndiyo impendezayo" (the LAW is what PLEASES [them] -- Swahili's
+    # own ACTIVE "furahia X" corresponds to Kitaita's PASSIVE-SHAPED
+    # "boilwa ni X", exactly matching the user's own direct instinct
+    # ("I think it translates directly to 'nafurahishwa na nyimbo
+    # zao'"). This "ni" is the PASSIVE AGENT MARKER ("by"), a
+    # DIFFERENT word from the invariant copula "ni" ("is/are", wired
+    # earlier this session) and from "ni" nowhere stripped as an
+    # object marker -- do not conflate the three. NOT generalized into
+    # an automatic "object -> 'ni'+object" rewrite rule here: that
+    # would change this verb's whole ARGUMENT STRUCTURE (subject
+    # stays the same, but what was the Swahili DIRECT OBJECT becomes a
+    # PREPOSITIONAL PHRASE in Kitaita), a bigger, sentence-level
+    # mechanism than a root substitution -- flagged as an open
+    # decision, not silently built.
+    "furahi": "boi",
+})
+
 # ----------------------------------------------------------------- deverbal/infinitive-noun subject marker: HYPOTHESIS, not corpus-induced
 # 2026-10-08 cont. 13. Kitaita class-15-style infinitive-as-noun subjects
 # (kuseka/kulia, see VERIFIED_NOUN_TRANSLATIONS above) have NEVER been
@@ -225,8 +1238,24 @@ FUTURE_KUWA_FULL_ROOT_MARKERS = {"wi", "chi"}
 # Keyed by the specific KITAITA noun (not generalized to a whole class
 # yet -- safer with this little data per class).
 VERIFIED_SUBJECT_MARKERS = {
+    # 2026-10-23: direct user correction -- "umbali" (distance) -> "wukula"
+    # is the SAME class as "wughoma" (mercy). Neither word was independently
+    # in this project's data before now, but "wughoma" is itself an
+    # abstract "wu-" noun -- and "wukula" sharing the exact "wuk-" 3-letter
+    # prefix with 4 ALREADY-confirmed "gh"-class nouns (wukelu/kindness,
+    # wukiwa/desolation, wukomboli/redemption, wukongo/sickness -- 4/4,
+    # 100%) independently predicts the SAME answer the user just gave
+    # directly, by word shape alone (see predict_kitaita_class_from_prefix()
+    # in kitaita_e2e_pipeline.py, added the same session this correction
+    # was made, for exactly this situation generalized). Two independent
+    # signals agreeing, not just one.
+    "wukula": "gh",
     "ituku": "ji",    # was "ku" -- confirmed 2x (s8 sem+ka, and isanga's twin case s10)
     "isanga": "ji",   # was "ku" -- confirmed 2x (s10 sem+ka, s11 ta+kuw)
+    "irangi": "ji",   # 2026-10-20: "maisha" (life), reverse-inferred -- see VERIFIED_NOUN_
+                        # TRANSLATIONS's own comment just above for the full evidence trail.
+    "matuku": "ghi",  # 2026-10-20: plural of "ituku"/"siku" (day/days) -- see
+                        # SIKU_PLURAL_TRIGGER's own comment for the full evidence trail.
     # 2026-10-13 (cont. 3): direct user correction -- nyumba is "i_nasal"
     # (class 2, same group as "ndagha"/knife, adjective prefix "nd-"), NOT
     # "i_plain" (class 1, "midi"/trees, adjective prefix "mi-") as cont. 2
@@ -574,6 +1603,40 @@ VERIFIED_SUBJECT_MARKERS.update({
     "fuwe": "i_nasal", "kwaru": "i_nasal", "mapatano": "ghi", "uzi": "ghu",
 })
 
+# 2026-10-22: direct native-speaker correction -- "swali" (question) ->
+# "ikoto" (singular, class 'ji'), "maswali" (plural) -> "makoto"
+# (plural, class 'ghi'). Same ji-singular/ghi-plural SHAPE this project
+# already has for other ji-class nouns in general (e.g. "ituku"/
+# "matuku" -- day/days), not a claim that "ikoto"/"makoto" share a root
+# with any specific existing entry.
+VERIFIED_SUBJECT_MARKERS.update({
+    "ikoto": "ji",
+    "makoto": "ghi",
+    # "papa" (Pope, VERIFIED_NOUN_TRANSLATIONS above) never got a class
+    # registered when it was added -- found directly while testing the
+    # "na_have"/negation fix on "Papa hana uwezo." (kit_sm/kit_class
+    # came back None, breaking every concord mechanism for "papa", not
+    # just negation). A human-reference title/proper-noun defaults to
+    # this project's ANIMATE-SG class, same as "mtu"/"mwalimu"/"mzee" --
+    # not independently native-speaker-tested for "papa" itself, but
+    # there is no plausible alternative class for a person reference.
+    "papa": "u",
+    # 2026-10-22, same AP-paragraph round -- direct confirmation, not an
+    # inference this time: user pointed out "wote" (all) next to
+    # "Wakatoliki" should already resolve to "wose" via this project's
+    # existing -ote concord rule (OTE_STEM="ose", wa-/wi-class elides to
+    # bare 'w' -- see apply_ote_concord()'s own evidence, EXO.12.47 etc.,
+    # "wote" -> "wose" for 'wa'/'wi'-class nouns). That ONLY resolves if
+    # "wakatoliki" itself is class 'wi' -- so this confirms the class,
+    # not just plausible by analogy to "watu"/"wandu" as flagged before.
+    "wakatoliki": "wi",
+    # 2026-10-22: "lumbo" (wimbo/song) -> class 'lu' (same as lukundo/
+    # love); "chumbo" (nyimbo/songs, a DIFFERENT word, not this same
+    # root pluralized) -> class 'ri'. Direct native-speaker correction.
+    "lumbo": "lu",
+    "chumbo": "ri",
+})
+
 # ----------------------------------------------------------------- adjective concord
 # NO Kitaita adjective-concord table existed before this round -- every
 # entry here is first-pass seed data, not a mature paradigm. Keyed by
@@ -638,6 +1701,84 @@ VERIFIED_ADJECTIVES = {
 SWAHILI_CLASS_DEFAULT_SM_GUESS = {"ANIMATE-SG": "u", "ANIMATE-PL": "wi"}
 ANIMATE_SG_EXCLUDED_FROM_DEFAULT = {"mbwa", "nyoka", "simba", "ndege", "chui", "samaki"}
 
+# 2026-10-22: direct user instruction -- "personal pronouns should
+# automatically use the agreement of mundu." Found while debugging
+# "Mimi ni mrefu." ("I am tall") -- "mimi" (I) DOES have a Kitaita
+# translation (the statistical table's "ini"), so it never reached the
+# ANIMATE-SG class-label fallback above at all (that fallback only
+# fires when there is NO Kitaita translation whatsoever); "ini" itself
+# simply has no corrected-class subject-marker data of its own, so
+# kit_sm/kit_class came back None, breaking BOTH the copula's own
+# subject prefix and the adjective concord ("mrefu"/"mlacha") that
+# depends on it. A personal pronoun is unambiguously human regardless
+# of which Kitaita word it happens to translate to, so this is keyed
+# on the SWAHILI LEMMA, not on "ini" or any other specific Kitaita
+# surface form -- robust even if a pronoun's Kitaita translation
+# changes later.
+#
+# CORRECTION, same day: the first version of this fix set kit_sm (and
+# therefore BOTH the verb's own subject prefix AND the adjective
+# concord) to "u" uniformly -- direct user correction: "Ini nideka
+# mlacha", NOT "Ini udeka mlacha". The VERB uses PERSON agreement, the
+# ADJECTIVE uses mundu's CLASS agreement -- two different things that
+# happen to collide for "mimi" only because this project's class 'u'
+# and 1st-person both exist, not because they're the same mechanism.
+# `PERSONAL_PRONOUN_KITAITA_CLASS` ("u") is for the ADJECTIVE/concord
+# side only now; `SWAHILI_PRONOUN_TO_PERSON` below feeds the VERB's own
+# subject marker through this project's EXISTING person-marker system
+# (PERSON_SM_DEFAULT -- the "bare citation form" tier, e.g. "ni" for
+# 1sg, already established 2026-10-20 for a different gap) instead.
+# "yeye"/"wao" (3rd person) have NO entry in `SWAHILI_PRONOUN_TO_PERSON`
+# -- this project's person-marker scheme only ever covers 1st/2nd
+# person (3rd normally comes from a real noun's own class); verb
+# agreement for those two pronouns remains unresolved/flagged, not
+# guessed, while the adjective-class side above still applies to all 6.
+SWAHILI_PERSONAL_PRONOUNS = {"mimi", "wewe", "yeye", "sisi", "ninyi", "wao"}
+PERSONAL_PRONOUN_KITAITA_CLASS = "u"  # mundu's class -- for ADJECTIVE/concord purposes
+SWAHILI_PRONOUN_TO_PERSON = {"mimi": "1sg", "wewe": "2sg", "sisi": "1pl", "ninyi": "2pl"}
+
+# 2026-10-20: GENERALIZED the fallback above to every Swahili noun class,
+# direct user request ("for sentences where the subject/object is unknown
+# ... use the mode per class") -- e.g. "Kile kinachonisikitisha" (that
+# which saddens me) has NO concrete noun at all, only a class-7 demonstrative/
+# relative marker, so even the EXISTING per-lemma fallback above (which
+# still needs a specific noun lemma, just an untranslated one) can't help;
+# this is the class-only, no-noun-at-all case.
+#
+# Computed directly from this project's OWN current data (every lexicon
+# noun with a known Swahili class AND a known Kitaita translation --
+# VERIFIED_NOUN_TRANSLATIONS first, the statistical noun_kitaita table
+# otherwise -- grouped by Swahili class, Kitaita class via resolve_class_
+# marker()), NOT assumed or carried over from reference grammar. Same
+# "check the mode isn't hiding a real exception cluster" discipline the
+# ANIMATE-SG entry above already uses (that one's own comment: "animals
+# don't even agree with EACH OTHER") -- applied here by requiring the
+# mode to cover clearly over half the sample AND not be a near-tie with
+# a runner-up, and by EXCLUDING any class that fails that bar rather than
+# guessing anyway:
+#   15        ku   17/17 (100%) -- matches the already-known class-15 SM.
+#   ANIMATE-PL wi  19/20 (95%)  -- matches the existing entry above exactly.
+#   8         va   14/17 (82%)
+#   6         ghi  18/22 (82%)
+#   7         chi  12/15 (80%)
+#   ANIMATE-SG u   21/36 (58%, animal exceptions already excluded above)
+#   3         ghu  13/21 (62%)
+#   4         i     9/15 (60%)
+#   5         ji    9/17 (53%) -- weakest INCLUDED tier, just over half,
+#             flagged lower confidence than the rest, not equal to them.
+# EXCLUDED, checked and rejected rather than silently omitted:
+#   11   (u 9, ghu 7, n=23) -- 'u' and 'ghu' are nearly tied, no real mode.
+#   9/10 (i 11, ghi 3, chi 3, +6 others, n=28) -- scattered across 7+
+#        classes, no usable majority at all.
+# This is a WEAKER evidence tier than VERIFIED_SUBJECT_MARKERS (direct
+# human correction) -- a statistical default for when NOTHING else is
+# known, not a claim about any specific noun. A caller with a real noun
+# (even an untranslated one) should always prefer the per-lemma fallback
+# above over this class-only one.
+SWAHILI_CLASS_DEFAULT_SM_GUESS.update({
+    "15": "ku", "7": "chi", "8": "va", "6": "ghi", "3": "ghu", "4": "i", "5": "ji",
+})
+
 KUBWA_FORM_BY_SM = {"ji": "ibaa", "chi": "kibaa", "va": "vibaa"}
 # 2026-10-11: 'va' (vitabu/plural-chi-class) -> 'vibaa' added from the SAME
 # concord_families.py mining pass that found 'chi'->'kibaa' -- "vikubwa"
@@ -646,6 +1787,49 @@ KUBWA_FORM_BY_SM = {"ji": "ibaa", "chi": "kibaa", "va": "vibaa"}
 # confirmed m-/i-/ki- pattern (va is chi's plural counterpart, vi-baa
 # matches chi's ki-baa the same way Swahili's own ki-/vi- pair does).
 KUBWA_DEFAULT_FORM = "mbaa"
+
+# 2026-10-20: "-ingi" (many/much) -- direct user request. Read all short
+# wengi/vingi/nyingi/mengi verses. Same "own irregular/archaic concord
+# series, not the regular kit_sm+stem formula" shape as kubwa (flagged
+# directly by the project's own "gh"/"ghi"-class counterexample: a
+# formulaic 'kit_sm+ingi' would predict "ghingi", not the observed
+# "mengi" -- same irregularity Swahili's OWN "-ingi" paradigm has for
+# its ma- class, "maingi" is not a real Swahili word either, "mengi" is).
+# Multi-verse confirmations, zero counterexamples within each class:
+#   wi (human plural): PSA.3.1 "watesi wangu...wengi"/"ni wengi
+#     wanaonishambulia" -> "ni wengi", PSA.35.18 "watu wengi" -> "wandu
+#     wengi", PRO.31.29 "Binti za watu wengi"/"wengi"(repeated) -> "Waka
+#     wengi" (3 independent verses)
+#   va (vi-/plural-chi): PSA.61.6 "vizazi vingi" -> "vivalwa vingi",
+#     1CO.12.14 "ni vingi" -> "ni via vingi" (viungo=via, class
+#     confirmed above, KUBWA_FORM_BY_SM) (2 verses; 1CO.12.20's "via
+#     vilazi" for the SAME "viungo ni vingi" idea is a single-verse
+#     ALTERNATE, not conflated in -- a real synonym or a freer
+#     paraphrase, not yet resolved either way)
+#   ghi (ma-/liquid-class, pesa/maji/matuku's own class): PSA.139.18's
+#     comparandum ("si nyingi kuliko mchanga"/mawazo, both resolved
+#     class "gh" -- see kitaita_e2e_pipeline.py's own check) -> "ghadakaia
+#     mengi"; this is also, not incidentally, the SAME class "pesa"
+#     (money) is registered under -- directly relevant to "pesa nyingi"
+#   i (plain i-class): 2SA.12.2 "ng'ombe...wengi sana"->"ng'ombe
+#     NYINGI" (ng'ombe registered class "i") -- SAME SPELLING as the
+#     Swahili word, kept as submitted (not flagged as suspicious the way
+#     a genuinely coincidental same-spelling match would be -- "-ingi" is
+#     a reconstructed Proto-Bantu root, shared/cognate forms across
+#     closely related Bantu languages are the EXPECTED outcome here, not
+#     a red flag).
+INGI_FORM_BY_SM = {"wi": "wengi", "va": "vingi", "ghi": "mengi", "gh": "mengi", "i": "nyingi"}
+# 2026-10-20: "-ingi"'s SWAHILI surface forms don't decompose as a simple
+# ADJ_BASE prefix + bare root the way kubwa/baya/etc do -- Swahili itself
+# applies its OWN vowel coalescence/epenthesis here (wa+ingi->wengi,
+# vi+ingi->vingi, n+ingi->nyingi, ma+ingi->mengi), so detection uses this
+# closed set of known SURFACE forms directly (mingi/wingi included as
+# the standard reference-grammar forms for classes 3/1 respectively,
+# though neither was directly corpus-confirmed this round).
+INGI_SURFACE_FORMS = {"wengi", "vingi", "nyingi", "mengi", "mingi", "wingi"}
+INGI_DEFAULT_FORM = "wengi"  # majority across the 4 confirmed classes' verse counts -- UNCONFIRMED
+                              # for any OTHER class, flagged as such in the trace, same discipline
+                              # as KUBWA_DEFAULT_FORM.
 
 # 2026-10-12: Kitaita Word Bank submissions (live Artifact, https://
 # claude.ai/artifact/6eozxX4HtKZhce3FTfWnY2, collection "contributions")
@@ -1323,6 +2507,26 @@ PERSON_SUBJECT_MARKERS_BY_TAM = {
 }
 PERSON_SUBJECT_MARKERS_1PL_PAST_ALTERNATE = "da"  # n=2, zero/narrative-looking, not forced over 'de'
 
+# 2026-10-20: direct user request -- a default person marker for a TAM
+# category this table has NO specific entry for at all (the exact gap
+# "Umesongeza kiti." hit: 2sg + perfect, nothing in the table above).
+# Derived from the table above itself (not hand-copied, so it can't drift
+# out of sync with it) rather than invented separately: the FUTURE-tense
+# form is used as each person's base/default, because it is the one TAM
+# category with a VERIFIED marker for EVERY person AND the one that both
+# 1sg and 2sg's OWN already-confirmed vowel shifts (ni->na, ku->kwa,
+# consonant-stays-vowel-becomes-a before present -- the SAME pattern
+# PRESENT_SM_VOWEL_CONFIRMED already documents for noun-class markers)
+# shift AWAY FROM, i.e. future looks like the unshifted/citation form for
+# both persons tested, not an arbitrary pick among several options. This
+# is a WEAKER tier than a real (person, TAM)-specific entry above (used
+# ONLY when one doesn't exist) and weaker still for 1pl/2pl, where this
+# project has NO second TAM category's data to cross-check the pattern
+# against at all (only confirmed for 1sg/2sg) -- flagged as such by the
+# caller, not presented as equal confidence.
+PERSON_SM_DEFAULT = {person: marker for (person, tam), marker in PERSON_SUBJECT_MARKERS_BY_TAM.items()
+                      if tam == "future"}
+
 # ----------------------------------------------------------------- adjective concord: 'baya' (bad)
 # 2026-10-07 cont. 14. Round-2 corrections for 'baya' kept surfacing
 # the noun's OWN subject-marker-class prefix in front of a shared
@@ -1474,6 +2678,82 @@ def kitaita_adj_prefix(kit_sm: str) -> str:
 # n=2 adjectives pointing two different ways -- needs either more
 # corpus data or direct native-speaker testing, not asserted either way.
 ZURI_ROOT = "ghokie"  # corpus statistical candidate (Dice 0.40-0.58), NOT speaker-verified like baya
+
+# 2026-10-20: "safi" (clean/pure), reverse-inferred -- read all 26 short
+# SUV/TAITA verses containing "safi" directly (not Dice alone). Same
+# strategy/evidence tier as ZURI_ROOT: bare kit_sm + shared stem, corpus-
+# mined, NOT native-speaker-verified. Confirmed across 6 independent
+# classes with zero counterexamples in direct noun+adjective/relative-
+# clause use: i- (MAT.27.59 "nguwo ielie", 1TI.3.9 "nia ielie", PRO.8.10/
+# ISA.13.12 "dhahabu ieleshero" -- a narrower fixed collocation, not this
+# general stem, see below), ri- (JOB.25.5 "nderielie", DEU.14.11 "rielie"),
+# vi- (DEU.14.20 + LUK.11.41 "vielie", 2 independent verses), wi- (PSA.73.1
+# + MAT.5.8 "wielie", 2 independent verses), u- (PRO.15.26 "uelie"), gha-
+# (JOB.16.17 "ghaelie"). Several verses render "safi" via a clearly
+# DIFFERENT, non-adjective-concord mechanism and are NOT counterexamples:
+# "kuela" (PSA.51.7, JHN.15.3 -- a verb, "to become/be clean", same root
+# different derivation), "wueli" (1PE.3.2 -- abstract noun "purity", no
+# final -e), "ndicha" (PRO.31.22 -- fabric-quality "fine", a different
+# sense of "safi" than "clean/pure"), "wuchafu" (ISA.28.8 -- litotes via
+# the antonym "chafu"+negation), "madedo mecha" (PRO.15.4 -- free paraphrase).
+SAFI_STEM = "elie"
+
+# 2026-10-22: "moja" (one/a single), DIRECT NATIVE-SPEAKER CONFIRMATION
+# (not corpus-mined like zuri/safi above -- a STRONGER evidence tier),
+# given as a correction on the "Ambiguous translations" Word Bank round
+# (this project's own statistical table had no way to represent this at
+# all: it just offered 2 competing FLAT noun candidates, "jimweri"/
+# "imweri", for a word that isn't a flat noun to begin with). Same
+# strategy as zuri/safi -- full kit_sm + shared stem -- confirmed on 2
+# INDEPENDENT, already-established classes: "ituku jimweri" (siku moja/
+# one day, class 'ji') and "chadu chimweri" (kiatu kimoja/one shoe,
+# class 'chi', "chadu" already registered as kiatu's Kitaita word --
+# see VERIFIED_SUBJECT_MARKERS above). Zero counterexamples; both
+# classes agree on the SAME strategy zuri/safi already use, so treated
+# as CONFIRMED for those two classes and an EXTRAPOLATED hypothesis
+# elsewhere, not asserted for every class.
+MOJA_ROOT = "mweri"
+
+# 2026-10-22: "kuteketezwa"/"kuchomeka" (be burnt), SAME direct-correction
+# round -- user: "vizongona vekora" = "sadaka iliyochomeka" (the burnt
+# offering), i.e. also used ADJECTIVALLY with class concord, not as a
+# flat noun ("vizongona"/"vekora" were this word's own 2 flat statistical
+# noun candidates -- "vizongona" is NOT a Kitaita word for "kuteketezwa"
+# at all, it is the Kitaita word for "sadaka"/offering the adjective is
+# modifying -- see VERIFIED_NOUN_TRANSLATIONS["sadaka"] below).
+# NOT generalized into a concord branch the way MOJA_ROOT above was:
+# only ONE data point, and "vizongona"'s own Kitaita class is not yet
+# independently confirmed anywhere else in this project (unlike ituku/
+# chadu above), so there is no second, independently-classed example to
+# agree with -- recorded as a flagged single point, pending either a
+# 2nd class or a direct class confirmation for "vizongona" itself.
+KUTEKETEZWA_ROOT_SINGLE_POINT = {"kitaita_class_guess": "va", "stem": "kora",
+                                   "example": "vizongona vekora = sadaka iliyochomeka (the burnt offering)",
+                                   "confidence": "single data point, governing noun's own class unconfirmed"}
+
+# 2026-10-20: "-ote" (all/whole), reverse-inferred -- direct user request
+# ("let's work on ... other groups of words such as prepositions" led
+# into this while checking -ote/-angu/-ako/-ake alongside it). Read many
+# short SUV verses containing wote/yote/vyote/chote/kote/lote/pote/zote
+# directly. Finding: Kitaita renders "-ote" as [GOVERNING NOUN's own
+# subject-marker class, its FINAL VOWEL ELIDED if the class ends in a
+# vowel] + stem "ose" -- e.g. EXO.12.47/PSA.7.1/PSA.33.8 "Waisraeli/wandu
+# wote" -> "wose" (class "wa"/"wi" -> elide -> "w" + "ose"), DEU.14.11
+# "nyonyi wote" -> "rose" (class "ri" -> "r" + "ose"), DEU.14.20 + LUK.
+# 11.41 "vilambo vyote" -> "vose" (class "va" -> "v" + "ose", 2
+# independent verses), GEN.47.9-style "matuku ghose" (class "ghi" ->
+# "gh" + "ose"), PSA.23.6-style "irangi jose" (class "ji" -> "j" + "ose"),
+# MAT.14.7 "lo lote" -> "chose" (class "chi" -> "ch" + "ose"), MAT.8.19
+# "ko kote" -> "kose" (class "ku" -> "k" + "ose"). The elision (a/i/u + o
+# -> o, i.e. the class's own vowel is absorbed before "-ose"'s own "o")
+# is DIFFERENT from BAYA_STEM/ZURI_ROOT/SAFI_STEM's formula (none of
+# those stems start with "o", so none of them ever exercised this) --
+# NOT assumed to generalize beyond "-ose" specifically. Same evidence
+# tier as ZURI_ROOT/SAFI_STEM otherwise: corpus-mined, NOT native-
+# speaker-verified. See kitaita_e2e_pipeline.apply_ote_concord() for the
+# elision implementation (kit_sm.rstrip(vowels) or kit_sm, then +"ose").
+OTE_STEM = "ose"
+OTE_STEM_CONFIRMED_CLASSES = {"wa", "wi", "ri", "va", "ghi", "ji", "chi", "ku"}
 
 # **The other 6 mined stems: single, low-to-medium-confidence data
 # points, one Swahili-class each, explicitly NOT generalized to other
@@ -1813,7 +3093,70 @@ LOCATIVE_SUFFIX = "-nyi"  # mirrors Swahili '-ni'; single example so far: mighon
 # inya karakara na mmbao", "wulacha meta ikumi na iwi, na wushapa meta
 # iwi") -- a shared Bantu cognate with Swahili, confirmed directly from
 # corpus text, not statistically inferred.
-FUNCTION_WORD_TRANSLATIONS = {"na": "na"}
+FUNCTION_WORD_TRANSLATIONS = {
+    "na": "na",
+    # 2026-10-22: direct native-speaker correction -- "kama" (if/like/as)
+    # -> "sa", a genuine substitution (NOT a shared cognate like "na"
+    # above -- the two words don't even share a consonant).
+    "kama": "sa",
+    # 2026-10-22: direct native-speaker correction -- "kwetu" ("at our
+    # place/home") -> "kwedu". This is Swahili's LOCATIVE class (class
+    # 17, "ku-" + possessive suffix -- "kwetu"/"kwangu"/"kwako"/"kwake"/
+    # "kwenu"/"kwao" are each a COMPLETE, standalone adverbial word, not
+    # a possessive attached to some other noun), a DIFFERENT "ku-" from
+    # this project's existing 'ku' class (the class-15 INFINITIVE-as-
+    # noun one, e.g. "kukimbia") -- find_possessive_pronoun()'s governor-
+    # before-it model doesn't even apply here (there is no governed
+    # noun), so this has to be a flat word lookup, not a concord rule.
+    # Direct user instruction: "use the ku- class possessives" for the
+    # rest -- i.e. the SAME general [class marker]+[shared person stem]
+    # formula as every other class's SINGULAR cells (regular "w"-glide,
+    # NOT the class-15 'ku' entry's own irregular "kodu"/"konyu" plural
+    # -- that irregularity is specific to the infinitive sense, this is
+    # a different class that happens to share the same surface letters).
+    # Only "kwetu" itself was DIRECTLY given; the other 5 are
+    # EXTRAPOLATED from that one instruction + the regular pattern
+    # documented in POSS_PERSON_FORM_BY_CLASS's own comment above --
+    # NOT independently confirmed, flagged as such here, not silently
+    # equated with the "kwetu" cell's own confidence.
+    "kwetu": "kwedu",          # CONFIRMED, direct native-speaker correction
+    "kwangu": "kwapo",         # EXTRAPOLATED (regular singular pattern)
+    "kwako": "kwako",          # EXTRAPOLATED (regular singular pattern; same string as Swahili)
+    "kwake": "kwake",          # EXTRAPOLATED (regular singular pattern; same string as Swahili)
+    "kwenu": "kwenyu",         # EXTRAPOLATED (regular "e"-plural pattern, NOT 'ku' class-15's "konyu")
+    "kwao": "kwawo",           # EXTRAPOLATED (regular plural pattern)
+    # 2026-10-22: bug #2 (locative-existential "yuko"/"yupo"/"yumo",
+    # African Storybook error report) -- these locative function words
+    # are the pieces of the test sentences ("Yuko wapi paka wangu?",
+    # "Yuko chini ya kitanda?", etc.) besides the verb itself. Each
+    # REVERSE-INFERRED from the full parallel Bible corpus (`bible
+    # collection/data/parallel_full_suv/parallel.jsonl`), confidence
+    # noted per entry; "ya"/"na" (the associative/comitative particle
+    # that follows each of these in the source phrases, e.g. "juu YA
+    # nchi") are deliberately left UNTOUCHED here -- every corpus example
+    # keeps "ya" literally unchanged regardless of the governed noun's
+    # class, which this project's existing "keep an unmechanized word
+    # as-is" fallback already reproduces; adding an explicit "ya"->"ya"
+    # entry would risk silently overriding the UNRELATED, genuinely
+    # class-varying associative-concord mechanism used elsewhere
+    # (ASSOC_PARTICLES/associative_particle_for_class, e.g. "mayai ya
+    # kuku" -> "maghi GHA nguku").
+    "wapi": "hao",       # CONFIRMED, n>=9 independent verses, zero exceptions (e.g. "Uko wapi?"/
+                          # "Yuko wapi Mungu wako?"/"Umetoka wapi?" all -> "...hao?")
+    "hapa": "aha",        # CONFIRMED, n>=5 independent verses (e.g. "Yupo hapa Elisha" -> "oko aeni aha")
+    "juu": "aighu",        # CONFIRMED, n>=8 independent verses ("juu ya nchi" -> "aighu (ya) ...")
+    "chini": "aisi",       # CONFIRMED, n=2 independent verses ("chini ya mkono/miguu" -> "aisi ya ...");
+                          # ONE other verse ("chini ya uvuli") instead used "andenyi ya" (= "ndani ya"'s
+                          # own equivalent below) -- a legitimate translation choice (being "under" shade
+                          # read as being "within" it), not a contradiction, but flagged since it means
+                          # "aisi" is not the ONLY attested rendering of "chini ya".
+    "ndani": "andenyi",    # CONFIRMED, n=2 independent verses ("ndani ya hekalu/humo nyuma ya pazia")
+    "nje": "shighadi",      # CONFIRMED, n=3 independent verses ("nje ya mji" x2, "nje ya nyumba")
+    "karibu": "kaavui",     # CONFIRMED, n=2 independent verses ("karibu na Yafa/kisima")
+    "nyuma": "nyuma",       # CONFIRMED cognate, kept identical in both languages, n=1 verse direct
+                          # (other verses add a "na-" prefix, "nanyuma ya" -- not generalized here,
+                          # only the bare form actually needed by the test sentences is wired)
+}
 
 # ----------------------------------------------------------------- possessive-pronoun concord
 # 2026-10-11 (cont. 8): direct user instruction -- "wire in possessive-
@@ -1843,3 +3186,562 @@ POSS_PERSON_FORM_CLASS1 = {
     "enu": "onyu",    # wenu="your(pl)", Dice 0.55
     "ao": "wawo",     # wao="their", Dice 0.38
 }
+
+# 2026-10-20: SECOND confirmed class for the possessive mechanism above
+# (direct user request, reverse-inferred) -- "irangi" (life, class "ji",
+# see VERIFIED_SUBJECT_MARKERS) takes "japo"/"jako"/"jake" for -angu/
+# -ako/-ake (PSA.23.6 "maisha yangu"->"irangi japo", GEN.3.14/3.17/DEU.
+# 6.2/JOS.1.5 etc. "maisha yako"->"irangi jako", JOS.1.5/1SA.7.15/1KI.
+# 4.21/1KI.11.34/1KI.15.5/1KI.15.6/PRO.31.22 "maisha yake"->"irangi
+# jake" -- dozens of independent verses). Only angu/ako/ake tested for
+# this class (no etu/enu/ao evidence found). Generalizes POSS_PERSON_
+# FORM_CLASS1 from "class-1 only" into a real cross-class mechanism --
+# kept as a SEPARATE table (not merged into POSS_PERSON_FORM_CLASS1
+# itself) so that table's own name/comments stay accurate; this one is
+# the actual lookup kitaita_e2e_pipeline.py now uses, keyed by kit_sm.
+POSS_PERSON_FORM_BY_CLASS = {
+    "u": POSS_PERSON_FORM_CLASS1,
+    "ji": {"angu": "japo", "ako": "jako", "ake": "jake"},
+}
+
+# 2026-10-22: THIRD class, direct user suggestion ("run reverse
+# inference to find the possessives") -- `kitaita_possessive_reverse_
+# inference.py` (new), searching the full parallel corpus for a known-
+# class noun co-occurring with its matching Swahili possessive form.
+# "wi" (ANIMATE-PL, e.g. waandishi/walimu/wanaume) takes EXACTLY the
+# SAME forms as "u" above (wapo/wako/wake) -- read directly, not just
+# Dice-scored: MRK.7.5 "wanafunzi wako" -> "wanughi wako" (clean 1:1,
+# same word order); MAT.17.10 "Wanafunzi wake" -> "Wanughi wake" (same);
+# ACT.2.18 "watumishi wangu" -> "wadumiki wapo" (same, governor
+# immediately precedes the possessive in both languages). This exactly
+# matches an ALREADY-ESTABLISHED finding elsewhere in this project --
+# 'u'/'wi' (the two ANIMATE classes) share ONE unified template, not
+# just a coincidence (see NEGATIVE_ANIMATE_CLASS_PREFIX_BY_TENSE's own
+# comment, "an explicit ANIMATE noun subject... follows the PERSON
+# template").
+POSS_PERSON_FORM_BY_CLASS["wi"] = {"angu": "wapo", "ako": "wako", "ake": "wake"}
+
+# 2026-10-22, SAME DAY: COMPLETES the table -- direct native-speaker
+# submission via the Word Bank's new "Possessives" tab (60 cells, every
+# remaining class x person, submitted in one batch). Merged in rather
+# than replacing the dicts above, so the earlier verse-citations for u/
+# ji/wi stay attached to their own entries.
+#
+# The SINGULAR cells (angu/ako/ake) are STRIKINGLY regular across all
+# 12 classes, worth recording as a real finding: every class =
+# [class marker, final vowel resolved] + a shared stem ("apo"/"ako"/
+# "ake" -- 2sg/3sg "ako"/"ake" are the SAME string as Swahili, a shared
+# cognate; 1sg "apo" is NOT cognate with Swahili "-angu" at all). The
+# vowel-resolution rule is clean and exceptionless for these 3 cells:
+#   - class ends in a consonant+"i" (ji/ghi/chi/ri): the "i" DELETES,
+#     bare consonant + stem (ji+apo -> japo, ghi+apo -> ghapo, chi+apo
+#     -> chapo, ri+apo -> rapo).
+#   - class ends in a consonant+"u" (ghu/ku/lu): the "u" GLIDES to "w"
+#     rather than deleting (ghu+apo -> ghwapo, ku+apo -> kwapo, lu+apo
+#     -> lwapo) -- a real, systematic i-deletes/u-glides split, not
+#     noise (matches ordinary Bantu/Swahili vowel-sequence behavior).
+#   - class ends in a consonant+"a" (va): the "a" deletes too (va+apo
+#     -> vapo), same side as "i".
+#   - class is BARE (no consonant at all -- u/wi, i/i_nasal): the
+#     vowel glides instead of deleting, to avoid a zero onset (u->w:
+#     wapo/wako/wake; i->y: yapo/yako/yake) -- "i" and "i_nasal" take
+#     IDENTICAL possessive forms despite having DIFFERENT adjective-
+#     concord forms (see the "i" vs "i_nasal" adjective split elsewhere
+#     in this project) -- possessive concord apparently doesn't see
+#     that split at all.
+#
+# The PLURAL cells (etu/enu/ao) are MESSIER -- checked directly, not
+# forced into the same tidy rule: "ao" follows the singular pattern
+# everywhere (consonant/glide + "awo"). "etu"/"enu" do NOT: most
+# classes take "e" (jedu/ghwedu/redu/chedu/ghedu/vedu/yedu + their
+# "-enyu" counterparts), but bare "u", "ku", AND "lu" -- NOT "ghu",
+# despite also ending in "-u" -- take "o" instead (odu/onyu, kodu/
+# konyu, lodu/lonyu). This "o" subgroup doesn't reduce to "classes
+# ending in -u" (ghu is one and doesn't take it) or any other single
+# feature tested -- reported exactly as submitted, not smoothed into a
+# false regularity.
+POSS_PERSON_FORM_BY_CLASS["ji"].update({"etu": "jedu", "enu": "jenyu", "ao": "jawo"})
+POSS_PERSON_FORM_BY_CLASS["wi"].update({"etu": "wedu", "enu": "wenyu", "ao": "wawo"})
+POSS_PERSON_FORM_BY_CLASS.update({
+    "ghu": {"angu": "ghwapo", "ako": "ghwako", "ake": "ghwake",
+            "etu": "ghwedu", "enu": "ghwenyu", "ao": "ghwawo"},
+    "ri": {"angu": "rapo", "ako": "rako", "ake": "rake",
+           "etu": "redu", "enu": "renyu", "ao": "rawo"},
+    "chi": {"angu": "chapo", "ako": "chako", "ake": "chake",
+            "etu": "chedu", "enu": "chenyu", "ao": "chawo"},
+    "ghi": {"angu": "ghapo", "ako": "ghako", "ake": "ghake",
+            "etu": "ghedu", "enu": "ghenyu", "ao": "ghawo"},
+    "ku": {"angu": "kwapo", "ako": "kwako", "ake": "kwake",
+           "etu": "kodu", "enu": "konyu", "ao": "kwawo"},
+    "lu": {"angu": "lwapo", "ako": "lwako", "ake": "lwake",
+           "etu": "lodu", "enu": "lonyu", "ao": "lwawo"},
+    "va": {"angu": "vapo", "ako": "vako", "ake": "vake",
+           "etu": "vedu", "enu": "venyu", "ao": "vawo"},
+    "i": {"angu": "yapo", "ako": "yako", "ake": "yake",
+          "etu": "yedu", "enu": "yenyu", "ao": "yawo"},
+    "i_nasal": {"angu": "yapo", "ako": "yako", "ake": "yake",
+                "etu": "yedu", "enu": "yenyu", "ao": "yawo"},
+})
+
+# ----------------------------------------------------------------- Kitaita NEGATION (present)
+# 2026-10-15. Native-speaker-submitted via the Kitaita Word Bank's
+# "Negation" tab (16 real data points, one per class/person, all built
+# around the same "kupenda"/"kund" test root for a clean minimal-pair
+# comparison -- see docs/status.md 2026-10-15 cont. 2/3/4). Induced
+# pattern, zero exceptions except the two flagged below:
+#   NEGATIVE = "nde" + [BARE, UNSHIFTED subject-marker] + root + "-e"
+#     (final vowel "-e", not "-a" -- mirrors Swahili's own negative-
+#     present FV shift -a->-i, just with Kitaita's own vowel)
+#   EXCEPT 1sg, which is IRREGULAR: "si" + root + "-e", no "nde" at all
+#     (parallels Swahili's own suppletive 1sg "si-", a striking but
+#     directly-submitted, not assumed, parallel).
+# The "[BARE, UNSHIFTED subject-marker]" slot is the class's own
+# VERIFIED_SUBJECT_MARKERS string (u/ghu/ji/ri/i/chi/ghi/ku/lu -- NOT
+# the present-tense vowel-shifted form, e.g. class-1 "u-", not "wa-")
+# for a noun-governed clause, confirmed directly: "Mwalimu ndeukunde"
+# analog (3sg) and "Watu ndewikunde" analog (3pl) both use the BARE
+# class marker exactly, not PRESENT_SM_VOWEL_CONFIRMED's shifted form.
+# For a PERSON-governed clause (no noun), 2sg/1pl/2pl use the SAME
+# marker already verified for FUTURE tense (PERSON_SUBJECT_MARKERS_BY_
+# TAM), not present's kwa-/na- -- confirmed directly: 2sg "ku" and 1pl
+# "di" are an EXACT match to that table's future-tense entries; negation
+# evidently patterns with the future-tense person-marker set, not
+# present's. 2pl's submitted "ndemukunde" is just future's bare "m" +
+# the SAME default linking-vowel 'u' this generator's existing bare-
+# consonant-before-consonant-initial-TAM logic already inserts -- not a
+# new rule, confirms the existing mechanism generalizes here too.
+NEGATIVE_MARKER_KITAITA = "nde"
+NEGATIVE_FINAL_VOWEL = "e"
+# 2026-10-15: submitted literally as "ndevikunde" -- marker "vi", NOT the
+# expected bare "va" (every other class matched its own VERIFIED_SUBJECT_
+# MARKERS string exactly). Kept AS SUBMITTED (trust the speaker over the
+# regularized pattern) rather than silently "corrected" to "va" -- flagged
+# as unconfirmed whether this is a real va->vi alternation specific to
+# negation or a one-off typo; needs a second data point.
+NEGATIVE_SM_BY_CLASS_OVERRIDE = {"va": "vi"}
+# 2sg/1pl/2pl only -- 1sg is NEGATIVE_PERSON_IRREGULAR below (not this
+# table); 3sg/3pl are noun-governed (class 'u'/'wi'), not person at all,
+# so they go through NEGATIVE_SM_BY_CLASS_OVERRIDE/VERIFIED_SUBJECT_
+# MARKERS like any other noun subject, not through this table.
+NEGATIVE_PERSON_SM = {"2sg": "ku", "1pl": "di", "2pl": "m"}
+NEGATIVE_PERSON_IRREGULAR = {"1sg": "si"}  # replaces the whole "nde"+SM pattern
+
+# ----------------------------------------------------------------- Kitaita NEGATION, extended to past/future/subjunctive-imperative
+# 2026-10-21, direct user request ("update the negation table"). The
+# Kitaita Word Bank's negation_class/negation_person rows (added
+# 2026-10-21 cont. 1, 64 cells across 4 tenses) came back with 62/64
+# real answers -- queried via ArtifactData and analysed here. Trusted at
+# n=1 per cell like every VERIFIED_* table in this file. Two real
+# findings up front, both consistent with this project's own prior
+# architecture rather than contradicting it:
+#   (1) PERSON markers and NOUN-CLASS markers behave DIFFERENTLY under
+#       negation outside of present tense -- not a new split, this
+#       project already keeps PERSON_SUBJECT_MARKERS_BY_TAM and
+#       VERIFIED_SUBJECT_MARKERS as separate systems; negation inherits
+#       that same separation.
+#   (2) NEGATIVE PAST uses a TAM ("-re-...-eghe") that is NOT each
+#       class's own AFFIRMATIVE past-TAM allomorph (VERIFIED_PAST_TAM_
+#       BY_SM only has "ji"->"de", yet "ji"'s NEGATIVE past submission
+#       uses "-re-", not "-de-") -- i.e. the negative paradigm has its
+#       OWN dedicated past-TAM, independent of the affirmative one,
+#       exactly parallel to Swahili itself (affirmative past "-li-" vs.
+#       negative past "-ku-" are totally different morphemes, not a
+#       negated version of the same TAM). Not assumed, directly
+#       supported: 9/10 classes tested show the identical "-re-...
+#       -eghe" shape regardless of what each class's own affirmative
+#       past marker actually is.
+#
+# PERSON: literal prefix string that precedes root+FV (FV is ALWAYS
+# "e", zero exceptions, across every person/tense tested including
+# future and subjunctive). Each cell trusted as submitted, NOT forced
+# into a single phonological rule -- e.g. past's "nde"->"ndo" vowel
+# shift fires for 2sg/2pl ("ndoko"/"ndomu") but not 1pl ("ndede") despite
+# all three being person markers -- kept exactly as given rather than
+# regularized, since a wrong regularization is worse than a literal
+# table here. 2026-10-21 correction: this dict originally also had
+# "3sg"/"3pl" entries, copied from the Word Bank's "negp:3sg"/"negp:3pl"
+# rows -- but `person` is NEVER "3sg"/"3pl" anywhere in this codebase
+# (PERSON_LABELS only has 1sg/2sg/1pl/2pl; those 2 rows are actually
+# explicit ANIMATE NOUNS, mwalimu/watu, despite the "negp" id prefix).
+# Moved to NEGATIVE_ANIMATE_CLASS_PREFIX_BY_TENSE below (that table's
+# own comment explains why they need a SEPARATE table, not just a
+# differently-keyed entry here -- their past/future/subjunctive shapes
+# genuinely differ from the other 1st/2nd-person cells').
+NEGATIVE_PERSON_PREFIX_BY_TENSE = {
+    ("1sg", "present"): "si", ("2sg", "present"): "ndeku", ("1pl", "present"): "ndedi",
+    ("2pl", "present"): "ndemu",
+    ("1sg", "past"): "se", ("2sg", "past"): "ndoko", ("1pl", "past"): "ndede",
+    ("2pl", "past"): "ndomu",
+    # FUTURE: retains the affirmative future TAM "-cha-" inside the
+    # negative (unlike past, which drops its affirmative TAM entirely
+    # and substitutes a dedicated negative one) -- SM itself unshifted.
+    ("1sg", "future"): "sicha", ("2sg", "future"): "ndekucha", ("1pl", "future"): "ndedicha",
+    ("2pl", "future"): "ndemcha",
+    # SUBJUNCTIVE/IMPERATIVE: a COMPLETELY different template -- no
+    # "nde" at all, not even for 1sg (which is suppletive in every OTHER
+    # tense here); every person takes its ORDINARY affirmative subject
+    # marker + the infix "-se-". Clean, zero exceptions across all 6
+    # persons/animate-nouns tested (4 here, 2 more in NEGATIVE_ANIMATE_
+    # CLASS_PREFIX_BY_TENSE). This "-se-" infix is ANIMATE-specific -- the
+    # level subjunctive below turned out to reuse the PRESENT template
+    # instead, not this one; checked directly, not assumed to match.
+    ("1sg", "subjunctive_imperative"): "nise", ("2sg", "subjunctive_imperative"): "kuse",
+    ("1pl", "subjunctive_imperative"): "dise", ("2pl", "subjunctive_imperative"): "mse",
+}
+NEGATIVE_PERSON_FINAL_VOWEL = "e"  # confirmed across all 4 tenses, no exceptions
+
+# CLASS (noun-governed clauses): present and subjunctive/imperative turn
+# out to be the SAME template (no separate subjunctive marking surfaces
+# for a class/noun subject the way it does for a person subject --
+# checked directly: "Mori ndeghubuke" has the identical "nde"+SM+root+FV
+# shape as the present row, just a different, already-correct root).
+# Future keeps FV "-a-", NOT "-e-" the way every other negative form in
+# this file does (confirmed across 9/10 classes, zero exceptions; 'ku'/
+# kukimbia future was skipped by the speaker, no data). Past uses the
+# dedicated "-re-...-eghe" negative-past TAM described above; the
+# class's own SM form going into it is stored literally per class
+# below (NOT run through this project's existing u->o/i->je shift
+# rules for "-re-" elsewhere -- checked directly and they do NOT match:
+# only "ghu" shows a shift here (u->o, "ghore"), "ku" [also u-final]
+# does not, and "ji" stays "ji" rather than the existing rule's "je" --
+# a real finding, not forced to agree with the unrelated affirmative-
+# existential-"-re-" shift rule). One exception, flagged not merged:
+# "va" (chakula/"tosha") submitted a DIFFERENT shape entirely ("nde"+
+# "vi"+"de"+root+"a", the ordinary "de" past TAM + FV "a", no "-re-
+# ...-eghe" at all) -- kept separate rather than forced into the 9-class
+# pattern; possibly va's own past-TAM is genuinely "de" (this project's
+# VERIFIED_PAST_TAM_BY_SM already has other classes using "de"), or
+# possibly a less careful answer (submitted hours later, in the same
+# batch as future/subjunctive) -- not resolved either way.
+NEGATIVE_CLASS_FUTURE_FINAL_VOWEL = "a"
+NEGATIVE_CLASS_PAST_SM_FORM = {  # the SM-shaped material that precedes "-re-" (past) / "-de-" (va only)
+    "ghu": "ghore", "i": "ire", "i_nasal": "ire", "ji": "jire", "ri": "rire",
+    "chi": "chire", "ghi": "ghire", "ku": "kure", "lu": "lure",
+}
+NEGATIVE_CLASS_PAST_SUFFIX = "eghe"  # root + this, e.g. "buk" -> "bukeghe"
+NEGATIVE_CLASS_PAST_VA_OVERRIDE = {"sm_form": "vide", "suffix": "a"}  # see comment above; "nde"+"vide"+root+"a"
+
+# 2026-10-21: direct finding while cross-checking the Word Bank's "negp:
+# 3sg"/"negp:3pl" rows (mwalimu/class 'u', watu/class 'wi' -- despite the
+# "negp" id prefix, these are explicit ANIMATE NOUNS, not pro-dropped
+# person pronouns) against the 10 ordinary-noun negation_class rows
+# above: mwalimu/watu do NOT follow the 9-class "-re-...-eghe" past /
+# "-a" future / "nde+root+e" subjunctive pattern at all -- they follow
+# the SAME template as 1st/2nd-PERSON subjects instead (FV always "e";
+# past identical to present, no dedicated past-TAM; subjunctive uses
+# the "-se-" infix, not "nde"). Consistent with this project's existing
+# ANIMATE-SG/ANIMATE-PL vs. ordinary-noun-class architectural split
+# (SWAHILI_CLASS_DEFAULT_SM_GUESS etc.) -- animacy, not literally
+# "is there a pro-dropped pronoun", is what decides which negative
+# template applies. Checked directly: "Mwalimu ndeuchakunde"(future,
+# FV "e") / "Mwalimu usekunde"(subjunctive, "-se-" infix) / "Ndeukunde"
+# (past, IDENTICAL to present) -- all 3 match the person template, zero
+# match the ordinary-class template. Classes 'u'/'wi' are the only ones
+# this project currently treats as animate-noun-governed in this way;
+# checked in translate() BEFORE the ordinary NEGATIVE_CLASS_* tables.
+NEGATIVE_ANIMATE_CLASS_PREFIX_BY_TENSE = {
+    ("u", "present"): "ndeu", ("u", "past"): "ndeu", ("u", "future"): "ndeucha",
+    ("u", "subjunctive_imperative"): "use",
+    ("wi", "present"): "ndewi", ("wi", "past"): "ndewi", ("wi", "future"): "ndewicha",
+    ("wi", "subjunctive_imperative"): "wise",
+}
+# 2026-10-21: "ghi" (maghi/eggs) was submitted as "nderighekundeghe" --
+# every OTHER class matches the "SM+re" letter order exactly (chire,
+# jire, rire, kure, lure, ire); "ghi" alone is an EXACT ANAGRAM of the
+# expected "ghire" with two letters transposed ("righe" vs "ghire") --
+# almost certainly a typo, not a genuine exception, so "ghire" (the
+# regularized form) is what is actually used above, not "righe" --
+# flagged here rather than silently assumed.
+
+# ----------------------------------------------------------------- Kitaita ASSOCIATIVE ('of') concord
+# 2026-10-15. Direct native-speaker corrections, trusted at n=1 each like
+# every other VERIFIED_* table in this file:
+#   "mayai ya kuku" (chicken's eggs, 'mayai'/'maghi' = class 'ghi') -> Kitaita
+#   "maghi gha nguku" -- associative particle "gha".
+#   "upendo wa Mungu" (God's love, 'upendo'/'lukundo' = class 'lu') -> Kitaita
+#   "lukundo lwa Mlungu" -- associative particle "lwa".
+# 'ghi' -> 'gha' happens to be an EXACT match for that class's independently-
+# verified PRESENT-TENSE subject-marker shift (PRESENT_SM_VOWEL_CONFIRMED) --
+# but 'lu' -> 'lwa' is NOT: a naive "consonant stays, vowel becomes a"
+# extrapolation from the bare marker 'lu' would predict "la", not "lwa" --
+# the 'w' glide here matches the SAME glide 'ku'->'kwa' already shows in
+# that same present-tense table (bare-vowel-final markers sometimes get a
+# glide before present tense, sometimes don't -- 'ghu'->'gha' has none --
+# and apparently the SAME split applies to associative concord, not
+# predictable from the class shape alone). Checked here first (kitaita_
+# e2e_pipeline.associative_particle_for_class), before falling back to the
+# present-tense-shift hypothesis for any OTHER class -- every class not
+# listed here remains an unconfirmed hypothesis, not assumed to follow
+# either pattern.
+KITAITA_ASSOCIATIVE_VERIFIED = {"ghi": "gha", "lu": "lwa"}
+
+# 2026-10-19. Direct user correction -- a DIFFERENT associative construction
+# from the genitive/possessive one above, NOT a special case of it: Swahili
+# "[noun] -a ku-VERB" (descriptive/purposive complement -- "water FOR
+# DRINKING", not "water OF [someone]") takes a DIFFERENT allomorph of the
+# associative particle AND fuses directly with the verb root (the
+# infinitive's own "ku-" is dropped, not kept as a separate word):
+#   "Maji ya kunywa" (drinking water) -> Kitaita "Machi ghenywa" -- particle
+#   "ghe" + root "nywa" (ku-NYWa, "to drink") fused into ONE word, not
+#   "Machi ghe nywa" or "Machi ghe kunywa".
+#   Ownership/possession with the SAME noun+particle is UNAFFECTED --
+#   direct confirmation: "maji ya Bill" (Bill's water) stays "Machi gha
+#   Bill", the ordinary KITAITA_ASSOCIATIVE_VERIFIED particle, two separate
+#   words, Bill (a proper noun) untranslated. The particle allomorph and
+#   the fusion are BOTH conditioned on the complement being an infinitive
+#   verb, not on the noun's class alone.
+# n=1 (class 'ghi' only) -- NOT assumed to generalize to any other class by
+# formula (e.g. 'lu' -> 'lwa' in the genitive table above is NOT a simple
+# vowel shift from 'lu', so there is no safe default "change the final
+# vowel to 'e'" rule to extrapolate from here either). Coincidentally,
+# 'ghi'->'ghe' is the SAME STRING as this class's subject-marker shift
+# before the UNRELATED existential 'kogh'+'-re-' past construction
+# (KOGH_RE_FRONT_VOWEL_SHIFTS['ghi'] = 'ghe', kitaita_sentence_generator.py)
+# -- flagged as a possible instance of one broader "front-vowel-shift
+# before certain following material" phonological pattern, but NOT merged
+# with that table or assumed to be the same rule: different construction,
+# checked separately, kept separate until a native speaker confirms they
+# really are the same phenomenon.
+KITAITA_ASSOCIATIVE_DESCRIPTOR_VERIFIED = {"ghi": "ghe"}
+
+# 2026-10-20: 4 more classes, direct user examples:
+#   "mti wa kuchoma" (firewood) -> "mudi ghokora" -- particle "gho" + root
+#     "kor" (VERIFIED_ROOTS["chom"]).
+#   "ulimi wa kuongea" -> "lumi loghora" -- particle "lo" + root "ghor"
+#     (VERIFIED_ROOTS["onge"]).
+#   "mbwa wa kulinda" -> "koshi elindia" -- particle "e" + root "lindi"
+#     (VERIFIED_ROOTS["lind"]).
+#   "mtu wa kucheka" -> "mundu oseka" -- particle "o" + root "sek"
+#     (VERIFIED_ROOTS["chek"]).
+#   "miti ya kuchoma" -> "midi ekora" -- SAME particle "e" as "mbwa"/
+#     "koshi" above (both resolve_class_marker() to the bare class key
+#     "i" -- see below), SAME root "kor" as "mti"/singular above
+#     (confirms "chom"->"kor" generalizes across classes, as a root
+#     translation should -- only the AGREEMENT prefix differs by class,
+#     exactly as the architecture already assumes elsewhere).
+#
+# KEYS ARE THE ACTUAL RUNTIME VALUE kitaita_e2e_pipeline.resolve_class_
+# marker() RETURNS for these specific Kitaita nouns, confirmed by DIRECT
+# lookup against this project's tables, NOT the "canonical" named class
+# (e.g. 'ghu'/'i_nasal') a human would reach for from memory. This
+# matters because several of these nouns have NO VERIFIED_SUBJECT_
+# MARKERS entry of their own, so resolve_class_marker() falls through to
+# the RAW, un-aliased noun_class_of induction, whose own "subject_marker"
+# field is a BARE, shorter string that does not disambiguate every
+# canonical class (e.g. 'gh' alone doesn't say whether a noun is 'ghu' or
+# 'ghi' -- confirmed directly: "mudi"/mti's raw class is bare 'gh', NOT
+# the full 'ghu', even though "mudi" is independently documented
+# elsewhere (Word Bank demonstrative data) as THE 'ghu'-class example
+# noun). Keying by the canonical name here would have silently never
+# matched at runtime -- checked this directly before finalizing these
+# keys, not assumed:
+#   'gh'  -- "mudi" (mti/tree); canonically class 'ghu', but resolve_
+#            class_marker() returns the bare, un-aliased 'gh' for this
+#            noun (no VERIFIED_SUBJECT_MARKERS override exists for it).
+#   'lu'  -- "lumi" (ulimi/tongue); VERIFIED_SUBJECT_MARKERS gives 'lu'
+#            directly, same key the genitive table already uses.
+#   'i'   -- "koshi" (mbwa/dog, VERIFIED_SUBJECT_MARKERS override) AND
+#            "midi" (miti/trees, the RAW un-aliased fallback) -- BOTH
+#            resolve to the SAME bare string 'i' despite koshi and midi
+#            being semantically unrelated nouns; whether they are
+#            genuinely the same CONCORD class or just a coincidental
+#            string collision between two different raw/verified
+#            sources is not established here -- flagged, not assumed,
+#            same discipline as the project's existing i/i_nasal split
+#            for adjectives (a DIFFERENT class pair that happens to
+#            share a subject marker too).
+#   'u'   -- "mundu" (mtu/person); canonically class 'u' (confirmed
+#            directly elsewhere -- the Word Bank's own demonstrative
+#            gloss for class 'u' lists "mundu/person" explicitly), and
+#            resolve_class_marker()'s raw fallback also returns bare 'u'
+#            for it (no ambiguity for this one class specifically).
+# Still n=1 per key -- not extrapolated to any OTHER class by formula.
+KITAITA_ASSOCIATIVE_DESCRIPTOR_VERIFIED.update({
+    "gh": "gho", "lu": "lo", "i": "e", "u": "o",
+})
+
+# ----------------------------------------------------------------- Kitaita OBJECT MARKERS (person)
+# 2026-10-20. CORPUS-INFERRED HYPOTHESIS, NOT native-speaker-verified --
+# a DIFFERENT, weaker confidence tier than every VERIFIED_* table above
+# (which is direct human confirmation, trusted even at n=1). This table
+# is the "aligned"/"statistical" tier extract_kitaita_grammar.py's own
+# docstring already defines: a ranked candidate list FOR a native speaker
+# to check, not a fact. Per direct user request, loaded into the Kitaita
+# Word Bank Artifact's existing "Object markers" tab (object_person rows,
+# `current`/`tier` fields) rather than wired into the live translation
+# pipeline -- this project's own footer note already flags object marking
+# as a deliberate, total "zero" placeholder because no data existed; now
+# there is a HYPOTHESIS, which belongs in front of a speaker before it
+# starts getting inserted into every translated sentence, not after.
+#
+# Method: found by isolating verses where a Swahili verb carries a KNOWN
+# person object marker on the ALREADY-CONFIRMED root 'saidi' (help, see
+# VERIFIED_ROOTS above) and reading off whatever sits between the Kitaita
+# word's own SM/TAM and its root 'tesi' in the matching verse.
+#
+#   1sg "me" -- Kitaita 'ni', IDENTICAL to Swahili's own 'ni'. n=7, zero
+#     exceptions (PSA.22.19/38.22/71.12/119.173, "kunisaidia"<->"kunitesie"/
+#     "kunitesia", + 3 more). Bantu 1st/2nd-person subject AND object
+#     markers are frequently syncretic (same string both roles) cross-
+#     linguistically -- consistent with, not contradicted by, this
+#     project's own existing Kitaita 1sg SUBJECT-marker-for-person data
+#     using the same string elsewhere.
+#   1pl "us" -- Kitaita 'di', DIFFERENT from Swahili's own 'tu'. n=3, zero
+#     exceptions (JOS.10.6, 2CH.32.8, MRK.9.22, "kutusaidia"<->"kuditesie"/
+#     "uditesie"). A genuine, independently-interesting finding: this
+#     project should NOT assume Kitaita object markers always match
+#     Swahili's just because 1sg happened to.
+#   "them"/class-2 -- Kitaita 'wi'. n=10/13 (3 noisy outliers from a crude
+#     automated match that isn't position-aware within the verse, not
+#     re-checked by hand individually). Matches this project's OWN
+#     already-established class 'wi' (wandu/wazee, "people/elders") --
+#     same string already used as that class's SUBJECT marker elsewhere,
+#     consistent with the SAME SM/OM syncretism pattern Swahili itself
+#     shows for its class 2 (both 'wa'). NOTE: Swahili's object marker
+#     'wa' is itself ambiguous between "them" (class 2) and "you-all"
+#     (2pl person) -- already flagged in extract_swahili_grammar.py's own
+#     PERSON_OBJECT_MARKERS comment -- so this Kitaita finding inherits
+#     that SAME ambiguity, not a new one.
+#   2sg "you" -- NOT included. The one candidate example found
+#     (2SA.10.11, "kuacha kunitesie, ... niacha nikutesie") is genuinely
+#     ambiguous on inspection: "ku" there could be the 2sg object marker
+#     (mirroring Swahili's own 'ku') OR the bare-infinitive marker (same
+#     string, same ambiguity already documented for the Swahili-side
+#     decomposer, see kitaita_e2e_pipeline.apply_associative_descriptor_
+#     concord's 2026-10-20 comment) -- this ONE example cannot
+#     distinguish the two readings, and no 2nd independent example was
+#     found this round. Flagged as unresolved rather than guessed.
+KITAITA_PERSON_OBJECT_MARKER_HYPOTHESIS = {
+    # 2026-10-20 (cont. 3): n for 1sg/1pl bumped from the full-corpus
+    # reverse-inference run below -- "oko"/"kir" (save/rescue, a SECOND,
+    # independent root from 'tesi'/help) reconfirmed BOTH in its own
+    # verses (MAT.14.30 "niokoe"->"Nikire"; PSA.80.2/118.25 "utuokoe"->
+    # "kudikire") -- two unrelated verbs agreeing on the same object-
+    # marker strings is stronger evidence than one verb alone, though
+    # still corpus-inferred, not speaker-verified.
+    "1sg": {"marker": "ni", "n": 8, "note": "identical to Swahili's own 'ni'; now confirmed on 2 "
+                                             "independent roots ('tesi'/help, 'kir'/save)"},
+    "1pl": {"marker": "di", "n": 4, "note": "DIFFERS from Swahili's own 'tu'; now confirmed on 2 "
+                                             "independent roots ('tesi'/help, 'kir'/save)"},
+    "class2_or_2pl": {"marker": "wi", "n": 10,
+                        "note": "matches this project's existing class 'wi' (wandu/wazee) subject "
+                                "marker; inherits Swahili's own 2pl/class-2 object-marker ambiguity"},
+}
+
+# ----------------------------------------------------------------- Kitaita DEMONSTRATIVE ('this'/'that') concord
+# 2026-10-15. Direct native-speaker correction chain (both same-day
+# retractions kept brief -- see docs/status.md cont. 11/12/15 for the
+# full history, not repeated here):
+#
+# 1. "hii kazi" (this work, 'kazi' = class 'i') -> first recorded as
+#    "iri", WRONG.
+# 2. Corrected to "ihi" for class 'i' -- matches this class's own
+#    Bible-corpus-mined candidate (concord_families['demonstrative'],
+#    Dice 0.27, previously unused).
+# 3. "iri" is real too, but NOT a plural variant of class 'i' --
+#    direct correction: "iri is for the ri class as it is the class
+#    samaki (plural) belongs to. I didn't mean you create a new
+#    class." 'ri' is an EXISTING Kitaita class (samaki/fish, the
+#    plural-reading counterpart of number-invariant nouns like
+#    samaki/ngelo -- see VERIFIED_SUBJECT_MARKERS), not a new sub-
+#    split of 'i'. Simple fix: "iri" goes directly on 'ri', same flat
+#    one-value-per-class shape every other VERIFIED_* table uses.
+#
+# Also per direct correction: Swahili demonstratives have THREE
+# distance degrees, not two -- proximal ("hii"), a middle/referential
+# degree ("hiyo" -- "that [already mentioned/near you]"), and distal
+# ("ile"). `nllb_concord_rewrite_pipeline.DEM_REFERENTIAL_TABLE` (new)
+# covers the Swahili side; KITAITA_DEM_REFERENTIAL_VERIFIED below is
+# the Kitaita side, currently empty -- no data for any class yet.
+# don't assume it generalizes.
+#
+# n=1, trusted like every other VERIFIED_* table in this file. Distal
+# ("that") has zero data for any class/number -- not attempted,
+# flagged not guessed.
+#
+# Editable live via kitaita_local_webapp.py's "/demonstratives" page and
+# the Kitaita Word Bank Artifact's "Demonstratives" tab, grouped by
+# Kitaita class, with the (low-confidence, statistical-only) corpus
+# hints shown for classes with no verified data yet. Edits call
+# save_demonstrative_concord() below, which writes kitaita_
+# demonstrative_concord.json AND mutates the three dicts below IN PLACE
+# (never rebound) so every module that already did `from kitaita_
+# verified_corrections import KITAITA_DEM_PROXIMAL_VERIFIED` (e.g.
+# kitaita_e2e_pipeline) sees an edit immediately, no restart needed.
+# 2026-10-16: all 12 classes submitted via the Word Bank's "Demonstratives"
+# tab (contributions collection, "dem:<cls>:<degree>" docs) -- closed-set
+# whole-word forms, not derived from any prefix rule (consistent with this
+# series' own "do NOT decompose productively" design, see module docstring
+# above). 'i' and 'i_nasal' submitted IDENTICAL forms for all 3 degrees --
+# a real, notable finding (demonstratives apparently do NOT carry the i/
+# i_nasal distinction that adjective concord does), not an error, kept as
+# given. Single-contributor data (n=1 per cell, same trust tier as every
+# other VERIFIED_* table) -- not yet cross-checked against a second
+# speaker or real sentence context.
+KITAITA_DEM_PROXIMAL_VERIFIED = {"u": "uhu", "ghu": "ughu", "ji": "iji", "ri": "iri", "i": "ihi",
+                                   "i_nasal": "ihi", "chi": "ichi", "wi": "awa", "ghi": "agha",
+                                   "ku": "uku", "lu": "ulu", "va": "ivi"}
+KITAITA_DEM_REFERENTIAL_VERIFIED = {"u": "uo", "ghu": "ugho", "ji": "ijo", "ri": "iro", "i": "io",
+                                      "i_nasal": "io", "chi": "icho", "wi": "awo", "ghi": "agho",
+                                      "ku": "uko", "lu": "ulo", "va": "ivo"}
+KITAITA_DEM_DISTAL_VERIFIED = {"u": "uja", "ghu": "ghuja", "ji": "ija", "ri": "irija", "i": "ija",
+                                 "i_nasal": "ija", "chi": "ichija", "wi": "awaja", "ghi": "aghaja",
+                                 "ku": "ukuja", "lu": "uluja", "va": "vija"}
+
+_DEM_CONCORD_PATH = _Path(__file__).with_name("kitaita_demonstrative_concord.json")
+_DEM_DEGREES = ("proximal", "referential", "distal")
+
+
+def _load_demonstrative_concord_file() -> None:
+    """Overlay kitaita_demonstrative_concord.json's current values onto
+    the three dicts above, IN PLACE (clear+update, never rebind) so every
+    module that imported them by name keeps seeing the live data."""
+    if not _DEM_CONCORD_PATH.exists():
+        return
+    data = _json.loads(_DEM_CONCORD_PATH.read_text(encoding="utf-8"))
+    tables = {"proximal": KITAITA_DEM_PROXIMAL_VERIFIED, "referential": KITAITA_DEM_REFERENTIAL_VERIFIED,
+              "distal": KITAITA_DEM_DISTAL_VERIFIED}
+    for degree, table in tables.items():
+        for cls in data.get("classes", []):
+            value = (cls.get(degree) or {}).get("value", "").strip()
+            if value:
+                table[cls["id"]] = value
+            else:
+                table.pop(cls["id"], None)
+
+
+def save_demonstrative_concord(updates: dict) -> list:
+    """updates: {class_id: {"proximal": str, "referential": str, "distal": str}}
+    -- any subset of the 3 keys per class. Writes kitaita_demonstrative_
+    concord.json (every other field -- nearest_swahili_class, sample_members,
+    corpus_hints, notes -- is preserved untouched) and reloads the 3 live
+    dicts above. Treated as trusted, direct human input, same tier as every
+    other VERIFIED_* table in this file (applied even at n=1) -- NOT
+    re-derived or guessed. Returns the full updated class list."""
+    data = _json.loads(_DEM_CONCORD_PATH.read_text(encoding="utf-8"))
+    by_id = {c["id"]: c for c in data["classes"]}
+    for cls_id, vals in updates.items():
+        c = by_id.get(cls_id)
+        if c is None:
+            continue
+        for degree in _DEM_DEGREES:
+            if degree not in vals:
+                continue
+            v = vals[degree].strip()
+            slot = c[degree]
+            slot["value"] = v
+            slot["status"] = "workbench-edit" if v else "unverified"
+    _DEM_CONCORD_PATH.write_text(_json.dumps(data, indent=2, ensure_ascii=False), encoding="utf-8")
+    _load_demonstrative_concord_file()
+    return data["classes"]
+
+
+def get_demonstrative_concord_classes() -> list:
+    """Current full class list (page content), straight from the JSON
+    file -- used by both the GET page render and the POST response."""
+    if not _DEM_CONCORD_PATH.exists():
+        return []
+    return _json.loads(_DEM_CONCORD_PATH.read_text(encoding="utf-8"))["classes"]
+
+
+_load_demonstrative_concord_file()

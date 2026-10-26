@@ -75,6 +75,62 @@ class VerbFormEntry:
     # forms (relative clauses need a conjugated verb) -- empty for the
     # bare-infinitive branch.
     relative_marker_candidates: list = field(default_factory=list)
+    # 2026-10-15: set when `subject_marker` is (also, or only) a PERSON
+    # marker (1sg/2sg/1pl/2pl -- "ni"/"u"/"tu"/"m") rather than a noun-class
+    # marker, per extract_swahili_grammar.PERSON_SM_TABLE. "u" is genuinely
+    # ambiguous with class 3/11's own subject marker (same string) --
+    # callers resolve that by using this reading ONLY when no subject NOUN
+    # was found in the sentence at all; a class-3/11 noun subject still
+    # takes priority when one exists. kitaita_sentence_generator.translate()
+    # already has a full person-marker substitution path
+    # (PERSON_SUBJECT_MARKERS_BY_TAM); this field is what lets the free-text
+    # pipeline (kitaita_e2e_pipeline.py) actually reach it for a pro-dropped
+    # 1st/2nd-person subject instead of refusing outright.
+    person: Optional[str] = None
+    # 2026-10-15: set True when decompose_negative_verb() recognized a
+    # Swahili negative-PRESENT form (si-/ha-+SM + root + '-i', reference
+    # grammar -- Ashton 1944). Deliberately NOT accompanied by any Kitaita
+    # negation mechanism: no native-speaker data exists for Kitaita negation
+    # at all (CLAUDE.md open decisions) -- callers must flag and refuse,
+    # never silently emit an affirmative-looking translation for a negated
+    # source sentence.
+    negated: bool = False
+    # 2026-10-21: candidate ALTERNATE root (final vowel unchanged, always
+    # '-e') if the bare-subjunctive/imperative reading's "rest" string
+    # happens to start with "si" -- Swahili's NEGATIVE subjunctive/
+    # imperative ("usiogope" = u+si+ogop+e = "don't you fear", valid for
+    # ANY subject, not just 1st-singular; reference grammar, Ashton 1944)
+    # is a GENUINE string-level ambiguity with an ordinary POSITIVE
+    # subjunctive whose root happens to start with "si" (e.g. "usikilize"
+    # = u+sikiliz+e = "you should listen", root "sikiliz" -- NOT negated).
+    # Same "enumerate, don't blindly strip" discipline as object_marker_
+    # candidates/relative_marker_candidates above -- root_guess/negated
+    # above are UNCHANGED by this (every existing caller keeps seeing the
+    # UNSTRIPPED reading); a caller with root-plausibility evidence (the
+    # Kitaita root dictionary) decides which reading is real, exactly like
+    # the object-marker presence-detection check already does.
+    negative_subjunctive_candidate: Optional[str] = None
+    # 2026-10-23: candidate ALTERNATE (root, final_vowel) reading for the
+    # BARE INFINITIVE when subject_marker is "ku" AND the main SM+TAM loop
+    # also found a TAM match -- a GENUINE string-level ambiguity, direct
+    # user bug report ("kutafuta" -> wrongly parsed as ku+TAM('ta')+root
+    # ('fut')+a, when it is really just the infinitive ku+root('tafut')+a;
+    # "fut" alone then had no real Kitaita evidence and fell through to a
+    # near-random weak-fallback translation, "nderiwuye"). "ku-" is
+    # genuinely ambiguous between the INFINITIVE marker (never followed by
+    # a separate tense marker) and Swahili's class-17/locative subject
+    # marker (which DOES take a normal TAM, e.g. "Kutakuwa na njaa" = "ku"
+    # [class-17] + "ta" [future] + "kuw" [be] + "a" -- a real existential
+    # construction this project's own 'kuw' root already covers well) --
+    # collapsing to the infinitive unconditionally would break that case,
+    # same "enumerate, don't blindly strip" discipline as object_marker_
+    # candidates/negative_subjunctive_candidate above. root_guess/
+    # tam_marker above are UNCHANGED (still the greedy TAM-consuming
+    # reading); a caller with root-plausibility evidence decides which
+    # reading is real (see kitaita_e2e_pipeline.py's root-resolution step,
+    # same evidence-comparison helper used for the OM/negative-subjunctive
+    # candidates).
+    ku_infinitive_alternate: Optional[tuple] = None  # (alternate_root, alternate_final_vowel) or None
 
 
 @dataclass

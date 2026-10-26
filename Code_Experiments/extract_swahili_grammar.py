@@ -125,6 +125,20 @@ _OM_CANDIDATES = sorted(
 REL_TABLE = {1: "ye", 2: "o", 3: "o", 4: "yo", 5: "lo", 6: "yo", 7: "cho",
              8: "vyo", 9: "yo", 10: "zo", 11: "o", 14: "o", 15: "ko"}
 
+# 2026-10-21: class 16 ("mahali"/locative-temporal, e.g. "alipoangusha" =
+# a-li-po-angusha, "when he dropped") was missing entirely -- standard
+# reference grammar (Ashton 1944 Sec. 182; Mohammed 2001), same tier as
+# every other REL_TABLE entry, not corpus-derived this round (the SWH_UDT
+# 67-instance pass that built the rest of this table happened not to
+# contain a locative/temporal relative). Direct user bug report: without
+# this, "-po-" was invisible to find_relative_marker_candidates() and the
+# whole "po"+root string (e.g. "poangusha") was treated as one opaque
+# root, corrupting every lookup for a verb used in this construction.
+# Same "presence detection, not blind stripping" caveat applies -- adding
+# this entry only makes "-po-" a candidate find_relative_marker_
+# candidates() can enumerate, not something it assumes is always there.
+REL_TABLE[16] = "po"
+
 _REL_CANDIDATES = sorted(set(REL_TABLE.values()), key=len, reverse=True)
 
 
@@ -211,6 +225,83 @@ NEGATION_MARKERS = {
           "'siendi' = I do not go)",
 }
 
+# 2026-10-15: Swahili PERSON subject-marker prefixes (reference grammar,
+# Ashton 1944/Mohammed 2001 -- same tier as SM_TABLE above, not corpus-
+# derived). SM_TABLE only ever covered noun CLASSES; a verb with no overt
+# noun subject but a person prefix ("Ninapenda" = I like, "Tunapenda" = we
+# like) was previously simply unrecognized by decompose_verb() at all
+# (none of SM_TABLE's class strings are a prefix of "ninapenda"/
+# "tunapenda"/"mnapenda"). "u" (2sg, "you") is a genuine STRING COLLISION
+# with SM_TABLE[3]/[11] -- both are real, valid readings of the same
+# prefix; disambiguated only at the SENTENCE level (kitaita_e2e_pipeline.py
+# prefers a class-3/11 noun subject when one exists in the sentence, and
+# falls back to the person reading only when no subject noun was found at
+# all). 3sg "a"/3pl "wa" are deliberately NOT included here even though
+# they're also person prefixes -- those strings are already fully covered
+# by SM_TABLE[1]/[2] (animate singular/plural), and resolving a BARE 3rd-
+# person pro-drop with no noun in the sentence at all is a coreference
+# problem (which earlier noun/sentence is "it"/"they"?) explicitly out of
+# this project's scope (CLAUDE.md: "Cross-sentence object markers/pronouns
+# are a coreference problem -- out of scope"), not something this table
+# should paper over.
+PERSON_SM_TABLE = {"ni": "1sg", "tu": "1pl", "m": "2pl", "u": "2sg"}
+
+# 2026-10-15: Swahili NEGATIVE-PRESENT subject markers (reference grammar,
+# Ashton 1944 ch. on the negative; same tier as SM_TABLE/PERSON_SM_TABLE,
+# not corpus-derived). Negative present tense has NO separate tense marker
+# at all (unlike the affirmative "na-") -- it is NEG-subject-prefix + root
+# + final vowel '-i' (not '-a'), e.g. "sipendi" = si+pend+i = "I do not
+# like". The person/class-1/class-2 forms are irregular/fused (si-, hu-,
+# ha-, hatu-, ham-, hawa- -- NOT simply "ha" + the ordinary SM string: e.g.
+# 2sg is "hu-", not "ha-u-"), so they're listed directly rather than
+# derived. Every OTHER noun class (3,4,5,6,7,8,9,10,11,15) is fully
+# transparent: "ha" + that class's own ordinary SM_TABLE string, with NO
+# contraction (hau-, hai-, hali-, haya-, haki-, havi-, hai-, hazi-, hau-,
+# haku-) -- built programmatically below from SM_TABLE itself rather than
+# hand-copied, so it can't silently drift out of sync with it.
+#
+# Scope: PRESENT negative only. Other negative tenses (past "ha-SM-ku-
+# root-a", future "ha-SM-ta-root-a", perfect "ha-ja-...") have different
+# shapes entirely and are NOT attempted here -- same "one gap closed per
+# change" discipline as every other addition in this file, flagged as a
+# follow-on rather than silently half-implemented.
+NEGATIVE_SM_IRREGULAR = {
+    "si": "1sg", "hu": "2sg", "ha": "3sg/cl1", "hatu": "1pl", "ham": "2pl", "hawa": "3pl/cl2",
+}
+NEGATIVE_SM_TRANSPARENT = {
+    cls: f"ha{sm}" for cls, sm in SM_TABLE.items() if cls not in (1, 2, "ANIMATE-SG", "ANIMATE-PL")
+}
+_NEGATIVE_SM_CANDIDATES = sorted(
+    [(s, label) for s, label in NEGATIVE_SM_IRREGULAR.items()]
+    + [(s, f"cl{cls}") for cls, s in NEGATIVE_SM_TRANSPARENT.items()],
+    key=lambda sl: -len(sl[0]),
+)
+
+
+def decompose_negative_verb(word: str):
+    """Recognize a Swahili negative-PRESENT verb form (see
+    NEGATIVE_SM_IRREGULAR/NEGATIVE_SM_TRANSPARENT above). Requires the
+    final vowel to be literally '-i' -- the one unambiguous morphological
+    signal that this is negative-present rather than some unrelated word
+    that happens to start with the same letters (affirmative Swahili verbs
+    are overwhelmingly '-a'-final) -- same "require positive evidence,
+    don't just pattern-match" discipline as decompose_verb()'s own TAM/FV
+    check. Returns a VerbFormEntry (negated=True, tam_label=
+    'negative_present') or None (flag, don't guess)."""
+    wl = word.lower()
+    for sm, label in _NEGATIVE_SM_CANDIDATES:
+        if not wl.startswith(sm):
+            continue
+        rest = wl[len(sm):]
+        if len(rest) >= 3 and rest[-1] == "i":
+            is_person = "/" not in label and not label.startswith("cl")
+            return VerbFormEntry(
+                surface=word, subject_marker=sm, tam_marker="", tam_label="negative_present",
+                root_guess=rest[:-1], final_vowel=rest[-1], confidence="reference-grammar",
+                negated=True, person=label if is_person else None,
+            )
+    return None
+
 
 def tokenize(text: str) -> list[str]:
     return re.findall(r"[A-Za-zÀ-ÖØ-öø-ÿ']+", text)
@@ -243,7 +334,13 @@ def decompose_verb(word: str) -> VerbFormEntry | None:
     stem + a plausible final vowel remain -- otherwise returns None
     (flag, don't guess)."""
     wl = word.lower()
-    sm_candidates = sorted({str(v) for v in SM_TABLE.values()}, key=len, reverse=True)
+    # 2026-10-15: PERSON_SM_TABLE's strings ("ni"/"tu"/"m", plus "u" which
+    # already existed as class 3/11's own string) are included here too, so
+    # a pro-dropped-subject verb like "ninapenda"/"tunapenda"/"mnapenda" is
+    # recognized at all -- previously NONE of SM_TABLE's class-only strings
+    # matched these prefixes, so decompose_verb returned None outright for
+    # every such form.
+    sm_candidates = sorted({str(v) for v in SM_TABLE.values()} | set(PERSON_SM_TABLE), key=len, reverse=True)
     for sm in sm_candidates:
         if not wl.startswith(sm):
             continue
@@ -271,11 +368,24 @@ def decompose_verb(word: str) -> VerbFormEntry | None:
                     # Relative-marker candidates -- finite forms only (this
                     # branch), relative clauses need a conjugated verb.
                     rel_candidates = find_relative_marker_candidates(stem_fv)
+                    # 2026-10-23: see VerbFormEntry.ku_infinitive_alternate's
+                    # own comment -- "ku-" + a string that ALSO happens to be
+                    # a real TAM marker (e.g. "ta"/"na"/"ki"/"ka"/"li"/"da")
+                    # is genuinely ambiguous between the infinitive reading
+                    # (whole `rest` is the root, no TAM at all) and this
+                    # branch's own TAM-consuming reading -- enumerated here,
+                    # not decided (same discipline as the OM-candidate check
+                    # just above).
+                    ku_infinitive_alternate = None
+                    if sm == "ku" and len(rest) >= 3 and rest[-1] in "aeiou":
+                        ku_infinitive_alternate = (rest[:-1], rest[-1])
                     return VerbFormEntry(
                         surface=word, subject_marker=sm, tam_marker=tam, tam_label=label,
                         root_guess=stem_fv[:-1], final_vowel=stem_fv[-1], confidence="prefix-pattern",
                         object_marker_candidates=om_candidates,
                         relative_marker_candidates=rel_candidates,
+                        person=PERSON_SM_TABLE.get(sm),
+                        ku_infinitive_alternate=ku_infinitive_alternate,
                     )
         # 2026-10-11: bare infinitive (ku- + [object marker] + root + FV,
         # NO tense/aspect marker -- grammatical only for the infinitive
@@ -291,7 +401,95 @@ def decompose_verb(word: str) -> VerbFormEntry | None:
                 root_guess=rest[:-1], final_vowel=rest[-1], confidence="prefix-pattern",
                 object_marker_candidates=find_object_marker_candidates(rest),
             )
-    return None
+        # 2026-10-20, direct user bug report ("yeye aletaye uharibifu... hata
+        # uharibifu uipate ngome" -> "no verb found", even though this
+        # project already has usable Kitaita evidence for BOTH 'leta' and
+        # 'pata'): decompose_verb() had NO path at all for a verb with NO
+        # TAM marker for any SM other than 'ku' -- every other SM required
+        # an explicit TAM string to match, so a genuinely tenseless Swahili
+        # verb form was silently unrecognized outright, not just root-
+        # corrupted. Two DIFFERENT tenseless constructions, checked in this
+        # order (the first is more specific -- a plain final-vowel check
+        # alone would wrongly also match it, see below):
+        #
+        # 1. The SUFFIXED "general/zero" relative ("a-leta-ye" = SM + root +
+        #    FV + a relative-marker SUFFIX, e.g. class 1 '-ye' -- a
+        #    genuinely different position from the ALREADY-handled INFIX
+        #    relative above, SM+TAM+REL+root+FV, e.g. "a-na-ye-fanya"; this
+        #    one has NO TAM slot at all). Tried FIRST: "aletaye" ends in
+        #    'e', which the bare-subjunctive check below would otherwise
+        #    match too, wrongly leaving the '-ye' suffix glued onto the root
+        #    ("letay", not "let") -- checked directly before ordering these.
+        for rel in _REL_CANDIDATES:
+            if not rest.endswith(rel):
+                continue
+            stem_fv = rest[:-len(rel)]
+            if len(stem_fv) >= 3 and stem_fv[-1] in "aeiou":
+                return VerbFormEntry(
+                    surface=word, subject_marker=sm, tam_marker="", tam_label="relative/tenseless (suffixed)",
+                    root_guess=stem_fv[:-1], final_vowel=stem_fv[-1], confidence="prefix-pattern",
+                    object_marker_candidates=find_object_marker_candidates(stem_fv),
+                    relative_marker_candidates=[(rel, stem_fv)],
+                    person=PERSON_SM_TABLE.get(sm),
+                )
+        # 2. Bare SUBJUNCTIVE (SM + [object marker] + root + '-e', no TAM --
+        #    the one other Swahili mood that needs no explicit tense marker,
+        #    always final-vowel '-e' rather than '-a'; distinguishes it from
+        #    an ordinary indicative verb that's simply missing its TAM,
+        #    which is NOT a real Swahili form and shouldn't be guessed at).
+        #    `rest not in TAM_MARKERS` guard found directly while testing:
+        #    "inge" (sm='i', rest='nge') was spuriously matching this branch
+        #    as root 'ng'+'-e' -- but 'nge' is ITSELF the whole conditional-
+        #    hypothetical TAM marker with nothing left over (the TAM-loop
+        #    above already tried and correctly REJECTED that reading, since
+        #    stem_fv would be empty) -- a string that IS a complete TAM
+        #    marker and nothing else is strong evidence this is a TAM+no-
+        #    root non-word, not a genuine 2-letter root, so it's excluded
+        #    here rather than guessed at.
+        if len(rest) >= 3 and rest[-1] == "e" and rest not in TAM_MARKERS:
+            # 2026-10-21: direct user bug report ("Usiogope" -> root
+            # "siogop", wrong -- it's negative "u-si-ogop-e", not an
+            # affirmative subjunctive whose root happens to start with
+            # "si"). See VerbFormEntry.negative_subjunctive_candidate's own
+            # docstring for why this is ENUMERATED here, not decided --
+            # "usikilize" (root "sikiliz", genuinely NOT negated) is the
+            # same string shape and must not be silently reinterpreted.
+            neg_candidate = rest[2:-1] if rest.startswith("si") and len(rest) >= 5 else None
+            return VerbFormEntry(
+                surface=word, subject_marker=sm, tam_marker="", tam_label="subjunctive/bare",
+                root_guess=rest[:-1], final_vowel=rest[-1], confidence="prefix-pattern",
+                object_marker_candidates=find_object_marker_candidates(rest),
+                person=PERSON_SM_TABLE.get(sm),
+                negative_subjunctive_candidate=neg_candidate,
+            )
+    # 2026-10-22, direct user bug report ("nafurahia" -> no verb found,
+    # even though "ninafurahia" is the exact same verb and decomposes
+    # fine): standard Swahili reference grammar (Ashton 1944; universally
+    # attested in natural text) allows the 1sg present subject marker
+    # "ni-" to be ELIDED directly before the "-na-" TAM marker --
+    # "ninasoma"/"nasoma" are both grammatical for "I am reading". The
+    # main loop above never tries this because "na" is a TAM string, not
+    # an SM candidate, so a word that starts with "na" and has NO OTHER
+    # SM match at all (every sm_candidates entry above already failed)
+    # was previously just unrecognized outright, not merely root-
+    # corrupted. Tried only here, after every SM-prefixed reading has
+    # failed, so no existing recognized form changes behavior. Same
+    # minimum-root-length + final-vowel-is-a-vowel discipline as every
+    # other branch in this function.
+    if wl.startswith("na"):
+        rest = wl[2:]
+        if len(rest) >= 3 and rest[-1] in "aeiou":
+            return VerbFormEntry(
+                surface=word, subject_marker="ni", tam_marker="na", tam_label="present",
+                root_guess=rest[:-1], final_vowel=rest[-1], confidence="reference-grammar",
+                object_marker_candidates=find_object_marker_candidates(rest),
+                relative_marker_candidates=find_relative_marker_candidates(rest),
+                person="1sg",
+            )
+    # 2026-10-15: tried only after every affirmative reading above has
+    # failed, so no existing recognized form changes behavior -- this only
+    # adds recognition for words that previously returned None outright.
+    return decompose_negative_verb(word)
 
 
 def build() -> BantuGrammar:
