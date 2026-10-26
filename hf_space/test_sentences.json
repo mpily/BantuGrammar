@@ -1,0 +1,4238 @@
+[
+ {
+  "id": "ASB.0001.1",
+  "sw": "Jembe lake lilikuwa fupi mno."
+ },
+ {
+  "id": "ASB.0001.2",
+  "sw": "Mlango wake ulikuwa chini mno."
+ },
+ {
+  "id": "ASB.0001.3",
+  "sw": "Kitanda chake kilikuwa kifupi mno."
+ },
+ {
+  "id": "ASB.0001.4",
+  "sw": "Baisikeli yake ilikuwa fupi sana."
+ },
+ {
+  "id": "ASB.0001.5",
+  "sw": "Mtu huyu alikuwa mrefu zaidi!"
+ },
+ {
+  "id": "ASB.0001.6",
+  "sw": "Alitengeneza mpini wa jembe mrefu sana."
+ },
+ {
+  "id": "ASB.0001.7",
+  "sw": "Alitengeneza fremu ndefu za milango."
+ },
+ {
+  "id": "ASB.0001.8",
+  "sw": "Alitengeneza kitanda kirefu sana."
+ },
+ {
+  "id": "ASB.0001.9",
+  "sw": "Akanunua baisikeli iliyokuwa ndefu mno."
+ },
+ {
+  "id": "ASB.0001.10",
+  "sw": "Aliketi juu ya kiti kilichokuwa juu sana."
+ },
+ {
+  "id": "ASB.0001.11",
+  "sw": "Alikula kwa kutumia uma iliyokuwa ndefu mno."
+ },
+ {
+  "id": "ASB.0001.12",
+  "sw": "Aliacha nyumba yake na kuishi katika msitu mkubwa."
+ },
+ {
+  "id": "ASB.0001.13",
+  "sw": "Aliishi kwa miaka mingi."
+ },
+ {
+  "id": "ASB.0002.1",
+  "sw": "Tazama wanyama."
+ },
+ {
+  "id": "ASB.0002.2",
+  "sw": "Ng’ombe anasema, “Moo.”"
+ },
+ {
+  "id": "ASB.0002.3",
+  "sw": "Mbuzi anasema, “Mee, mee.”"
+ },
+ {
+  "id": "ASB.0002.4",
+  "sw": "Farasi anasema, “Nei.”"
+ },
+ {
+  "id": "ASB.0002.5",
+  "sw": "Nguruwe anasema, “Ngruu.”"
+ },
+ {
+  "id": "ASB.0002.6",
+  "sw": "Kuku anasema, “Ko, ko, ko.”"
+ },
+ {
+  "id": "ASB.0002.7",
+  "sw": "Mbwa anasema, “Wouh, wouh.”"
+ },
+ {
+  "id": "ASB.0002.8",
+  "sw": "Mkulima anasema, “Nyamaza!”"
+ },
+ {
+  "id": "ASB.0003.1",
+  "sw": "Gauni hili ni refu."
+ },
+ {
+  "id": "ASB.0003.2",
+  "sw": "Sweta hii ni kubwa."
+ },
+ {
+  "id": "ASB.0003.3",
+  "sw": "Mkoba huu ni mkubwa."
+ },
+ {
+  "id": "ASB.0003.4",
+  "sw": "Mkanda huu ni…"
+ },
+ {
+  "id": "ASB.0003.5",
+  "sw": "Kofia hii ni ndogo."
+ },
+ {
+  "id": "ASB.0003.6",
+  "sw": "Soksi hizi ni fupi."
+ },
+ {
+  "id": "ASB.0003.7",
+  "sw": "Lakini viatu hivi ni vipya."
+ },
+ {
+  "id": "ASB.0003.8",
+  "sw": "…vinanitosha vizuri."
+ },
+ {
+  "id": "ASB.0004.1",
+  "sw": "Mbuzi, Mbwa na Ng’ombe walikuwa marafiki wa karibu sana."
+ },
+ {
+  "id": "ASB.0004.2",
+  "sw": "Siku moja walisafiri kwa teksi."
+ },
+ {
+  "id": "ASB.0004.3",
+  "sw": "Walipofika mwisho wa safari yao, dereva aliwaomba walipe nauli zao."
+ },
+ {
+  "id": "ASB.0004.4",
+  "sw": "Ng’ombe alilipa nauli yake."
+ },
+ {
+  "id": "ASB.0004.5",
+  "sw": "Mbwa alilipa zaidi kidogo kwa sababu hakuwa na pesa taslimu."
+ },
+ {
+  "id": "ASB.0004.6",
+  "sw": "Dereva alipokaribia kumpa Mbwa chenji yake, Mbuzi alitoroka bila kulipa chochote."
+ },
+ {
+  "id": "ASB.0004.7",
+  "sw": "Dereva alikasirika sana."
+ },
+ {
+  "id": "ASB.0004.8",
+  "sw": "Aliondoka bila kumrudishia Mbwa chenji yake."
+ },
+ {
+  "id": "ASB.0004.9",
+  "sw": "Hiyo ndiyo sababu hadi leo Mbwa hukimbiza magari ili achungulie ndani kuona kama atampata dereva mwenye chenji yake."
+ },
+ {
+  "id": "ASB.0004.10",
+  "sw": "Mbuzi hukimbia anaposikia mlio wa gari."
+ },
+ {
+  "id": "ASB.0004.11",
+  "sw": "Anaogopa atakamatwa kwa kutolipa nauli."
+ },
+ {
+  "id": "ASB.0004.12",
+  "sw": "Na Ng’ombe hababaiki gari likiwa linakuja."
+ },
+ {
+  "id": "ASB.0004.13",
+  "sw": "Ng’ombe huvuka barabara bila wasiwasi kwa sababu anajua alilipa nauli yake yote."
+ },
+ {
+  "id": "ASB.0006.1",
+  "sw": "Hapo zamani za kale, watu hawakujua chochote."
+ },
+ {
+  "id": "ASB.0006.2",
+  "sw": "Hawakujua kupanda mimea, hawakujua kushona nguo, wala hawakujua kuunda zana za chuma."
+ },
+ {
+  "id": "ASB.0006.3",
+  "sw": "Nyame, mungu aliyekuwa mbinguni, ndiye aliyekuwa mwenye hekima zote za dunia."
+ },
+ {
+  "id": "ASB.0006.4",
+  "sw": "Alihifadhi hekima hiyo kwenye chungu cha udongo."
+ },
+ {
+  "id": "ASB.0006.5",
+  "sw": "Siku moja, Nyame aliamua kumpa Anansi chungu hicho cha hekima."
+ },
+ {
+  "id": "ASB.0006.6",
+  "sw": "Kila Anansi alipotazama ndani ya chungu cha udongo, alijifunza jambo jipya."
+ },
+ {
+  "id": "ASB.0006.7",
+  "sw": "Alifurahi sana!"
+ },
+ {
+  "id": "ASB.0006.8",
+  "sw": "Anansi mlafi alinong’ona moyoni, “Nitakificha chungu hiki juu ya mti mrefu ili nikifaidi mwenyewe.”"
+ },
+ {
+  "id": "ASB.0006.9",
+  "sw": "Akasokota uzi mrefu na kuuzungusha kwenye chungu."
+ },
+ {
+  "id": "ASB.0006.10",
+  "sw": "Kisha, akajifunga tumboni."
+ },
+ {
+  "id": "ASB.0006.11",
+  "sw": "Akaanza kupanda kwenye mti."
+ },
+ {
+  "id": "ASB.0006.12",
+  "sw": "Lakini ilikuwa vigumu kupanda kwenye mti huku chungu kikimgonga magotini kila mara."
+ },
+ {
+  "id": "ASB.0006.13",
+  "sw": "Wakati huo wote, mwanawe alikuwa amesimama chini ya ule mti akimtazama baba yake."
+ },
+ {
+  "id": "ASB.0006.14",
+  "sw": "Akamwambia, “Baba, si ingekuwa rahisi kupanda endapo ungekifungia chungu mgongoni?”"
+ },
+ {
+  "id": "ASB.0006.15",
+  "sw": "Basi Anansi akajaribu kukifungia chungu kilichojaa hekima mgongoni mwake, na kweli ikawa rahisi zaidi."
+ },
+ {
+  "id": "ASB.0006.16",
+  "sw": "Punde tu alipofika juu ya mti, aliwaza, “Natakiwa kuwa ndiye mwenye hekima zote, lakini hapa mwanangu ndiye mwenye akili kuliko mimi.”"
+ },
+ {
+  "id": "ASB.0006.17",
+  "sw": "Anansi alikasirishwa sana kiasi kwamba alikitupa kile chungu chini ya mti."
+ },
+ {
+  "id": "ASB.0006.18",
+  "sw": "Chungu kilivunjika vipandevipande pale chini."
+ },
+ {
+  "id": "ASB.0006.19",
+  "sw": "Hekima zikawa za bure kwa mtu yeyote kujichukulia."
+ },
+ {
+  "id": "ASB.0006.20",
+  "sw": "Na hivyo ndivyo watu walivyojifunza kulima, kushona nguo, kuunda zana za chuma, na mambo yote mengine ambayo watu wanajua kuyafanya."
+ },
+ {
+  "id": "ASB.0008.1",
+  "sw": "Ninaimba."
+ },
+ {
+  "id": "ASB.0008.2",
+  "sw": "Anapunga mkono."
+ },
+ {
+  "id": "ASB.0008.3",
+  "sw": "Ninapiga makofi."
+ },
+ {
+  "id": "ASB.0008.4",
+  "sw": "Anajinyoosha."
+ },
+ {
+  "id": "ASB.0008.5",
+  "sw": "Anaita."
+ },
+ {
+  "id": "ASB.0008.6",
+  "sw": "Ninaitika."
+ },
+ {
+  "id": "ASB.0008.7",
+  "sw": "Anasikiliza."
+ },
+ {
+  "id": "ASB.0008.8",
+  "sw": "Wewe unafanya nini?"
+ },
+ {
+  "id": "ASB.0009.1",
+  "sw": "Yuko wapi paka wangu?"
+ },
+ {
+  "id": "ASB.0009.2",
+  "sw": "Je, yuko chini ya kitanda?"
+ },
+ {
+  "id": "ASB.0009.3",
+  "sw": "Yuko juu ya kabati?"
+ },
+ {
+  "id": "ASB.0009.4",
+  "sw": "Yuko nyuma ya sofa?"
+ },
+ {
+  "id": "ASB.0009.5",
+  "sw": "Yuko karibu na pipa la takataka?"
+ },
+ {
+  "id": "ASB.0009.6",
+  "sw": "Yuko ndani ya kikapu?"
+ },
+ {
+  "id": "ASB.0009.7",
+  "sw": "Yuko nje ya nyumba?"
+ },
+ {
+  "id": "ASB.0009.8",
+  "sw": "Yupo hapa!"
+ },
+ {
+  "id": "ASB.0027.1",
+  "sw": "Kijiji changu kilikuwa na matatizo mengi."
+ },
+ {
+  "id": "ASB.0027.2",
+  "sw": "Tulipanga foleni ndefu tukisubiri kuchota maji kutoka mfereji mmoja."
+ },
+ {
+  "id": "ASB.0027.3",
+  "sw": "Tulisubiri kupokea msaada wa chakula."
+ },
+ {
+  "id": "ASB.0027.4",
+  "sw": "Tulifunga nyumba zetu mapema kwasababu ya wizi."
+ },
+ {
+  "id": "ASB.0027.5",
+  "sw": "Watoto wengi waliacha shule."
+ },
+ {
+  "id": "ASB.0027.6",
+  "sw": "Wasichana wadogo walifanya kazi za nyumbani kwenye vijiji vingine."
+ },
+ {
+  "id": "ASB.0027.7",
+  "sw": "Wavulana wadogo waliranda randa kijijini na wengine walifanya kazi kwenye mashamba ya watu."
+ },
+ {
+  "id": "ASB.0027.8",
+  "sw": "Upepo ulipovuma, ulipeperusha karatasi chafu na kuzifikisha mitini na uani."
+ },
+ {
+  "id": "ASB.0027.9",
+  "sw": "Watu walikatwa na vipande vya chupa vilivyotupwa ovyo ovyo."
+ },
+ {
+  "id": "ASB.0027.10",
+  "sw": "Halafu siku moja, mfereji wa maji ulikauka na mitungi yetu ikawa mitupu."
+ },
+ {
+  "id": "ASB.0027.11",
+  "sw": "Baba yangu alitembea nyumba hadi nyumba akiwaomba watu kuhudhuria mkutano wa kijiji."
+ },
+ {
+  "id": "ASB.0027.12",
+  "sw": "Watu walikusanyika chini ya mti mkubwa na kusikiliza."
+ },
+ {
+  "id": "ASB.0027.13",
+  "sw": "Baba yangu alisimama na kusema, “Tunahitaji kusaidiana kutatua matatizo yetu.”"
+ },
+ {
+  "id": "ASB.0027.14",
+  "sw": "Juma, mtoto wa miaka minane aliyekuwa amekaa kwenye tawi la mti, alisema kwa sauti, “Naweza kusaidia na usafi.”"
+ },
+ {
+  "id": "ASB.0027.15",
+  "sw": "Mwanamke mmoja alisema, “Sisi wanawake tunaweza kuungana na kulima.”"
+ },
+ {
+  "id": "ASB.0027.16",
+  "sw": "Mwanamume mwingine alisimama na kusema, “Wanaume watachimba kisima cha maji.”"
+ },
+ {
+  "id": "ASB.0027.17",
+  "sw": "Sote tulisema kwa sauti moja, “Lazima tubadilishe maisha yetu.”"
+ },
+ {
+  "id": "ASB.0027.18",
+  "sw": "Tangu siku hiyo, tulifanya kazi pamoja kutatua shida zetu."
+ },
+ {
+  "id": "ASB.0030.1",
+  "sw": "Moyo wangu unahisi vitu vingi."
+ },
+ {
+  "id": "ASB.0030.2",
+  "sw": "Najisikia furaha bibi yangu akitusimulia hadithi jioni."
+ },
+ {
+  "id": "ASB.0030.3",
+  "sw": "Najisikia kufanya mzaha ninapocheza na rafiki zangu."
+ },
+ {
+  "id": "ASB.0030.4",
+  "sw": "Najisikia vibaya baba yangu anaposema hana pesa."
+ },
+ {
+  "id": "ASB.0030.5",
+  "sw": "Najihisi kupendwa na mama yangu anaponikumbatia."
+ },
+ {
+  "id": "ASB.0052.1",
+  "sw": "Simbegwire alihuzunika mama yake alipofariki."
+ },
+ {
+  "id": "ASB.0052.2",
+  "sw": "Baba yake alijitahidi kumtunza mwanaye."
+ },
+ {
+  "id": "ASB.0052.3",
+  "sw": "Taratibu wakaanza kuwa wenye furaha tena, bila ya Mama Simbegwire."
+ },
+ {
+  "id": "ASB.0052.4",
+  "sw": "Kila asubuhi walikaa na kupanga mipango ya siku inayofuata."
+ },
+ {
+  "id": "ASB.0052.5",
+  "sw": "Kila jioni waliandaa chakula cha jioni pamoja."
+ },
+ {
+  "id": "ASB.0052.6",
+  "sw": "Baada ya kuosha vyombo, baba yake Simbegwire alimsaidia kufanya kazi zake za shule."
+ },
+ {
+  "id": "ASB.0052.7",
+  "sw": "Siku moja baba yake Simbegwire alirudi nyumbani kwa kuchelewa."
+ },
+ {
+  "id": "ASB.0052.8",
+  "sw": "“Mwanangu uko wapi?” aliita."
+ },
+ {
+  "id": "ASB.0052.9",
+  "sw": "Simbegwire alimkimbilia baba yake."
+ },
+ {
+  "id": "ASB.0052.10",
+  "sw": "Alisimama ghafla baada ya kumwona baba yake akiwa ameshika mkono wa mwanamke."
+ },
+ {
+  "id": "ASB.0052.11",
+  "sw": "“Nataka ukutane na mtu muhimu, mwanangu."
+ },
+ {
+  "id": "ASB.0052.12",
+  "sw": "Huyu ni Anita,” alisema huku akitabasamu."
+ },
+ {
+  "id": "ASB.0052.13",
+  "sw": "“Hujambo Simbegwire?"
+ },
+ {
+  "id": "ASB.0052.14",
+  "sw": "Baba yako amenisimulia mengi kukuhusu,” alisema Anita."
+ },
+ {
+  "id": "ASB.0052.15",
+  "sw": "Lakini hakutabasamu wala kumpa Simbegwire mkono."
+ },
+ {
+  "id": "ASB.0052.16",
+  "sw": "Baba yake Simbegwire alijaa na furaha."
+ },
+ {
+  "id": "ASB.0052.17",
+  "sw": "Aliongelea jinsi maisha yatakavyokuwa mazuri watatu hao wakiishi pamoja."
+ },
+ {
+  "id": "ASB.0052.18",
+  "sw": "“Mwanangu, ni matumaini yangu kuwa utamkubali Anita kuwa mama yako,” alisema."
+ },
+ {
+  "id": "ASB.0052.19",
+  "sw": "Maisha ya Simbegwire yakabadilika."
+ },
+ {
+  "id": "ASB.0052.20",
+  "sw": "Hakuwa na muda tena wa kukaa na baba yake asubuhi."
+ },
+ {
+  "id": "ASB.0052.21",
+  "sw": "Anita alimpa kazi nyingi za nyumbani zilizomchosha sana kiasi cha kushindwa kufanya kazi zake za shuleni jioni."
+ },
+ {
+  "id": "ASB.0052.22",
+  "sw": "Alikuwa anaenda moja kwa moja kulala baada ya chakula cha jioni."
+ },
+ {
+  "id": "ASB.0052.23",
+  "sw": "Faraja pekee aliyokuwa nayo ni blanketi lenye rangi nyingi alilopewa na mama yake."
+ },
+ {
+  "id": "ASB.0052.24",
+  "sw": "Baba yake Simbegwire hakugundua kwamba binti yake alikuwa hana furaha."
+ },
+ {
+  "id": "ASB.0052.25",
+  "sw": "Baada ya miezi michache, baba yake Simbegwire aliwaambia kwamba ana mpango wa kusafiri."
+ },
+ {
+  "id": "ASB.0052.26",
+  "sw": "“Itanibidi nisafiri kikazi,” alisema."
+ },
+ {
+  "id": "ASB.0052.27",
+  "sw": "“Lakini najua hakutakuwa na tatizo.”"
+ },
+ {
+  "id": "ASB.0052.28",
+  "sw": "Uso wa Simbegwire ulijawa huzuni, lakini baba yake hakugundua."
+ },
+ {
+  "id": "ASB.0052.29",
+  "sw": "Anita hakusema lolote."
+ },
+ {
+  "id": "ASB.0052.30",
+  "sw": "Hakuwa na furaha."
+ },
+ {
+  "id": "ASB.0052.31",
+  "sw": "Mambo yakawa mabaya kwa Simbegwire."
+ },
+ {
+  "id": "ASB.0052.32",
+  "sw": "Aliposhindwa kumaliza kazi au alipolalamika, Anita alimpiga."
+ },
+ {
+  "id": "ASB.0052.33",
+  "sw": "Wakati wa chakula cha jioni Anita alikula chakula kingi, na kumwachia Simbegwire makombo."
+ },
+ {
+  "id": "ASB.0052.34",
+  "sw": "Kila usiku Simbegwire alikuwa analia, huku akilikumbatia blanketi la mama yake."
+ },
+ {
+  "id": "ASB.0052.35",
+  "sw": "Asubuhi moja, Simbegwire alichelewa kuamka."
+ },
+ {
+  "id": "ASB.0052.36",
+  "sw": "“Wewe mtoto mvivu,” Anita aliita kwa kelele."
+ },
+ {
+  "id": "ASB.0052.37",
+  "sw": "Akamvuta Simbegwire kutoka kitandani."
+ },
+ {
+  "id": "ASB.0052.38",
+  "sw": "Blanketi lake zuri likanasa kwenye msumari na kuchanika vipande viwili."
+ },
+ {
+  "id": "ASB.0052.39",
+  "sw": "Simbegwire alikasirika sana."
+ },
+ {
+  "id": "ASB.0052.40",
+  "sw": "Akaamua kutoroka nyumbani."
+ },
+ {
+  "id": "ASB.0052.41",
+  "sw": "Akachukua vipande vya blanketi la mama yake."
+ },
+ {
+  "id": "ASB.0052.42",
+  "sw": "Akachukua na chakula na akaondoka nyumbani."
+ },
+ {
+  "id": "ASB.0052.43",
+  "sw": "Akaifuata barabara aliyopita baba yake."
+ },
+ {
+  "id": "ASB.0052.44",
+  "sw": "Ilipofika jioni alipanda mti mrefu karibu na kijito na akaandaa kitanda kwenye matawi ya mti."
+ },
+ {
+  "id": "ASB.0052.45",
+  "sw": "Alipokuwa analala akaimba “Maama, maama, maama, umeniacha."
+ },
+ {
+  "id": "ASB.0052.46",
+  "sw": "Umeniacha na haukurudi tena."
+ },
+ {
+  "id": "ASB.0052.47",
+  "sw": "Baba hanipendi tena."
+ },
+ {
+  "id": "ASB.0052.48",
+  "sw": "Mama unarudi lini?"
+ },
+ {
+  "id": "ASB.0052.49",
+  "sw": "Uliniacha.”"
+ },
+ {
+  "id": "ASB.0052.50",
+  "sw": "Asubuhi iliyofuata, Simbegwire aliimba ule wimbo tena."
+ },
+ {
+  "id": "ASB.0052.51",
+  "sw": "Wakina mama walipokuja kufua nguo zao walisikia wimbo wa huzuni kutoka kwenye mti mrefu."
+ },
+ {
+  "id": "ASB.0052.52",
+  "sw": "Wakafikiri ni upepo unatikisa matawi ya mti na wakaendelea na kazi zao."
+ },
+ {
+  "id": "ASB.0052.53",
+  "sw": "Lakini mama mmoja akasikiliza ule wimbo kwa makini."
+ },
+ {
+  "id": "ASB.0052.54",
+  "sw": "Mama huyo akaangalia juu ya mti."
+ },
+ {
+  "id": "ASB.0052.55",
+  "sw": "Alipomwona msichana na vipande vya blanketi la rangi, akalia, “Simbegwire, mtoto wa kaka yangu!”"
+ },
+ {
+  "id": "ASB.0052.56",
+  "sw": "Wakina mama wengine wakaacha kufua na wakamsaidia Simbegwire kushuka toka juu ya mti."
+ },
+ {
+  "id": "ASB.0052.57",
+  "sw": "Shangazi yake akamkumbatia na kumfariji."
+ },
+ {
+  "id": "ASB.0052.58",
+  "sw": "Shangazi yake Simbegwire akampeleka nyumbani kwake."
+ },
+ {
+  "id": "ASB.0052.59",
+  "sw": "Akampatia chakula, akampeleka kitandani na akamfunika na blanketi la mama yake."
+ },
+ {
+  "id": "ASB.0052.60",
+  "sw": "Usiku ule Simbegwire akalia alipokwenda kulala."
+ },
+ {
+  "id": "ASB.0052.61",
+  "sw": "Lakini yalikuwa machozi ya furaha."
+ },
+ {
+  "id": "ASB.0052.62",
+  "sw": "Alijua shangazi yake atamtunza."
+ },
+ {
+  "id": "ASB.0052.63",
+  "sw": "Baba yake Simbegwire aliporudi nyumbani, alikikuta chumba chake kikiwa tupu."
+ },
+ {
+  "id": "ASB.0052.64",
+  "sw": "“Nini kimetokea, Anita?” aliuliza kwa simanzi."
+ },
+ {
+  "id": "ASB.0052.65",
+  "sw": "Anita akaelezea kuwa Simbegwire alitoroka."
+ },
+ {
+  "id": "ASB.0052.66",
+  "sw": "“Nilitaka aniheshimu,” alisema."
+ },
+ {
+  "id": "ASB.0052.67",
+  "sw": "“Labda nilikuwa mkali sana.”"
+ },
+ {
+  "id": "ASB.0052.68",
+  "sw": "Baba yake Simbegwire aliondoka nyumbani na akaelekea kwenye kijito."
+ },
+ {
+  "id": "ASB.0052.69",
+  "sw": "Akaenda kwenye kijiji cha dada yake kuuliza kama amemwona Simbegwire."
+ },
+ {
+  "id": "ASB.0052.70",
+  "sw": "Simbegwire alikuwa anacheza na binamu zake alipomwona baba yake akija kwa mbali."
+ },
+ {
+  "id": "ASB.0052.71",
+  "sw": "Aliogopa kuwa baba yake angekuwa amekasirika, na akakimbilia ndani ya nyumba ili ajifiche."
+ },
+ {
+  "id": "ASB.0052.72",
+  "sw": "Baba yake alimwendea na akamwambia, “Simbegwire umempata mama mzuri."
+ },
+ {
+  "id": "ASB.0052.73",
+  "sw": "Anayekupenda na kukuelewa."
+ },
+ {
+  "id": "ASB.0052.74",
+  "sw": "Najivunia kuwa nawe na ninakupenda.”"
+ },
+ {
+  "id": "ASB.0052.75",
+  "sw": "Walikubaliana kuwa Simbegwire angeishi na shangazi yake kwa muda wote atakaotaka."
+ },
+ {
+  "id": "ASB.0052.76",
+  "sw": "Baba yake alikuwa akimtembelea kila siku."
+ },
+ {
+  "id": "ASB.0052.77",
+  "sw": "Mwishoe akaja na Anita."
+ },
+ {
+  "id": "ASB.0052.78",
+  "sw": "Akampa mkono Simbegwire."
+ },
+ {
+  "id": "ASB.0052.79",
+  "sw": "“Nisamehe, nilikosea,” akalia."
+ },
+ {
+  "id": "ASB.0052.80",
+  "sw": "“Utanipa nafasi kujaribu tena?”"
+ },
+ {
+  "id": "ASB.0052.81",
+  "sw": "Simbegwire alimwangalia baba yake aliyekuwa na uso wa wasiwasi."
+ },
+ {
+  "id": "ASB.0052.82",
+  "sw": "Baadaye akamwendea Anita taratibu na akamkumbatia."
+ },
+ {
+  "id": "ASB.0052.83",
+  "sw": "Wiki iliyofuata, Anita aliwaalika Simbegwire, binamu zake, na shangazi yake kwa ajili ya chakula."
+ },
+ {
+  "id": "ASB.0052.84",
+  "sw": "Anita akaandaa vyakula vyote ambavyo Simbegwire anavipenda, na kila mmoja akala hadi akashiba."
+ },
+ {
+  "id": "ASB.0052.85",
+  "sw": "Baada ya kula watoto wakaenda kucheza huku watu wazima wakiongea."
+ },
+ {
+  "id": "ASB.0052.86",
+  "sw": "Simbegwire akajisikia furaha na jasiri."
+ },
+ {
+  "id": "ASB.0052.87",
+  "sw": "Akaamua kuwa si muda mrefu atarejea nyumbani kuishi na baba yake na mama yake wa kambo."
+ },
+ {
+  "id": "ASB.0066.1",
+  "sw": "Hapo zamani za kale, wasichana watatu walienda kukusanya kuni."
+ },
+ {
+  "id": "ASB.0066.2",
+  "sw": "Ilikuwa ni siku yenye jua kali na wakaamua kwenda mtoni kuogelea."
+ },
+ {
+  "id": "ASB.0066.3",
+  "sw": "Wakaogelea huku wakicheza na kurushiana maji."
+ },
+ {
+  "id": "ASB.0066.4",
+  "sw": "Ghafla waligundua kuwa muda umekwenda."
+ },
+ {
+  "id": "ASB.0066.5",
+  "sw": "Wakaharakisha kurudi nyumbani."
+ },
+ {
+  "id": "ASB.0066.6",
+  "sw": "Walipokuwa wanakaribia kufika nyumbani, Nozibele akajishika shingoni."
+ },
+ {
+  "id": "ASB.0066.7",
+  "sw": "Alikuwa amesahau shanga zake!"
+ },
+ {
+  "id": "ASB.0066.8",
+  "sw": "“Tafadhali turudini!” aliwasihi rafiki zake."
+ },
+ {
+  "id": "ASB.0066.9",
+  "sw": "Lakini rafiki zake wakasema tumechelewa."
+ },
+ {
+  "id": "ASB.0066.10",
+  "sw": "Kwa hiyo Nozibele akarudi mwenyewe mtoni."
+ },
+ {
+  "id": "ASB.0066.11",
+  "sw": "Akapata shanga zake na akakimbia kurudi nyumbani."
+ },
+ {
+  "id": "ASB.0066.12",
+  "sw": "Lakini akapotea gizani."
+ },
+ {
+  "id": "ASB.0066.13",
+  "sw": "Kwa mbali akaona mwanga unatoka kwenye nyumba."
+ },
+ {
+  "id": "ASB.0066.14",
+  "sw": "Akakimbilia kwenye nyumba na kugonga mlango."
+ },
+ {
+  "id": "ASB.0066.15",
+  "sw": "Akastaajabu kumwona mbwa akifungua mlango na akasema, “Unataka nini?”"
+ },
+ {
+  "id": "ASB.0066.16",
+  "sw": "“Nimepotea na ninatafuta sehemu ya kulala,” akasema Nozibele."
+ },
+ {
+  "id": "ASB.0066.17",
+  "sw": "“Ingia ndani, la sivyo nitakung’ata!” mbwa akamwambia."
+ },
+ {
+  "id": "ASB.0066.18",
+  "sw": "Nozibele akaingia ndani."
+ },
+ {
+  "id": "ASB.0066.19",
+  "sw": "Mbwa akamwambia, “Nipikie!”"
+ },
+ {
+  "id": "ASB.0066.20",
+  "sw": "“Sijawahi kumpikia mbwa,” akajibu."
+ },
+ {
+  "id": "ASB.0066.21",
+  "sw": "“Pika, la sivyo nitakung’ata!” mbwa akasema."
+ },
+ {
+  "id": "ASB.0066.22",
+  "sw": "Nozibele akampikia mbwa chakula."
+ },
+ {
+  "id": "ASB.0066.23",
+  "sw": "Mbwa akamwambia, “Nitandikie kitanda!”"
+ },
+ {
+  "id": "ASB.0066.24",
+  "sw": "Nozibele akajibu, “Sijawahi kumtandikia mbwa kitanda.”"
+ },
+ {
+  "id": "ASB.0066.25",
+  "sw": "“Tandika kitanda, la sivyo nitakung’ata!” mbwa akasema."
+ },
+ {
+  "id": "ASB.0066.26",
+  "sw": "Nozibele akatandika kitanda."
+ },
+ {
+  "id": "ASB.0066.27",
+  "sw": "Akawa kila siku anampikia, anamfulia na kumfagilia mbwa."
+ },
+ {
+  "id": "ASB.0066.28",
+  "sw": "Siku moja mbwa akasema, “Nozibele, leo naenda kuwatembelea rafiki zangu."
+ },
+ {
+  "id": "ASB.0066.29",
+  "sw": "Fagia nyumba, pika chakula na osha vitu vyangu kabla sijarudi.”"
+ },
+ {
+  "id": "ASB.0066.30",
+  "sw": "Mara baada tu ya mbwa kuondoka, Nozibele akanyofoa nywele tatu kutoka kwenye kichwa chake."
+ },
+ {
+  "id": "ASB.0066.31",
+  "sw": "Akaweka unywele mmoja chini ya kitanda, mmoja nyuma ya mlango, na mwingine akauweka kwenye uzio wa nyumba."
+ },
+ {
+  "id": "ASB.0066.32",
+  "sw": "Halafu, akakimbia kuelekea nyumbani kwa nguvu zote."
+ },
+ {
+  "id": "ASB.0066.33",
+  "sw": "Mbwa aliporudi akaanza kumtafuta Nozibele."
+ },
+ {
+  "id": "ASB.0066.34",
+  "sw": "“Nozibele, uko wapi?” akapiga kelele."
+ },
+ {
+  "id": "ASB.0066.35",
+  "sw": "“Niko hapa, chini ya kitanda,” unywele wa kwanza ukajibu."
+ },
+ {
+  "id": "ASB.0066.36",
+  "sw": "“Nipo hapa nyuma ya mlango,” unywele wa pili ukajibu."
+ },
+ {
+  "id": "ASB.0066.37",
+  "sw": "“Niko hapa kwenye uzio,” unywele wa tatu ukajibu."
+ },
+ {
+  "id": "ASB.0066.38",
+  "sw": "Mbwa akagundua kuwa Nozibele amemkimbia."
+ },
+ {
+  "id": "ASB.0066.39",
+  "sw": "Kwa hiyo akakimbia kuelekea kijijini."
+ },
+ {
+  "id": "ASB.0066.40",
+  "sw": "Kaka zake Nozibele walikuwa wakimsubiri na fimbo."
+ },
+ {
+  "id": "ASB.0066.41",
+  "sw": "Mbwa alipowaona akageuka na kukimbia, na hajawahi kuonekana tena."
+ },
+ {
+  "id": "ASB.0067.1",
+  "sw": "Ninamenya viazi."
+ },
+ {
+  "id": "ASB.0067.2",
+  "sw": "Ninakatakata kabichi."
+ },
+ {
+  "id": "ASB.0067.3",
+  "sw": "Ninasaga karoti."
+ },
+ {
+  "id": "ASB.0067.4",
+  "sw": "Ninaosha maharagwe."
+ },
+ {
+  "id": "ASB.0067.5",
+  "sw": "Ninakata maboga."
+ },
+ {
+  "id": "ASB.0067.6",
+  "sw": "Ninakatakata sukuma-wiki."
+ },
+ {
+  "id": "ASB.0067.7",
+  "sw": "Mama yangu anakatakata vitunguu."
+ },
+ {
+  "id": "ASB.0067.8",
+  "sw": "Vitunguu hunifanya nilie vikiwa vinakatwakatwa."
+ },
+ {
+  "id": "ASB.0072.1",
+  "sw": "Hii ni hadithi ya Ngede, ambaye ni ndege mpenda asali, na mvulana mmoja mlafi anayeitwa Gingile."
+ },
+ {
+  "id": "ASB.0072.2",
+  "sw": "Siku moja Gingile alipokuwa akiwinda alisikia mwito wa Ngede."
+ },
+ {
+  "id": "ASB.0072.3",
+  "sw": "Kinywa chake kilianza kutokwa mate kwa kufikiria asali."
+ },
+ {
+  "id": "ASB.0072.4",
+  "sw": "Alisimama, akasikiliza na kuangalia vizuri hadi alipomwona yule ndege akiwa ametua kwenye matawi yaliyokuwa juu ya kichwa chake."
+ },
+ {
+  "id": "ASB.0072.5",
+  "sw": "“Chitik-chitik-chitik,” yule ndege mdogo alitatarika aliporuka na kutua kwenye mti mmoja hadi mwingine, na mwingine tena."
+ },
+ {
+  "id": "ASB.0072.6",
+  "sw": "“Chitik-chitik-chitik,” aliita, huku akinyamaza na kuhakikisha kwamba Gingile alikuwa amemfuata."
+ },
+ {
+  "id": "ASB.0072.7",
+  "sw": "Baada ya nusu saa, walifika kwenye mti wa matini."
+ },
+ {
+  "id": "ASB.0072.8",
+  "sw": "Ngede aliruka kama mwenda wazimu kutoka tawi moja hadi jingine."
+ },
+ {
+  "id": "ASB.0072.9",
+  "sw": "Kisha alitulia kwenye tawi moja na kupindua kichwa chake akimwangalia Gingile kana kwamba anasema, “Ipo hapa!"
+ },
+ {
+  "id": "ASB.0072.10",
+  "sw": "Njoo sasa!"
+ },
+ {
+  "id": "ASB.0072.11",
+  "sw": "Kwa nini unachukua muda mrefu?”"
+ },
+ {
+  "id": "ASB.0072.12",
+  "sw": "Gingile hakuweza kuona nyuki wowote kutoka chini ya mti, lakini alimwamini Ngede."
+ },
+ {
+  "id": "ASB.0072.13",
+  "sw": "Kwa hivyo Gingile aliweka mkuki wake alioutumia kuwinda chini ya mti, akakusanya vijiti vilivyokauka na kuwasha moto mdogo."
+ },
+ {
+  "id": "ASB.0072.14",
+  "sw": "Moto ulipokuwa ukiwaka vizuri, alichomeka kijiti kirefu kwenye moto."
+ },
+ {
+  "id": "ASB.0072.15",
+  "sw": "Mti huu ulijulikana kwa kutoa moshi mwingi ulipokuwa unaungua."
+ },
+ {
+  "id": "ASB.0072.16",
+  "sw": "Alianza kukwea mti huku akishika kijiti kwa meno upande usiofuka moshi."
+ },
+ {
+  "id": "ASB.0072.17",
+  "sw": "Muda mfupi baadaye, aliweza kusikia sauti ya nyuki wenye harakati nyingi ikivuma."
+ },
+ {
+  "id": "ASB.0072.18",
+  "sw": "Walikuwa wakiingia na kutoka kwenye upenyo wa mti, yaani mzinga wao."
+ },
+ {
+  "id": "ASB.0072.19",
+  "sw": "Gingile alipoufikia mzinga, alisukuma ile kuni ya moto ndani ya ule upenyo."
+ },
+ {
+  "id": "ASB.0072.20",
+  "sw": "Nyuki waliharakisha kutoka ndani wakiwa na hasira na uchungu."
+ },
+ {
+  "id": "ASB.0072.21",
+  "sw": "Waliruka na kwenda mbali kwa sababu hawakupenda moshi – lakini walifanya hivyo baada ya kumuuma Gingile kwa uchungu!"
+ },
+ {
+  "id": "ASB.0072.22",
+  "sw": "Nyuki walipokuwa nje, Gingile aliingiza mikono yake ndani ya kiota."
+ },
+ {
+  "id": "ASB.0072.23",
+  "sw": "Alitoa kipande kikubwa cha sega kilichokuwa kinadondoka urojo mzito wa asali, na kilichojaa wadudu weupe wanene."
+ },
+ {
+  "id": "ASB.0072.24",
+  "sw": "Aliiweka taratibu ndani ya mkoba aliokuwa nao na kuanza kushuka kutoka mtini."
+ },
+ {
+  "id": "ASB.0072.25",
+  "sw": "Ngede alishuhudia kila kitu Gingile alichofanya."
+ },
+ {
+  "id": "ASB.0072.26",
+  "sw": "Alikuwa anamsubiri abakishe kiasi kidogo cha asali kama shukurani kwa Kiongozi."
+ },
+ {
+  "id": "ASB.0072.27",
+  "sw": "Ngede aliruka kutoka tawi hadi tawi huku akikaribia chini."
+ },
+ {
+  "id": "ASB.0072.28",
+  "sw": "Mwishowe Gingile alifika chini ya mti."
+ },
+ {
+  "id": "ASB.0072.29",
+  "sw": "Ngede alitua kwenye mwamba karibu na mvulana huyo na kusubiri zawadi yake."
+ },
+ {
+  "id": "ASB.0072.30",
+  "sw": "Lakini Gingile alizima moto, akachukua mkuki wake na kuanza safari kwenda nyumbani bila kumjali ndege yule."
+ },
+ {
+  "id": "ASB.0072.31",
+  "sw": "Ngede aliita kwa hasira, “USH-ndi!"
+ },
+ {
+  "id": "ASB.0072.32",
+  "sw": "USH-ndi!”"
+ },
+ {
+  "id": "ASB.0072.33",
+  "sw": "Gingile alisimama, akamkodolea macho yule ndege kisha akacheka kwa sauti."
+ },
+ {
+  "id": "ASB.0072.34",
+  "sw": "“Unataka asali kidogo, rafiki yangu?"
+ },
+ {
+  "id": "ASB.0072.35",
+  "sw": "Ha!"
+ },
+ {
+  "id": "ASB.0072.36",
+  "sw": "Lakini ni mimi niliyefanya kazi yote pamoja na kuumwa na nyuki."
+ },
+ {
+  "id": "ASB.0072.37",
+  "sw": "Kwa nini nikugawie hii asali tamu?”"
+ },
+ {
+  "id": "ASB.0072.38",
+  "sw": "Baada ya kusema hivyo, aliondoka na kwenda zake."
+ },
+ {
+  "id": "ASB.0072.39",
+  "sw": "Ngede alikasirika sana!"
+ },
+ {
+  "id": "ASB.0072.40",
+  "sw": "Hivi sivyo alivyostahili kutendewa!"
+ },
+ {
+  "id": "ASB.0072.41",
+  "sw": "Ila atalipiza kisasi."
+ },
+ {
+  "id": "ASB.0072.42",
+  "sw": "Siku moja baada ya majuma machache, Gingile tena alisikia mwito wa asali kutoka kwa Ngede."
+ },
+ {
+  "id": "ASB.0072.43",
+  "sw": "Aliikumbuka asali tamu, na kwa hamu alimfuata ndege yule kwa mara nyingine."
+ },
+ {
+  "id": "ASB.0072.44",
+  "sw": "Baada ya kumwongoza Gingile pembeni mwa msitu, Ngede alisimama na kupumzika chini ya mti wa mwavuli."
+ },
+ {
+  "id": "ASB.0072.45",
+  "sw": "“Ahh,” Gingile aliwaza."
+ },
+ {
+  "id": "ASB.0072.46",
+  "sw": "“Lazima mzinga umo ndani ya mti huu.”"
+ },
+ {
+  "id": "ASB.0072.47",
+  "sw": "Kwa haraka aliwasha moto wake na kuanza kukwea mti huku akibeba kuni iliyotoa moshi katika meno yake."
+ },
+ {
+  "id": "ASB.0072.48",
+  "sw": "Ngede alikaa na kuangalia tu."
+ },
+ {
+  "id": "ASB.0072.49",
+  "sw": "Gingile alipopanda, alishangaa kwa nini hakusikia sauti ya nyuki."
+ },
+ {
+  "id": "ASB.0072.50",
+  "sw": "“Pengine mzinga umo ndani zaidi katika mti,” alifikiria."
+ },
+ {
+  "id": "ASB.0072.51",
+  "sw": "Alipanda tena juu ya tawi jingine."
+ },
+ {
+  "id": "ASB.0072.52",
+  "sw": "Lakini badala ya mzinga, alijikuta uso kwa uso na chui!"
+ },
+ {
+  "id": "ASB.0072.53",
+  "sw": "Chui alikuwa na hasira sana kwa sababu usingizi wake ulikuwa umekatizwa."
+ },
+ {
+  "id": "ASB.0072.54",
+  "sw": "Aliyafanya macho yake kuwa madogo, akaufungua mdomo wake na kuonyesha meno yake makubwa na makali."
+ },
+ {
+  "id": "ASB.0072.55",
+  "sw": "Kabla ya Chui kumvamia Gingile, alishuka chini haraka."
+ },
+ {
+  "id": "ASB.0072.56",
+  "sw": "Katika haraka hiyo, aliteleza na kuanguka kwa kishindo huku akiumia mguu wake."
+ },
+ {
+  "id": "ASB.0072.57",
+  "sw": "Alirukaruka akienda kwa haraka alivyoweza."
+ },
+ {
+  "id": "ASB.0072.58",
+  "sw": "Kwa bahati nzuri, Chui alikuwa bado amelala kwa hivyo hakumfukuza."
+ },
+ {
+  "id": "ASB.0072.59",
+  "sw": "Ngede, Kiongozi alikuwa amelipiza kisasi chake na Gingile alikuwa amejifunza funzo lake."
+ },
+ {
+  "id": "ASB.0072.60",
+  "sw": "Kwa hivyo wakati watoto wa Gingile wanaposikia hadithi ya Ngede, wanamheshimu yule ndege."
+ },
+ {
+  "id": "ASB.0072.61",
+  "sw": "Kila wanapotoa asali, huhakikisha kwamba wanamwachia Kiongozi fungu kubwa!"
+ },
+ {
+  "id": "ASB.0087.1",
+  "sw": "Ninapenda kusoma."
+ },
+ {
+  "id": "ASB.0087.2",
+  "sw": "Nimsomee nani?"
+ },
+ {
+  "id": "ASB.0087.3",
+  "sw": "Mdogo wangu amelala."
+ },
+ {
+  "id": "ASB.0087.4",
+  "sw": "Nimsomee nani?"
+ },
+ {
+  "id": "ASB.0087.5",
+  "sw": "Mama na bibi wana kazi."
+ },
+ {
+  "id": "ASB.0087.6",
+  "sw": "Nimsomee nani?"
+ },
+ {
+  "id": "ASB.0087.7",
+  "sw": "Baba na babu wana kazi."
+ },
+ {
+  "id": "ASB.0087.8",
+  "sw": "Nimsomee nani?"
+ },
+ {
+  "id": "ASB.0087.9",
+  "sw": "Nijisomee mwenyewe!"
+ },
+ {
+  "id": "ASB.0089.1",
+  "sw": "Khalai ni msichana mwenye umri wa miaka saba."
+ },
+ {
+  "id": "ASB.0089.2",
+  "sw": "Jina lake lina maana ya ‘aliye mzuri’ katika lugha yake ya Lubukusu."
+ },
+ {
+  "id": "ASB.0089.3",
+  "sw": "Khalai anaamka na kuongea na mmea mchanga wa Mchungwa, “Tafadhali mti wa Mchungwa, kua mkubwa uzae machungwa mengi mabivu.”"
+ },
+ {
+  "id": "ASB.0089.4",
+  "sw": "Khalai anaenda shuleni na njiani anaongea na Nyasi, “Tafadhali Nyasi, kua kijani zaidi na zaidi na wala usikauke.”"
+ },
+ {
+  "id": "ASB.0089.5",
+  "sw": "Khalai anayapita Maua ya mwituni na kusema, “Tafadhali Maua, endelea kunawiri ili niweze kukuweka kwenye nywele zangu.”"
+ },
+ {
+  "id": "ASB.0089.6",
+  "sw": "Akiwa shuleni, Khalai anazunguumza na Mti ulioko katikati ya shule, “Tafadhali Mti, toa matawi makubwa ili tusome chini ya kivuli chako.”"
+ },
+ {
+  "id": "ASB.0089.7",
+  "sw": "Khalai anazunguumza na ua unaoizingira shule yake, “Tafadhali ua, kuwa mwenye nguvu ili uzuie shule yetu kutokana na watu wabaya.”"
+ },
+ {
+  "id": "ASB.0089.8",
+  "sw": "Anaporudi nyumbani alasiri, Khalai anautembelea mti wa Mchungwa kuangalia kama machungwa yameiva."
+ },
+ {
+  "id": "ASB.0089.9",
+  "sw": "“Machungwa bado mabichi,” Khalai anashusha pumzi."
+ },
+ {
+  "id": "ASB.0089.10",
+  "sw": "“Nitakuona kesho, we mti wa machungwa."
+ },
+ {
+  "id": "ASB.0089.11",
+  "sw": "Labda utanipa chungwa bivu wakati huo.”"
+ },
+ {
+  "id": "ASB.0095.1",
+  "sw": "Mdogo wangu anachelewa kuamka."
+ },
+ {
+  "id": "ASB.0095.2",
+  "sw": "Mimi naamka mapema kwa sababu mimi ni mkubwa!"
+ },
+ {
+  "id": "ASB.0095.3",
+  "sw": "Mimi ndiye ninayeruhusu jua kuingia ndani."
+ },
+ {
+  "id": "ASB.0095.4",
+  "sw": "“Wewe ni nyota wangu wa asubuhi,” anasema mama."
+ },
+ {
+  "id": "ASB.0095.5",
+  "sw": "Naoga mwenyewe, sihitaji msaada."
+ },
+ {
+  "id": "ASB.0095.6",
+  "sw": "Naweza kustahimili maji ya baridi na sabuni ya bluu inayonukia."
+ },
+ {
+  "id": "ASB.0095.7",
+  "sw": "Mama ananikumbusha, “Usisahau kupiga mswaki.”"
+ },
+ {
+  "id": "ASB.0095.8",
+  "sw": "Namjibu, “Kamwe, sio mimi!”"
+ },
+ {
+  "id": "ASB.0095.9",
+  "sw": "Baada ya kuoga, nawasalimu babu na shangazi, na kuwatakia siku njema."
+ },
+ {
+  "id": "ASB.0095.10",
+  "sw": "Najivisha nguo mwenyewe."
+ },
+ {
+  "id": "ASB.0095.11",
+  "sw": "“Mimi ni mkubwa sasa mama,” ninamwambia."
+ },
+ {
+  "id": "ASB.0095.12",
+  "sw": "Ninaweza kufunga vishikizo na kurekebisha viatu vyangu."
+ },
+ {
+  "id": "ASB.0095.13",
+  "sw": "Na ninahakikisha mdogo wangu anapata taarifa zote za shule."
+ },
+ {
+  "id": "ASB.0095.14",
+  "sw": "Darasani najitahidi sana katika kila kitu."
+ },
+ {
+  "id": "ASB.0095.15",
+  "sw": "Ninafanya hivi vitu vyote vizuri kila siku."
+ },
+ {
+  "id": "ASB.0095.16",
+  "sw": "Ila kitu ninachokipenda sana ni kucheza na kucheza."
+ },
+ {
+  "id": "ASB.0110.1",
+  "sw": "Katika kijiji kimoja kwenye mteremko wa Mlima wa Kenya, katika Afrika Mashariki, msichana mdogo alifanya kazi za shambani pamoja na mama yake."
+ },
+ {
+  "id": "ASB.0110.2",
+  "sw": "Msichana huyu aliitwa Wangari."
+ },
+ {
+  "id": "ASB.0110.3",
+  "sw": "Wangari alipenda kufanya kazi za nje."
+ },
+ {
+  "id": "ASB.0110.4",
+  "sw": "Alitumia jembe kulima katika bustani ya familia yake."
+ },
+ {
+  "id": "ASB.0110.5",
+  "sw": "Kisha alipanda mbegu ndogo katika ardhi yenye rutuba."
+ },
+ {
+  "id": "ASB.0110.6",
+  "sw": "Alipenda majira ya jioni, wakati jua linapozama."
+ },
+ {
+  "id": "ASB.0110.7",
+  "sw": "Giza lilipozidi mpaka aliposhindwa kuona mimea, Wangari alifahamu kuwa wakati wa kwenda nyumbani uliwadia."
+ },
+ {
+  "id": "ASB.0110.8",
+  "sw": "Alikuwa anafuata kinjia chembamba kilichopita uwanjani huku akivuka mito akielekea nyumbani."
+ },
+ {
+  "id": "ASB.0110.9",
+  "sw": "Wangari alikuwa mtoto mwerevu na alikuwa na hamu ya kwenda shule."
+ },
+ {
+  "id": "ASB.0110.10",
+  "sw": "Lakini wazazi wake walitaka awasaidie nyumbani."
+ },
+ {
+  "id": "ASB.0110.11",
+  "sw": "Alipofika umri wa miaka saba, kaka yake aliwashawishi wazazi wake kumwacha aende shule."
+ },
+ {
+  "id": "ASB.0110.12",
+  "sw": "Alipenda kusoma!"
+ },
+ {
+  "id": "ASB.0110.13",
+  "sw": "Wangari alijifunza zaidi na zaidi kwa kila kitabu alichokisoma."
+ },
+ {
+  "id": "ASB.0110.14",
+  "sw": "Alifanya vyema sana shuleni hadi akaalikwa kwenda Marekani kuendeleza masomo yake huko."
+ },
+ {
+  "id": "ASB.0110.15",
+  "sw": "Wangari alitiwa hamasa sana na nafasi hii!"
+ },
+ {
+  "id": "ASB.0110.16",
+  "sw": "Alipenda kujua ulimwengu zaidi."
+ },
+ {
+  "id": "ASB.0110.17",
+  "sw": "Alipokuwa chuoni huko Marekani, Wangari alijifunza mengi mapya."
+ },
+ {
+  "id": "ASB.0110.18",
+  "sw": "Alisomea mimea na jinsi inavyokua."
+ },
+ {
+  "id": "ASB.0110.19",
+  "sw": "Na alikumbuka maisha yake yalivyokuwa utotoni: kucheza michezo na msitu zake katika kivuli cha miti kwenye misitu maridadi ya Kenya."
+ },
+ {
+  "id": "ASB.0110.20",
+  "sw": "Jinsi alivyojifunza ndivyo alivyofahamu kuwa aliwapenda watu wa Kenya."
+ },
+ {
+  "id": "ASB.0110.21",
+  "sw": "Alitaka wafurahi na wawe wenye uhuru."
+ },
+ {
+  "id": "ASB.0110.22",
+  "sw": "Jinsi alivyojifunza ndivyo alivyokumbuka nyumbani kwao Afrika."
+ },
+ {
+  "id": "ASB.0110.23",
+  "sw": "Alipokamilisha masomo yake, alirudi Kenya."
+ },
+ {
+  "id": "ASB.0110.24",
+  "sw": "Lakini nchi yake ilikuwa imebadilika."
+ },
+ {
+  "id": "ASB.0110.25",
+  "sw": "Kulikuwa na mashamba makubwa kila upande."
+ },
+ {
+  "id": "ASB.0110.26",
+  "sw": "Wanawake hawakupata kuni za kuwasha moto wa kupikia."
+ },
+ {
+  "id": "ASB.0110.27",
+  "sw": "Watu walikuwa maskini na watoto walikuwa na njaa."
+ },
+ {
+  "id": "ASB.0110.28",
+  "sw": "Wangari alijua la kufanya."
+ },
+ {
+  "id": "ASB.0110.29",
+  "sw": "Aliwafundisha wanawake jinsi ya kupanda miti kutokana na miche."
+ },
+ {
+  "id": "ASB.0110.30",
+  "sw": "Wanawake waliuza ile miti na pesa walizopata walizitumia kwa mahitaji ya familia zao."
+ },
+ {
+  "id": "ASB.0110.31",
+  "sw": "Wanawake walifurahi."
+ },
+ {
+  "id": "ASB.0110.32",
+  "sw": "Wangari alikuwa amewasaidia kuwa wenye nguvu na uwezo."
+ },
+ {
+  "id": "ASB.0110.33",
+  "sw": "Muda ulipopita, miti mipya ilikuwa misitu, na mito ilianza tena kupitisha maji."
+ },
+ {
+  "id": "ASB.0110.34",
+  "sw": "Ujumbe wa Wangari ulienea Afrika nzima."
+ },
+ {
+  "id": "ASB.0110.35",
+  "sw": "Leo, mamilioni ya miti imemea kutokana na mbegu za Wangari."
+ },
+ {
+  "id": "ASB.0110.36",
+  "sw": "Wangari alikuwa amefanya bidii."
+ },
+ {
+  "id": "ASB.0110.37",
+  "sw": "Watu ulimwengu mzima walifahamu hili na wakampa tuzo."
+ },
+ {
+  "id": "ASB.0110.38",
+  "sw": "Tuzo hii inaitwa, ‘Tuzo ya Amani ya Nobel.’ Na alikuwa mwanamke wa Kiafrika wa kwanza kupokea tuzo hii."
+ },
+ {
+  "id": "ASB.0110.39",
+  "sw": "Wangari alifariki mwaka 2011, lakini tunaweza kumkumbuka kila tunapoona mti maridadi."
+ },
+ {
+  "id": "ASB.0111.1",
+  "sw": "Siku moja, Sungura alikuwa akitembea pembeni ya mto."
+ },
+ {
+  "id": "ASB.0111.2",
+  "sw": "Kiboko alikuwepo pia, akitembea huku akila majani mazuri ya kijani."
+ },
+ {
+  "id": "ASB.0111.3",
+  "sw": "Kiboko hakumwona Sungura na kwa bahati mbaya akaukanyaga mguu wa Sungura."
+ },
+ {
+  "id": "ASB.0111.4",
+  "sw": "Sungura akaanza kumpigia Kiboko kelele."
+ },
+ {
+  "id": "ASB.0111.5",
+  "sw": "“We Kiboko huoni kama umeukanyaga mguu wangu?”"
+ },
+ {
+  "id": "ASB.0111.6",
+  "sw": "Kiboko akamwomba Sungura msamaha, “Samahani, sikukuona, tafadhali nisamehe!”"
+ },
+ {
+  "id": "ASB.0111.7",
+  "sw": "Lakini Sungura hakukubali na akaendelea kumbwatukia Kiboko, “Umefanya makusudi!"
+ },
+ {
+  "id": "ASB.0111.8",
+  "sw": "Kuna siku utakiona, na nitakulipizia!”"
+ },
+ {
+  "id": "ASB.0111.9",
+  "sw": "Sungura alienda kumtafuta moto na akamwambia, “Nenda, ukamchome Kiboko akitoka majini kuja kula majani."
+ },
+ {
+  "id": "ASB.0111.10",
+  "sw": "Alinikanyaga!”"
+ },
+ {
+  "id": "ASB.0111.11",
+  "sw": "Moto ukajibu, “Hakuna tatizo, rafiki yangu Sungura, nitafanya ulichoniomba kufanya.”"
+ },
+ {
+  "id": "ASB.0111.12",
+  "sw": "Baadaye, Kiboko alikuwa akila majani mbali na mto, aliposhtuka moto umelipuka."
+ },
+ {
+  "id": "ASB.0111.13",
+  "sw": "Miale ya moto ikaanza kuzichoma nywele za Kiboko."
+ },
+ {
+  "id": "ASB.0111.14",
+  "sw": "Kiboko akaanza kulia na kukimbilia kwenye maji."
+ },
+ {
+  "id": "ASB.0111.15",
+  "sw": "Nywele zake zote zilikuwa zimeungua na moto."
+ },
+ {
+  "id": "ASB.0111.16",
+  "sw": "Kiboko aliendelea kulia, “Nywele zangu zimeungua na moto!"
+ },
+ {
+  "id": "ASB.0111.17",
+  "sw": "Nywele zangu zote zimeisha!"
+ },
+ {
+  "id": "ASB.0111.18",
+  "sw": "Nywele zangu nzuri!”"
+ },
+ {
+  "id": "ASB.0111.19",
+  "sw": "Sungura alikuwa na furaha kwa kuwa nywele za Kiboko ziliungua."
+ },
+ {
+  "id": "ASB.0111.20",
+  "sw": "Hadi leo kwa kuogopa moto, Kiboko hawezi kwenda mbali na maji."
+ },
+ {
+  "id": "ASB.0112.1",
+  "sw": "Ninaweza kukimbia nao."
+ },
+ {
+  "id": "ASB.0112.2",
+  "sw": "Ninaweza kuruka nao."
+ },
+ {
+  "id": "ASB.0112.3",
+  "sw": "Ninaweza kucheza nao."
+ },
+ {
+  "id": "ASB.0112.4",
+  "sw": "Ninaweza kuogelea nao."
+ },
+ {
+  "id": "ASB.0112.5",
+  "sw": "Ninaweza kuruka kamba nao."
+ },
+ {
+  "id": "ASB.0112.6",
+  "sw": "Ninaweza kupiga mpira nao."
+ },
+ {
+  "id": "ASB.0112.7",
+  "sw": "Ninaweza kutoroka nao."
+ },
+ {
+  "id": "ASB.0112.8",
+  "sw": "Lakini siwezi kupaa nao angani."
+ },
+ {
+  "id": "ASB.0120.1",
+  "sw": "Thuli ana nywele fupi."
+ },
+ {
+  "id": "ASB.0120.2",
+  "sw": "Anna ana nywele ndefu."
+ },
+ {
+  "id": "ASB.0120.3",
+  "sw": "Cathy ana nywele ndefu kuliko wote."
+ },
+ {
+  "id": "ASB.0120.4",
+  "sw": "Zama amesuka nywele zake."
+ },
+ {
+  "id": "ASB.0120.5",
+  "sw": "Baba ana ndevu."
+ },
+ {
+  "id": "ASB.0120.6",
+  "sw": "Zanele amechana nywele zake."
+ },
+ {
+  "id": "ASB.0120.7",
+  "sw": "Thabo amenyoa nywele zake."
+ },
+ {
+  "id": "ASB.0120.8",
+  "sw": "Themba amenyoa kipara."
+ },
+ {
+  "id": "ASB.0129.1",
+  "sw": "Ninaamka na kuwasha moto."
+ },
+ {
+  "id": "ASB.0129.2",
+  "sw": "Ninachemsha maji."
+ },
+ {
+  "id": "ASB.0129.3",
+  "sw": "Ninakata kuni."
+ },
+ {
+  "id": "ASB.0129.4",
+  "sw": "Ninakoroga uji kwenye chungu."
+ },
+ {
+  "id": "ASB.0129.5",
+  "sw": "Ninafagia sakafu."
+ },
+ {
+  "id": "ASB.0129.6",
+  "sw": "Ninaosha vyombo."
+ },
+ {
+  "id": "ASB.0129.7",
+  "sw": "Kwa nini ninafanya kazi kwa bidii… …wakati mdogo wangu anacheza?"
+ },
+ {
+  "id": "ASB.0141.1",
+  "sw": "Kuku na Jongoo walikuwa marafiki."
+ },
+ {
+  "id": "ASB.0141.2",
+  "sw": "Ila walikuwa wanashindana kila mara."
+ },
+ {
+  "id": "ASB.0141.3",
+  "sw": "Siku moja wakaamua kucheza mpira wa miguu ili waweze kubaini nani alikuwa mchezaji bora zaidi."
+ },
+ {
+  "id": "ASB.0141.4",
+  "sw": "Wakaenda uwanjani na wakaanza kucheza."
+ },
+ {
+  "id": "ASB.0141.5",
+  "sw": "Kuku alikuwa na kasi ila Jongoo alikuwa na kasi zaidi."
+ },
+ {
+  "id": "ASB.0141.6",
+  "sw": "Kuku alipiga mpira mbali, ila Jongoo alipiga mbali zaidi."
+ },
+ {
+  "id": "ASB.0141.7",
+  "sw": "Kuku akaanza kupandwa na hasira."
+ },
+ {
+  "id": "ASB.0141.8",
+  "sw": "Wakaamua kupigiana penati."
+ },
+ {
+  "id": "ASB.0141.9",
+  "sw": "Jongoo akaenda golini."
+ },
+ {
+  "id": "ASB.0141.10",
+  "sw": "Kuku alifunga goli moja pekee."
+ },
+ {
+  "id": "ASB.0141.11",
+  "sw": "Ikawa zamu ya kuku kwenda golini."
+ },
+ {
+  "id": "ASB.0141.12",
+  "sw": "Jongoo alipiga mpira akafunga."
+ },
+ {
+  "id": "ASB.0141.13",
+  "sw": "Jongoo akapiga chenga akafunga."
+ },
+ {
+  "id": "ASB.0141.14",
+  "sw": "Jongoo akapiga kichwa akafunga."
+ },
+ {
+  "id": "ASB.0141.15",
+  "sw": "Jongoo akafunga magoli matano."
+ },
+ {
+  "id": "ASB.0141.16",
+  "sw": "Kuku akakasirika kwa kuwa amefungwa."
+ },
+ {
+  "id": "ASB.0141.17",
+  "sw": "Hakuwa mshindani mzuri."
+ },
+ {
+  "id": "ASB.0141.18",
+  "sw": "Jongoo akaanza kucheka kwa sababu rafiki yake alikuwa analalamika."
+ },
+ {
+  "id": "ASB.0141.19",
+  "sw": "Kuku alipatwa na hasira kiasi kwamba akafungua mdomo wake mkubwa na akammeza Jongoo."
+ },
+ {
+  "id": "ASB.0141.20",
+  "sw": "Kuku alipokuwa anarudi nyumbani alikutana na Mama yake Jongoo."
+ },
+ {
+  "id": "ASB.0141.21",
+  "sw": "Mama Jongoo akamuuliza, “Umemwona mwanangu?”"
+ },
+ {
+  "id": "ASB.0141.22",
+  "sw": "Kuku hakujibu kitu."
+ },
+ {
+  "id": "ASB.0141.23",
+  "sw": "Mama Jongoo akapatwa na wasiwasi."
+ },
+ {
+  "id": "ASB.0141.24",
+  "sw": "Mama Jongoo akasikia sauti kwa mbali."
+ },
+ {
+  "id": "ASB.0141.25",
+  "sw": "“Nisaidie mama!” ile sauti ililia."
+ },
+ {
+  "id": "ASB.0141.26",
+  "sw": "Mama Jongoo akaangalia huku na kule na kusikiliza kwa makini."
+ },
+ {
+  "id": "ASB.0141.27",
+  "sw": "Sauti ilitokea tumboni mwa kuku."
+ },
+ {
+  "id": "ASB.0141.28",
+  "sw": "Mama Jongoo alipiga kelele, “Tumia nguvu yako ya kipekee mwanangu!”"
+ },
+ {
+  "id": "ASB.0141.29",
+  "sw": "Majongoo wanaweza kutoa harufu mbaya na ladha ya ajabu."
+ },
+ {
+  "id": "ASB.0141.30",
+  "sw": "Kuku akaanza kujisikia mgonjwa."
+ },
+ {
+  "id": "ASB.0141.31",
+  "sw": "Kuku akabeuwa."
+ },
+ {
+  "id": "ASB.0141.32",
+  "sw": "Akameza mate na kutema."
+ },
+ {
+  "id": "ASB.0141.33",
+  "sw": "Halafu akapiga chafya na kukohoa."
+ },
+ {
+  "id": "ASB.0141.34",
+  "sw": "Akakohoa tena."
+ },
+ {
+  "id": "ASB.0141.35",
+  "sw": "Jongoo alimfanya ajisikie vibaya."
+ },
+ {
+  "id": "ASB.0141.36",
+  "sw": "Kuku alikohoa, hadi akamtema jongoo aliyekuwa tumboni mwake."
+ },
+ {
+  "id": "ASB.0141.37",
+  "sw": "Mama Jongoo na mwanaye wakakwea mti kujificha."
+ },
+ {
+  "id": "ASB.0141.38",
+  "sw": "Tangu hapo, Kuku na Jongoo ni maadui."
+ },
+ {
+  "id": "ASB.0156.1",
+  "sw": "Hapo zamani, palikuwa na mamba mwenye njaa."
+ },
+ {
+  "id": "ASB.0156.2",
+  "sw": "Alitafuta chakula taratibu na kwa ukimya."
+ },
+ {
+  "id": "ASB.0156.3",
+  "sw": "Halafu…"
+ },
+ {
+  "id": "ASB.0156.4",
+  "sw": "POO!!!"
+ },
+ {
+  "id": "ASB.0156.5",
+  "sw": "Mamba anashambulia!"
+ },
+ {
+  "id": "ASB.0156.6",
+  "sw": "Baada ya hapo hana njaa tena, na anafurahi."
+ },
+ {
+  "id": "ASB.0156.7",
+  "sw": "Hadi atakapopatwa na njaa tena."
+ },
+ {
+  "id": "ASB.0158.1",
+  "sw": "Hapo zamani za kale, Kuku na Tai walikuwa marafiki."
+ },
+ {
+  "id": "ASB.0158.2",
+  "sw": "Waliishi kwa amani na ndege wengine."
+ },
+ {
+  "id": "ASB.0158.3",
+  "sw": "Hakuna kati yao aliyeweza kupaa."
+ },
+ {
+  "id": "ASB.0158.4",
+  "sw": "Kuna siku njaa ilitokea."
+ },
+ {
+  "id": "ASB.0158.5",
+  "sw": "Ikamlazimu Tai kutembea umbali mrefu kutafuta chakula."
+ },
+ {
+  "id": "ASB.0158.6",
+  "sw": "Alirudi akiwa amechoka sana."
+ },
+ {
+  "id": "ASB.0158.7",
+  "sw": "“Lazima kuwe na njia rahisi ya kusafiri!”"
+ },
+ {
+  "id": "ASB.0158.8",
+  "sw": "Tai alisema."
+ },
+ {
+  "id": "ASB.0158.9",
+  "sw": "Baada ya usingizi mnono wa usiku, Kuku alijiwa na wazo zuri sana."
+ },
+ {
+  "id": "ASB.0158.10",
+  "sw": "Akaanza kukusanya manyoya yaliyodondoka kutoka kwa ndege wenzao."
+ },
+ {
+  "id": "ASB.0158.11",
+  "sw": "“Tuyashonee haya manyoya juu ya manyoya yetu,” Kuku alisema."
+ },
+ {
+  "id": "ASB.0158.12",
+  "sw": "“Labda itaturahisishia kusafiri.”"
+ },
+ {
+  "id": "ASB.0158.13",
+  "sw": "Tai pekee ndiye aliyekuwa na sindano kijijini, kwa hiyo akaanza kushona wa kwanza."
+ },
+ {
+  "id": "ASB.0158.14",
+  "sw": "Akajitengenezea mabawa mawili mazuri na akapaa juu ya kuku."
+ },
+ {
+  "id": "ASB.0158.15",
+  "sw": "Kuku aliazima sindano lakini akachoka kushona baada ya muda mfupi."
+ },
+ {
+  "id": "ASB.0158.16",
+  "sw": "Akaacha sindano kabatini na akaenda jikoni kuandaa chakula kwa ajili ya watoto wake."
+ },
+ {
+  "id": "ASB.0158.17",
+  "sw": "Lakini ndege wengine walimwona Tai akipaa."
+ },
+ {
+  "id": "ASB.0158.18",
+  "sw": "Wakamwomba Kuku awaazime sindano ili nao wajishonee mabawa pia."
+ },
+ {
+  "id": "ASB.0158.19",
+  "sw": "Muda si mrefu ndege wakawa wamepaa na kuzagaa anga zima."
+ },
+ {
+  "id": "ASB.0158.20",
+  "sw": "Ndege wa mwisho aliporudisha sindano aliyoazima, Kuku hakuwepo."
+ },
+ {
+  "id": "ASB.0158.21",
+  "sw": "Kwa hiyo watoto wake wakachukua sindano na wakaanza kuichezea."
+ },
+ {
+  "id": "ASB.0158.22",
+  "sw": "Walipochoka na mchezo wao, wakaiacha sindano kwenye mchanga."
+ },
+ {
+  "id": "ASB.0158.23",
+  "sw": "Baadaye jioni Tai akarudi."
+ },
+ {
+  "id": "ASB.0158.24",
+  "sw": "Akaomba sindano ili aweze kushona baadhi ya manyoya yaliyokuwa yameanza kulegea alipokuwa safarini."
+ },
+ {
+  "id": "ASB.0158.25",
+  "sw": "Akaangalia kwenye kabati."
+ },
+ {
+  "id": "ASB.0158.26",
+  "sw": "Akaangalia jikoni."
+ },
+ {
+  "id": "ASB.0158.27",
+  "sw": "Akaangalia uani."
+ },
+ {
+  "id": "ASB.0158.28",
+  "sw": "Ila sindano haikupatikana."
+ },
+ {
+  "id": "ASB.0158.29",
+  "sw": "“Nipatie siku moja,” Kuku alimwomba Tai."
+ },
+ {
+  "id": "ASB.0158.30",
+  "sw": "“Halafu utaweza kushona bawa lako na kuruka tena kwenda kutafuta chakula.”"
+ },
+ {
+  "id": "ASB.0158.31",
+  "sw": "“Siku moja tu,” alisema Tai."
+ },
+ {
+  "id": "ASB.0158.32",
+  "sw": "“Kama hutaipata sindano, itabidi unipe kimoja cha vifaranga vyako kama malipo.”"
+ },
+ {
+  "id": "ASB.0158.33",
+  "sw": "Tai aliporudi siku iliyofuata, alimkuta Kuku akichakura mchangani, ila hakukuwa na sindano."
+ },
+ {
+  "id": "ASB.0158.34",
+  "sw": "Kwa hiyo Tai alishuka kwa kasi na kukwapua kifaranga kimoja."
+ },
+ {
+  "id": "ASB.0158.35",
+  "sw": "Akaondoka nacho."
+ },
+ {
+  "id": "ASB.0158.36",
+  "sw": "Tangu hapo, kila Tai anapojitokeza humkuta Kuku akichakura kwenye mchanga akitafuta sindano."
+ },
+ {
+  "id": "ASB.0158.37",
+  "sw": "Kila kivuli cha mabawa ya Tai kinapoonekana ardhini, Kuku huwatahadharisha vifaranga vyake."
+ },
+ {
+  "id": "ASB.0158.38",
+  "sw": "“Tokeni kwenye eneo la wazi.”"
+ },
+ {
+  "id": "ASB.0158.39",
+  "sw": "Na wanajibu: “Sisi si wajinga."
+ },
+ {
+  "id": "ASB.0158.40",
+  "sw": "Tutakimbia.”"
+ },
+ {
+  "id": "ASB.0201.1",
+  "sw": "Ilikuwa ni msichana mdogo aliyekuwa wa kwanza kuona umbo la ajabu kwa mbali."
+ },
+ {
+  "id": "ASB.0201.2",
+  "sw": "Kadiri umbo lilipokaribia, aliona kwamba lilikuwa ni mwanamke mwenye ujauzito mkubwa."
+ },
+ {
+  "id": "ASB.0201.3",
+  "sw": "Kwa upole na ujasiri, msichana alimsogelea mwanamke yule."
+ },
+ {
+  "id": "ASB.0201.4",
+  "sw": "“Lazima tumhifadhi,” watu wa msichana yule walisema."
+ },
+ {
+  "id": "ASB.0201.5",
+  "sw": "“Tutawaweka yeye na mtoto wake salama.”"
+ },
+ {
+  "id": "ASB.0201.6",
+  "sw": "Mtoto alikuwa njiani kuzaliwa si muda mrefu."
+ },
+ {
+  "id": "ASB.0201.7",
+  "sw": "“Sukuma!”"
+ },
+ {
+  "id": "ASB.0201.8",
+  "sw": "“Leteni mablanketi!”"
+ },
+ {
+  "id": "ASB.0201.9",
+  "sw": "“Maji!”"
+ },
+ {
+  "id": "ASB.0201.10",
+  "sw": "“Suuukuuumaaaa!!!”"
+ },
+ {
+  "id": "ASB.0201.11",
+  "sw": "Lakini walipomwona mtoto, wote waliruka kwa mshtuko."
+ },
+ {
+  "id": "ASB.0201.12",
+  "sw": "“Punda?!”"
+ },
+ {
+  "id": "ASB.0201.13",
+  "sw": "Wakaanza kubishana."
+ },
+ {
+  "id": "ASB.0201.14",
+  "sw": "“Tulisema tutawaweka mama na mtoto salama, na hivyo ndivyo tutakavyofanya,” baadhi wakasema."
+ },
+ {
+  "id": "ASB.0201.15",
+  "sw": "“Lakini watatuletea mkosi!” wengine wakadai."
+ },
+ {
+  "id": "ASB.0201.16",
+  "sw": "Kwa hiyo mwanamke yule alijikuta yuko peke yake kwa mara nyingine tena."
+ },
+ {
+  "id": "ASB.0201.17",
+  "sw": "Akajiuliza atafanya nini na mtoto huyo wa ajabu."
+ },
+ {
+  "id": "ASB.0201.18",
+  "sw": "Akajiuliza atafanya nini na yeye mwenyewe."
+ },
+ {
+  "id": "ASB.0201.19",
+  "sw": "Lakini hatimaye alikubali kwamba huyo ni mwanaye na yeye ni mama yake."
+ },
+ {
+  "id": "ASB.0201.20",
+  "sw": "Endapo mtoto huyo angebaki kuwa vilevile, na umbo dogo, labda kila kitu kingekuwa tofauti."
+ },
+ {
+  "id": "ASB.0201.21",
+  "sw": "Lakini mtoto Punda aliendelea kukua na kukua mpaka hakuweza kutoshea tena mgongoni mwa mama yake."
+ },
+ {
+  "id": "ASB.0201.22",
+  "sw": "Pamoja na kujaribu kwa bidii, hakuweza kuwa na tabia za kibinadamu."
+ },
+ {
+  "id": "ASB.0201.23",
+  "sw": "Mara nyingi mama yake alichoka na kuvunjika moyo."
+ },
+ {
+  "id": "ASB.0201.24",
+  "sw": "Wakati mwingine alimlazimisha kufanya kazi walizostahili wanyama."
+ },
+ {
+  "id": "ASB.0201.25",
+  "sw": "Kuchanganyikiwa na hasira vilianza kujengeka ndani mwa Punda."
+ },
+ {
+  "id": "ASB.0201.26",
+  "sw": "Alishindwa kufanya hivi wala vile."
+ },
+ {
+  "id": "ASB.0201.27",
+  "sw": "Alishindwa kuwa hivi wala vile."
+ },
+ {
+  "id": "ASB.0201.28",
+  "sw": "Alipatwa na hasira sana kiasi kwamba, siku moja, alimpiga teke mama yake mpaka akaanguka chini."
+ },
+ {
+  "id": "ASB.0201.29",
+  "sw": "Punda alijawa na aibu."
+ },
+ {
+  "id": "ASB.0201.30",
+  "sw": "Akaanza kukimbilia mbali kwa haraka kadiri awezavyo."
+ },
+ {
+  "id": "ASB.0201.31",
+  "sw": "Wakati aliposimama, ilikuwa ni usiku, na alikuwa amepotea."
+ },
+ {
+  "id": "ASB.0201.32",
+  "sw": "“Hii hoo?” alinong’ona gizani."
+ },
+ {
+  "id": "ASB.0201.33",
+  "sw": "“Hii hoo?” giza likatoa mwangwi."
+ },
+ {
+  "id": "ASB.0201.34",
+  "sw": "Alikuwa mwenyewe."
+ },
+ {
+  "id": "ASB.0201.35",
+  "sw": "Alijikunyata katika umbo dogo, akalala fofofo usingizi wa mang’amung’amu."
+ },
+ {
+  "id": "ASB.0201.36",
+  "sw": "Punda aliamka na kumkuta mzee mmoja wa ajabu akimtazama."
+ },
+ {
+  "id": "ASB.0201.37",
+  "sw": "Akamwangalia mzee yule machoni na akaanza kuhisi ishara ya matumaini."
+ },
+ {
+  "id": "ASB.0201.38",
+  "sw": "Punda alienda kuishi na mzee yule, na mzee alimfundisha mbinu nyingi za kuishi."
+ },
+ {
+  "id": "ASB.0201.39",
+  "sw": "Punda alisikiliza na kujifunza, na mzee vivyo hivyo pia."
+ },
+ {
+  "id": "ASB.0201.40",
+  "sw": "Walisaidiana na kucheka pamoja."
+ },
+ {
+  "id": "ASB.0201.41",
+  "sw": "Asubuhi moja, mzee alimwomba Punda ambebe hadi kwenye kilele cha mlima."
+ },
+ {
+  "id": "ASB.0201.42",
+  "sw": "Walipofika juu kwenye mawingu, walipatwa na usingizi."
+ },
+ {
+  "id": "ASB.0201.43",
+  "sw": "Punda akaota kuwa mama yake alikuwa mgonjwa na alimhitaji."
+ },
+ {
+  "id": "ASB.0201.44",
+  "sw": "Na alipoamka…"
+ },
+ {
+  "id": "ASB.0201.45",
+  "sw": "…mawingu yalikuwa yametoweka pamoja na rafiki yake, yule mzee."
+ },
+ {
+  "id": "ASB.0201.46",
+  "sw": "Hatimaye, Punda alijua alichotakiwa kufanya."
+ },
+ {
+  "id": "ASB.0201.47",
+  "sw": "Punda alimkuta mama yake akiwa peke yake huku akimwomboleza mwanaye aliyepotea."
+ },
+ {
+  "id": "ASB.0201.48",
+  "sw": "Wakaangaliana kwa muda mrefu."
+ },
+ {
+  "id": "ASB.0201.49",
+  "sw": "Na kisha wakakumbatiana kwa hisia."
+ },
+ {
+  "id": "ASB.0201.50",
+  "sw": "Mtoto Punda na mama yake wamekuwa kitu kimoja na kuishi kwa ushirikiano."
+ },
+ {
+  "id": "ASB.0201.51",
+  "sw": "Taratibu, familia nyingine zimeanza kuhamia na kuishi miongoni mwao."
+ },
+ {
+  "id": "ASB.0210.1",
+  "sw": "Tingi aliishi na bibi yake."
+ },
+ {
+  "id": "ASB.0210.2",
+  "sw": "Alizoea kuchunga ng’ombe na bibi yake."
+ },
+ {
+  "id": "ASB.0210.3",
+  "sw": "Siku moja wanajeshi walikuja."
+ },
+ {
+  "id": "ASB.0210.4",
+  "sw": "Wakawachukua ng’ombe."
+ },
+ {
+  "id": "ASB.0210.5",
+  "sw": "Tingi na bibi yake walikimbia na kujificha."
+ },
+ {
+  "id": "ASB.0210.6",
+  "sw": "Walijificha kichakani hadi usiku."
+ },
+ {
+  "id": "ASB.0210.7",
+  "sw": "Wanajeshi walirudi tena."
+ },
+ {
+  "id": "ASB.0210.8",
+  "sw": "Bibi alimficha Tingi chini ya majani."
+ },
+ {
+  "id": "ASB.0210.9",
+  "sw": "Mwanajeshi mmoja alimkanyaga, lakini akanyamaza kimya."
+ },
+ {
+  "id": "ASB.0210.10",
+  "sw": "Wanajeshi walipoondoka Tingi na bibi yake wakajitokeza."
+ },
+ {
+  "id": "ASB.0210.11",
+  "sw": "Wakajikongoja kimya kimya kurudi nyumbani."
+ },
+ {
+  "id": "ASB.0231.1",
+  "sw": "Hakuna mvua."
+ },
+ {
+  "id": "ASB.0231.2",
+  "sw": "Jua linang’aa."
+ },
+ {
+  "id": "ASB.0231.3",
+  "sw": "Kuna upepo."
+ },
+ {
+  "id": "ASB.0231.4",
+  "sw": "Kuna mawingu."
+ },
+ {
+  "id": "ASB.0231.5",
+  "sw": "Kuna baridi."
+ },
+ {
+  "id": "ASB.0231.6",
+  "sw": "Mvua inanyesha."
+ },
+ {
+  "id": "ASB.0231.7",
+  "sw": "Kuna ngurumo za radi."
+ },
+ {
+  "id": "ASB.0231.8",
+  "sw": "Naona upinde wa mvua."
+ },
+ {
+  "id": "ASB.0234.1",
+  "sw": "Andiswa alikuwa anawaangalia wavulana wakicheza mpira wa miguu."
+ },
+ {
+  "id": "ASB.0234.2",
+  "sw": "Alitamani kujiunga nao."
+ },
+ {
+  "id": "ASB.0234.3",
+  "sw": "Akamwomba kocha kufanya nao mazoezi."
+ },
+ {
+  "id": "ASB.0234.4",
+  "sw": "Kocha akaweka mikono kiunoni."
+ },
+ {
+  "id": "ASB.0234.5",
+  "sw": "“Kwenye shule hii, ni wavulana pekee wanaoruhusiwa kucheza mpira wa miguu,” alisema."
+ },
+ {
+  "id": "ASB.0234.6",
+  "sw": "Wavulana walimwambia aende kucheza mpira wa wavu."
+ },
+ {
+  "id": "ASB.0234.7",
+  "sw": "Walisema mpira wa wavu ni kwa ajili ya wasichana na mpira wa miguu ni kwa wavulana."
+ },
+ {
+  "id": "ASB.0234.8",
+  "sw": "Andiswa alijisikia vibaya."
+ },
+ {
+  "id": "ASB.0234.9",
+  "sw": "Siku iliyofuata, shule yao ilikuwa na mashindano makubwa ya mpira wa miguu."
+ },
+ {
+  "id": "ASB.0234.10",
+  "sw": "Kocha alikuwa na wasiwasi kwa kuwa mchezaji wake wa kutegemewa alikuwa mgonjwa na asingecheza."
+ },
+ {
+  "id": "ASB.0234.11",
+  "sw": "Andiswa alimwendea kocha na kumuomba kumruhusu acheze."
+ },
+ {
+  "id": "ASB.0234.12",
+  "sw": "Kocha hakujua afanye nini."
+ },
+ {
+  "id": "ASB.0234.13",
+  "sw": "Akaamua kumruhusu Andiswe ajiunge na timu."
+ },
+ {
+  "id": "ASB.0234.14",
+  "sw": "Mchezo ulikuwa mgumu."
+ },
+ {
+  "id": "ASB.0234.15",
+  "sw": "Hakuna timu yoyote iliyokuwa imefunga goli hadi muda wa mapumziko."
+ },
+ {
+  "id": "ASB.0234.16",
+  "sw": "Wakati wa kipindi cha pili kijana mmoja alimpatia Andiswa mpira."
+ },
+ {
+  "id": "ASB.0234.17",
+  "sw": "Akakimbia kwa kasi sana kuelekea golini."
+ },
+ {
+  "id": "ASB.0234.18",
+  "sw": "Akaupiga mpira kwa nguvu na akafunga goli."
+ },
+ {
+  "id": "ASB.0234.19",
+  "sw": "Umati ukashangilia kwa vifijo na furaha."
+ },
+ {
+  "id": "ASB.0234.20",
+  "sw": "Kuanzia siku hiyo, wasichana waliruhusiwa kucheza mpira wa miguu kwenye timu ya shule."
+ },
+ {
+  "id": "ASB.0243.1",
+  "sw": "Odongo na Apiyo waliishi mjini na baba yao."
+ },
+ {
+  "id": "ASB.0243.2",
+  "sw": "Walisubiri likizo kwa hamu."
+ },
+ {
+  "id": "ASB.0243.3",
+  "sw": "Siyo tu kwa shule kufungwa, bali ni kwa sababu walienda kumtembelea bibi yao."
+ },
+ {
+  "id": "ASB.0243.4",
+  "sw": "Aliishi katika kijiji cha uvuvi karibu na ziwa kubwa."
+ },
+ {
+  "id": "ASB.0243.5",
+  "sw": "Odongo na Apiyo walichangamka kwani ulikuwa wakati wa kumtembelea bibi kwa mara nyingine."
+ },
+ {
+  "id": "ASB.0243.6",
+  "sw": "Usiku huo, walipanga mizigo yao na kujiandaa kwa safari ndefu ya kwenda kijijini."
+ },
+ {
+  "id": "ASB.0243.7",
+  "sw": "Hawakuweza kulala ila waliongea usiku kucha juu ya likizo yao."
+ },
+ {
+  "id": "ASB.0243.8",
+  "sw": "Mapema asubuhi iliyofuata, waliondoka katika gari la baba yao kuelekea kijijini."
+ },
+ {
+  "id": "ASB.0243.9",
+  "sw": "Walipita milima, wanyama pori na mashamba ya majani ya chai."
+ },
+ {
+  "id": "ASB.0243.10",
+  "sw": "Walihesabu magari na kuimba nyimbo."
+ },
+ {
+  "id": "ASB.0243.11",
+  "sw": "Baada ya muda, watoto walichoka na kusinzia."
+ },
+ {
+  "id": "ASB.0243.12",
+  "sw": "Baba aliwaamsha Odongo na Apiyo walipofika kijijini."
+ },
+ {
+  "id": "ASB.0243.13",
+  "sw": "Walimkuta bibi yao, Nyar-Kanyada, akipumzika kwenye mkeka chini ya mti."
+ },
+ {
+  "id": "ASB.0243.14",
+  "sw": "Kwa Dholuo, Nyar-Kanyada maana yake ni ‘binti wa watu wa Kanyada’."
+ },
+ {
+  "id": "ASB.0243.15",
+  "sw": "Alikuwa ni mwanamke mrembo na imara."
+ },
+ {
+  "id": "ASB.0243.16",
+  "sw": "Nyar-Kanyada aliwakaribisha ndani kwa kucheza na kuimba kwa furaha."
+ },
+ {
+  "id": "ASB.0243.17",
+  "sw": "Wajukuu wake walikuwa na shauku ya kumpa zawadi walizomletea kutoka mjini."
+ },
+ {
+  "id": "ASB.0243.18",
+  "sw": "“Fungua yangu kwanza,” Odongo alisema."
+ },
+ {
+  "id": "ASB.0243.19",
+  "sw": "“Hapana, yangu kwanza!”"
+ },
+ {
+  "id": "ASB.0243.20",
+  "sw": "Apiyo akasema."
+ },
+ {
+  "id": "ASB.0243.21",
+  "sw": "Baada ya kufungua zawadi, Nyar-Kanyada aliwabariki wajukuu wake kitamaduni."
+ },
+ {
+  "id": "ASB.0243.22",
+  "sw": "Kisha Odongo na Apiyo wakaenda nje."
+ },
+ {
+  "id": "ASB.0243.23",
+  "sw": "Waliwakimbiza vipepeo na ndege."
+ },
+ {
+  "id": "ASB.0243.24",
+  "sw": "Walipanda kwenye miti na kurushiana maji ziwani."
+ },
+ {
+  "id": "ASB.0243.25",
+  "sw": "Giza Iilipoingia, walirudi nyumbani kwa ajili ya chakula cha jioni."
+ },
+ {
+  "id": "ASB.0243.26",
+  "sw": "Kabla hata ya kumaliza kula, walikuwa wanasinzia!"
+ },
+ {
+  "id": "ASB.0243.27",
+  "sw": "Siku iliyofuata, baba yao alirudi mjini na kuwaacha na Nyar-Kanyada."
+ },
+ {
+  "id": "ASB.0243.28",
+  "sw": "Odongo na Apiyo walimsaidia bibi yao na kazi za nyumbani."
+ },
+ {
+  "id": "ASB.0243.29",
+  "sw": "Walichota maji na kuokota kuni."
+ },
+ {
+  "id": "ASB.0243.30",
+  "sw": "Walikusanya mayai ya kuku na kuchuma mboga za majani kutoka kwenye bustani."
+ },
+ {
+  "id": "ASB.0243.31",
+  "sw": "Nyar-Kanyada aliwafundisha wajukuu wake jinsi ya kupika ugali mwepesi wa kula na mchuzi."
+ },
+ {
+  "id": "ASB.0243.32",
+  "sw": "Aliwaonesha namna ya kupika wali wa nazi wa kuliwa na samaki wa kukaanga."
+ },
+ {
+  "id": "ASB.0243.33",
+  "sw": "Asubuhi moja, Odongo aliwapeleka ng’ombe wa bibi yake malishoni."
+ },
+ {
+  "id": "ASB.0243.34",
+  "sw": "Wakakimbilia ndani ya shamba la jirani."
+ },
+ {
+  "id": "ASB.0243.35",
+  "sw": "Mwenye shamba alikasirishwa sana na Odongo."
+ },
+ {
+  "id": "ASB.0243.36",
+  "sw": "Akatishia kuwazuia ng’ombe kula mimea yake."
+ },
+ {
+  "id": "ASB.0243.37",
+  "sw": "Tangu siku hiyo, Odongo alihakikisha kwamba ng’ombe hawaingii matatani tena."
+ },
+ {
+  "id": "ASB.0243.38",
+  "sw": "Siku nyingine watoto walikwenda sokoni pamoja na Nyar-Kanyada."
+ },
+ {
+  "id": "ASB.0243.39",
+  "sw": "Nyar-Kanyada alikuwa na kibanda cha kuuza mboga, sukari na sabuni."
+ },
+ {
+  "id": "ASB.0243.40",
+  "sw": "Apiyo alipenda kuwatajia wateja bei za bidhaa."
+ },
+ {
+  "id": "ASB.0243.41",
+  "sw": "Odongo aliwafungia wateja bidhaa walizonunua."
+ },
+ {
+  "id": "ASB.0243.42",
+  "sw": "Mwisho wa siku walikunywa chai pamoja."
+ },
+ {
+  "id": "ASB.0243.43",
+  "sw": "Walimsaidia bibi yao kuhesabu pesa alizozipata."
+ },
+ {
+  "id": "ASB.0243.44",
+  "sw": "Likizo ilikaribia kuisha na watoto walitakiwa kurudi mjini."
+ },
+ {
+  "id": "ASB.0243.45",
+  "sw": "Nyar-Kanyada alimpa Odongo kofia na Apiyo sweta."
+ },
+ {
+  "id": "ASB.0243.46",
+  "sw": "Aliwafungia chakula cha kula safarini."
+ },
+ {
+  "id": "ASB.0243.47",
+  "sw": "Baba yao alipokuja kuwachukua, hawakutaka kuondoka."
+ },
+ {
+  "id": "ASB.0243.48",
+  "sw": "Walimuomba Nyar-Kanyada aende nao mjini."
+ },
+ {
+  "id": "ASB.0243.49",
+  "sw": "Alitabasamu na kusema, “Nimezeeka, siyawezi ya mjini."
+ },
+ {
+  "id": "ASB.0243.50",
+  "sw": "Nitasubiri mje kijijini kwangu tena.”"
+ },
+ {
+  "id": "ASB.0243.51",
+  "sw": "Odongo na Apiyo walimkumbatia kwa pamoja na kumuaga."
+ },
+ {
+  "id": "ASB.0243.52",
+  "sw": "Odongo na Apiyo waliporudi shuleni, waliwasimulia marafiki zao kuhusu maisha ya kijijini."
+ },
+ {
+  "id": "ASB.0243.53",
+  "sw": "Baadhi ya watoto waliamini kuwa maisha ya mjini ni mazuri."
+ },
+ {
+  "id": "ASB.0243.54",
+  "sw": "Wengine waliamini kijijini ni bora zaidi."
+ },
+ {
+  "id": "ASB.0243.55",
+  "sw": "Lakini zaidi ya yote, kila mmoja alikubali kwamba Odongo na Apiyo walikuwa na bibi wa kipekee."
+ },
+ {
+  "id": "ASB.0262.1",
+  "sw": "Kwenye jiji la Nairobi lenye pilikapilika nyingi, mbali na malezi ya nyumbani, paliishi kikundi cha wavulana wasiokuwa na makwao."
+ },
+ {
+  "id": "ASB.0262.2",
+  "sw": "Waliipokea kila siku ijayo kama ilivyo."
+ },
+ {
+  "id": "ASB.0262.3",
+  "sw": "Siku moja asubuhi, walikuwa wanakusanya virago vyao baada ya kulala kwenye baridi kando ya barabara."
+ },
+ {
+  "id": "ASB.0262.4",
+  "sw": "Ili kuondoa baridi, walikoka moto kwa kutumia takataka."
+ },
+ {
+  "id": "ASB.0262.5",
+  "sw": "Miongoni mwa kikundi hicho cha wavulana alikuwepo Magozwe."
+ },
+ {
+  "id": "ASB.0262.6",
+  "sw": "Alikuwa ni mdogo kuliko wote."
+ },
+ {
+  "id": "ASB.0262.7",
+  "sw": "Wakati wazazi wa Magozwe walipofariki, alikuwa na miaka mitano tu."
+ },
+ {
+  "id": "ASB.0262.8",
+  "sw": "Alienda kuishi na mjomba wake."
+ },
+ {
+  "id": "ASB.0262.9",
+  "sw": "Mjomba hakumjali Magozwe."
+ },
+ {
+  "id": "ASB.0262.10",
+  "sw": "Hakumpa chakula cha kutosha."
+ },
+ {
+  "id": "ASB.0262.11",
+  "sw": "Alimfanyisha kazi nyingi nzito."
+ },
+ {
+  "id": "ASB.0262.12",
+  "sw": "Magozwe alipolalamika au kuuliza, mjomba wake alimpiga."
+ },
+ {
+  "id": "ASB.0262.13",
+  "sw": "Magozwe alipouliza kama ataweza kwenda shule, mjomba wake alimpiga na kumwambia, “Wewe ni mjinga, hutaweza kujifunza chochote.”"
+ },
+ {
+  "id": "ASB.0262.14",
+  "sw": "Baada ya miaka mitatu ya kunyanyaswa, Magozwe alitoroka kwa mjomba wake."
+ },
+ {
+  "id": "ASB.0262.15",
+  "sw": "Akaanza kuishi mtaani."
+ },
+ {
+  "id": "ASB.0262.16",
+  "sw": "Maisha ya mtaani yalikuwa magumu na wavulana wengi walipambana kila siku ili wapate chakula tu."
+ },
+ {
+  "id": "ASB.0262.17",
+  "sw": "Mara nyingine walikamatwa, mara nyingine walipigwa."
+ },
+ {
+  "id": "ASB.0262.18",
+  "sw": "Walipougua, kulikuwa hakuna mtu wa kuwasaidia."
+ },
+ {
+  "id": "ASB.0262.19",
+  "sw": "Kikundi kilitegemea hela ndogo ndogo walizopata kwa kuomba omba, na kwa kuuza plastiki na vitu kuukuu."
+ },
+ {
+  "id": "ASB.0262.20",
+  "sw": "Maisha yalikuwa magumu zaidi hasa kwa sababu ya vita dhidi ya vikundi pinzani vilivyotaka kudhibiti baadhi ya maeneo ya jiji."
+ },
+ {
+  "id": "ASB.0262.21",
+  "sw": "Siku moja Magozwe alipokuwa anachakura kwenye mapipa ya takataka, alikuta kitabu cha hadithi kilichokuwa kimechakaa."
+ },
+ {
+  "id": "ASB.0262.22",
+  "sw": "Aliondoa uchafu kwenye kitabu na kukiweka ndani ya mfuko wake."
+ },
+ {
+  "id": "ASB.0262.23",
+  "sw": "Kila siku baada ya hapo, alikitoa kitabu na kuangalia picha."
+ },
+ {
+  "id": "ASB.0262.24",
+  "sw": "Hakujua kusoma maandishi."
+ },
+ {
+  "id": "ASB.0262.25",
+  "sw": "Picha zilikuwa zinaongelea hadithi ya mvulana ambaye alikuja kuwa rubani."
+ },
+ {
+  "id": "ASB.0262.26",
+  "sw": "Magozwe aliota kuwa rubani."
+ },
+ {
+  "id": "ASB.0262.27",
+  "sw": "Mara nyingine alifikiria kwamba yeye ni yule mvulana kwenye hadithi."
+ },
+ {
+  "id": "ASB.0262.28",
+  "sw": "Kulikuwa na baridi na Magozwe alikuwa amesimama barabarani akiomba omba."
+ },
+ {
+  "id": "ASB.0262.29",
+  "sw": "Mtu alimkaribia."
+ },
+ {
+  "id": "ASB.0262.30",
+  "sw": "“Hujambo?"
+ },
+ {
+  "id": "ASB.0262.31",
+  "sw": "Naitwa Thomas."
+ },
+ {
+  "id": "ASB.0262.32",
+  "sw": "Nafanya kazi karibu na hapa, mahali unapoweza kupata kitu cha kula,” mtu yule alisema."
+ },
+ {
+  "id": "ASB.0262.33",
+  "sw": "Alionyesha nyumba ya njano yenye paa la buluu."
+ },
+ {
+  "id": "ASB.0262.34",
+  "sw": "“Natumaini utaenda pale kupata chakula kidogo?”"
+ },
+ {
+  "id": "ASB.0262.35",
+  "sw": "Thomas aliuliza."
+ },
+ {
+  "id": "ASB.0262.36",
+  "sw": "Magozwe alimwangalia yule mtu, kisha akaiangalia ile nyumba."
+ },
+ {
+  "id": "ASB.0262.37",
+  "sw": "“Labda,” akasema, halafu akaondoka."
+ },
+ {
+  "id": "ASB.0262.38",
+  "sw": "Miezi iliyofuata, wavulana wale wa mtaani walizoea kumwona Thomas hapa na pale."
+ },
+ {
+  "id": "ASB.0262.39",
+  "sw": "Alipenda kuzungumza na watu, hasa walioishi mitaani."
+ },
+ {
+  "id": "ASB.0262.40",
+  "sw": "Thomas alisikiliza simulizi za maisha ya watu."
+ },
+ {
+  "id": "ASB.0262.41",
+  "sw": "Alikuwa makini na mwenye subira, na hakuwa na kiburi wala dharau."
+ },
+ {
+  "id": "ASB.0262.42",
+  "sw": "Baadhi ya wavulana walianza kwenda kwenye ile nyumba ya njano na buluu ili kupata chakula cha mchana."
+ },
+ {
+  "id": "ASB.0262.43",
+  "sw": "Magozwe alikuwa amekaa kando ya barabara akiangalia kitabu chake cha picha Thomas alipokaa pembeni mwake."
+ },
+ {
+  "id": "ASB.0262.44",
+  "sw": "“Hadithi hiyo inahusu nini?”"
+ },
+ {
+  "id": "ASB.0262.45",
+  "sw": "Thomas akauliza."
+ },
+ {
+  "id": "ASB.0262.46",
+  "sw": "“Inahusu mvulana aliyekuja kuwa rubani,” Magozwe akajibu."
+ },
+ {
+  "id": "ASB.0262.47",
+  "sw": "“Jina lake ni nani?”"
+ },
+ {
+  "id": "ASB.0262.48",
+  "sw": "Thomas akauliza."
+ },
+ {
+  "id": "ASB.0262.49",
+  "sw": "“Sijui, siwezi kusoma,” Magozwe akasema kwa sauti ya chini."
+ },
+ {
+  "id": "ASB.0262.50",
+  "sw": "Walipokutana, Magozwe alianza kumsimulia Thomas maisha yake."
+ },
+ {
+  "id": "ASB.0262.51",
+  "sw": "Alimwelezea kuhusu mjomba wake na sababu zilizomfanya atoroke."
+ },
+ {
+  "id": "ASB.0262.52",
+  "sw": "Thomas hakuongea sana, wala hakumwambia Magozwe nini cha kufanya, bali alisikiliza kwa makini kila mara."
+ },
+ {
+  "id": "ASB.0262.53",
+  "sw": "Wakati mwingine waliongea wakiwa wanakula kwenye ile nyumba yenye paa la buluu."
+ },
+ {
+  "id": "ASB.0262.54",
+  "sw": "Mnamo mwaka wa kumi wa kuzaliwa kwa Magozwe, Thomas alimzawadia kitabu kipya cha hadithi."
+ },
+ {
+  "id": "ASB.0262.55",
+  "sw": "Ilikuwa ni hadithi inayohusu mvulana wa kijijini aliyekuja kuwa mcheza mpira maarufu."
+ },
+ {
+  "id": "ASB.0262.56",
+  "sw": "Thomas alimsomea Magozwe hadithi hiyo mara nyingi, mpaka siku moja akasema, “Nafikiri wakati umewadia wa kwenda shule kujifunza kusoma."
+ },
+ {
+  "id": "ASB.0262.57",
+  "sw": "Unaonaje?”"
+ },
+ {
+  "id": "ASB.0262.58",
+  "sw": "Thomas alieleza kwamba anajua sehemu ambayo watoto wanaweza kuishi na kwenda shule."
+ },
+ {
+  "id": "ASB.0262.59",
+  "sw": "Magozwe alifikiria kuhusu sehemu hii mpya, na kuhusu kwenda shule."
+ },
+ {
+  "id": "ASB.0262.60",
+  "sw": "Itakuwaje kama mjomba wake alikuwa sahihi kwamba alikuwa mjinga kiasi cha kutoweza kujifunza chochote?"
+ },
+ {
+  "id": "ASB.0262.61",
+  "sw": "Itakuwaje kama watampiga sehemu hii mpya?"
+ },
+ {
+  "id": "ASB.0262.62",
+  "sw": "Aliogopa."
+ },
+ {
+  "id": "ASB.0262.63",
+  "sw": "“Labda ni heri kuendelea kuishi mtaani,” aliwaza."
+ },
+ {
+  "id": "ASB.0262.64",
+  "sw": "Alimshirikisha Thomas juu ya hofu aliyokuwa nayo."
+ },
+ {
+  "id": "ASB.0262.65",
+  "sw": "Baada ya muda Thomas alimhakikishia kwamba maisha yatakuwa bora huko sehemu mpya."
+ },
+ {
+  "id": "ASB.0262.66",
+  "sw": "Kwa hiyo Magozwe alihamia kwenye chumba katika nyumba yenye paa la kijani."
+ },
+ {
+  "id": "ASB.0262.67",
+  "sw": "Alikaa chumba kimoja na wavulana wengine wawili."
+ },
+ {
+  "id": "ASB.0262.68",
+  "sw": "Kwa ujumla kulikuwa na watoto kumi walioishi kwenye nyumba ile."
+ },
+ {
+  "id": "ASB.0262.69",
+  "sw": "Waliishi pamoja na Shangazi Cissy na mume wake, mbwa watatu, paka mmoja, na mbuzi aliyezeeka."
+ },
+ {
+  "id": "ASB.0262.70",
+  "sw": "Magozwe alianza shule na ilikuwa ngumu."
+ },
+ {
+  "id": "ASB.0262.71",
+  "sw": "Alikuwa na mengi ya kujifunza."
+ },
+ {
+  "id": "ASB.0262.72",
+  "sw": "Mara nyingine alitaka kukata tamaa."
+ },
+ {
+  "id": "ASB.0262.73",
+  "sw": "Lakini aliwaza kuhusu rubani na mcheza mpira kwenye vitabu vya hadithi."
+ },
+ {
+  "id": "ASB.0262.74",
+  "sw": "Kama wao, hakukata tamaa."
+ },
+ {
+  "id": "ASB.0262.75",
+  "sw": "Magozwe alikuwa amekaa uani kwenye nyumba yenye paa la kijani, akisoma kitabu cha hadithi cha shule."
+ },
+ {
+  "id": "ASB.0262.76",
+  "sw": "Thomas alikuja na kukaa kando yake."
+ },
+ {
+  "id": "ASB.0262.77",
+  "sw": "“Hadithi inahusu nini?”"
+ },
+ {
+  "id": "ASB.0262.78",
+  "sw": "Thomas akauliza."
+ },
+ {
+  "id": "ASB.0262.79",
+  "sw": "“Inahusu mvulana aliyekuja kuwa mwalimu,” Magozwe akajibu."
+ },
+ {
+  "id": "ASB.0262.80",
+  "sw": "“Jina lake ni nani?” akauliza Thomas."
+ },
+ {
+  "id": "ASB.0262.81",
+  "sw": "“Jina lake ni Magozwe,” Magozwe akasema kwa tabasamu."
+ },
+ {
+  "id": "ASB.0271.1",
+  "sw": "Mikono miwili midogo ya kushikia."
+ },
+ {
+  "id": "ASB.0271.2",
+  "sw": "Miguu miwili midogo ya kupigia."
+ },
+ {
+  "id": "ASB.0271.3",
+  "sw": "Macho mawili madogo ya kuonea."
+ },
+ {
+  "id": "ASB.0271.4",
+  "sw": "Masikio mawili madogo ya kusikia."
+ },
+ {
+  "id": "ASB.0271.5",
+  "sw": "Na mikono miwili ya KUKUMBATIA kwa upendo!"
+ },
+ {
+  "id": "ASB.0291.1",
+  "sw": "Siku moja asubuhi bibi yake Vusi alimwita na kumwambia, “Tafadhali peleka yai hili kwa wazazi wako."
+ },
+ {
+  "id": "ASB.0291.2",
+  "sw": "Wanataka kutengeneza keki kubwa kwa ajili ya harusi ya dada yako.”"
+ },
+ {
+  "id": "ASB.0291.3",
+  "sw": "Alipokuwa njiani kuelekea kwa wazazi wake, Vusi akakutana na vijana wawili wanaokota matunda."
+ },
+ {
+  "id": "ASB.0291.4",
+  "sw": "Kijana mmoja akanyakua yai kutoka kwa Vusi na akalirusha kwenye mti."
+ },
+ {
+  "id": "ASB.0291.5",
+  "sw": "Yai likavunjika."
+ },
+ {
+  "id": "ASB.0291.6",
+  "sw": "“Umefanya nini?”"
+ },
+ {
+  "id": "ASB.0291.7",
+  "sw": "Vusi akalia."
+ },
+ {
+  "id": "ASB.0291.8",
+  "sw": "“Yai lile lilikuwa kwa ajili ya keki."
+ },
+ {
+  "id": "ASB.0291.9",
+  "sw": "Keki ilikuwa kwa ajili ya harusi ya dada yangu."
+ },
+ {
+  "id": "ASB.0291.10",
+  "sw": "Dada yangu atasemaje kama hakutakuwa na keki ya harusi?”"
+ },
+ {
+  "id": "ASB.0291.11",
+  "sw": "Vijana wale waliomba msamaha kwa kumchokoza Vusi."
+ },
+ {
+  "id": "ASB.0291.12",
+  "sw": "“Hatuna la kufanya kuhusu keki, lakini hii hapa ni fimbo kwa ajili ya dada yako,” mmoja alisema."
+ },
+ {
+  "id": "ASB.0291.13",
+  "sw": "Vusi akaendelea na safari yake."
+ },
+ {
+  "id": "ASB.0291.14",
+  "sw": "Njiani alikutana na wanaume wawili wakijenga nyumba."
+ },
+ {
+  "id": "ASB.0291.15",
+  "sw": "“Tunaweza kutumia hiyo fimbo imara?” mmoja akaomba."
+ },
+ {
+  "id": "ASB.0291.16",
+  "sw": "Lakini fimbo haikuwa imara kwa kujengea, na ikavunjika."
+ },
+ {
+  "id": "ASB.0291.17",
+  "sw": "“Mmefanya nini?”"
+ },
+ {
+  "id": "ASB.0291.18",
+  "sw": "Vusi akalia."
+ },
+ {
+  "id": "ASB.0291.19",
+  "sw": "“Fimbo hii ilikuwa zawadi kwa ajili ya dada yangu."
+ },
+ {
+  "id": "ASB.0291.20",
+  "sw": "Waangua matunda walinipa fimbo hiyo kwa sababu walivunja yai la keki."
+ },
+ {
+  "id": "ASB.0291.21",
+  "sw": "Keki ilikuwa ni kwa ajili ya harusi ya dada yangu."
+ },
+ {
+  "id": "ASB.0291.22",
+  "sw": "Sasa hakuna yai, hakuna keki, na hakuna zawadi."
+ },
+ {
+  "id": "ASB.0291.23",
+  "sw": "Dada yangu atasemaje?”"
+ },
+ {
+  "id": "ASB.0291.24",
+  "sw": "Wajenzi waliomba msamaha kwa kuvunja fimbo."
+ },
+ {
+  "id": "ASB.0291.25",
+  "sw": "“Hatuna la kufanya kuhusu keki, lakini tutakupa makuti umpelekee dada yako,” mmoja alisema."
+ },
+ {
+  "id": "ASB.0291.26",
+  "sw": "Na Vusi akaendelea na safari yake."
+ },
+ {
+  "id": "ASB.0291.27",
+  "sw": "Njiani, Vusi akakutana na mkulima akiwa na ng’ombe."
+ },
+ {
+  "id": "ASB.0291.28",
+  "sw": "“Una makuti mazuri, naweza kupata kidogo?”"
+ },
+ {
+  "id": "ASB.0291.29",
+  "sw": "Ng’ombe akaomba."
+ },
+ {
+  "id": "ASB.0291.30",
+  "sw": "Lakini makuti yalikuwa matamu ng’ombe akayala yote!"
+ },
+ {
+  "id": "ASB.0291.31",
+  "sw": "“Umefanya nini?”"
+ },
+ {
+  "id": "ASB.0291.32",
+  "sw": "Vusi akalia."
+ },
+ {
+  "id": "ASB.0291.33",
+  "sw": "“Makuti haya yalikuwa zawadi ya dada yangu."
+ },
+ {
+  "id": "ASB.0291.34",
+  "sw": "Wajenzi walinipa makuti kwa kuwa walivunja fimbo yangu niliyopewa na waangua matunda."
+ },
+ {
+  "id": "ASB.0291.35",
+  "sw": "Waangua matunda walinipa fimbo kwa kuwa walivunja yai kwa ajili ya keki ya dada yangu."
+ },
+ {
+  "id": "ASB.0291.36",
+  "sw": "Keki ilikuwa kwa ajili ya harusi ya dada yangu."
+ },
+ {
+  "id": "ASB.0291.37",
+  "sw": "Sasa hakuna yai, hakuna keki, na hakuna zawadi."
+ },
+ {
+  "id": "ASB.0291.38",
+  "sw": "Dada yangu atasemaje?”"
+ },
+ {
+  "id": "ASB.0291.39",
+  "sw": "Ng’ombe aliomba msamaha kwa kuwa mlafi."
+ },
+ {
+  "id": "ASB.0291.40",
+  "sw": "Mkulima alikubali kumpa Vusi ng’ombe aende naye kama zawadi kwa ajili ya dada yake."
+ },
+ {
+  "id": "ASB.0291.41",
+  "sw": "Vusi akaendelea na safari yake."
+ },
+ {
+  "id": "ASB.0291.42",
+  "sw": "Lakini wakati wa chakula cha jioni ng’ombe alikimbia kurudi kwa mkulima."
+ },
+ {
+  "id": "ASB.0291.43",
+  "sw": "Na Vusi akapotea njiani."
+ },
+ {
+  "id": "ASB.0291.44",
+  "sw": "Akafika kwa kuchelewa sana kwenye harusi ya dada yake."
+ },
+ {
+  "id": "ASB.0291.45",
+  "sw": "Wageni walikuwa tayari wanakula."
+ },
+ {
+  "id": "ASB.0291.46",
+  "sw": "“Nifanye nini?” alilia Vusi."
+ },
+ {
+  "id": "ASB.0291.47",
+  "sw": "“Ng’ombe aliyekimbia alikuwa ni zawadi, ambayo nilipewa kama mbadala wa makuti niliyopewa na wajenzi."
+ },
+ {
+  "id": "ASB.0291.48",
+  "sw": "Wajenzi walinipa makuti kwa sababu walivunja fimbo niliyopewa na waangua matunda."
+ },
+ {
+  "id": "ASB.0291.49",
+  "sw": "Waangua matunda walinipa fimbo kwa sababu walivunja yai la keki."
+ },
+ {
+  "id": "ASB.0291.50",
+  "sw": "Keki ilikuwa kwa ajili ya harusi."
+ },
+ {
+  "id": "ASB.0291.51",
+  "sw": "Kwa hiyo hakuna yai, hakuna keki, na hakuna zawadi.”"
+ },
+ {
+  "id": "ASB.0291.52",
+  "sw": "Dada yake Vusi alifikiria kwa muda, halafu akasema, “Kaka yangu Vusi, usijali zawadi, pia usijali keki!"
+ },
+ {
+  "id": "ASB.0291.53",
+  "sw": "Tupo hapa pamoja, nina furaha."
+ },
+ {
+  "id": "ASB.0291.54",
+  "sw": "Nenda kavae nguo zako nadhifu na uje tusherehekee siku hii!”"
+ },
+ {
+  "id": "ASB.0294.1",
+  "sw": "Bibi alikuwa na bustani nzuri iliyojaa mtama, ulezi na mihogo."
+ },
+ {
+  "id": "ASB.0294.2",
+  "sw": "Lakini kati ya mazao yote, alipenda zaidi ndizi."
+ },
+ {
+  "id": "ASB.0294.3",
+  "sw": "Japo bibi alikuwa na wajukuu wengi, nilikuja kubaini kuwa alikuwa ananipenda mimi zaidi ya wote."
+ },
+ {
+  "id": "ASB.0294.4",
+  "sw": "Mara nyingi alikuwa akinialika nyumbani kwake."
+ },
+ {
+  "id": "ASB.0294.5",
+  "sw": "Pia alikuwa ananiambia siri ndogo ndogo."
+ },
+ {
+  "id": "ASB.0294.6",
+  "sw": "Lakini kulikuwa na siri moja ambayo hakunishirikisha: alipokuwa anavundika ndizi."
+ },
+ {
+  "id": "ASB.0294.7",
+  "sw": "Siku moja niliona tenga kubwa limeanikwa juani nje ya nyumba ya bibi."
+ },
+ {
+  "id": "ASB.0294.8",
+  "sw": "Nilipouliza lilikuwa la nini, jibu pekee nililopata lilikuwa, “Hilo ni tenga langu la maajabu.”"
+ },
+ {
+  "id": "ASB.0294.9",
+  "sw": "Pembeni mwa tenga lile kulikuwa na majani ya ndizi ambayo bibi alikuwa akiyageuza kila mara."
+ },
+ {
+  "id": "ASB.0294.10",
+  "sw": "Nilipatwa na shauku."
+ },
+ {
+  "id": "ASB.0294.11",
+  "sw": "“Bibi, hayo majani ni ya nini?” niliuliza."
+ },
+ {
+  "id": "ASB.0294.12",
+  "sw": "Jibu pekee nililopata lilikuwa, “Ni majani yangu ya maajabu.”"
+ },
+ {
+  "id": "ASB.0294.13",
+  "sw": "Nilikuwa na shauku kubwa kumwangalia bibi, ndizi, majani ya ndizi na tenga kubwa."
+ },
+ {
+  "id": "ASB.0294.14",
+  "sw": "Lakini bibi alinituma kwenda kwa mama."
+ },
+ {
+  "id": "ASB.0294.15",
+  "sw": "“Bibi, tafadhali naomba nitazame unavyoandaa…” “Usiwe msumbufu, fanya ulichoambiwa,” alisisitiza."
+ },
+ {
+  "id": "ASB.0294.16",
+  "sw": "Nikaondoka nikikimbia."
+ },
+ {
+  "id": "ASB.0294.17",
+  "sw": "Niliporudi, bibi alikuwa amekaa nje, ila hakukuwa na tenga wala ndizi."
+ },
+ {
+  "id": "ASB.0294.18",
+  "sw": "“Bibi, tenga liko wapi, zile ndizi ziko wapi, na…” Jibu pekee nililopata lilikuwa, “Zipo kwenye eneo la maajabu.”"
+ },
+ {
+  "id": "ASB.0294.19",
+  "sw": "Ilikuwa inasikitisha."
+ },
+ {
+  "id": "ASB.0294.20",
+  "sw": "Siku mbili baadaye, bibi alinituma kwenda chumbani kwake kumletea mkongojo."
+ },
+ {
+  "id": "ASB.0294.21",
+  "sw": "Mara tu baada ya kufungua mlango, nilikaribishwa na harufu kali ya ndizi mbivu."
+ },
+ {
+  "id": "ASB.0294.22",
+  "sw": "Pembeni mwa chumba kulikuwa na tenga kubwa la maajabu la bibi."
+ },
+ {
+  "id": "ASB.0294.23",
+  "sw": "Lilikuwa limefichwa na blanketi la zamani."
+ },
+ {
+  "id": "ASB.0294.24",
+  "sw": "Nikaliinua na kunusa ile harufi nzuri."
+ },
+ {
+  "id": "ASB.0294.25",
+  "sw": "Sauti ya bibi ilinishtua alipoita, “Unafanya nini?"
+ },
+ {
+  "id": "ASB.0294.26",
+  "sw": "Fanya haraka niletee mkongojo.”"
+ },
+ {
+  "id": "ASB.0294.27",
+  "sw": "Nikaharakisha kwenda nje na mkongojo wake."
+ },
+ {
+  "id": "ASB.0294.28",
+  "sw": "“Unatabasamu nini?” bibi aliuliza."
+ },
+ {
+  "id": "ASB.0294.29",
+  "sw": "Swali lake likanifanya nigundue kuwa kumbe bado nilikuwa ninatabasamu baada ya kugundua eneo lake la maajabu."
+ },
+ {
+  "id": "ASB.0294.30",
+  "sw": "Siku iliyofuata bibi alipokuja kumtembelea mama yangu, nikakimbilia nyumbani kwake kuangalia ndizi tena."
+ },
+ {
+  "id": "ASB.0294.31",
+  "sw": "Kulikuwa na vichane vya ndizi zilizoiva."
+ },
+ {
+  "id": "ASB.0294.32",
+  "sw": "Nikachukua ndizi moja na kuificha kwenye nguo yangu."
+ },
+ {
+  "id": "ASB.0294.33",
+  "sw": "Baada ya kufunika tenga tena, nikaenda nyuma ya nyumba na harakaharaka nikaila."
+ },
+ {
+  "id": "ASB.0294.34",
+  "sw": "Ilikuwa ni ndizi tamu ambayo sijawahi kula kamwe."
+ },
+ {
+  "id": "ASB.0294.35",
+  "sw": "Siku iliyofuata, bibi alipokuwa bustanini akichuma mboga, nikanyemelea ndani kuchungulia ndizi."
+ },
+ {
+  "id": "ASB.0294.36",
+  "sw": "Karibu zote zilikuwa zimeiva."
+ },
+ {
+  "id": "ASB.0294.37",
+  "sw": "Nikashindwa kujizuia nikachukua kichane cha ndizi nne."
+ },
+ {
+  "id": "ASB.0294.38",
+  "sw": "Nilipokuwa nanyata kuelekea mlangoni, nikamsikia bibi akikohoa nje."
+ },
+ {
+  "id": "ASB.0294.39",
+  "sw": "Nilifanikiwa kuzificha ndizi ndani ya nguo yangu na tukapishana bila ya kugundua."
+ },
+ {
+  "id": "ASB.0294.40",
+  "sw": "Siku iliyofuata ilikuwa siku ya gulio."
+ },
+ {
+  "id": "ASB.0294.41",
+  "sw": "Bibi aliamka asubuhi sana."
+ },
+ {
+  "id": "ASB.0294.42",
+  "sw": "Huwa anapeleka ndizi mbivu na mihogo kuuza gulioni."
+ },
+ {
+  "id": "ASB.0294.43",
+  "sw": "Siku hiyo sikuwa na haraka kwenda kumsalimia."
+ },
+ {
+  "id": "ASB.0294.44",
+  "sw": "Ila sikuweza kumkwepa kwa muda mrefu."
+ },
+ {
+  "id": "ASB.0294.45",
+  "sw": "Jioni ile niliitwa na mama, baba na bibi."
+ },
+ {
+  "id": "ASB.0294.46",
+  "sw": "Nilijua kwanini."
+ },
+ {
+  "id": "ASB.0294.47",
+  "sw": "Usiku ule nilipokwenda kulala, nilijua siwezi kuiba tena."
+ },
+ {
+  "id": "ASB.0294.48",
+  "sw": "Siwezi kumwibia bibi, wazazi wangu na mtu yeyote yule."
+ },
+ {
+  "id": "ASB.0296.1",
+  "sw": "Tom anabeba tenga la ndizi zilizoiva."
+ },
+ {
+  "id": "ASB.0296.2",
+  "sw": "Tom anaenda sokoni kuuza ndizi."
+ },
+ {
+  "id": "ASB.0296.3",
+  "sw": "Sokoni watu wananunua matunda."
+ },
+ {
+  "id": "ASB.0296.4",
+  "sw": "Lakini hakuna anayenunua ndizi za Tom."
+ },
+ {
+  "id": "ASB.0296.5",
+  "sw": "Wanapenda kununua matunda kutoka kwa akina mama."
+ },
+ {
+  "id": "ASB.0296.6",
+  "sw": "“Kwenye jamii yetu, ni wanawake pekee ndio wanaouza matunda,” watu wanasema."
+ },
+ {
+  "id": "ASB.0296.7",
+  "sw": "“Ni mwanamume wa aina gani huyu?” watu wanahoji."
+ },
+ {
+  "id": "ASB.0296.8",
+  "sw": "Lakini Tom hakati tamaa."
+ },
+ {
+  "id": "ASB.0296.9",
+  "sw": "Anaita, “Nunua ndizi zangu!"
+ },
+ {
+  "id": "ASB.0296.10",
+  "sw": "Nunueni ndizi zangu tamu zilizoiva!”"
+ },
+ {
+  "id": "ASB.0296.11",
+  "sw": "Mwanamke mmoja anachukua kichane cha ndizi kutoka kwenye tenga."
+ },
+ {
+  "id": "ASB.0296.12",
+  "sw": "Anaziangalia ndizi kwa umakini."
+ },
+ {
+  "id": "ASB.0296.13",
+  "sw": "Mwanamke ananunua ndizi."
+ },
+ {
+  "id": "ASB.0296.14",
+  "sw": "Watu wengine wanakuja kwenye kichanja."
+ },
+ {
+  "id": "ASB.0296.15",
+  "sw": "Wananunua ndizi za Tom na kuzila."
+ },
+ {
+  "id": "ASB.0296.16",
+  "sw": "Mara, tenga linakuwa tupu."
+ },
+ {
+  "id": "ASB.0296.17",
+  "sw": "Tom anahesabu pesa alizopata."
+ },
+ {
+  "id": "ASB.0296.18",
+  "sw": "Tom ananunua sabuni, sukari, na mkate."
+ },
+ {
+  "id": "ASB.0296.19",
+  "sw": "Anaweka vitu kwenye tenga lake."
+ },
+ {
+  "id": "ASB.0296.20",
+  "sw": "Tom anajitwisha tenga kichwani na kwenda nyumbani."
+ },
+ {
+  "id": "ASB.0302.1",
+  "sw": "Angalia, moto!"
+ },
+ {
+  "id": "ASB.0302.2",
+  "sw": "Moto unachoma."
+ },
+ {
+  "id": "ASB.0302.3",
+  "sw": "Moto unatumika kupika."
+ },
+ {
+  "id": "ASB.0302.4",
+  "sw": "Moto unaleta joto."
+ },
+ {
+  "id": "ASB.0302.5",
+  "sw": "Moto unaleta mwanga."
+ },
+ {
+  "id": "ASB.0302.6",
+  "sw": "Angalia, moto!"
+ },
+ {
+  "id": "ASB.0302.7",
+  "sw": "Moto ni wa ajabu."
+ },
+ {
+  "id": "ASB.0302.8",
+  "sw": "Na una nguvu sana."
+ },
+ {
+  "id": "ASB.0315.1",
+  "sw": "Sakima aliishi na wazazi wake na dada yake wa miaka minne."
+ },
+ {
+  "id": "ASB.0315.2",
+  "sw": "Waliishi katika shamba la mtu tajiri."
+ },
+ {
+  "id": "ASB.0315.3",
+  "sw": "Nyumba yao ya nyasi ilikuwa mwisho wa safu ya miti iliyopendeza."
+ },
+ {
+  "id": "ASB.0315.4",
+  "sw": "Sakima alipokuwa na umri wa miaka mitatu, aliugua na kupoteza uwezo wa kuona."
+ },
+ {
+  "id": "ASB.0315.5",
+  "sw": "Hata hivyo, Sakima alikuwa mvulana mwenye kipaji."
+ },
+ {
+  "id": "ASB.0315.6",
+  "sw": "Sakima alitenda mambo mengi ambayo wavulana wengine wa umri wake hawakufanya."
+ },
+ {
+  "id": "ASB.0315.7",
+  "sw": "Kwa mfano, aliketi na watu wazima na kujadili mambo muhimu."
+ },
+ {
+  "id": "ASB.0315.8",
+  "sw": "Wazazi wa Sakima walifanya kazi katika nyumba ya yule tajiri."
+ },
+ {
+  "id": "ASB.0315.9",
+  "sw": "Walitoka nyumbani asubuhi na mapema na kurudi jioni."
+ },
+ {
+  "id": "ASB.0315.10",
+  "sw": "Sakima aliachwa na dada yake."
+ },
+ {
+  "id": "ASB.0315.11",
+  "sw": "Sakima alipenda kuimba nyimbo."
+ },
+ {
+  "id": "ASB.0315.12",
+  "sw": "Siku moja mama yake alimuuliza, “Sakima, unajifunza nyimbo hizi kutoka wapi?”"
+ },
+ {
+  "id": "ASB.0315.13",
+  "sw": "Sakima alimjibu, “Nazisikia akilini mwangu kisha naziimba.”"
+ },
+ {
+  "id": "ASB.0315.14",
+  "sw": "Sakima alipenda kumwimbia mdogo wake hasa akihisi njaa."
+ },
+ {
+  "id": "ASB.0315.15",
+  "sw": "Dada yake alimsikiliza na kucheza."
+ },
+ {
+  "id": "ASB.0315.16",
+  "sw": "“Naomba uimbe tena na tena, Sakima,” mdogo wake alimsihi."
+ },
+ {
+  "id": "ASB.0315.17",
+  "sw": "Sakima alikubali na kuimba mara nyingine."
+ },
+ {
+  "id": "ASB.0315.18",
+  "sw": "Jioni moja, wazazi wake waliporudi nyumbani, walikuwa kimya sana."
+ },
+ {
+  "id": "ASB.0315.19",
+  "sw": "Sakima alijua kwamba lazima kulikuwa na jambo baya."
+ },
+ {
+  "id": "ASB.0315.20",
+  "sw": "“Kuna shida gani, mama, baba?”"
+ },
+ {
+  "id": "ASB.0315.21",
+  "sw": "Sakima aliuliza."
+ },
+ {
+  "id": "ASB.0315.22",
+  "sw": "Sakima aligundua kwamba mwana wa tajiri wao alikuwa amepotea."
+ },
+ {
+  "id": "ASB.0315.23",
+  "sw": "Tajiri alihuzunika na kuwa na upweke mkubwa."
+ },
+ {
+  "id": "ASB.0315.24",
+  "sw": "“Labda atafurahi tena nikimwimbia,” Sakima aliwaambia wazazi wake."
+ },
+ {
+  "id": "ASB.0315.25",
+  "sw": "Wazazi wake walidharau wazo lake."
+ },
+ {
+  "id": "ASB.0315.26",
+  "sw": "“Yeye ni tajiri sana."
+ },
+ {
+  "id": "ASB.0315.27",
+  "sw": "Wewe ni mvulana asiyeona."
+ },
+ {
+  "id": "ASB.0315.28",
+  "sw": "Unadhani wimbo wako utamsaidia?”"
+ },
+ {
+  "id": "ASB.0315.29",
+  "sw": "Hata hivyo, Sakima hakukata tamaa."
+ },
+ {
+  "id": "ASB.0315.30",
+  "sw": "Mdogo wake alimpa moyo."
+ },
+ {
+  "id": "ASB.0315.31",
+  "sw": "Alisema, “Nyimbo za Sakima hunituliza mimi nikiwa na njaa."
+ },
+ {
+  "id": "ASB.0315.32",
+  "sw": "Zitamtuliza tajiri vile vile.”"
+ },
+ {
+  "id": "ASB.0315.33",
+  "sw": "Siku iliyofuata, Sakima alimwomba mdogo wake amwongoze hadi kwenye nyumba ya tajiri."
+ },
+ {
+  "id": "ASB.0315.34",
+  "sw": "Alisimama chini ya dirisha moja kubwa na kuanza kuimba wimbo wake alioupenda."
+ },
+ {
+  "id": "ASB.0315.35",
+  "sw": "Pole pole, kichwa cha tajiri kilionekana dirishani."
+ },
+ {
+  "id": "ASB.0315.36",
+  "sw": "Wafanyakazi waliacha kazi zao."
+ },
+ {
+  "id": "ASB.0315.37",
+  "sw": "Wakasikiliza wimbo mzuri wa Sakima."
+ },
+ {
+  "id": "ASB.0315.38",
+  "sw": "Hata hivyo, mwanamume mmoja alisema, “Hakuna aliyefaulu kumtuliza bwana."
+ },
+ {
+  "id": "ASB.0315.39",
+  "sw": "Je, huyu mvulana asiyeona anafikiri atamtuliza?”"
+ },
+ {
+  "id": "ASB.0315.40",
+  "sw": "Sakima alipomaliza kuimba wimbo wake alianza kuondoka."
+ },
+ {
+  "id": "ASB.0315.41",
+  "sw": "Tajiri alitoka nje kwa haraka na kusema, “Tafadhali, imba tena.”"
+ },
+ {
+  "id": "ASB.0315.42",
+  "sw": "Wakati huo huo, watu wawili walikuja wakiwa wamembeba mtu kwenye machela."
+ },
+ {
+  "id": "ASB.0315.43",
+  "sw": "Walimkuta mwana wa tajiri akiwa amechapwa na kuachwa kando ya barabara."
+ },
+ {
+  "id": "ASB.0315.44",
+  "sw": "Tajiri alifurahi sana kumwona mwana wake tena."
+ },
+ {
+  "id": "ASB.0315.45",
+  "sw": "Alimzawadia Sakima kwa kumliwaza."
+ },
+ {
+  "id": "ASB.0315.46",
+  "sw": "Aliwapeleka mwanawe na Sakima hosipitali ili Sakima aweze kusaidiwa kuona tena."
+ },
+ {
+  "id": "ASB.0324.1",
+  "sw": "Kituo kidogo cha mabasi kijijini mwetu kilijaa shughuli za watu na mabasi. mabasi mengi yalikuwa yamejaa mizigo."
+ },
+ {
+  "id": "ASB.0324.2",
+  "sw": "Chini, palikuwa na mizigo zaidi ya kupakia."
+ },
+ {
+  "id": "ASB.0324.3",
+  "sw": "Makondakta walikuwa wanataja majina ya sehemu mabasi yalikokuwa yanaelekea."
+ },
+ {
+  "id": "ASB.0324.4",
+  "sw": "“Mjini!"
+ },
+ {
+  "id": "ASB.0324.5",
+  "sw": "Mjini!"
+ },
+ {
+  "id": "ASB.0324.6",
+  "sw": "Magharibi!”"
+ },
+ {
+  "id": "ASB.0324.7",
+  "sw": "Nilisikia kondakta akiita kwa sauti."
+ },
+ {
+  "id": "ASB.0324.8",
+  "sw": "Lile ndilo basi nililohitaji kupanda."
+ },
+ {
+  "id": "ASB.0324.9",
+  "sw": "Basi la kwenda mjini lilikaribia kujaa, lakini watu wengine walikuwa wanasukumana kupanda."
+ },
+ {
+  "id": "ASB.0324.10",
+  "sw": "Baadhi yao walipakia mizigo chini ya basi."
+ },
+ {
+  "id": "ASB.0324.11",
+  "sw": "Wengine waliiweka katika sehemu ya juu."
+ },
+ {
+  "id": "ASB.0324.12",
+  "sw": "Abiria wapya walishika tiketi zao huku wakitafuta mahali pa kukaa."
+ },
+ {
+  "id": "ASB.0324.13",
+  "sw": "Wanawake waliokuwa na watoto wodogo waliwatayarisha kwa safari hiyo ndefu."
+ },
+ {
+  "id": "ASB.0324.14",
+  "sw": "Nilijipenyeza ndani na kukaa karibu na dirisha."
+ },
+ {
+  "id": "ASB.0324.15",
+  "sw": "Mtu aliyeketi karibu nami alishika mfuko wa plastiki wa kijani kibichi."
+ },
+ {
+  "id": "ASB.0324.16",
+  "sw": "Alivaa viatu vilivyochakaa, koti kuukuu na alionekana kuwa na wasiwasi."
+ },
+ {
+  "id": "ASB.0324.17",
+  "sw": "Niliangalia nje na kutambua kwamba nilikuwa naondoka kijijini kwangu, mahali ambapo nililelewa."
+ },
+ {
+  "id": "ASB.0324.18",
+  "sw": "Nilikuwa naenda katika mji mkubwa."
+ },
+ {
+  "id": "ASB.0324.19",
+  "sw": "Upakiaji mizigo ulikamilika na abiria wakawa wameketi."
+ },
+ {
+  "id": "ASB.0324.20",
+  "sw": "Wachuuzi walizidi kusukumana kutaka kuingia ndani ya basi ili wauze bidhaa zao."
+ },
+ {
+  "id": "ASB.0324.21",
+  "sw": "Kila mmoja alitaja kwa sauti majina ya bidhaa alizokuwa anauza."
+ },
+ {
+  "id": "ASB.0324.22",
+  "sw": "Maneno yao yalinifurahisha."
+ },
+ {
+  "id": "ASB.0324.23",
+  "sw": "Baadhi ya abiria walinunua vinywaji."
+ },
+ {
+  "id": "ASB.0324.24",
+  "sw": "Wengine wakanunua vitafunwa vidogo na kuanza kutafuna."
+ },
+ {
+  "id": "ASB.0324.25",
+  "sw": "Wasiokuwa na fedha, kama mimi, walitazama tu."
+ },
+ {
+  "id": "ASB.0324.26",
+  "sw": "Shughuli hizi zilikatizwa kwa mlio wa honi ya basi, ishara kwamba tulikuwa tayari kuondoka."
+ },
+ {
+  "id": "ASB.0324.27",
+  "sw": "Kondakta aliwataka wachuuzi kuondoka ndani ya basi."
+ },
+ {
+  "id": "ASB.0324.28",
+  "sw": "Wachuuzi walisukumana huku wakitafuta njia ya kushuka."
+ },
+ {
+  "id": "ASB.0324.29",
+  "sw": "Wengine waliwarudishia wasafiri chenji zao."
+ },
+ {
+  "id": "ASB.0324.30",
+  "sw": "Wengine walifanya juhudi za mwisho kuuza bidhaa zao."
+ },
+ {
+  "id": "ASB.0324.31",
+  "sw": "Basi lilipoondoka kituoni, nilichungulia dirishani."
+ },
+ {
+  "id": "ASB.0324.32",
+  "sw": "Nilijiuliza endapo ningerudi na kwenda kijijini kwangu tena."
+ },
+ {
+  "id": "ASB.0324.33",
+  "sw": "Safari ilipoendelea, joto lilikuwa jingi ndani ya basi."
+ },
+ {
+  "id": "ASB.0324.34",
+  "sw": "Niliyafumba macho yangu nikinuia kulala."
+ },
+ {
+  "id": "ASB.0324.35",
+  "sw": "Lakini mawazo yangu yalirejea nyumbani."
+ },
+ {
+  "id": "ASB.0324.36",
+  "sw": "Je, mamangu atakuwa salama?"
+ },
+ {
+  "id": "ASB.0324.37",
+  "sw": "Je, sungura wangu wataleta hela zozote?"
+ },
+ {
+  "id": "ASB.0324.38",
+  "sw": "Je, ndugu yangu atakumbuka kunyunyizia maji miche ya miti yangu?"
+ },
+ {
+  "id": "ASB.0324.39",
+  "sw": "Njiani, nilikariri jina la mahali mjomba wangu alipoishi kwenye mji mkubwa."
+ },
+ {
+  "id": "ASB.0324.40",
+  "sw": "Nilikuwa bado nafikiria wakati nilipopatwa na usingizi."
+ },
+ {
+  "id": "ASB.0324.41",
+  "sw": "Baada ya saa tisa, niliamshwa kwa kelele za kuita abiria waliokwenda katika kijiji changu."
+ },
+ {
+  "id": "ASB.0324.42",
+  "sw": "Nilichukuwa mfuko wangu mdogo na kuruka nje ya basi."
+ },
+ {
+  "id": "ASB.0324.43",
+  "sw": "Basi la kurudi lilikuwa linajaa upesi."
+ },
+ {
+  "id": "ASB.0324.44",
+  "sw": "Muda mfupi baadaye, lingeanza safari ya kwenda mashariki."
+ },
+ {
+  "id": "ASB.0324.45",
+  "sw": "Jambo la maana kwangu wakati huo lilikuwa kuanza kutafuta nyumba ya mjomba wangu."
+ },
+ {
+  "id": "ASB.0327.1",
+  "sw": "Tembo mmoja anakwenda kunywa maji."
+ },
+ {
+  "id": "ASB.0327.2",
+  "sw": "Twiga wawili wanaenda kunywa maji."
+ },
+ {
+  "id": "ASB.0327.3",
+  "sw": "Nyati watatu na ndege wanne nao wanaenda kunywa maji."
+ },
+ {
+  "id": "ASB.0327.4",
+  "sw": "Swala watano na ngiri sita wanatembea kuelekea kwenye maji."
+ },
+ {
+  "id": "ASB.0327.5",
+  "sw": "Punda milia saba wanakimbia kuelekea kwenye maji."
+ },
+ {
+  "id": "ASB.0327.6",
+  "sw": "Vyura wanane na samaki tisa wanaogelea kwenye maji."
+ },
+ {
+  "id": "ASB.0327.7",
+  "sw": "Simba mmoja anaunguruma."
+ },
+ {
+  "id": "ASB.0327.8",
+  "sw": "Naye anataka kunywa maji."
+ },
+ {
+  "id": "ASB.0327.9",
+  "sw": "Nani anamwogopa simba?"
+ },
+ {
+  "id": "ASB.0327.10",
+  "sw": "Tembo mmoja anakunywa maji na simba."
+ },
+ {
+  "id": "ASB.0337.1",
+  "sw": "Hapo zamani za kale, paliishi familia yenye furaha."
+ },
+ {
+  "id": "ASB.0337.2",
+  "sw": "Hawakugombana hata kidogo."
+ },
+ {
+  "id": "ASB.0337.3",
+  "sw": "Watoto waliwasaidia wazazi nyumbani na shambani."
+ },
+ {
+  "id": "ASB.0337.4",
+  "sw": "Lakini, walikatazwa kwenda karibu na moto."
+ },
+ {
+  "id": "ASB.0337.5",
+  "sw": "Walifanya kazi zao zote usiku."
+ },
+ {
+  "id": "ASB.0337.6",
+  "sw": "Hii ni kwa sababu walikuwa wameumbwa kwa nta."
+ },
+ {
+  "id": "ASB.0337.7",
+  "sw": "Lakini, kijana mmoja alitamani kwenda nje wakati wa mchana."
+ },
+ {
+  "id": "ASB.0337.8",
+  "sw": "Siku moja tamaa ya kwenda nje ikazidi."
+ },
+ {
+  "id": "ASB.0337.9",
+  "sw": "Wenzake wakamwonya asiende juani."
+ },
+ {
+  "id": "ASB.0337.10",
+  "sw": "Lakini, hakusikia."
+ },
+ {
+  "id": "ASB.0337.11",
+  "sw": "Aliyeyuka kwa sababu joto lilikuwa kali."
+ },
+ {
+  "id": "ASB.0337.12",
+  "sw": "Watoto wa nta walihuzunika walipoona kaka yao akiyeyuka."
+ },
+ {
+  "id": "ASB.0337.13",
+  "sw": "Wakapanga jambo fulani."
+ },
+ {
+  "id": "ASB.0337.14",
+  "sw": "Walichukua nta iliyoyeyuka wakatengeza ndege."
+ },
+ {
+  "id": "ASB.0337.15",
+  "sw": "Wakamweka ndege huyo juu ya mlima mrefu."
+ },
+ {
+  "id": "ASB.0337.16",
+  "sw": "Jua lilipochomoza asubuhi, akapeperuka akiimba kwa furaha."
+ },
+ {
+  "id": "ASB.0342.1",
+  "sw": "Siku moja, mama alileta matunda mengi."
+ },
+ {
+  "id": "ASB.0342.2",
+  "sw": "“Tutakula matunda lini?” tunauliza."
+ },
+ {
+  "id": "ASB.0342.3",
+  "sw": "“Tutakula matunda leo jioni,” mama anasema."
+ },
+ {
+  "id": "ASB.0342.4",
+  "sw": "Kaka yangu Rahim ni mlafi."
+ },
+ {
+  "id": "ASB.0342.5",
+  "sw": "Anaonja onja matunda yote."
+ },
+ {
+  "id": "ASB.0342.6",
+  "sw": "Anakula matunda mengi."
+ },
+ {
+  "id": "ASB.0342.7",
+  "sw": "“Angalia Rahim alichokifanya!” mdogo wangu analalamika kwa sauti."
+ },
+ {
+  "id": "ASB.0342.8",
+  "sw": "“Rahim ni mtundu na mchoyo,” ninasema."
+ },
+ {
+  "id": "ASB.0342.9",
+  "sw": "Mama amekasirishwa na Rahim."
+ },
+ {
+  "id": "ASB.0342.10",
+  "sw": "Sisi pia tumekasirishwa na Rahim."
+ },
+ {
+  "id": "ASB.0342.11",
+  "sw": "Lakini Rahim haombi msamaha."
+ },
+ {
+  "id": "ASB.0342.12",
+  "sw": "“Hutamwadhibu Rahim?” mdogo wangu anauliza."
+ },
+ {
+  "id": "ASB.0342.13",
+  "sw": "“Rahim, muda si mrefu utajuta,” mama anaonya."
+ },
+ {
+  "id": "ASB.0342.14",
+  "sw": "Rahim anaanza kuhisi kuumwa."
+ },
+ {
+  "id": "ASB.0342.15",
+  "sw": "“Tumbo langu linauma sana,” Rahim ananong’ona."
+ },
+ {
+  "id": "ASB.0342.16",
+  "sw": "Mama alijua hili litatokea."
+ },
+ {
+  "id": "ASB.0342.17",
+  "sw": "Matunda yanamwadhibu Rahim!"
+ },
+ {
+  "id": "ASB.0342.18",
+  "sw": "Baadaye, Rahim anatuomba msamaha."
+ },
+ {
+  "id": "ASB.0342.19",
+  "sw": "“Kamwe sitakuwa mlafi tena,” anaahidi."
+ },
+ {
+  "id": "ASB.0342.20",
+  "sw": "Na sote tunamwamini."
+ },
+ {
+  "id": "LUK.14.5",
+  "sw": "Akawaambia, Ni nani miongoni mwenu, ikiwa ng’ombe wake au punda wake ametumbukia kisimani, asiyemwopoa mara hiyo siku ya sabato?"
+ },
+ {
+  "id": "DEU.1.20",
+  "sw": "Nami nikawaambia, Mmefika nchi ya vilima ya Waamori, anayotupa sisi BWANA, Mungu wetu."
+ },
+ {
+  "id": "JOS.3.3",
+  "sw": "wakawaamuru watu wote wakisema, Mtakapoliona sanduku la agano la BWANA, Mungu wenu, na makuhani Walawi wakilichukua, ndipo mtakapoondoka hapa mlipo na kulifuata."
+ },
+ {
+  "id": "PSA.122.9",
+  "sw": "Kwa ajili ya nyumba ya BWANA, Mungu wetu, Nikutafutie mema."
+ },
+ {
+  "id": "EZK.41.3",
+  "sw": "Kisha akaingia ndani, akapima kila mwimo wa maingilio, dhiraa mbili; nayo maingilio, dhiraa sita; na upana wa maingilio dhiraa saba."
+ },
+ {
+  "id": "GEN.41.38",
+  "sw": ":11 Farao akawaambia watumwa wake, Tupate wapi mtu kama huyu, mwenye roho ya Mungu ndani yake?"
+ },
+ {
+  "id": "ACT.5.6",
+  "sw": "Vijana wakaondoka, wakamtia katika sanda, wakamchukua nje, wakamzika."
+ },
+ {
+  "id": "ACT.10.1",
+  "sw": "Palikuwa na mtu Kaisaria, jina lake Kornelio, akida wa kikosi kilichoitwa Kiitalia,"
+ },
+ {
+  "id": "NEH.12.2",
+  "sw": "Amaria, Maluki, Hatushi;"
+ },
+ {
+  "id": "PRO.24.6",
+  "sw": "Maana kwa mashauri ya akili utafanya vita; Na kwa wingi wa washauri huja wokovu."
+ },
+ {
+  "id": "ISA.13.1",
+  "sw": "-15 ; Yer 50:1—51:64 Ufunuo juu ya Babeli; maono aliyoyaona Isaya, mwana wa Amozi."
+ },
+ {
+  "id": "EXO.20.3",
+  "sw": "Usiwe na miungu mingine ila mimi."
+ },
+ {
+  "id": "EST.6.8",
+  "sw": "na aletewe mavazi ya kifalme ambayo mfalme amezoea kuyavaa, na farasi ambaye mfalme humpanda mwenyewe, ambaye ametiwa taji ya kifalme kichwani;"
+ },
+ {
+  "id": "PSA.31.20",
+  "sw": "Utawasitiri na fitina za watu Katika sitara ya kuwapo kwako; Utawaficha katika hema Na mashindano ya ndimi."
+ },
+ {
+  "id": "ECC.1.2",
+  "sw": ":9 , 10 ; Mhu 4:4-6 ; Rum 8:20 Mhubiri asema, Ubatili mtupu, ubatili mtupu, mambo yote ni ubatili."
+ },
+ {
+  "id": "2CO.2.3",
+  "sw": "Nami naliwaandikia neno lilo hilo, ili nijapo nisitiwe huzuni na wale ambao ilinipasa kuwafurahia; nikiwatumaini ninyi nyote kwamba furaha yangu ni yenu nyote pia."
+ },
+ {
+  "id": "GEN.27.15",
+  "sw": "Kisha Rebeka akatwaa mavazi mazuri ya Esau mwanawe mkubwa, aliyokuwa nayo nyumbani, akamvika Yakobo mwanawe mdogo."
+ },
+ {
+  "id": "PSA.128.2",
+  "sw": "Taabu ya mikono yako hakika utaila; Utakuwa heri, na kwako kwema."
+ },
+ {
+  "id": "NUM.29.20",
+  "sw": "Tena siku ya tatu mtasongeza ng’ombe waume kumi na mmoja, na kondoo waume wawili, na wana-kondoo waume wa mwaka wa kwanza wakamilifu kumi na wanne;"
+ },
+ {
+  "id": "ISA.51.2",
+  "sw": "Mwangalieni Ibrahimu, baba yenu, na Sara, aliyewazaa; kwa maana alipokuwa mmoja tu nalimwita, nikambariki, nikamfanya kuwa wengi."
+ },
+ {
+  "id": "PRO.22.3",
+  "sw": "Mwenye busara huyaona mabaya na kujificha; Bali wajinga huendelea mbele wakaumia."
+ },
+ {
+  "id": "JDG.5.7",
+  "sw": "-6 ; Isa 49:23 Maliwali walikoma katika Israeli, walikoma, Hata mimi Debora nilipoinuka, Nilipoinuka mimi, mama katika Israeli."
+ },
+ {
+  "id": "1KI.20.20",
+  "sw": "Wakapiga kila mmoja mtu wake; Washami wakakimbia, na Israeli wakawafuatia; Ben-hadadi mfalme wa Shamu akaokoka amepanda farasi, pamoja na wapandao farasi."
+ },
+ {
+  "id": "EPH.4.3",
+  "sw": "na kujitahidi kuuhifadhi umoja wa Roho katika kifungo cha amani."
+ },
+ {
+  "id": "DAN.11.21",
+  "sw": "Kisha badala yake atasimama mmoja, mtu astahiliye kudharauliwa, ambaye hawakumpa heshima ya ufalme; naye atakuja wakati wa amani, naye ataupata ufalme kwa kujipendekeza."
+ },
+ {
+  "id": "JOB.12.20",
+  "sw": "Huondoa matamko ya hao walioaminiwa, Na kuondoa fahamu za wazee."
+ },
+ {
+  "id": "JHN.16.22",
+  "sw": "Basi ninyi hivi sasa mna huzuni; lakini mimi nitawaona tena; na mioyo yenu itafurahi, na furaha yenu hakuna awaondoleaye."
+ },
+ {
+  "id": "PSA.74.6",
+  "sw": "Na sasa nakishi yake yote pia Wanaivunja-vunja kwa mashoka na nyundo."
+ },
+ {
+  "id": "ISA.45.10",
+  "sw": "Ole wake amwambiaye baba yake, Wazaa nini? Au mwanamke, Una utungu wa nini?"
+ },
+ {
+  "id": "2KI.9.33",
+  "sw": "Akasema, Mtupeni chini. Basi wakamtupa chini; na damu yake ikamwagika nyingine juu ya ukuta, na nyingine juu ya farasi, naye akamkanyaga-kanyaga."
+ },
+ {
+  "id": "LUK.18.35",
+  "sw": "-34 ; Mk 10:46-52 Ikawa alipokaribia Yeriko, mtu mmoja kipofu alikuwa ameketi kando ya njia, akiomba sadaka;"
+ },
+ {
+  "id": "PSA.74.21",
+  "sw": "Aliyeonewa asirejee ametiwa haya, Mnyonge na mhitaji na walisifu jina lako."
+ },
+ {
+  "id": "2SA.16.9",
+  "sw": "Ndipo Abishai mwana wa Seruya, akamwambia mfalme, Mbona mbwa mfu huyu amlaani mfalme bwana wangu? Na nivuke, nakusihi, nikaondoe kichwa chake."
+ },
+ {
+  "id": "MAT.26.20",
+  "sw": "-26 ; Lk 22:14-23 ; Yn 13:21-26 Basi kulipokuwa jioni aliketi chakulani pamoja na wale Thenashara."
+ },
+ {
+  "id": "ISA.30.11",
+  "sw": "tokeni katika njia, geukeni mtoke katika mapito; mkomesheni Mtakatifu wa Israeli mbele yetu."
+ },
+ {
+  "id": "JOB.17.4",
+  "sw": "Kwani mioyo yao imeificha ufahamu; Kwa hiyo hutawakuza."
+ },
+ {
+  "id": "2SA.7.24",
+  "sw": "Nawe ulijifanyia imara watu wako Israeli, wawe watu wako milele; nawe, BWANA, umekuwa Mungu wao."
+ },
+ {
+  "id": "JHN.1.48",
+  "sw": "Nathanaeli akamwambia, Umepataje kunitambua? Yesu akajibu, akamwambia, Kabla Filipo hajakuita, ulipokuwapo chini ya mtini nilikuona."
+ },
+ {
+  "id": "2SA.5.9",
+  "sw": ":27 ; 2 Nya 32:5 Basi Daudi akakaa ndani ya ngome hiyo, akaiita mji wa Daudi. Kisha Daudi akajenga toka Milo na pande za ndani."
+ },
+ {
+  "id": "JHN.9.30",
+  "sw": "Yule mtu akajibu, akawaambia, Hii ni ajabu! Kwamba ninyi hamjui atokako, naye alinifumbua macho!"
+ },
+ {
+  "id": "PSA.103.11",
+  "sw": "Maana mbingu zilivyoinuka juu ya nchi, Kadiri ile ile rehema zake ni kuu kwa wamchao."
+ },
+ {
+  "id": "PRO.21.14",
+  "sw": "Kipawa cha siri hutuliza hasira; Na rushwa bindoni humliza ghadhabu kali."
+ },
+ {
+  "id": "JOB.37.22",
+  "sw": "Kaskazini hutokea umemetufu wa dhahabu; Mungu huvikwa ukuu utishao."
+ },
+ {
+  "id": "PSA.39.9",
+  "sw": "Nimenyamaza, sitafumbua kinywa changu, Maana Wewe ndiwe uliyeyafanya."
+ },
+ {
+  "id": "LUK.4.33",
+  "sw": "Na ndani ya sinagogi mlikuwa na mtu mwenye roho ya pepo mchafu, akalia kwa sauti kuu,"
+ },
+ {
+  "id": "ACT.12.7",
+  "sw": "Mara malaika wa Bwana akasimama karibu naye, nuru ikamulika mle chumbani, akampiga Petro ubavuni, akamwamsha, akisema, Ondoka upesi. Minyororo yake ikamwanguka mikononi."
+ },
+ {
+  "id": "EZR.2.48",
+  "sw": "wana wa Resini, wana wa Nekoda, wana wa Gazamu;"
+ },
+ {
+  "id": "JOB.28.17",
+  "sw": "Dhahabu na vioo haviwezi kulinganishwa nayo; Wala kubadili kwake hakutakuwa kwa vyombo vya dhahabu safi."
+ },
+ {
+  "id": "ROM.2.13",
+  "sw": "Kwa sababu sio wale waisikiao sheria walio wenye haki mbele za Mungu, bali ni wale waitendao sheria watakaohesabiwa haki."
+ },
+ {
+  "id": "PSA.99.9",
+  "sw": "Mtukuzeni BWANA, Mungu wetu; Sujuduni mkiukabili mlima wake mtakatifu; Maana BWANA, Mungu wetu, ndiye mtakatifu."
+ },
+ {
+  "id": "EXO.19.17",
+  "sw": "Musa akawatoa hao watu katika kituo, akawaleta ili waonane na Mungu; wakasimama pande za chini za kile kilima."
+ },
+ {
+  "id": "NEH.7.31",
+  "sw": "Watu wa Mikmashi, mia moja na ishirini na wawili."
+ },
+ {
+  "id": "EST.6.6",
+  "sw": "Basi Hamani akaingia. Mfalme akamwambia, Afanyiziwe nini yule ambaye mfalme apenda kumheshimu? Hamani akasema moyoni mwake, Ni nani ambaye mfalme apenda kumheshimu kuliko mimi?"
+ },
+ {
+  "id": "MAT.12.4",
+  "sw": "jinsi alivyoingia katika nyumba ya Mungu, akaila mikate ile ya wonyesho, ambayo si halali kwake kuila wala kwa wale wenziwe, ila kwa makuhani peke yao?"
+ },
+ {
+  "id": "ROM.9.16",
+  "sw": "Basi, kama ni hivyo, si katika uwezo wa yule atakaye, wala wa yule apigaye mbio; bali wa yule arehemuye, yaani, Mungu."
+ },
+ {
+  "id": "PRO.24.14",
+  "sw": "Basi utaijua hekima kuwa tamu kwa nafsi yako; Ikiwa umekwisha kuiona; Ndipo itakapofuata thawabu; Wala tumaini lako halitabatilika."
+ },
+ {
+  "id": "JER.3.11",
+  "sw": "BWANA, akaniambia, Israeli mwenye kuasi amejionyesha kuwa mwenye haki kuliko Yuda mwenye hiana."
+ },
+ {
+  "id": "HOS.12.3",
+  "sw": "-26 Tumboni alimshika ndugu yake kisigino; Na alipokuwa mtu mzima alikuwa na uwezo kwa Mungu;"
+ },
+ {
+  "id": "JER.38.19",
+  "sw": "Mfalme Sedekia akamwambia Yeremia, Nawaogopa Wayahudi waliowakimbilia Wakaldayo, wasije wakanitia katika mikono yao, nao wakanidhihaki."
+ },
+ {
+  "id": "NAM.3.12",
+  "sw": "Ngome zako zote zitakuwa kama mitini yenye tini zilizoiva kwanza; ikitikisika zaanguka katika kinywa chake alaye."
+ }
+]

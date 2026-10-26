@@ -1,0 +1,304 @@
+{
+  "_meta": {
+    "generated": "2026-10-15",
+    "note": "3 degrees (proximal/referential/distal), flat per-class, matches kitaita_verified_corrections.py's KITAITA_DEM_*_VERIFIED schema exactly."
+  },
+  "classes": [
+    {
+      "id": "u",
+      "nearest_swahili_class": "1",
+      "sample_members": [
+        "mlungu",
+        "mundu",
+        "mwana",
+        "mwalimu"
+      ],
+      "proximal": {
+        "value": "uhu",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "uo",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "uja",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": ""
+    },
+    {
+      "id": "ghu",
+      "nearest_swahili_class": "3",
+      "sample_members": [
+        "mudi",
+        "msalaba",
+        "mori"
+      ],
+      "proximal": {
+        "value": "ughu",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "ugho",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "ghuja",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": ""
+    },
+    {
+      "id": "ji",
+      "nearest_swahili_class": "9, 5",
+      "sample_members": [
+        "ituku",
+        "isanga",
+        "sanduku"
+      ],
+      "proximal": {
+        "value": "iji",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "ijo",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "ija",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": ""
+    },
+    {
+      "id": "ri",
+      "nearest_swahili_class": "1",
+      "sample_members": [
+        "samaki",
+        "soko"
+      ],
+      "proximal": {
+        "value": "iri",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "iro",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "irija",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": "animate/number-invariant PLURAL reading -- verified: 'iri' (proximal), direct native-speaker correction 2026-10-15."
+    },
+    {
+      "id": "i",
+      "nearest_swahili_class": "4, 9",
+      "sample_members": [
+        "kazi",
+        "elimu",
+        "kalamu",
+        "midi"
+      ],
+      "proximal": {
+        "value": "ihi",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "io",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "ija",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": "verified: 'ihi' (proximal), direct native-speaker correction 2026-10-15."
+    },
+    {
+      "id": "i_nasal",
+      "nearest_swahili_class": "9",
+      "sample_members": [
+        "nyumba",
+        "shimba",
+        "choka"
+      ],
+      "proximal": {
+        "value": "ihi",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "io",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "ija",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": ""
+    },
+    {
+      "id": "chi",
+      "nearest_swahili_class": "7",
+      "sample_members": [
+        "kikombe",
+        "kiti",
+        "kitabu"
+      ],
+      "proximal": {
+        "value": "ichi",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "icho",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "ichija",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": ""
+    },
+    {
+      "id": "wi",
+      "nearest_swahili_class": "2",
+      "sample_members": [
+        "wandu",
+        "wazee"
+      ],
+      "proximal": {
+        "value": "awa",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "awo",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "awaja",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": ""
+    },
+    {
+      "id": "ghi",
+      "nearest_swahili_class": "6",
+      "sample_members": [
+        "maghi",
+        "mayai"
+      ],
+      "proximal": {
+        "value": "agha",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "agho",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "aghaja",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": ""
+    },
+    {
+      "id": "ku",
+      "nearest_swahili_class": "none (outside Swahili 1-10 paradigm)",
+      "sample_members": [
+        "kuseka",
+        "kulila"
+      ],
+      "proximal": {
+        "value": "uku",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "uko",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "ukuja",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": "class 15 (infinitive-as-noun) -- outside the Swahili 1-10 demonstrative paradigm."
+    },
+    {
+      "id": "lu",
+      "nearest_swahili_class": "none (outside Swahili 1-10 paradigm)",
+      "sample_members": [
+        "lukundo",
+        "lumi"
+      ],
+      "proximal": {
+        "value": "ulu",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "ulo",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "uluja",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": "class 11 -- also outside the Swahili 1-10 demonstrative paradigm."
+    },
+    {
+      "id": "va",
+      "nearest_swahili_class": "8",
+      "sample_members": [
+        "vindo",
+        "vikombe"
+      ],
+      "proximal": {
+        "value": "ivi",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "referential": {
+        "value": "ivo",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "distal": {
+        "value": "vija",
+        "status": "verified",
+        "note": "Submitted via the Kitaita Word Bank's Demonstratives tab, 2026-10-16."
+      },
+      "class_note": ""
+    }
+  ]
+}
