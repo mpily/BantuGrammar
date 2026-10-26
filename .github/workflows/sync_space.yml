@@ -12,6 +12,11 @@ on:
     branches: [main]
     paths: ["hf_space/**", ".github/workflows/sync_space.yml"]
   workflow_dispatch:
+    inputs:
+      diagnose_only:
+        description: "Skip tests and upload; only report the Space's status, files and logs"
+        type: boolean
+        default: false
 
 concurrency:
   group: sync-space
@@ -26,14 +31,17 @@ jobs:
         with:
           python-version: "3.12"
       - name: Install the API's light dependencies (no torch) + the word checker
+        if: ${{ !inputs.diagnose_only }}
         run: |
           pip install "fastapi>=0.110" "uvicorn>=0.29" "pydantic>=2.6" "pyyaml>=6" "httpx>=0.27" \
                       "huggingface_hub>=0.24" "websockets>=12" "python-multipart>=0.0.9" "pytest>=7"
           pip install "$(grep '^kitaita-oracle' hf_space/requirements.txt)"
       - name: API tests (a failure stops the upload)
+        if: ${{ !inputs.diagnose_only }}
         working-directory: hf_space
         run: python -m pytest tests -q
       - name: Upload hf_space/ to the Space
+        if: ${{ !inputs.diagnose_only }}
         env:
           HF_TOKEN: ${{ secrets.HF_TOKEN }}
         run: |
@@ -48,7 +56,60 @@ jobs:
           commit = api.upload_folder(
               repo_id="mpily/BantuGrammar", repo_type="space", folder_path="hf_space",
               commit_message=f"Sync hf_space from GitHub {os.environ['GITHUB_SHA'][:12]}",
-              ignore_patterns=["tests/**", "**/__pycache__/**", "api_data/**", ".env", "*.pyc", "Dockerfile"],
+              ignore_patterns=["tests/**", "**/__pycache__/**", "api_data/**", ".env", "*.pyc"],
           )
           print("uploaded:", commit)
+          PY
+      - name: Report the Space's status, files and logs (waits up to ~20 min for a rebuild)
+        if: ${{ always() }}
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          pip install -q "huggingface_hub>=0.24" requests
+          python - <<'PY'
+          import json, os, time, requests
+          from huggingface_hub import HfApi
+          SPACE = "mpily/BantuGrammar"
+          api = HfApi(token=os.environ.get("HF_TOKEN"))
+          info = api.space_info(SPACE)
+          print("space sha:", info.sha, "| last modified:", info.last_modified, "| sdk:", info.sdk,
+                "| card sdk_version:", (info.card_data or {}).get("sdk_version") if info.card_data else None)
+          files = api.list_repo_files(SPACE, repo_type="space")
+          print("files at root:", sorted(f for f in files if "/" not in f))
+          print("api/ files:", sorted(f for f in files if f.startswith("api/")))
+          stage = None
+          for i in range(80):
+              rt = api.get_space_runtime(SPACE)
+              if rt.stage != stage:
+                  stage = rt.stage
+                  print(f"[{i*15}s] runtime stage: {rt.stage} | hardware: {rt.hardware} | raw: "
+                        f"{json.dumps({k: v for k, v in (rt.raw or {}).items() if k in ('stage', 'errorMessage', 'domains', 'sha')})[:800]}")
+              if rt.stage in ("RUNNING", "RUNTIME_ERROR", "BUILD_ERROR", "CONFIG_ERROR", "PAUSED", "STOPPED"):
+                  break
+              time.sleep(15)
+          hdr = {"Authorization": f"Bearer {os.environ.get('HF_TOKEN')}"}
+          for kind in ("build", "run"):
+              print(f"----- last lines of the {kind} log -----")
+              lines = []
+              try:
+                  with requests.get(f"https://huggingface.co/api/spaces/{SPACE}/logs/{kind}", headers=hdr,
+                                    stream=True, timeout=(10, 20)) as r:
+                      start = time.time()
+                      for raw in r.iter_lines(decode_unicode=True):
+                          if raw and raw.startswith("data:"):
+                              try:
+                                  lines.append(json.loads(raw[5:]).get("data", "").rstrip())
+                              except Exception:
+                                  lines.append(raw[5:].strip())
+                          if time.time() - start > 20:
+                              break
+              except Exception as e:
+                  lines.append(f"(log stream ended: {type(e).__name__})")
+              print("\n".join(lines[-60:]))
+          for path in ("/api/health", "/api/game/rooms/ABCDE"):
+              try:
+                  r = requests.get(f"https://mpily-bantugrammar.hf.space{path}", timeout=60)
+                  print(f"GET {path} -> {r.status_code} {r.headers.get('content-type')} {r.text[:300]!r}")
+              except Exception as e:
+                  print(f"GET {path} failed: {type(e).__name__}: {e}")
           PY

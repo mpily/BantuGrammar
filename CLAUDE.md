@@ -350,10 +350,13 @@ Where the code differs from the spec above, and why:
   deploys to the Space). Tests: `hf_space/tests/`. Contract:
   `hf_space/api/CONTRACT.md`. Promotion rule: `hf_space/config.yaml`.
   Smoke test: `scripts/smoke.sh`.
-- **Space SDK**: the Space's README says `sdk: gradio`, not Docker.
-  `app.py` now mounts Gradio onto FastAPI and runs uvicorn itself, which
-  works under the Gradio SDK. A `Dockerfile` is included for switching to
-  `sdk: docker` (+ `app_port: 7860`) if needed.
+- **Space SDK: Docker** (changed 2026-10-26). Under the Gradio SDK, Hugging
+  Face's launcher binds port 7860 itself, so `app.py`'s FastAPI server failed
+  with "address already in use" and only the old Gradio UI was served (seen in
+  the Space run log via the sync workflow's report step). `hf_space/README.md`
+  now says `sdk: docker` / `app_port: 7860`; `hf_space/Dockerfile` installs git
+  (for the word checker), CPU-only torch and `requirements.txt` (gradio pinned
+  to 6.30.0), then runs `python app.py`.
 - **Storage layout**: per-process shards `data/<table>/<run_id>.jsonl`
   instead of single `translations.jsonl` / `feedback.jsonl` /
   `verified_pairs.jsonl` files, so a restart (or a failed startup download)

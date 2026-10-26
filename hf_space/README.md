@@ -3,10 +3,8 @@ title: BantuGrammar
 emoji: 🏆
 colorFrom: blue
 colorTo: indigo
-sdk: gradio
-sdk_version: "6.30.0"
-python_version: "3.13"
-app_file: app.py
+sdk: docker
+app_port: 7860
 pinned: false
 license: mit
 short_description: Testing transferrability between different Bantu languages
