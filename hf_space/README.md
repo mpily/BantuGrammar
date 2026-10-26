@@ -87,3 +87,11 @@ useful as a high one.
 
 First call after the Space wakes up takes longer (NLLB + probes loading);
 after that, each translation is just inference.
+
+## REST API
+
+The Space also serves a JSON API (same process and model as the UI):
+`/api/translate`, `/api/feedback`, `/api/progress`, `/api/verified_pairs`,
+plus Africa's Talking SMS/USSD webhooks. Contract: `api/CONTRACT.md`;
+interactive docs at `/api/docs`. All Kitaita output is labelled machine
+translation unless native speakers have verified it.
