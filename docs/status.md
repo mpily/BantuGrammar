@@ -26928,3 +26928,17 @@ without torch, then uploads `hf_space/` to the Space with `upload_folder`
 Space but not in `hf_space/` are left alone). Needs the GitHub secret `HF_TOKEN`
 with write access to the Space. Not run yet; it can't be tested from this
 sandbox (Hugging Face is not reachable from here).
+
+## 2026-10-26 cont. 9: Space still served Gradio only — cause found, switched to a Docker Space
+
+The sync workflow's new report step (run on GitHub, which can reach Hugging
+Face) printed the Space run log: the new code was deployed and NLLB loaded
+("Ready."), but `uvicorn` then failed with `[Errno 98] ... ('0.0.0.0', 7860):
+address already in use` — under the Gradio SDK, Hugging Face's own launcher
+already serves the Gradio UI on 7860, so the FastAPI app (and every `/api/*`
+and `/ws/*` route) never came up; `/api/health` returned the Gradio HTML with
+status 200. Fix: `sdk: docker` + `app_port: 7860` in `hf_space/README.md`,
+`hf_space/Dockerfile` (git for the word-checker install, CPU-only torch, gradio
+pinned to 6.30.0, `python app.py`), and the sync no longer skips the Dockerfile.
+Not yet verified on the Space: the next sync run's report shows the Docker build
+log and `/api/health`.
