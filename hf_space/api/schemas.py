@@ -172,3 +172,35 @@ class HealthResponse(_Versioned):
 class ErrorResponse(_Versioned):
     error: str
     detail: object = None
+
+
+# --------------------------------------------------------------------- game
+class RoomCreated(_Versioned):
+    code: str
+    ws_path: str
+
+
+class RoomInfo(_Versioned):
+    code: str
+    exists: bool
+    phase: Optional[str] = None
+    n_players: int = 0
+
+
+class PlayerWord(BaseModel):
+    word: str
+    status: Literal["player_accepted", "verified"]
+    n_rooms: int
+    n_rooms_rejected: int
+    first_accepted_at: Optional[str]
+    verified_at: Optional[str]
+
+
+class PlayerWordsResponse(_Versioned):
+    words: list[PlayerWord]
+
+
+class PlayerWordReview(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+    word: str = Field(min_length=1, max_length=60)
+    approve: bool

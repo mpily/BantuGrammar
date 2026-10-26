@@ -28,13 +28,13 @@ from .stats import compute_progress
 from .util import new_id, normalize_input, parse_iso, utcnow_iso
 
 log = logging.getLogger("api.store")
-TABLES = ("translations", "feedback", "verified_pairs", "sessions", "runs")
+TABLES = ("translations", "feedback", "verified_pairs", "sessions", "runs", "word_votes")
 
 
 class Store:
     def __init__(self, local_dir: str | Path, run_id: str | None = None, *,
                  min_distinct_speakers: int = 2, trusted_reviewer_approval: bool = True,
-                 low_n_threshold: int = 5,
+                 low_n_threshold: int = 5, min_rooms_to_verify: int = 2,
                  history_loader: Callable[[], Path | None] | None = None,
                  scheduler_factory: Callable[[Path], object] | None = None):
         self.run_id = run_id or new_id("run")
@@ -43,6 +43,8 @@ class Store:
         self.min_distinct_speakers = min_distinct_speakers
         self.trusted_reviewer_approval = trusted_reviewer_approval
         self.low_n_threshold = low_n_threshold
+        self.min_rooms_to_verify = min_rooms_to_verify
+        self.word_votes: list[dict] = []
         self._lock = threading.RLock()
         self.translations: dict[str, dict] = {}
         self.feedback: list[dict] = []
@@ -81,7 +83,7 @@ class Store:
     def _replay(self, sources: list[Path]) -> None:
         seen: set[tuple[str, str]] = set()
         for src in sources:
-            for table in ("translations", "feedback", "verified_pairs", "sessions"):
+            for table in ("translations", "feedback", "verified_pairs", "sessions", "word_votes"):
                 for f in sorted((src / table).glob("*.jsonl")) if (src / table).exists() else []:
                     if (table, f.name) in seen:
                         continue  # same shard present both remotely and locally
@@ -106,6 +108,8 @@ class Store:
             prev = self.verified.get(row["translation_id"])
             if prev is None or row["verified_at"] >= prev["verified_at"]:
                 self.verified[row["translation_id"]] = row
+        elif table == "word_votes":
+            self.word_votes.append(row)
         elif table == "sessions":
             prev = self.sessions.get(row["phone_hash"])
             if prev is None or row["updated_at"] >= prev["updated_at"]:
@@ -223,3 +227,44 @@ class Store:
             self._apply("sessions", row)
             self._append("sessions", row)
         return row
+
+    # ------------------------------------------------------------------ game: player-accepted words
+    def add_word_vote(self, row: dict) -> dict:
+        """One vote outcome from a game room (kind 'room_vote') or a trusted
+        reviewer decision (kind 'reviewer'). Room ids are random per room; no
+        nicknames or player ids are stored."""
+        row = {"id": new_id("wv"), "created_at": utcnow_iso(), "run_id": self.run_id, **row}
+        row["word"] = normalize_input(row["word"]).lower()
+        with self._lock:
+            self._apply("word_votes", row)
+            self._append("word_votes", row)
+        return row
+
+    def player_words(self) -> list[dict]:
+        """Words players voted to accept. status 'verified' when accepted in
+        >= min_rooms_to_verify different rooms or approved by a trusted reviewer;
+        otherwise 'player_accepted'. A reviewer rejection removes a word."""
+        by_word: dict[str, dict] = {}
+        for r in sorted(self.word_votes, key=lambda r: r["created_at"]):
+            w = by_word.setdefault(r["word"], {"rooms": set(), "reviewer": None, "first": None, "verified_at": None,
+                                               "rejected_rooms": set()})
+            if r.get("kind") == "reviewer":
+                w["reviewer"] = r["accepted"]
+                if r["accepted"] and w["verified_at"] is None:
+                    w["verified_at"] = r["created_at"]
+            elif r.get("accepted"):
+                w["rooms"].add(r["room_id"])
+                w["first"] = w["first"] or r["created_at"]
+                if len(w["rooms"]) >= self.min_rooms_to_verify and w["verified_at"] is None:
+                    w["verified_at"] = r["created_at"]
+            else:
+                w["rejected_rooms"].add(r["room_id"])
+        out = []
+        for word, w in sorted(by_word.items()):
+            if w["reviewer"] is False or (not w["rooms"] and not w["reviewer"]):
+                continue
+            verified = bool(w["reviewer"]) or len(w["rooms"]) >= self.min_rooms_to_verify
+            out.append({"word": word, "status": "verified" if verified else "player_accepted",
+                        "n_rooms": len(w["rooms"]), "n_rooms_rejected": len(w["rejected_rooms"]),
+                        "first_accepted_at": w["first"], "verified_at": w["verified_at"] if verified else None})
+        return out

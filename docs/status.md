@@ -26887,3 +26887,31 @@ optionally `TRUSTED_REVIEWER_KEYS`, `AT_WEBHOOK_TOKEN`.
 **Open:** the existing Gradio feedback form still writes to the older
 `mpily/kitaita-translation-feedback` dataset; the API writes to the new one.
 Whether to merge them is undecided.
+
+## 2026-10-26 cont. 7: multiplayer word race for native speakers (Space side; no pipeline changes)
+
+User request: a free, skribbl.io-style way for native speakers to play, where
+players can vote to accept a word the oracle rejects and the oracle then learns
+it. User decisions: rooms on this Space; round-based word race (not a full
+board); "majority accepts, logged unverified".
+
+**Built** (`hf_space/api/game.py`, wired in `api/server.py`): `POST /api/game/rooms`,
+`GET /api/game/rooms/{code}`, WebSocket `/ws/game/{code}`, `GET /api/player_words`,
+`POST /api/player_words/review` (X-Reviewer-Key). Rooms are in memory; votes go
+to the `word_votes` table (word, random room id, yes/no, accepted — no nicknames).
+A voted word is `player_accepted` (unverified); `verified` after acceptance in 2
+different rooms or by a trusted reviewer. Words are checked server-side by the
+app repo's oracle (`kitaita-oracle`, pinned in `hf_space/requirements.txt`), so
+phones need no Pyodide for the game.
+
+**Checks:** `pytest hf_space/tests` 58 passed (8 new game tests: rack logic,
+real WebSocket rounds with two players, word scoring, vote accept/tie/silence,
+two-room promotion, reviewer rejection, foreign-origin rejection, 503 when the
+oracle is missing). Also ran a real uvicorn server locally: join → lobby →
+round with a 10-tile rack; a foreign Origin is refused.
+
+**Not done / caveats:** not deployed (the Space must be updated with the new
+`hf_space/` files and requirements); one CPU shared with the translator (fine
+for a few rooms, not load-tested); the room code is the only access control
+(anyone with the link can join); "distinct rooms" for promotion can be gamed by
+one person opening two rooms.

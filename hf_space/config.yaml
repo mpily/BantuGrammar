@@ -44,3 +44,18 @@ africas_talking:
   # USSD must answer in < 2 s; a translation not already cached is sent by
   # SMS instead.
   ussd_budget_seconds: 1.5
+
+game:
+  # Multiplayer word race (api/game.py). Rooms live in memory; votes are stored.
+  # A player-voted word becomes `verified` once accepted in this many DIFFERENT
+  # rooms (or approved by a trusted reviewer); before that it is `player_accepted`.
+  min_rooms_to_verify: 2
+  max_players: 10
+  max_rooms: 200
+  default_rounds: 3
+  default_round_seconds: 90
+  vote_seconds: 20
+  rack_size: 10
+  min_vowels: 4
+  long_word_letters: 7
+  long_word_bonus: 10
