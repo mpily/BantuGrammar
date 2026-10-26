@@ -10,6 +10,7 @@ uvicorn>=0.29
 pydantic>=2.6
 pyyaml>=6.0
 httpx>=0.27
+python-multipart>=0.0.9  # form parsing for the Africa's Talking webhooks
 # Multiplayer word game (api/game.py): WebSocket support + the marker-oracle from the app repo
 websockets>=12
 kitaita-oracle @ git+https://github.com/mpily/bantugrammar-app@4c722ab45b214a598a469c7e34489f7244fdab81
