@@ -377,3 +377,12 @@ Where the code differs from the spec above, and why:
   `TRUSTED_REVIEWER_KEYS`). `speaker_id` is client-supplied, so the
   2-speaker consensus path can be gamed by one client — flagged in the
   contract.
+- **Multiplayer word race (user decision, 2026-10-26).** The user asked for a
+  free, skribbl-style game for native speakers and chose: rooms hosted on this
+  Space (`api/game.py`, WebSocket `/ws/game/{code}`), a round-based word race
+  rather than a full Scrabble board, and "majority accepts, logged unverified"
+  for words the oracle rejects. Votes go to the `word_votes` table; a word is
+  `verified` after acceptance in 2 different rooms or by a trusted reviewer.
+  The Space imports the oracle from the app repo (`kitaita-oracle`, pinned
+  commit in `hf_space/requirements.txt`): bump the pin when the app's data
+  changes. Contract: `api/CONTRACT.md` → "Multiplayer word race".

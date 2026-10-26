@@ -180,3 +180,63 @@ manifest: resolved config with secrets redacted + pipeline file hashes). On
 startup all shards are downloaded and replayed. Per-process shards (instead
 of single `translations.jsonl` files) mean a restart can never overwrite
 earlier data.
+
+## Multiplayer word race (added 2026-10-26; additive, still api_version "1")
+
+Skribbl-style rooms: no accounts, a nickname per player, a shareable room
+code. Rooms live in the Space's memory only (they vanish on restart or ~10
+minutes after everyone leaves). Words are checked on the server by the
+marker-oracle (`kitaita-oracle`, installed from `mpily/bantugrammar-app`, so
+phones don't need to load Pyodide). Returns 503 if the oracle is not installed.
+
+`POST /api/game/rooms` → `{"api_version":"1","code":"KQ7MX","ws_path":"/ws/game/KQ7MX"}`
+
+`GET /api/game/rooms/{code}` → `{"api_version":"1","code":"KQ7MX","exists":true,"phase":"lobby","n_players":2}`
+
+`WS /ws/game/{code}`: JSON messages. Browsers must come from an allowed
+origin (same list as CORS); others are closed with code 1008.
+
+Client → server:
+| message | meaning |
+|---|---|
+| `{"type":"join","name":"Amina"}` | must be first; names are made unique, ≤16 chars, never stored |
+| `{"type":"start","rounds":3,"seconds":90}` | host only; rounds 1–10, seconds 20–300 |
+| `{"type":"word","word":"wawemanya"}` | submit a word during a round |
+| `{"type":"challenge","word":"..."}` | ask the room to accept a word the checker rejected |
+| `{"type":"vote","vote_id":"v_…","accept":true}` | vote on another player's challenge |
+| `{"type":"ping"}` | keep-alive → `{"type":"pong"}` |
+
+Server → client:
+| message | when |
+|---|---|
+| `welcome` `{player_id, name, room}` | after join |
+| `state` `{phase: lobby\|round\|reveal\|final, host, round, rounds, seconds, rack:[{letter,score}], ends_at (epoch s), players:[{id,name,score,connected,n_words, words?}]}` | on every change; `words` only in reveal/final |
+| `word_result` `{word, valid, points, reason, votable, unverified?, word_types?}` | to the submitter. `reason`: oracle reasons, or `not_in_rack`, `already_played`, `too_short_or_spaces` |
+| `vote_request` `{vote_id, word, by, ends_at}` | to the other connected players |
+| `vote_pending` `{vote_id, word, n_voters, ends_at}` | to the challenger |
+| `vote_result` `{vote_id, word, accepted, yes, no, by, points}` | to everyone |
+| `error` `{message, fatal?}` | bad request (e.g. non-host start) |
+
+Rules: every player gets the same `rack_size` (10) tiles with at least
+`min_vowels` (4) vowels; `?` is a blank (0 points). A word scores the sum of
+its tile values (from the app's `kitaita_tiles.json`), +10 for 7+ letters.
+A challenged word is accepted when more of the votes cast say yes than no
+(at least one yes; ties and silence reject; `vote_seconds` = 20).
+
+### Player-accepted words
+
+`GET /api/player_words?status=player_accepted|verified` (public):
+```json
+{"api_version":"1","words":[{"word":"zawa","status":"player_accepted","n_rooms":1,
+  "n_rooms_rejected":0,"first_accepted_at":"2026-10-27T10:00:00+00:00","verified_at":null}]}
+```
+- `player_accepted`: accepted by a room vote. Unverified: show it as such.
+- `verified`: accepted in ≥ `game.min_rooms_to_verify` (2) different rooms, or
+  approved by a trusted reviewer.
+- A reviewer rejection removes a word from the feed.
+
+`POST /api/player_words/review` with `X-Reviewer-Key` and
+`{"word":"zawa","approve":true|false}` (403 without a valid key).
+
+Stored (private dataset, table `word_votes`): word, random room id, yes/no
+counts, accepted, time. No nicknames, player ids or IP addresses.
