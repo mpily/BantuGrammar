@@ -29,6 +29,7 @@ class Settings:
     at_username: str = "sandbox"
     sms_state_ttl_minutes: float = 60
     ussd_budget_seconds: float = 1.5
+    game: dict = field(default_factory=dict)  # config.yaml `game` section (api/game.py GameConfig)
     # secrets (from env only; never logged)
     hf_token: str | None = field(default=None, repr=False)
     phone_hash_salt: str | None = field(default=None, repr=False)
@@ -76,6 +77,7 @@ def load_settings(path: str | Path | None = None, env: dict | None = None) -> Se
         at_username=env.get("AT_USERNAME") or at.get("username", "sandbox"),
         sms_state_ttl_minutes=float(at.get("sms_state_ttl_minutes", 60)),
         ussd_budget_seconds=float(at.get("ussd_budget_seconds", 1.5)),
+        game=dict(raw.get("game", {}) or {}),
         hf_token=env.get("HF_TOKEN") or None,
         phone_hash_salt=env.get("PHONE_HASH_SALT") or None,
         at_api_key=env.get("AT_API_KEY") or None,

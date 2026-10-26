@@ -10,14 +10,18 @@ from contextlib import asynccontextmanager
 from datetime import datetime
 from pathlib import Path
 
-from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Query, Request
+import re
+
+from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Query, Request, WebSocket
 from fastapi.exceptions import RequestValidationError
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import JSONResponse, PlainTextResponse
 
 from . import API_VERSION
 from .africastalking import ATClient, Conversations, sms_reply_for_translation
-from .schemas import (MACHINE_LABEL, FeedbackRequest, FeedbackResponse, HealthResponse, ProgressResponse,
+from .game import GameConfig, GameError, GameManager
+from .schemas import (MACHINE_LABEL, FeedbackRequest, FeedbackResponse, HealthResponse, PlayerWordReview,
+                      PlayerWordsResponse, ProgressResponse, RoomCreated, RoomInfo,
                       TranslateRequest, TranslateResponse, VerifiedPairsResponse)
 from .settings import Settings
 from .store import Store
@@ -60,7 +64,8 @@ def compute_pipeline_version(base: Path = SPACE_DIR) -> str:
     return "files-" + hashlib.sha256(blob.encode()).hexdigest()[:12]
 
 
-def create_app(settings: Settings, store: Store, translator: Translator, at_client: ATClient | None = None) -> FastAPI:
+def create_app(settings: Settings, store: Store, translator: Translator, at_client: ATClient | None = None,
+               game: GameManager | None = None) -> FastAPI:
     at_client = at_client or ATClient(settings.at_username, settings.at_api_key, settings.at_environment,
                                       settings.at_sender_id)
 
@@ -225,7 +230,80 @@ def create_app(settings: Settings, store: Store, translator: Translator, at_clie
             reply = "END Sorry, something went wrong."
         return PlainTextResponse(reply)
 
+    # ------------------------------------------------------------------ game (multiplayer word race)
+    app.state.game = game
+
+    def require_game() -> GameManager:
+        if game is None:
+            raise HTTPException(503, "the word game is not available on this server")
+        return game
+
+    @app.post("/api/game/rooms", response_model=RoomCreated)
+    def create_room():
+        g = require_game()
+        try:
+            room = g.create_room()
+        except GameError as e:
+            raise HTTPException(503, str(e))
+        return RoomCreated(code=room.code, ws_path=f"/ws/game/{room.code}")
+
+    @app.get("/api/game/rooms/{code}", response_model=RoomInfo)
+    def room_info(code: str):
+        room = require_game().get(code)
+        if room is None:
+            return RoomInfo(code=code.upper(), exists=False)
+        return RoomInfo(code=room.code, exists=True, phase=room.phase,
+                        n_players=sum(1 for p in room.players.values() if p.connected))
+
+    @app.get("/api/player_words", response_model=PlayerWordsResponse)
+    def player_words(status: str | None = Query(default=None, pattern="^(player_accepted|verified)$")):
+        words = store.player_words()
+        if status:
+            words = [w for w in words if w["status"] == status]
+        return PlayerWordsResponse(words=words)
+
+    @app.post("/api/player_words/review", response_model=PlayerWordsResponse)
+    def review_player_word(req: PlayerWordReview, x_reviewer_key: str | None = Header(default=None)):
+        if not x_reviewer_key or x_reviewer_key not in settings.trusted_reviewer_keys:
+            raise HTTPException(403, "requires a valid X-Reviewer-Key")
+        store.add_word_vote({"word": req.word, "room_id": None, "accepted": req.approve, "yes": 0, "no": 0,
+                             "n_eligible": 0, "kind": "reviewer"})
+        if game is not None:
+            game.refresh_player_words()
+        return PlayerWordsResponse(words=[w for w in store.player_words() if w["word"] == req.word.strip().lower()])
+
+    origin_re = re.compile(LOCALHOST_ORIGIN_RE)
+
+    @app.websocket("/ws/game/{code}")
+    async def game_socket(ws: WebSocket, code: str):
+        origin = ws.headers.get("origin")
+        if origin and origin not in settings.allow_origins and not origin_re.fullmatch(origin):
+            await ws.close(code=1008)
+            return
+        g = game
+        room = g.get(code) if g is not None else None
+        await ws.accept()
+        if room is None:
+            await ws.send_json({"type": "error", "message": "room not found", "fatal": True})
+            await ws.close()
+            return
+        await g.handle(room, ws)
+
     return app
+
+
+def build_game(store: Store, settings: Settings) -> GameManager | None:
+    """The game needs the marker-oracle (pip package kitaita-oracle from
+    mpily/bantugrammar-app). Without it the game endpoints answer 503."""
+    try:
+        from kitaita_oracle import Oracle
+        from kitaita_oracle.tables import load_yaml
+    except ImportError:
+        log.warning("kitaita_oracle not installed: word game disabled")
+        return None
+    known = set(GameConfig.__dataclass_fields__)
+    cfg = GameConfig(**{k: v for k, v in settings.game.items() if k in known})
+    return GameManager(Oracle(), load_yaml("kitaita_tiles.json"), store, cfg)
 
 
 def build_store(settings: Settings) -> Store:
@@ -249,6 +327,7 @@ def build_store(settings: Settings) -> Store:
                                    every=settings.commit_every_minutes, private=True,
                                    token=settings.hf_token, allow_patterns=["data/**"])
     return Store(settings.local_dir, min_distinct_speakers=settings.min_distinct_speakers,
+                 min_rooms_to_verify=int(settings.game.get("min_rooms_to_verify", 2)),
                  trusted_reviewer_approval=settings.trusted_reviewer_approval,
                  low_n_threshold=settings.low_n_threshold, history_loader=history_loader,
                  scheduler_factory=scheduler_factory)
@@ -266,7 +345,7 @@ def build_app(tables, settings: Settings | None = None) -> FastAPI:
                           "config_hash": settings.config_hash(), "file_hashes": file_hashes(),
                           "persistence": store.persistence, "history_error": store.history_error})
     translator = pipeline_translator(tables, settings.lru_cache_size, version)
-    return create_app(settings, store, translator)
+    return create_app(settings, store, translator, game=build_game(store, settings))
 
 
 __all__ = ["create_app", "build_app", "build_store", "sms_reply_for_translation"]
