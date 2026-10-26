@@ -210,7 +210,7 @@ Server → client:
 | message | when |
 |---|---|
 | `welcome` `{player_id, name, room}` | after join |
-| `state` `{phase: lobby\|round\|reveal\|final, host, round, rounds, seconds, rack:[{letter,score}], ends_at (epoch s), players:[{id,name,score,connected,n_words, words?}]}` | on every change; `words` only in reveal/final |
+| `state` `{phase: lobby\|round\|reveal\|final, host, round, rounds, seconds, rack:[{letter,score}], ends_at and server_time (epoch s; count down with ends_at − server_time), players:[{id,name,score,connected,n_words, words?}]}` | on every change; `words` only in reveal/final |
 | `word_result` `{word, valid, points, reason, votable, unverified?, word_types?}` | to the submitter. `reason`: oracle reasons, or `not_in_rack`, `already_played`, `too_short_or_spaces` |
 | `vote_request` `{vote_id, word, by, ends_at}` | to the other connected players |
 | `vote_pending` `{vote_id, word, n_voters, ends_at}` | to the challenger |

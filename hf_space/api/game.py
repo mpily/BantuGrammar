@@ -115,7 +115,7 @@ class Room:
             "type": "state", "room": self.code, "phase": self.phase, "host": self.host,
             "round": self.round_no, "rounds": self.rounds, "seconds": self.seconds,
             "rack": [{"letter": l, "score": self.m.tile_score(l)} for l in self.rack],
-            "ends_at": self.ends_at,
+            "ends_at": self.ends_at, "server_time": time.time(),
             "players": [{"id": p.id, "name": p.name, "score": p.score, "connected": p.connected,
                          "n_words": len(self.round_words.get(p.id, [])),
                          **({"words": self.round_words.get(p.id, [])} if reveal else {})}
