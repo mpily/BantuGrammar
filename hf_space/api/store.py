@@ -240,31 +240,71 @@ class Store:
             self._append("word_votes", row)
         return row
 
-    def player_words(self) -> list[dict]:
-        """Words players voted to accept. status 'verified' when accepted in
-        >= min_rooms_to_verify different rooms or approved by a trusted reviewer;
-        otherwise 'player_accepted'. A reviewer rejection removes a word."""
+    def _word_summaries(self) -> dict[str, dict]:
+        """Everything known about each voted word, oldest event first. The latest
+        reviewer decision (and its translation / word type / noun class) wins."""
         by_word: dict[str, dict] = {}
         for r in sorted(self.word_votes, key=lambda r: r["created_at"]):
-            w = by_word.setdefault(r["word"], {"rooms": set(), "reviewer": None, "first": None, "verified_at": None,
-                                               "rejected_rooms": set()})
+            w = by_word.setdefault(r["word"], {"rooms": set(), "rejected_rooms": set(), "yes": 0, "no": 0,
+                                               "reviewer": None, "review": None, "first": None,
+                                               "verified_at": None, "last_vote_at": None})
             if r.get("kind") == "reviewer":
                 w["reviewer"] = r["accepted"]
+                w["review"] = {"approved": r["accepted"], "translation": r.get("translation"),
+                               "word_type": r.get("word_type"), "noun_class": r.get("noun_class"),
+                               "reviewed_at": r["created_at"]}
                 if r["accepted"] and w["verified_at"] is None:
                     w["verified_at"] = r["created_at"]
-            elif r.get("accepted"):
+                continue
+            w["yes"] += int(r.get("yes") or 0)
+            w["no"] += int(r.get("no") or 0)
+            w["last_vote_at"] = r["created_at"]
+            if r.get("accepted"):
                 w["rooms"].add(r["room_id"])
                 w["first"] = w["first"] or r["created_at"]
                 if len(w["rooms"]) >= self.min_rooms_to_verify and w["verified_at"] is None:
                     w["verified_at"] = r["created_at"]
             else:
                 w["rejected_rooms"].add(r["room_id"])
+        for w in by_word.values():
+            if w["reviewer"] is False:
+                w["status"] = "declined"
+            elif w["reviewer"] or len(w["rooms"]) >= self.min_rooms_to_verify:
+                w["status"] = "verified"
+            elif w["rooms"]:
+                w["status"] = "player_accepted"
+            else:
+                w["status"] = "rejected_by_rooms"
+        return by_word
+
+    def player_words(self) -> list[dict]:
+        """Public feed: words players voted to accept (or a reviewer approved).
+        status 'verified' when accepted in >= min_rooms_to_verify different rooms
+        or approved by a trusted reviewer, else 'player_accepted'. Declined words
+        and words only voted down are left out. A reviewer's translation, word
+        type and noun class are included once the word is approved."""
         out = []
-        for word, w in sorted(by_word.items()):
-            if w["reviewer"] is False or (not w["rooms"] and not w["reviewer"]):
+        for word, w in sorted(self._word_summaries().items()):
+            if w["status"] not in ("verified", "player_accepted"):
                 continue
-            verified = bool(w["reviewer"]) or len(w["rooms"]) >= self.min_rooms_to_verify
-            out.append({"word": word, "status": "verified" if verified else "player_accepted",
-                        "n_rooms": len(w["rooms"]), "n_rooms_rejected": len(w["rejected_rooms"]),
-                        "first_accepted_at": w["first"], "verified_at": w["verified_at"] if verified else None})
+            review = w["review"] if (w["review"] and w["review"]["approved"]) else {}
+            out.append({"word": word, "status": w["status"], "n_rooms": len(w["rooms"]),
+                        "n_rooms_rejected": len(w["rejected_rooms"]), "first_accepted_at": w["first"],
+                        "verified_at": w["verified_at"] if w["status"] == "verified" else None,
+                        "translation": review.get("translation"), "word_type": review.get("word_type"),
+                        "noun_class": review.get("noun_class")})
         return out
+
+    def review_queue(self) -> list[dict]:
+        """Reviewer-only: every word that was put to a vote, including words rooms
+        voted down, with vote totals and the latest review (if any). Unreviewed
+        words first, then newest activity first."""
+        rows = []
+        for word, w in self._word_summaries().items():
+            rows.append({"word": word, "status": w["status"], "n_rooms_accepted": len(w["rooms"]),
+                         "n_rooms_rejected": len(w["rejected_rooms"]), "votes_yes": w["yes"], "votes_no": w["no"],
+                         "last_vote_at": w["last_vote_at"], "review": w["review"]})
+        rows.sort(key=lambda r: (r["review"] is not None, r["word"]))
+        rows.sort(key=lambda r: r["last_vote_at"] or "", reverse=True)
+        rows.sort(key=lambda r: r["review"] is not None)
+        return rows

@@ -26943,6 +26943,21 @@ pinned to 6.30.0, `python app.py`), and the sync no longer skips the Dockerfile.
 Not yet verified on the Space: the next sync run's report shows the Docker build
 log and `/api/health`.
 
+## 2026-10-28: reviewing player-accepted words (translation, word type, noun class)
+
+User report: words were accepted in games but there was no way to approve or
+decline them (only the raw `POST /api/player_words/review` endpoint existed, and
+`TRUSTED_REVIEWER_KEYS` was unset; the user has now set it). Added:
+`GET /api/player_words/review_queue` (reviewer key; every voted word including
+words rooms voted down, with vote totals and the latest review) and, on
+`POST /api/player_words/review`, optional `translation`, `word_type`
+(noun/verb/adjective/other) and `noun_class` (nouns only, checked against the
+word checker's class list). The public feed carries the reviewer's translation,
+type and class once approved. Review page is in the app repo (`review.html`).
+Checks: `pytest hf_space/tests` 59 passed (new: queue auth and contents,
+approve with translation+class, rescuing a voted-down word, decline removes the
+word from the feed and the game checker, validation of type/class).
+
 ## 2026-10-28: real Swahili<->Kidaw'ida parallel corpus released (thinkKenya/kenyan-low-resource-language-data) -- mined vocabulary from train, evaluated on held-out test at n=5,333
 
 Direct user request: a new HF dataset was flagged as released; mine its
