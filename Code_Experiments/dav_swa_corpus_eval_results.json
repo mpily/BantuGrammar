@@ -1,0 +1,315 @@
+{
+  "config": {
+    "dataset_repo": "thinkKenya/kenyan-low-resource-language-data",
+    "dataset_config": "dav_swa",
+    "train_n": 21329,
+    "test_n": 5333,
+    "test_sample_n": 5333,
+    "random_seed": 20261028,
+    "min_freq": 3,
+    "min_dice": 0.25,
+    "git_sha": "098535183d7a3713e342a9f9e3b61a9a29558880",
+    "train_parquet_sha256_16": "dd779b2e8713fcf8",
+    "test_parquet_sha256_16": "84a57bc97d1d9f55"
+  },
+  "mining": {
+    "swahili_lexicon_n": 319,
+    "n_mined_candidates": 225,
+    "n_added_to_dictionary_B": 22,
+    "added_lemmas": [
+      "chura",
+      "duka",
+      "kiwango",
+      "maduka",
+      "mamba",
+      "mchoraji",
+      "mfumo",
+      "mifuko",
+      "mikopo",
+      "msimamo",
+      "muundo",
+      "mwanasheria",
+      "mwimbaji",
+      "ndizi",
+      "twiga",
+      "ukame",
+      "vioo",
+      "viwanda",
+      "wafanyakazi",
+      "wakristo",
+      "wapishi",
+      "wavulana"
+    ],
+    "validity_vs_verified_nouns": {
+      "n_overlap": 50,
+      "exact_match": {
+        "rate": 0.48,
+        "ci95": [
+          0.3479691239550571,
+          0.6148848774119157
+        ],
+        "k": 24,
+        "n": 50,
+        "low_n": false
+      },
+      "mismatches": [
+        {
+          "swahili": "ukweli",
+          "mined": "w'uloli",
+          "verified": "loli"
+        },
+        {
+          "swahili": "usalama",
+          "mined": "wulindiri",
+          "verified": "wusalama"
+        },
+        {
+          "swahili": "ushirikiano",
+          "mined": "kuwadana",
+          "verified": "mapatano"
+        },
+        {
+          "swahili": "kuogelea",
+          "mined": "kubung�a",
+          "verified": "kuogelia"
+        },
+        {
+          "swahili": "kupumzika",
+          "mined": "jehoresha",
+          "verified": "kughoresha"
+        },
+        {
+          "swahili": "mioyo",
+          "mined": "renyu",
+          "verified": "ngolo"
+        },
+        {
+          "swahili": "ustawi",
+          "mined": "w'ifwane",
+          "verified": "wubinana"
+        },
+        {
+          "swahili": "bega",
+          "mined": "iyonge",
+          "verified": "ionge"
+        },
+        {
+          "swahili": "dirisha",
+          "mined": "idirisha",
+          "verified": "dirisha"
+        },
+        {
+          "swahili": "mahindi",
+          "mined": "mapemba",
+          "verified": "mabemba"
+        },
+        {
+          "swahili": "mashamba",
+          "mined": "riko",
+          "verified": "mbuwa"
+        },
+        {
+          "swahili": "choo",
+          "mined": "choro",
+          "verified": "choronyi"
+        },
+        {
+          "swahili": "kipande",
+          "mined": "kipande",
+          "verified": "kibelele"
+        },
+        {
+          "swahili": "vyoo",
+          "mined": "voro",
+          "verified": "vyoronyi"
+        },
+        {
+          "swahili": "habari",
+          "mined": "habari",
+          "verified": "malagho"
+        },
+        {
+          "swahili": "huduma",
+          "mined": "w'udumiki",
+          "verified": "wutesia"
+        },
+        {
+          "swahili": "kumaliza",
+          "mined": "kumeria",
+          "verified": "kumerea"
+        },
+        {
+          "swahili": "lugha",
+          "mined": "kiteto",
+          "verified": "lumi"
+        },
+        {
+          "swahili": "pesa",
+          "mined": "magome",
+          "verified": "maghome"
+        },
+        {
+          "swahili": "sababu",
+          "mined": "w'undu",
+          "verified": "wundu"
+        },
+        {
+          "swahili": "waandishi",
+          "mined": "w'iandikagha",
+          "verified": "waandishi"
+        },
+        {
+          "swahili": "walimu",
+          "mined": "w'alimu",
+          "verified": "walimu"
+        },
+        {
+          "swahili": "wanaume",
+          "mined": "w'omi",
+          "verified": "womi"
+        },
+        {
+          "swahili": "mvulana",
+          "mined": "mdaw'ana",
+          "verified": "mndwawomi"
+        },
+        {
+          "swahili": "mwandishi",
+          "mined": "oandika",
+          "verified": "mwandiki"
+        },
+        {
+          "swahili": "papa",
+          "mined": "diweni",
+          "verified": "papa"
+        }
+      ]
+    }
+  },
+  "conditions": {
+    "A_current_production": {
+      "exact_match": {
+        "rate": 0.007687980498781174,
+        "ci95": [
+          0.005672327806280567,
+          0.010412391665251059
+        ],
+        "k": 41,
+        "n": 5333,
+        "low_n": false
+      },
+      "chrf": {
+        "mean": 30.754751930272253,
+        "ci95": [
+          30.31130221601802,
+          31.198201644526485
+        ],
+        "n": 5333,
+        "low_n": false
+      },
+      "n_sentences": 5333,
+      "n_scored": 5333,
+      "n_pipeline_errors": 0
+    },
+    "B_current_plus_train_mined": {
+      "exact_match": {
+        "rate": 0.007687980498781174,
+        "ci95": [
+          0.005672327806280567,
+          0.010412391665251059
+        ],
+        "k": 41,
+        "n": 5333,
+        "low_n": false
+      },
+      "chrf": {
+        "mean": 30.837812226875375,
+        "ci95": [
+          30.393541062322516,
+          31.282083391428234
+        ],
+        "n": 5333,
+        "low_n": false
+      },
+      "n_sentences": 5333,
+      "n_scored": 5333,
+      "n_pipeline_errors": 0
+    },
+    "C_null_no_dictionary": {
+      "exact_match": {
+        "rate": 0.001125070316894806,
+        "ci95": [
+          0.0005157215798724776,
+          0.002452625841193945
+        ],
+        "k": 6,
+        "n": 5333,
+        "low_n": false
+      },
+      "chrf": {
+        "mean": 23.20765722757675,
+        "ci95": [
+          22.871687077775608,
+          23.54362737737789
+        ],
+        "n": 5333,
+        "low_n": false
+      },
+      "n_sentences": 5333,
+      "n_scored": 5333,
+      "n_pipeline_errors": 0
+    }
+  },
+  "localized_affected_subset": {
+    "n_affected_sentences": 53,
+    "note": "sentences in the test sample containing >=1 of the 22 lemmas B added; A vs B here isolates whether the added vocabulary helped where it could possibly matter",
+    "A_on_affected": {
+      "exact_match": {
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06758430445307662
+        ],
+        "k": 0,
+        "n": 53,
+        "low_n": false
+      },
+      "chrf": {
+        "mean": 29.96059523779203,
+        "ci95": [
+          25.644237994350874,
+          34.27695248123319
+        ],
+        "n": 53,
+        "low_n": false
+      },
+      "n_sentences": 53,
+      "n_scored": 53,
+      "n_pipeline_errors": 0
+    },
+    "B_on_affected": {
+      "exact_match": {
+        "rate": 0.0,
+        "ci95": [
+          0.0,
+          0.06758430445307662
+        ],
+        "k": 0,
+        "n": 53,
+        "low_n": false
+      },
+      "chrf": {
+        "mean": 38.31834168655524,
+        "ci95": [
+          33.608299327866796,
+          43.02838404524369
+        ],
+        "n": 53,
+        "low_n": false
+      },
+      "n_sentences": 53,
+      "n_scored": 53,
+      "n_pipeline_errors": 0
+    }
+  }
+}

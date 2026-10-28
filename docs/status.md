@@ -26942,3 +26942,271 @@ status 200. Fix: `sdk: docker` + `app_port: 7860` in `hf_space/README.md`,
 pinned to 6.30.0, `python app.py`), and the sync no longer skips the Dockerfile.
 Not yet verified on the Space: the next sync run's report shows the Docker build
 log and `/api/health`.
+
+## 2026-10-28: real Swahili<->Kidaw'ida parallel corpus released (thinkKenya/kenyan-low-resource-language-data) -- mined vocabulary from train, evaluated on held-out test at n=5,333
+
+Direct user request: a new HF dataset was flagged as released; mine its
+train split to improve vocabulary/class accuracy, then score the test
+split on this project's already-defined metrics, publishing the result
+and citing the corpus. Checked directly before anything else (hard rule
+#1): `thinkKenya/kenyan-low-resource-language-data` has a `dav_swa`
+config -- `dav` = Kidaw'ida/Kitaita -- with 21,329 train / 5,333 test
+real sentence pairs, `{id, translation:{dav, swa}}`. This is the SAME
+Mbogho et al. / Lacuna Fund 2021 corpus CLAUDE.md s4 had flagged as
+"check release status" -- now released. Gated on HF; blocked on access
+until the user approved it from the dataset page (not something this
+session could do on its own).
+
+**Scope correction, surfaced before doing anything else**: `kitaita_
+eval_metrics.py`'s metrics 1 (agreement accuracy) and 2 (vocabulary
+choice) both require GOLD slot-level annotation or multi-speaker-choice
+data for the SAME sentences -- this raw parallel corpus is sentence
+pairs only, neither. Those two metrics are NOT run here. Only the
+sentence-level exact-match/chrF metric (the same one `/api/progress`
+already uses for machine-vs-speaker-output) applies to plain reference
+sentences, so that is what was actually run. Per the user's own earlier
+answer in this session, results are published as this status.md entry
++ a standalone chart artifact, not as a change to the live `/api/
+progress` contract (that endpoint's schema is fixed to live speaker-
+feedback stats, not offline corpus eval).
+
+**Mining (train split only, `Code_Experiments/dav_swa_corpus_eval.py`)**:
+reused this project's existing Dice-cooccurrence alignment method
+(`multi_version_pipeline.build_cooccurrence`/`best_alignment`, built for
+the 3-version Bible corpus -- extended to a second corpus here, not
+forked; same MIN_FREQ=3/MIN_DICE=0.25 thresholds) against the 319-word
+Swahili agreement lexicon. 225/319 lemmas got a candidate. **Validity
+check against VERIFIED_NOUN_TRANSLATIONS** (native-speaker-confirmed,
+done BEFORE trusting the mined candidates for anything): 24/50 overlap
+lemmas matched exactly (48%, 95% CI [35%, 61%]) -- moderate, not a
+confident signal. Of the 26 mismatches, 3 are pure w'-apostrophe
+spelling variants (`w'undu`/`wundu`, `w'alimu`/`walimu`, `w'omi`/`womi`
+-- same word, not real errors); several more are single-character/
+prefix near-misses (`idirisha`/`dirisha`, `mapemba`/`mabemba`,
+`kumeria`/`kumerea`); the rest are genuinely different words. One
+mined value for "kuogelea" contains a literal Unicode replacement
+character (mojibake) -- a data-quality artifact of the released corpus
+itself, not this project's tooling; not otherwise investigated.
+
+Only 22 of the 225 mined candidates filled a real gap (no existing
+VERIFIED_NOUN_TRANSLATIONS or Bible-corpus-derived entry): `chura,
+duka, kiwango, maduka, mamba, mchoraji, mfumo, mifuko, mikopo, msimamo,
+muundo, mwanasheria, mwimbaji, ndizi, twiga, ukame, vioo, viwanda,
+wafanyakazi, wakristo, wapishi, wavulana`. These are saved separately
+in `Code_Experiments/dav_swa_mined_noun_candidates.json`, tagged
+statistical/unverified -- **NOT merged into the production dictionary**
+(`VERIFIED_NOUN_TRANSLATIONS`/`page1_vocabulary.json`); per this
+project's own rule, a 48%-validity statistical signal with at least one
+directly-contradicted example found on inspection (see below) does not
+clear the bar for speaker-verified status. Left for the existing
+Word Bank collect-then-wire workflow.
+
+Found and fixed a real bug while building condition B below: the new
+minimal noun_kitaita entries lacked `n_versions_attested`/`confidence`,
+fields the trace-formatting code at `kitaita_sentence_generator.
+translate()` (~line 457) reads unconditionally when a noun is used as
+the sentence SUBJECT -- caused a `KeyError` on 5/1200 sentences in an
+early run. Fixed by adding honest equivalents (1/1, "single-source, not
+cross-corpus corroborated") rather than copying the Bible-era fields'
+semantics.
+
+**Evaluation (test split, held out from mining, full 5,333 rows --
+`translate_sentence()` is pure-Python/no-NLLB, benchmarked at <1s for
+the whole split, so no subsampling was needed)**. Three conditions,
+reusing `hf_space/api/stats.chrf`/`mean_ci`/`rate_ci`/`normalize_
+kitaita` directly (same functions `/api/progress` uses):
+
+| Condition | exact-match (k/n) | chrF mean [95% CI] |
+|---|---|---|
+| A: current production tables | 41/5333 = 0.77% [0.57%, 1.04%] | 30.75 [30.31, 31.20] |
+| B: A + 22 train-mined gap-fills | 41/5333 = 0.77% [0.57%, 1.04%] | 30.84 [30.39, 31.28] |
+| C: null -- no dictionary at all | 6/5333 = 0.11% [0.05%, 0.25%] | 23.21 [22.87, 23.54] |
+
+**A vs C is this project's own central null hypothesis** ("relatedness/
+dictionary-aided rewriting helps, must be beaten not assumed") --
+clearly beaten here, chrF CIs non-overlapping, at by far the largest n
+and the first REAL held-out native-speaker Kitaita text this hypothesis
+has been tested against (previous tests were small hand-built or n<60
+sets). Exact-match is near-zero in every condition -- expected; getting
+a FULL sentence byte-identical to a free native translation requires
+every noun, root, TAM and concord slot correct simultaneously, a much
+harder bar than chrF.
+
+**A vs B (does train-set mining help) is a clean null at the full-
+corpus level**: CIs heavily overlap, +0.09 chrF. Not surprising on
+inspection -- only 53/5,333 test sentences contain any of the 22 added
+lemmas at all (the other ~300 lexicon words were already covered either
+way). Restricted to just those 53 sentences (still clears this
+project's n>=8 rule): chrF rises from 29.96 [25.64, 34.28] (A) to 38.32
+[33.61, 43.03] (B) -- a real difference in point estimate, but the CIs
+narrowly overlap (A's upper bound 34.28 vs B's lower bound 33.61), so
+this is a directionally positive but NOT a clean statistically-
+significant win. Manual inspection of the 53 examples found a real
+counterexample, not swept under the rug: for "kiwango" (level/
+measurement), the test set's own reference sentences use the Swahili
+loanword "kipimo" directly, never the mined "dikengiria" -- the mined
+candidate looks like a false positive from thin co-occurrence (exactly
+the "thin alignment is coincidence, not correspondence" risk this
+project's own tooling already warns about elsewhere), while others in
+the same batch (e.g. "duka"->"iduka") look correct on the same kind of
+inspection. Net honest conclusion: train-set mining at this scale (22
+new lemmas) is too small an intervention to move the needle on this
+test set, and is of genuinely mixed quality -- some hits, at least one
+clear miss -- consistent with keeping it unmerged pending speaker
+review rather than wiring it in on the strength of this result alone.
+
+**Config logged**: git SHA `0985351` (pre-change), `MIN_FREQ=3`,
+`MIN_DICE=0.25`, random seed `20261028` (unused once the full test set
+was used instead of subsampling), train/test parquet SHA256 (first 16
+hex) `dd779b2e8713fcf8`/`84a57bc97d1d9f55`. Full report: `Code_
+Experiments/dav_swa_corpus_eval_results.json`. Mined candidates: `Code_
+Experiments/dav_swa_mined_noun_candidates.json`. Chart artifact:
+https://claude.ai/artifact/KVza63DNMnJNQN1vxiG4Gu ("Dawida Corpus Eval").
+
+Files: `Code_Experiments/dav_swa_corpus_eval.py` (new), `Code_
+Experiments/dav_swa_corpus_eval_results.json` (new, derived data only --
+no raw corpus text committed; the gated dataset is fetched via
+`huggingface_hub` at run time, cached outside the repo), `Code_
+Experiments/dav_swa_mined_noun_candidates.json` (new). No production
+dictionary or pipeline file changed.
+
+## 2026-10-28 cont. 2: silver (not gold) agreement accuracy + stability on dav_swa, via position-alignment against near-matching real references
+
+Direct follow-up: having told the user metrics 1 (agreement accuracy) and 2
+(vocabulary choice) can't be computed on `dav_swa` at all (no per-slot/
+multi-speaker gold), the user proposed scoping metric 1 to sentences where
+our output already "relatively" matches the real reference, and comparing
+at the agreement positions directly. This reuses the EXACT same trick the
+live Space's feedback pipeline already relies on (deriving slot judgments
+from a holistic corrected sentence, sound because `assemble_in_order` is
+position-preserving) -- except the "correction" here is an INDEPENDENT
+real translation that happens to come out close, not a speaker's edit of
+our own output, so position alignment is TRUSTED only when earned, not
+assumed: (1) the reference must tokenize (via `extract_swahili_grammar.
+tokenize`, the same tokenizer `Decomposition.tokens` itself uses) to the
+SAME token count as both `d.tokens` and our own output, and (2) overall
+per-position token agreement must clear a stated threshold. Sentences that
+don't clear this bar are excluded, not guessed at. Implemented in
+`Code_Experiments/dav_swa_silver_agreement_metrics.py`, calling
+`kitaita_eval_metrics.evaluate_corpus()`/`compute_agreement_accuracy()`/
+`compute_stability()` completely UNCHANGED -- this only builds the
+`GoldSlot` input those functions already expect, from the gold reference's
+token at each slot's position (`needs_rewrite` = that token differs from
+the bare Swahili token at the same position in `d.tokens`).
+
+**Real bug found while building this, not anticipated**: checked the
+"position-preserving" claim directly rather than trusting it, and it is
+FALSE in general -- `assemble_in_order` can change token COUNT, not just
+content: some concord rewrites expand one Swahili word into two Kitaita
+tokens (e.g. "maji" (1 token) -> "agho machi" (2 tokens); "yule" -> "yule
+uja"). 97/1,480 slotted test sentences (6.6%) hit this. Any `SlotRecord.
+token_idx`-based comparison against the OUTPUT sentence's own tokens
+silently misaligns for these -- excluded from the silver set via an
+explicit `len(out_tokens) == len(d.tokens)` gate (first version of this
+script only checked content equality, which is almost always false simply
+because translation changes words -- caught before trusting any number,
+not after). **This same latent misalignment risk likely exists in the live
+Space's speaker-feedback-to-metrics path** (`hf_space/app.py`) for any
+correction of a sentence with this kind of expansion -- not fixed there in
+this session, flagged for follow-up.
+
+**Results** (both conditions A/current and B/+22 train-mined nouns; nearly
+identical -- the mined nouns barely touch this set either, consistent with
+cont. 1's finding):
+
+| Match threshold | n sentences | scored slots | accuracy (silver) | 95% CI |
+|---|---|---|---|---|
+| >=0.5 position agreement | 142 (A) / 144 (B) | 156 / 158 | 0.609 (A) / 0.601 (B) | [0.53,0.68] / [0.52,0.67] |
+| >=0.7 | 26 / 27 | 27 / 28 | 0.704 / 0.679 | [0.52,0.84] / [0.49,0.82] |
+| >=0.9 | 8 / 8 | 8 / 8 | 0.750 / 0.750 | [0.41,0.93] / [0.41,0.93] |
+
+**Real caveat, not just a formality**: accuracy rises as the threshold
+tightens, but this is expected SELECTION, not evidence the pipeline gets
+better on harder sentences -- agreement-slot positions are a SUBSET of the
+positions used to compute the match-threshold itself, so a stricter
+threshold mechanically selects for sentences where the slot was *already*
+likely correct. None of these numbers estimate agreement accuracy over the
+whole corpus; they estimate it over an increasingly self-selected, already-
+close-to-correct 1-10% slice of it. The other ~90%+ of slotted sentences
+are excluded because the independent gold translation differs in length or
+wording too much to trust ANY position comparison (`token_count_mismatch`:
+681/1,480 sentences fail the token-count gate alone -- expected, since
+dav_swa's two sides are independent translations, not aligned corrections).
+
+**Stability (metric 3) on this same silver set** (threshold 0.5, condition
+A): n_slots=1 -> 0.608 (n=130), n_slots=2 -> 0.60 (n=10), n_slots=3 -> 0.67
+(n=2, below this project's n>=8 floor). Flat within noise, but n thins out
+fast -- not a confident curve past 1 slot. The EARLIER, full-corpus
+stability proxy from cont. 1 (chrF vs. PREDICTED slot count, no gold
+needed, n up to 3,853 per bucket) remains the more reliable stability
+signal for this corpus; this silver version is the true slot-level-
+accuracy analogue the user asked for, at the cost of a much smaller,
+selection-biased n.
+
+**Metric 2 (vocabulary choice) still cannot be derived this way, even in
+principle** -- it measures agreement across SEVERAL independent native
+speakers' choices at one position; one reference sentence gives exactly
+one data point, not a panel. Not attempted, not approximated as if it were
+the same thing.
+
+Files: `Code_Experiments/dav_swa_silver_agreement_metrics.py` (new),
+`Code_Experiments/dav_swa_silver_agreement_results.json` (new). No
+production dictionary or pipeline file changed.
+
+## 2026-10-28 cont. 3: clarifying why 90-99% of slotted sentences are excluded from the silver agreement-accuracy numbers (cont. 2) -- it's not that they're wrong, it's that we can't tell
+
+Direct follow-up to cont. 2. The exclusion counts there (`token_count_
+mismatch`, `below_threshold`, `output_tokens_ne_d_tokens`) were reported as
+raw numbers without stating plainly WHY a sentence gets excluded rather
+than scored. Stating it explicitly now, since it matters for how to read
+the accuracy numbers: **a sentence is excluded whenever we cannot tell
+whether a difference from the real reference means our translation is
+genuinely wrong, or is simply a different, equally valid way of phrasing
+the same thing.** `dav_swa`'s two sides are two INDEPENDENT translations
+(ours, rule-based; the corpus's, human), not one speaker correcting the
+other -- a different word choice, a dropped/added function word, or a
+different word order is exactly what two independent translations of the
+same sentence normally do, with no agreement-correctness implied either
+way. Only a native speaker can tell "different phrasing" apart from
+"actually wrong" for a specific pair; this project has neither the
+annotation nor, for this corpus, the speaker in the loop to make that
+call, so these sentences are dropped from the numerator and denominator
+entirely rather than counted as a miss (or guessed as a pass).
+
+**Scale of this, condition A** (1,480 sentences have >=1 agreement slot at
+all -- the only ones metric 1 could possibly apply to):
+
+| threshold | excluded for this reason | eligible | % excluded |
+|---|---|---|---|
+| >=0.5 | 1,338 | 142 | 90.4% |
+| >=0.7 | 1,454 | 26 | 98.2% |
+| >=0.9 | 1,472 | 8 | 99.5% |
+
+(condition B: 1,336 / 1,453 / 1,472 excluded, 144 / 27 / 8 eligible --
+same picture.) "Excluded for this reason" sums 3 cases, all stated
+honestly as uncertainty rather than failure: `token_count_mismatch` (681,
+the reference has a different word count than our output outright --
+e.g. a dropped particle, a different clause structure -- so no position
+in it can line up with ours even to ask the question), `below_threshold`
+(560-694 depending on threshold -- same word count, but too few positions
+match to trust that the ones which DO differ are errors rather than
+paraphrase), and `output_tokens_ne_d_tokens` (97 -- our OWN output
+expanded a token during rewriting, see cont. 2, so even comparing against
+ourselves isn't position-safe here).
+
+Net honest framing: the cont. 2 accuracy numbers (61-75% depending on
+threshold) describe a 1-10% slice of the agreement-bearing test sentences
+that happened to be structurally close enough to trust at all -- not an
+estimate, confident or otherwise, of agreement accuracy over the other
+90%+. That 90%+ remains genuinely unmeasured by this technique, not
+poorly-measured.
+
+Not fixed: cont. 2's real bug (concord rewrites that expand one Swahili
+token into two Kitaita tokens breaking position alignment) and the
+`za`->`ra` associative-concord gap found while building worked examples
+for the user are both left as-is, per direct instruction -- this session
+is about measuring the pipeline as it stands against the new corpus, not
+patching it.
+
+Files: `docs/status.md` only (this entry); dashboard artifact note text
+updated to match (https://claude.ai/artifact/KVza63DNMnJNQN1vxiG4Gu).
