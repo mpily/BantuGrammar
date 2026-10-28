@@ -89,7 +89,8 @@ def test_room_lifecycle_word_and_vote(gclient, game):
     assert row["word"] == "zawa" and row["accepted"] and "Amina" not in str(row)
     pw = gclient.get("/api/player_words").json()["words"]
     assert pw == [{"word": "zawa", "status": "player_accepted", "n_rooms": 1, "n_rooms_rejected": 0,
-                   "first_accepted_at": pw[0]["first_accepted_at"], "verified_at": None}]
+                   "first_accepted_at": pw[0]["first_accepted_at"], "verified_at": None,
+                   "translation": None, "word_type": None, "noun_class": None}]
     a2 = game.oracle.analyse("zawa")
     assert a2["valid"] and a2["parses"][-1]["word_type"] == "player_accepted"
 
@@ -156,3 +157,45 @@ def test_websocket_rejects_foreign_origin(gclient):
 
 def test_game_disabled_without_oracle(client):
     assert client.post("/api/game/rooms").status_code == 503
+
+
+def test_review_queue_and_review_with_translation_and_class(game, gclient):
+    s = game.store
+    s.add_word_vote({"word": "kifumbi", "room_id": "r1", "accepted": True, "yes": 2, "no": 1, "kind": "room_vote"})
+    s.add_word_vote({"word": "zawa", "room_id": "r1", "accepted": False, "yes": 0, "no": 2, "kind": "room_vote"})
+    key = {"X-Reviewer-Key": "rev-key"}
+    assert gclient.get("/api/player_words/review_queue").status_code == 403
+    q = gclient.get("/api/player_words/review_queue", headers=key).json()
+    assert {w["word"]: w["status"] for w in q["words"]} == {"kifumbi": "player_accepted", "zawa": "rejected_by_rooms"}
+    assert "chi" in q["noun_classes"]
+    kif = next(w for w in q["words"] if w["word"] == "kifumbi")
+    assert (kif["votes_yes"], kif["votes_no"], kif["review"]) == (2, 1, None)
+    # rejected-by-rooms words are not in the public feed
+    assert [w["word"] for w in gclient.get("/api/player_words").json()["words"]] == ["kifumbi"]
+
+    # approve with translation + noun class
+    body = {"word": "kifumbi", "approve": True, "translation": "kiti", "word_type": "noun", "noun_class": "chi"}
+    r = gclient.post("/api/player_words/review", json=body, headers=key)
+    assert r.status_code == 200
+    w = r.json()["words"][0]
+    assert (w["status"], w["translation"], w["word_type"], w["noun_class"]) == ("verified", "kiti", "noun", "chi")
+    # a reviewer can rescue a word the room voted down
+    r = gclient.post("/api/player_words/review", json={"word": "zawa", "approve": True, "word_type": "verb"}, headers=key)
+    assert r.json()["words"][0]["status"] == "verified"
+    assert game.oracle.analyse("zawa")["valid"]
+    # the queue now shows the reviews, unreviewed first
+    q = gclient.get("/api/player_words/review_queue", headers=key).json()["words"]
+    assert all(w["review"] for w in q) and q[0]["review"]["approved"]
+    # validation
+    bad = [{"word": "x", "approve": True, "noun_class": "chi", "word_type": "verb"},
+           {"word": "x", "approve": True, "word_type": "noun", "noun_class": "NOPE!"},
+           {"word": "x", "approve": True, "word_type": "pronoun"}]
+    for b in bad:
+        assert gclient.post("/api/player_words/review", json=b, headers=key).status_code == 422
+    r = gclient.post("/api/player_words/review", json={"word": "x", "approve": True, "word_type": "noun",
+                                                      "noun_class": "zz"}, headers=key)
+    assert r.status_code == 422 and "unknown noun class" in r.json()["error"]
+    # declining removes it from the feed and the checker
+    gclient.post("/api/player_words/review", json={"word": "zawa", "approve": False}, headers=key)
+    assert "zawa" not in [w["word"] for w in gclient.get("/api/player_words").json()["words"]]
+    assert game.oracle.analyse("zawa")["valid"] is False

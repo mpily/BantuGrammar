@@ -227,16 +227,41 @@ A challenged word is accepted when more of the votes cast say yes than no
 
 `GET /api/player_words?status=player_accepted|verified` (public):
 ```json
-{"api_version":"1","words":[{"word":"zawa","status":"player_accepted","n_rooms":1,
-  "n_rooms_rejected":0,"first_accepted_at":"2026-10-27T10:00:00+00:00","verified_at":null}]}
+{"api_version":"1","words":[{"word":"kifumbi","status":"verified","n_rooms":1,
+  "n_rooms_rejected":0,"first_accepted_at":"2026-10-27T10:00:00+00:00",
+  "verified_at":"2026-10-28T09:00:00+00:00",
+  "translation":"kiti","word_type":"noun","noun_class":"chi"}]}
 ```
 - `player_accepted`: accepted by a room vote. Unverified: show it as such.
 - `verified`: accepted in ≥ `game.min_rooms_to_verify` (2) different rooms, or
   approved by a trusted reviewer.
-- A reviewer rejection removes a word from the feed.
+- `translation`, `word_type`, `noun_class`: only from a trusted reviewer's
+  approval; otherwise null.
+- Declined words and words rooms only voted down are not listed.
 
-`POST /api/player_words/review` with `X-Reviewer-Key` and
-`{"word":"zawa","approve":true|false}` (403 without a valid key).
+### Reviewing (trusted reviewers; header `X-Reviewer-Key`, 403 without a valid key)
+
+`GET /api/player_words/review_queue` → every word that was put to a vote,
+including words rooms voted down; unreviewed first, then newest activity:
+```json
+{"api_version":"1","noun_classes":["chi","gh","ghi","ghu","i","i_nasal","ji","ku","lu","ri","u","va","wi"],
+ "words":[{"word":"zawa","status":"rejected_by_rooms","n_rooms_accepted":0,"n_rooms_rejected":1,
+           "votes_yes":0,"votes_no":2,"last_vote_at":"…","review":null}]}
+```
+`status`: `player_accepted` | `verified` | `rejected_by_rooms` | `declined`.
+`review` (latest decision): `{approved, translation, word_type, noun_class, reviewed_at}`.
+`noun_classes`: the Kitaita class ids the word checker knows (for a picker).
+
+`POST /api/player_words/review`
+```json
+{"word":"kifumbi","approve":true,"translation":"kiti","word_type":"noun","noun_class":"chi"}
+```
+- `approve: true` → `verified` (also rescues a word rooms voted down);
+  `approve: false` → declined: removed from the feed and from the game checker.
+- `translation` optional (≤200 chars). `word_type`: `noun` | `verb` | `adjective`
+  | `other`. `noun_class` only with `word_type: "noun"`, and must be one of
+  `noun_classes` (422 otherwise). The latest review of a word wins.
+- Returns the word's public feed entry (empty list if declined).
 
 Stored (private dataset, table `word_votes`): word, random room id, yes/no
 counts, accepted, time. No nicknames, player ids or IP addresses.

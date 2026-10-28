@@ -194,13 +194,57 @@ class PlayerWord(BaseModel):
     n_rooms_rejected: int
     first_accepted_at: Optional[str]
     verified_at: Optional[str]
+    translation: Optional[str] = None   # from a trusted reviewer's approval
+    word_type: Optional[str] = None
+    noun_class: Optional[str] = None
 
 
 class PlayerWordsResponse(_Versioned):
     words: list[PlayerWord]
 
 
+WordType = Literal["noun", "verb", "adjective", "other"]
+
+
 class PlayerWordReview(BaseModel):
     model_config = ConfigDict(extra="forbid")
     word: str = Field(min_length=1, max_length=60)
     approve: bool
+    translation: Optional[str] = Field(default=None, max_length=200)  # meaning, e.g. in Swahili
+    word_type: Optional[WordType] = None
+    noun_class: Optional[str] = Field(default=None, pattern=r"^[a-z_]{1,12}$")  # Kitaita class id, e.g. chi, ghu
+
+    @field_validator("translation")
+    @classmethod
+    def _blank(cls, v):
+        return v.strip() or None if isinstance(v, str) else v
+
+    @model_validator(mode="after")
+    def _class_only_for_nouns(self):
+        if self.noun_class and self.word_type != "noun":
+            raise ValueError("noun_class can only be given when word_type is 'noun'")
+        return self
+
+
+class ReviewInfo(BaseModel):
+    approved: bool
+    translation: Optional[str]
+    word_type: Optional[str]
+    noun_class: Optional[str]
+    reviewed_at: str
+
+
+class ReviewQueueItem(BaseModel):
+    word: str
+    status: Literal["player_accepted", "verified", "declined", "rejected_by_rooms"]
+    n_rooms_accepted: int
+    n_rooms_rejected: int
+    votes_yes: int
+    votes_no: int
+    last_vote_at: Optional[str]
+    review: Optional[ReviewInfo]
+
+
+class ReviewQueueResponse(_Versioned):
+    words: list[ReviewQueueItem]
+    noun_classes: list[str] = []   # Kitaita class ids the word checker knows (for the class picker)
