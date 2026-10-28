@@ -1,0 +1,78 @@
+{
+  "dictionary_only_A_tables": {
+    "chrf": {
+      "exact_match": {
+        "rate": 0.005437839864991562,
+        "ci95": [
+          0.003788907109501007,
+          0.007798770516156834
+        ],
+        "k": 29,
+        "n": 5333,
+        "low_n": false
+      },
+      "chrf": {
+        "mean": 28.1165676353783,
+        "ci95": [
+          27.710549976097592,
+          28.522585294659006
+        ],
+        "n": 5333,
+        "low_n": false
+      },
+      "n_scored": 5333
+    },
+    "approach2": {
+      "sentence_counts": {
+        "no_slots": 3853,
+        "used": 1470,
+        "output_tokens_ne_d_tokens": 10
+      },
+      "slot_counts": {
+        "missed_slot": 807,
+        "correct": 220,
+        "unalignable": 731
+      },
+      "scorable_slots_excl_vocab_mismatch": 1027,
+      "accuracy_excl_vocab_mismatch": 0.21421616358325218
+    }
+  },
+  "dictionary_only_B_tables": {
+    "chrf": {
+      "exact_match": {
+        "rate": 0.005437839864991562,
+        "ci95": [
+          0.003788907109501007,
+          0.007798770516156834
+        ],
+        "k": 29,
+        "n": 5333,
+        "low_n": false
+      },
+      "chrf": {
+        "mean": 28.20331944012781,
+        "ci95": [
+          27.796953948130838,
+          28.609684932124782
+        ],
+        "n": 5333,
+        "low_n": false
+      },
+      "n_scored": 5333
+    },
+    "approach2": {
+      "sentence_counts": {
+        "no_slots": 3853,
+        "used": 1470,
+        "output_tokens_ne_d_tokens": 10
+      },
+      "slot_counts": {
+        "missed_slot": 808,
+        "correct": 220,
+        "unalignable": 730
+      },
+      "scorable_slots_excl_vocab_mismatch": 1028,
+      "accuracy_excl_vocab_mismatch": 0.2140077821011673
+    }
+  }
+}

@@ -71,6 +71,7 @@ from kitaita_verified_corrections import VERIFIED_NOUN_TRANSLATIONS
 from swahili_noun_lexicon_agreement_v2 import NOUNS as SWAHILI_LEXICON
 from api.stats import chrf, mean_ci, rate_ci
 from api.util import normalize_kitaita
+from dav_swa_eval_common import tokens_match
 
 DATASET_REPO = "thinkKenya/kenyan-low-resource-language-data"
 CONFIG = "dav_swa"
@@ -149,11 +150,11 @@ def validate_mining_against_verified(candidates: dict) -> dict:
     where both exist for the same Swahili lemma."""
     overlap = [(lemma, c["kitaita_word"], VERIFIED_NOUN_TRANSLATIONS[lemma])
                for lemma, c in candidates.items() if lemma in VERIFIED_NOUN_TRANSLATIONS]
-    matches = [1 for _, mined, verified in overlap if mined == verified]
+    matches = [1 for _, mined, verified in overlap if tokens_match(mined, verified)]
     return {
         "n_overlap": len(overlap),
         "exact_match": rate_ci(len(matches), len(overlap)) if overlap else None,
-        "mismatches": [{"swahili": l, "mined": m, "verified": v} for l, m, v in overlap if m != v],
+        "mismatches": [{"swahili": l, "mined": m, "verified": v} for l, m, v in overlap if not tokens_match(m, v)],
     }
 
 
@@ -216,7 +217,7 @@ def run_condition(test_sample: list[dict], tables, no_dict: bool = False) -> dic
             hyp = out.get("kitaita_sentence") or ""
             ref = row["dav"]
             exact_n += 1
-            exact_k += int(normalize_kitaita(hyp) == normalize_kitaita(ref))
+            exact_k += int(tokens_match(normalize_kitaita(hyp), normalize_kitaita(ref)))
             chrf_scores.append(chrf(normalize_kitaita(hyp), normalize_kitaita(ref)))
         return {"exact_match": rate_ci(exact_k, exact_n), "chrf": mean_ci(chrf_scores),
                 "n_sentences": len(test_sample), "n_scored": exact_n, "n_pipeline_errors": errors}

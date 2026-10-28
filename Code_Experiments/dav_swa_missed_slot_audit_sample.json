@@ -1,0 +1,510 @@
+[
+  {
+    "swa": "Umefanya hivyo makusudi",
+    "dav_gold": "kwabonya huw'o kidali",
+    "our_output": "Kudabonya hivyo kidali.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "hivyo",
+    "aligned_gold_word": "huwo",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "haya ni mambo ya kawaida ambayo hayapasi kukukatisha tamaa.",
+    "dav_gold": "Agha ni malagho gha kawaida ghisefwane ghikubwaghe ngolo",
+    "our_output": "Haya ni maza gha kawaida ambayo hayapasi kukukatisha tamaa.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 0,
+    "bare_swahili_at_slot": "haya",
+    "aligned_gold_word": "agha",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Njia nzuri ya kujifunza ni kwa kufanya makosa.",
+    "dav_gold": "Chia ipoiye ye shoma ni kubonya ghisefwane",
+    "our_output": "Chia chighokie ya kukufundisha chideka kwa kufanya makosa.",
+    "slot_type": "associative",
+    "slot_token_idx": 2,
+    "bare_swahili_at_slot": "ya",
+    "aligned_gold_word": "ye",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Hautafika hapo ukiwa hivi",
+    "dav_gold": "Ndekuvikagha aho kwaka huw'u.",
+    "our_output": "Hautafika hapo iduu hivi.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 3,
+    "bare_swahili_at_slot": "hivi",
+    "aligned_gold_word": "huwu",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Huu ni mji wangu",
+    "dav_gold": "Ughu ni muzi gh'wapo.",
+    "our_output": "Huu ni mji wapo.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 0,
+    "bare_swahili_at_slot": "huu",
+    "aligned_gold_word": "ughu",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Hii ni nyumba ingine",
+    "dav_gold": "Ichi ni kigharo chimu",
+    "our_output": "Hii ni nyumba ingine.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 0,
+    "bare_swahili_at_slot": "hii",
+    "aligned_gold_word": "ichi",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Makaa a ya huu mti hua yanatoa moshi.",
+    "dav_gold": "Maka ughu mudi ghafunya mosi.",
+    "our_output": "Maka a ya huu mudi hua ghawechafunya mosi.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 3,
+    "bare_swahili_at_slot": "huu",
+    "aligned_gold_word": "ughu",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Hospitali hiyo ilishitakiwa kwa kuwatesa wajawazito.",
+    "dav_gold": "Hospitali iyo eshitakilwa kwa w'undu ghotesa w'aka w'iko na misigo.",
+    "our_output": "Hospitali hiyo udeshitaka kwa kuwitirira wajawazito.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "hiyo",
+    "aligned_gold_word": "iyo",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Yule mama akisema atakupa kitu huwa hakosi",
+    "dav_gold": "Uja mka ukakuzera ukuneka kilambo ndeughosha.",
+    "our_output": "Yule mae ?kighamba atakupa kitu huwa hakosi.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 0,
+    "bare_swahili_at_slot": "yule",
+    "aligned_gold_word": "uja",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Nguo zangu ziko chafu zote",
+    "dav_gold": "Nguw'o rapo reka rilue rose.",
+    "our_output": "Nguwo zangu ziko chafu zote.",
+    "slot_type": "ote",
+    "slot_token_idx": 4,
+    "bare_swahili_at_slot": "zote",
+    "aligned_gold_word": "rose",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Mafunzo yote tatafanyiwa kwa hilo jengo.",
+    "dav_gold": "Mafundiso ghose ghabonyerwa kwa ijo iaghi.",
+    "our_output": "Mafunzo yote tatafanyiwa kwa hilo jengo.",
+    "slot_type": "ote",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "yote",
+    "aligned_gold_word": "ghose",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Nikuletee nyasi za ng'ombe?",
+    "dav_gold": "Nikuredie nyasi ra ng'ombe?",
+    "our_output": "Nikuredie nyasi za ng'ombe.",
+    "slot_type": "associative",
+    "slot_token_idx": 2,
+    "bare_swahili_at_slot": "za",
+    "aligned_gold_word": "ra",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Maelfu ya watu waliuwawa wakati wa mivurugo.",
+    "dav_gold": "Maelfu gha w'andu w'erebwaghwa ngelo ra mivurugo.",
+    "our_output": "Maelfu ya wandu mareuwawa ngelo ra mivurugo.",
+    "slot_type": "associative",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "ya",
+    "aligned_gold_word": "gha",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Siku zingine huwa nashangaa ni nini hiyo",
+    "dav_gold": "Matuku ghamu nadatambwa w'ele lee niki charo.",
+    "our_output": "Ituku jingine huwa nashangaa ni nini hiyo.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 6,
+    "bare_swahili_at_slot": "hiyo",
+    "aligned_gold_word": "charo",
+    "audit_label": "vocabulary_or_paraphrase",
+    "audit_note": "gold sentence is a heavily restructured paraphrase; 'charo' doesn't look like a real alignment target for 'hiyo' at all"
+  },
+  {
+    "swa": "Itakuaje hayo makanisa yote yakifungwa?",
+    "dav_gold": "Ikaiagha w'ada agho makanisa ghose ghikafungwa?",
+    "our_output": "Itakuaje hayo makanisa yote yakifungwa.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "hayo",
+    "aligned_gold_word": "agho",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Viashiria hivi vinaweza kuwa miradi, au ujuzi wa kitaaluma.�",
+    "dav_gold": "Alama iro radima kukaia miradi, angu w'ujuzi ghwa w'utalamu",
+    "our_output": "Viashiria hivi vinaweza kuwa miradi au ujuzi wa kitaaluma.",
+    "slot_type": "associative",
+    "slot_token_idx": 7,
+    "bare_swahili_at_slot": "wa",
+    "aligned_gold_word": "ghwa",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "lahaja za Kitaita ni nyingi",
+    "dav_gold": "Viteto va Kidaw'ida ni va henga",
+    "our_output": "Lahaja za Kitaita ni nyingi.",
+    "slot_type": "associative",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "za",
+    "aligned_gold_word": "va",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Ninasafiri kwenda Mecca Septemba hii.",
+    "dav_gold": "Nafunga charo cheenda Mecca ughu mori ghwa ikenda.",
+    "our_output": "Ukupatire kwenda Mecca Septemba hii.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 4,
+    "bare_swahili_at_slot": "hii",
+    "aligned_gold_word": "ikenda",
+    "audit_label": "vocabulary_or_paraphrase",
+    "audit_note": "idiomatic month-naming construction, not a demonstrative target"
+  },
+  {
+    "swa": "Siku moja nitatimiza ndoto zangu zote.",
+    "dav_gold": "Ituku jimu nibonyagaha ndodo rapo rose.",
+    "our_output": "Ituku jimweri jichakatisha ndoto zangu zote.",
+    "slot_type": "ote",
+    "slot_token_idx": 5,
+    "bare_swahili_at_slot": "zote",
+    "aligned_gold_word": "rose",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Kwa nini hujashusha na ile engine?",
+    "dav_gold": "Kwaki kuseserie na ija imu?",
+    "our_output": "Kwa nini hujashusha na ile engine.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 4,
+    "bare_swahili_at_slot": "ile",
+    "aligned_gold_word": "ija",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Maisha ya binadamu ya ugumu sana.",
+    "dav_gold": "Mdamu oko na wundu miki ghukurie shuu.",
+    "our_output": "Irangi ja binadamu ya kukua sana.",
+    "slot_type": "associative",
+    "slot_token_idx": 3,
+    "bare_swahili_at_slot": "ya",
+    "aligned_gold_word": "wundu",
+    "audit_label": "vocabulary_or_paraphrase",
+    "audit_note": "gold restructures the whole clause ('has a thing of...') instead of an associative-possessive construction"
+  },
+  {
+    "swa": "Alikusanya asali kwenye mzinga wa nyuki.",
+    "dav_gold": "Oretumbanya w'uki mwadunyi ghwa choki.",
+    "our_output": "Alikusanya asali kwenye mzinga wa nyuki.",
+    "slot_type": "associative",
+    "slot_token_idx": 4,
+    "bare_swahili_at_slot": "wa",
+    "aligned_gold_word": "ghwa",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Kwa nini watu hawaandiki vitabu vya Kitaita?",
+    "dav_gold": "Kwaki w'andu w'iseandikagha vuo kwa Kidaw'ida?",
+    "our_output": "Kwa nini wandu wikaandika vuo vya Kitaita.",
+    "slot_type": "associative",
+    "slot_token_idx": 5,
+    "bare_swahili_at_slot": "vya",
+    "aligned_gold_word": "kwa",
+    "audit_label": "construction_difference",
+    "audit_note": "gold uses the general preposition 'kwa' instead of vi-class concord -- a different syntactic strategy, not a missing form"
+  },
+  {
+    "swa": "Kila mtu ana jukumu la kuhifadhi mazingira yetu ya asili.",
+    "dav_gold": "Kila mndu oko na ijukumu jetuza mazingira ghedu gha asili.",
+    "our_output": "Kila mundu una jukumu la kuhifadhi mazingira yetu ya asili.",
+    "slot_type": "associative",
+    "slot_token_idx": 8,
+    "bare_swahili_at_slot": "ya",
+    "aligned_gold_word": "gha",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Alisema kuwa shirika hilo linajitahidi�msaada.",
+    "dav_gold": "Oghora angu ugho w'ushirika ghokundika ghuteselo.",
+    "our_output": "Alisema kuwa shirika hilo linajitahidi wutesia.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 3,
+    "bare_swahili_at_slot": "hilo",
+    "aligned_gold_word": "wushirika",
+    "audit_label": "construction_difference",
+    "audit_note": "gold repeats/translates the noun itself ('wushirika') instead of using an anaphoric demonstrative"
+  },
+  {
+    "swa": "Nataka mifuko ya robo kilo",
+    "dav_gold": "Nekunda mifuko ra robo kilo",
+    "our_output": "Nawekunda mifuko ya robo kilo.",
+    "slot_type": "associative",
+    "slot_token_idx": 2,
+    "bare_swahili_at_slot": "ya",
+    "aligned_gold_word": "ra",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Mwisho wa safari unafurahisha zaidi kuliko mwanzo.",
+    "dav_gold": "Kusia kwa charo kwaboie shuu kuchumba kuwoka.",
+    "our_output": "Kutua wa charo ?wewadanimeria zaidi kuchumba kuzoya.",
+    "slot_type": "associative",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "wa",
+    "aligned_gold_word": "kwa",
+    "audit_label": "construction_difference",
+    "audit_note": "same 'kwa'-instead-of-concord pattern as #23"
+  },
+  {
+    "swa": "Mzozo huu hauhusu tu mipaka ya Kaunti ya Taita Taveta",
+    "dav_gold": "Ughu mzozo si ghwa kaunti ya Daw'ida iekeri ingi.",
+    "our_output": "Mzozo huu hauhusu tu mipaka ya Kaunti wa Taita Taveta.",
+    "slot_type": "associative",
+    "slot_token_idx": 5,
+    "bare_swahili_at_slot": "ya",
+    "aligned_gold_word": "ghwa",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Ni nani aliyepewa mamlaka ya Mkuu wa Sheria?",
+    "dav_gold": "Nani unekelo mamlaka gha w'ubaa ghwa sharia?",
+    "our_output": "Ni nani aliyepewa nguma ya m'baa wa Sheria.",
+    "slot_type": "associative",
+    "slot_token_idx": 6,
+    "bare_swahili_at_slot": "wa",
+    "aligned_gold_word": "ghwa",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "japo mpango wa awali unapaswa kuwekwa kugharamia kwa pamoja",
+    "dav_gold": "Hata ngera mpango ghwa imbiri ghoka kuw'ikwa ghugaramilo anduamweri",
+    "our_output": "Japo mpango wa awali yawifwana kuwekwa kugharamia kwa pamoja.",
+    "slot_type": "associative",
+    "slot_token_idx": 2,
+    "bare_swahili_at_slot": "wa",
+    "aligned_gold_word": "ghwa",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Nia njema ni mwanga katika giza la ulimwengu.",
+    "dav_gold": "Njam iboie ni mwengere kwa kira cha wurumwengu.",
+    "our_output": "Nia njema ni mwengere katika giza la ulimwengu.",
+    "slot_type": "associative",
+    "slot_token_idx": 6,
+    "bare_swahili_at_slot": "la",
+    "aligned_gold_word": "cha",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Ukoo wake wote unamtegemea.",
+    "dav_gold": "Kichuku chape chose chakusaghika nao.",
+    "our_output": "Ukoo wake wote kwaweorekusaghikiegha.",
+    "slot_type": "ote",
+    "slot_token_idx": 2,
+    "bare_swahili_at_slot": "wote",
+    "aligned_gold_word": "chose",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Una haya sana",
+    "dav_gold": "Koka na w'uaya shuu.",
+    "our_output": "Kuna haya sana.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "haya",
+    "aligned_gold_word": "wuaya",
+    "audit_label": "construction_difference",
+    "audit_note": "'haya' here is the idiom 'kuwa na haya' (to be shy) -- a noun, not a demonstrative determiner; a mis-parse, not a real agreement target"
+  },
+  {
+    "swa": "Uaminifu na upendo huzidi yote",
+    "dav_gold": "Wuaminifu na lukundo vachumba ghose",
+    "our_output": "Wuloli na lukundo unyame yote.",
+    "slot_type": "ote",
+    "slot_token_idx": 4,
+    "bare_swahili_at_slot": "yote",
+    "aligned_gold_word": "ghose",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Usimfanyie mwenzio hivyo",
+    "dav_gold": "Kusebonyere mmbenu huwo",
+    "our_output": "Kusimfanyie mwenzio hivyo.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 2,
+    "bare_swahili_at_slot": "hivyo",
+    "aligned_gold_word": "huwo",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Mwangaza wa usiku ni wa mwezi.",
+    "dav_gold": "Mwengere ghwa kio ni ghwa mori.",
+    "our_output": "Kung'ala wa kio ni wa mori.",
+    "slot_type": "associative",
+    "slot_token_idx": 4,
+    "bare_swahili_at_slot": "wa",
+    "aligned_gold_word": "ghwa",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Mbona mumenishtua  hivi?",
+    "dav_gold": "Kwaki kwaniturusa huw'u",
+    "our_output": "Kwaki mumenishtua hivi.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 2,
+    "bare_swahili_at_slot": "hivi",
+    "aligned_gold_word": "huwu",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Msemaji huyo alisema baadhi ya wenzao walipata ajali.",
+    "dav_gold": "Uo mndu osindeededa oghora w'ambao w'amu w'eshoghonoka.",
+    "our_output": "Msemaji huyo alisema baadhi ya wenzao walipata ajali.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "huyo",
+    "aligned_gold_word": "uo",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Mchana huu ni wa shughuli nyingi za kijamii.",
+    "dav_gold": "Idimi ihii ni ya kazi pacha ra kijamii.",
+    "our_output": "Dime huu ni wa shughuli nyingi za kijamii.",
+    "slot_type": "associative",
+    "slot_token_idx": 6,
+    "bare_swahili_at_slot": "za",
+    "aligned_gold_word": "ra",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Usiwache kote kuzuri",
+    "dav_gold": "Kusekesigha kose kughokie.",
+    "our_output": "Kusiwache kote kuzuri.",
+    "slot_type": "ote",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "kote",
+    "aligned_gold_word": "kose",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Mradi wa kando hukusaidia kujifunza mbinu mpya",
+    "dav_gold": "Chaghu chako cha nambai chikutesiagha kukufundisha ghamu ghiboie maw'ishi",
+    "our_output": "Kijunyi wa kando hukusaidia kukufundisha mbinu mbishi.",
+    "slot_type": "associative",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "wa",
+    "aligned_gold_word": "cha",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Wale wote wanaopigana nawe.",
+    "dav_gold": "Awo wose wilwagha na oho.",
+    "our_output": "Wale wote wawuyalwa nawe.",
+    "slot_type": "ote",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "wote",
+    "aligned_gold_word": "wose",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Hivyo ndivyo nilivyoota nilipolala mchana.",
+    "dav_gold": "Huwo niko nilodere niendalala nadime.",
+    "our_output": "Hivyo ndivyo udevyoota nilipolala dime.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 0,
+    "bare_swahili_at_slot": "hivyo",
+    "aligned_gold_word": "huwo",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Hali ni kama hiyo katika eneo la Ikonge",
+    "dav_gold": "Hali ni ichenio ugho andu kuw'angwagha Ikonge.",
+    "our_output": "Hali ni kama hiyo katika eneo la Ikonge.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 3,
+    "bare_swahili_at_slot": "hiyo",
+    "aligned_gold_word": "ugho",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Marafiki wa kweli ni wale wanaokaa nawe katika dhoruba.",
+    "dav_gold": "Waghenyi wa loli ni awaje wikanyaa na oho ngelo ra wasi.",
+    "our_output": "Marafiki wa kweli ni wale wanaokaa nawe katika dhoruba.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 4,
+    "bare_swahili_at_slot": "wale",
+    "aligned_gold_word": "awaje",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "wakati wa msimu wenye shamrashamra za sherehe za Krismasi na Mwaka Mpya",
+    "dav_gold": "Ngelo ya kimu cha ndoghoi ra sherehe ra Krismasi na mwaka m'mbishi",
+    "our_output": "Ngelo ra msimu wenye shamrashamra za sherehe za Krismasi na mwaka mbishi.",
+    "slot_type": "associative",
+    "slot_token_idx": 5,
+    "bare_swahili_at_slot": "za",
+    "aligned_gold_word": "ra",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Hayo yote yamepita",
+    "dav_gold": "Agho ghose ghaida",
+    "our_output": "Hayo yote udasia.",
+    "slot_type": "ote",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "yote",
+    "aligned_gold_word": "ghose",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "Walisema Hawa nauli ya kurudi",
+    "dav_gold": "W'eghora ndew'ine magome ghew'uya.",
+    "our_output": "Walisema Hawa nauli ya kurudi.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "hawa",
+    "aligned_gold_word": "ndewine",
+    "audit_label": "construction_difference",
+    "audit_note": "'Hawa' is almost certainly the proper name (Eve), misread as the demonstrative pronoun 'hawa' -- a homograph mis-parse, not a real agreement target"
+  },
+  {
+    "swa": "Amekuwa akirudia kosa hilo kwa miaka miwili.",
+    "dav_gold": "Wakaie ukibonya makosa agheni agho kwa miaka iw'i.",
+    "our_output": "Amekuwa akirudia kosa hilo kwa miaka miwili.",
+    "slot_type": "demonstrative",
+    "slot_token_idx": 3,
+    "bare_swahili_at_slot": "hilo",
+    "aligned_gold_word": "agheni",
+    "audit_label": "agreement_error"
+  },
+  {
+    "swa": "vinamasi vyote zimekauka maji",
+    "dav_gold": "Viriw'a vose veoma machi mzaw'o.",
+    "our_output": "Vinamasi vyote zimekauka machi.",
+    "slot_type": "ote",
+    "slot_token_idx": 1,
+    "bare_swahili_at_slot": "vyote",
+    "aligned_gold_word": "vose",
+    "audit_label": "agreement_error"
+  }
+]

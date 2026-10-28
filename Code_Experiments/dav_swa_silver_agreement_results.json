@@ -1,36 +1,77 @@
 {
   "A_current_production": {
-    "threshold_0.5": {
+    "threshold_0.4": {
       "counts": {
         "total": 5333,
         "no_slots": 3853,
         "token_count_mismatch": 681,
-        "below_threshold": 560,
-        "eligible": 142,
+        "below_threshold": 432,
+        "eligible": 270,
         "output_tokens_ne_d_tokens": 97
       },
       "agreement_accuracy": {
         "counts": {
-          "missed_slot": 30,
-          "correct": 95,
-          "spurious_rewrite": 23,
-          "wrong_rewrite": 8
+          "correct": 161,
+          "missed_slot": 64,
+          "spurious_rewrite": 42,
+          "wrong_rewrite": 35
         },
-        "scored_slots": 156,
-        "accuracy": 0.6089743589743589,
-        "n_sentences": 142
+        "scored_slots": 302,
+        "accuracy": 0.5331125827814569,
+        "n_sentences": 270
       },
       "stability": {
         "curve": [
           {
             "n_slots": 1,
-            "mean_accuracy": 0.6076923076923076,
-            "n_sentences": 130
+            "mean_accuracy": 0.5269709543568465,
+            "n_sentences": 241
           },
           {
             "n_slots": 2,
-            "mean_accuracy": 0.6,
-            "n_sentences": 10
+            "mean_accuracy": 0.5769230769230769,
+            "n_sentences": 26
+          },
+          {
+            "n_slots": 3,
+            "mean_accuracy": 0.4444444444444444,
+            "n_sentences": 3
+          }
+        ],
+        "note": "buckets with n_sentences < 8 are shown but NOT a confident estimate -- this project's own n>=8 rule for claims"
+      }
+    },
+    "threshold_0.5": {
+      "counts": {
+        "total": 5333,
+        "no_slots": 3853,
+        "token_count_mismatch": 681,
+        "below_threshold": 520,
+        "eligible": 182,
+        "output_tokens_ne_d_tokens": 97
+      },
+      "agreement_accuracy": {
+        "counts": {
+          "correct": 117,
+          "missed_slot": 35,
+          "spurious_rewrite": 30,
+          "wrong_rewrite": 17
+        },
+        "scored_slots": 199,
+        "accuracy": 0.5879396984924623,
+        "n_sentences": 182
+      },
+      "stability": {
+        "curve": [
+          {
+            "n_slots": 1,
+            "mean_accuracy": 0.5748502994011976,
+            "n_sentences": 167
+          },
+          {
+            "n_slots": 2,
+            "mean_accuracy": 0.6538461538461539,
+            "n_sentences": 13
           },
           {
             "n_slots": 3,
@@ -41,32 +82,103 @@
         "note": "buckets with n_sentences < 8 are shown but NOT a confident estimate -- this project's own n>=8 rule for claims"
       }
     },
-    "threshold_0.7": {
+    "threshold_0.6": {
       "counts": {
         "total": 5333,
         "no_slots": 3853,
         "token_count_mismatch": 681,
-        "below_threshold": 676,
-        "eligible": 26,
+        "below_threshold": 604,
+        "eligible": 98,
         "output_tokens_ne_d_tokens": 97
       },
       "agreement_accuracy": {
         "counts": {
-          "correct": 19,
-          "missed_slot": 2,
-          "spurious_rewrite": 5,
-          "wrong_rewrite": 1
+          "correct": 62,
+          "missed_slot": 12,
+          "spurious_rewrite": 20,
+          "wrong_rewrite": 9
         },
-        "scored_slots": 27,
-        "accuracy": 0.7037037037037037,
-        "n_sentences": 26
+        "scored_slots": 103,
+        "accuracy": 0.6019417475728155,
+        "n_sentences": 98
       },
       "stability": {
         "curve": [
           {
             "n_slots": 1,
-            "mean_accuracy": 0.68,
-            "n_sentences": 25
+            "mean_accuracy": 0.5806451612903226,
+            "n_sentences": 93
+          },
+          {
+            "n_slots": 2,
+            "mean_accuracy": 0.8,
+            "n_sentences": 5
+          }
+        ],
+        "note": "buckets with n_sentences < 8 are shown but NOT a confident estimate -- this project's own n>=8 rule for claims"
+      }
+    },
+    "threshold_0.7": {
+      "counts": {
+        "total": 5333,
+        "no_slots": 3853,
+        "token_count_mismatch": 681,
+        "below_threshold": 662,
+        "eligible": 40,
+        "output_tokens_ne_d_tokens": 97
+      },
+      "agreement_accuracy": {
+        "counts": {
+          "missed_slot": 3,
+          "correct": 28,
+          "spurious_rewrite": 9,
+          "wrong_rewrite": 3
+        },
+        "scored_slots": 43,
+        "accuracy": 0.6511627906976745,
+        "n_sentences": 40
+      },
+      "stability": {
+        "curve": [
+          {
+            "n_slots": 1,
+            "mean_accuracy": 0.6216216216216216,
+            "n_sentences": 37
+          },
+          {
+            "n_slots": 2,
+            "mean_accuracy": 0.8333333333333334,
+            "n_sentences": 3
+          }
+        ],
+        "note": "buckets with n_sentences < 8 are shown but NOT a confident estimate -- this project's own n>=8 rule for claims"
+      }
+    },
+    "threshold_0.8": {
+      "counts": {
+        "total": 5333,
+        "no_slots": 3853,
+        "token_count_mismatch": 681,
+        "below_threshold": 684,
+        "eligible": 18,
+        "output_tokens_ne_d_tokens": 97
+      },
+      "agreement_accuracy": {
+        "counts": {
+          "correct": 12,
+          "spurious_rewrite": 6,
+          "missed_slot": 1
+        },
+        "scored_slots": 19,
+        "accuracy": 0.631578947368421,
+        "n_sentences": 18
+      },
+      "stability": {
+        "curve": [
+          {
+            "n_slots": 1,
+            "mean_accuracy": 0.5882352941176471,
+            "n_sentences": 17
           },
           {
             "n_slots": 2,
@@ -82,25 +194,25 @@
         "total": 5333,
         "no_slots": 3853,
         "token_count_mismatch": 681,
-        "below_threshold": 694,
-        "eligible": 8,
+        "below_threshold": 692,
+        "eligible": 10,
         "output_tokens_ne_d_tokens": 97
       },
       "agreement_accuracy": {
         "counts": {
-          "correct": 6,
-          "spurious_rewrite": 2
+          "correct": 7,
+          "spurious_rewrite": 3
         },
-        "scored_slots": 8,
-        "accuracy": 0.75,
-        "n_sentences": 8
+        "scored_slots": 10,
+        "accuracy": 0.7,
+        "n_sentences": 10
       },
       "stability": {
         "curve": [
           {
             "n_slots": 1,
-            "mean_accuracy": 0.75,
-            "n_sentences": 8
+            "mean_accuracy": 0.7,
+            "n_sentences": 10
           }
         ],
         "note": null
@@ -108,37 +220,78 @@
     }
   },
   "B_current_plus_train_mined": {
-    "threshold_0.5": {
+    "threshold_0.4": {
       "counts": {
         "total": 5333,
         "no_slots": 3853,
         "token_count_mismatch": 681,
-        "below_threshold": 558,
-        "eligible": 144,
+        "below_threshold": 430,
+        "eligible": 272,
         "output_tokens_ne_d_tokens": 97
       },
       "agreement_accuracy": {
         "counts": {
-          "missed_slot": 30,
-          "correct": 95,
-          "spurious_rewrite": 24,
-          "wrong_rewrite": 9
+          "correct": 161,
+          "missed_slot": 64,
+          "spurious_rewrite": 43,
+          "wrong_rewrite": 36
         },
-        "scored_slots": 158,
-        "accuracy": 0.6012658227848101,
-        "n_sentences": 144
+        "scored_slots": 304,
+        "accuracy": 0.5296052631578947,
+        "n_sentences": 272
       },
       "stability": {
         "curve": [
           {
             "n_slots": 1,
-            "mean_accuracy": 0.5984848484848485,
-            "n_sentences": 132
+            "mean_accuracy": 0.522633744855967,
+            "n_sentences": 243
           },
           {
             "n_slots": 2,
-            "mean_accuracy": 0.6,
-            "n_sentences": 10
+            "mean_accuracy": 0.5769230769230769,
+            "n_sentences": 26
+          },
+          {
+            "n_slots": 3,
+            "mean_accuracy": 0.4444444444444444,
+            "n_sentences": 3
+          }
+        ],
+        "note": "buckets with n_sentences < 8 are shown but NOT a confident estimate -- this project's own n>=8 rule for claims"
+      }
+    },
+    "threshold_0.5": {
+      "counts": {
+        "total": 5333,
+        "no_slots": 3853,
+        "token_count_mismatch": 681,
+        "below_threshold": 518,
+        "eligible": 184,
+        "output_tokens_ne_d_tokens": 97
+      },
+      "agreement_accuracy": {
+        "counts": {
+          "correct": 117,
+          "missed_slot": 35,
+          "spurious_rewrite": 31,
+          "wrong_rewrite": 18
+        },
+        "scored_slots": 201,
+        "accuracy": 0.582089552238806,
+        "n_sentences": 184
+      },
+      "stability": {
+        "curve": [
+          {
+            "n_slots": 1,
+            "mean_accuracy": 0.5680473372781065,
+            "n_sentences": 169
+          },
+          {
+            "n_slots": 2,
+            "mean_accuracy": 0.6538461538461539,
+            "n_sentences": 13
           },
           {
             "n_slots": 3,
@@ -149,32 +302,103 @@
         "note": "buckets with n_sentences < 8 are shown but NOT a confident estimate -- this project's own n>=8 rule for claims"
       }
     },
-    "threshold_0.7": {
+    "threshold_0.6": {
       "counts": {
         "total": 5333,
         "no_slots": 3853,
         "token_count_mismatch": 681,
-        "below_threshold": 675,
-        "eligible": 27,
+        "below_threshold": 604,
+        "eligible": 98,
         "output_tokens_ne_d_tokens": 97
       },
       "agreement_accuracy": {
         "counts": {
-          "correct": 19,
-          "missed_slot": 2,
-          "spurious_rewrite": 6,
-          "wrong_rewrite": 1
+          "correct": 62,
+          "missed_slot": 12,
+          "spurious_rewrite": 20,
+          "wrong_rewrite": 9
         },
-        "scored_slots": 28,
-        "accuracy": 0.6785714285714286,
-        "n_sentences": 27
+        "scored_slots": 103,
+        "accuracy": 0.6019417475728155,
+        "n_sentences": 98
       },
       "stability": {
         "curve": [
           {
             "n_slots": 1,
-            "mean_accuracy": 0.6538461538461539,
-            "n_sentences": 26
+            "mean_accuracy": 0.5806451612903226,
+            "n_sentences": 93
+          },
+          {
+            "n_slots": 2,
+            "mean_accuracy": 0.8,
+            "n_sentences": 5
+          }
+        ],
+        "note": "buckets with n_sentences < 8 are shown but NOT a confident estimate -- this project's own n>=8 rule for claims"
+      }
+    },
+    "threshold_0.7": {
+      "counts": {
+        "total": 5333,
+        "no_slots": 3853,
+        "token_count_mismatch": 681,
+        "below_threshold": 661,
+        "eligible": 41,
+        "output_tokens_ne_d_tokens": 97
+      },
+      "agreement_accuracy": {
+        "counts": {
+          "missed_slot": 3,
+          "correct": 28,
+          "spurious_rewrite": 10,
+          "wrong_rewrite": 3
+        },
+        "scored_slots": 44,
+        "accuracy": 0.6363636363636364,
+        "n_sentences": 41
+      },
+      "stability": {
+        "curve": [
+          {
+            "n_slots": 1,
+            "mean_accuracy": 0.6052631578947368,
+            "n_sentences": 38
+          },
+          {
+            "n_slots": 2,
+            "mean_accuracy": 0.8333333333333334,
+            "n_sentences": 3
+          }
+        ],
+        "note": "buckets with n_sentences < 8 are shown but NOT a confident estimate -- this project's own n>=8 rule for claims"
+      }
+    },
+    "threshold_0.8": {
+      "counts": {
+        "total": 5333,
+        "no_slots": 3853,
+        "token_count_mismatch": 681,
+        "below_threshold": 683,
+        "eligible": 19,
+        "output_tokens_ne_d_tokens": 97
+      },
+      "agreement_accuracy": {
+        "counts": {
+          "correct": 12,
+          "spurious_rewrite": 7,
+          "missed_slot": 1
+        },
+        "scored_slots": 20,
+        "accuracy": 0.6,
+        "n_sentences": 19
+      },
+      "stability": {
+        "curve": [
+          {
+            "n_slots": 1,
+            "mean_accuracy": 0.5555555555555556,
+            "n_sentences": 18
           },
           {
             "n_slots": 2,
@@ -190,25 +414,25 @@
         "total": 5333,
         "no_slots": 3853,
         "token_count_mismatch": 681,
-        "below_threshold": 694,
-        "eligible": 8,
+        "below_threshold": 692,
+        "eligible": 10,
         "output_tokens_ne_d_tokens": 97
       },
       "agreement_accuracy": {
         "counts": {
-          "correct": 6,
-          "spurious_rewrite": 2
+          "correct": 7,
+          "spurious_rewrite": 3
         },
-        "scored_slots": 8,
-        "accuracy": 0.75,
-        "n_sentences": 8
+        "scored_slots": 10,
+        "accuracy": 0.7,
+        "n_sentences": 10
       },
       "stability": {
         "curve": [
           {
             "n_slots": 1,
-            "mean_accuracy": 0.75,
-            "n_sentences": 8
+            "mean_accuracy": 0.7,
+            "n_sentences": 10
           }
         ],
         "note": null

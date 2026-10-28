@@ -1,0 +1,174 @@
+{
+  "A_current_production": {
+    "sentence_counts": {
+      "no_slots": 3853,
+      "used": 1480
+    },
+    "slot_counts": {
+      "vocab_mismatch": 243,
+      "correct": 383,
+      "unalignable": 475,
+      "missed_slot": 559,
+      "spurious_rewrite": 90,
+      "wrong_rewrite": 19
+    },
+    "scorable_slots_excl_vocab_mismatch": 1051,
+    "accuracy_excl_vocab_mismatch": 0.3644148430066603,
+    "missingness_by_slot_type_and_length": {
+      "associative|1-4": {
+        "vocab_mismatch": 29,
+        "missed_slot": 31,
+        "correct": 30,
+        "unalignable": 22,
+        "spurious_rewrite": 20
+      },
+      "associative|13+": {
+        "missed_slot": 12,
+        "unalignable": 22,
+        "correct": 5,
+        "vocab_mismatch": 5
+      },
+      "associative|5-8": {
+        "unalignable": 225,
+        "correct": 190,
+        "missed_slot": 188,
+        "spurious_rewrite": 63,
+        "vocab_mismatch": 92
+      },
+      "associative|9-12": {
+        "unalignable": 76,
+        "missed_slot": 57,
+        "spurious_rewrite": 7,
+        "correct": 43,
+        "vocab_mismatch": 29
+      },
+      "demonstrative|1-4": {
+        "correct": 26,
+        "unalignable": 27,
+        "missed_slot": 76,
+        "vocab_mismatch": 20
+      },
+      "demonstrative|13+": {
+        "unalignable": 3,
+        "missed_slot": 6
+      },
+      "demonstrative|5-8": {
+        "vocab_mismatch": 59,
+        "unalignable": 82,
+        "missed_slot": 104,
+        "correct": 41,
+        "wrong_rewrite": 5
+      },
+      "demonstrative|9-12": {
+        "correct": 4,
+        "unalignable": 18,
+        "missed_slot": 18,
+        "vocab_mismatch": 8
+      },
+      "ote|1-4": {
+        "correct": 19,
+        "missed_slot": 38,
+        "wrong_rewrite": 5
+      },
+      "ote|13+": {
+        "missed_slot": 1
+      },
+      "ote|5-8": {
+        "correct": 25,
+        "missed_slot": 26,
+        "wrong_rewrite": 8,
+        "vocab_mismatch": 1
+      },
+      "ote|9-12": {
+        "wrong_rewrite": 1,
+        "missed_slot": 2
+      }
+    }
+  },
+  "B_current_plus_train_mined": {
+    "sentence_counts": {
+      "no_slots": 3853,
+      "used": 1480
+    },
+    "slot_counts": {
+      "vocab_mismatch": 243,
+      "correct": 383,
+      "unalignable": 475,
+      "missed_slot": 559,
+      "spurious_rewrite": 90,
+      "wrong_rewrite": 19
+    },
+    "scorable_slots_excl_vocab_mismatch": 1051,
+    "accuracy_excl_vocab_mismatch": 0.3644148430066603,
+    "missingness_by_slot_type_and_length": {
+      "associative|1-4": {
+        "vocab_mismatch": 29,
+        "missed_slot": 31,
+        "correct": 30,
+        "unalignable": 22,
+        "spurious_rewrite": 20
+      },
+      "associative|13+": {
+        "missed_slot": 12,
+        "unalignable": 22,
+        "correct": 5,
+        "vocab_mismatch": 5
+      },
+      "associative|5-8": {
+        "unalignable": 225,
+        "correct": 190,
+        "missed_slot": 188,
+        "spurious_rewrite": 63,
+        "vocab_mismatch": 92
+      },
+      "associative|9-12": {
+        "unalignable": 76,
+        "missed_slot": 57,
+        "spurious_rewrite": 7,
+        "correct": 43,
+        "vocab_mismatch": 29
+      },
+      "demonstrative|1-4": {
+        "correct": 26,
+        "unalignable": 27,
+        "missed_slot": 76,
+        "vocab_mismatch": 20
+      },
+      "demonstrative|13+": {
+        "unalignable": 3,
+        "missed_slot": 6
+      },
+      "demonstrative|5-8": {
+        "vocab_mismatch": 59,
+        "unalignable": 82,
+        "missed_slot": 104,
+        "correct": 41,
+        "wrong_rewrite": 5
+      },
+      "demonstrative|9-12": {
+        "correct": 4,
+        "unalignable": 18,
+        "missed_slot": 18,
+        "vocab_mismatch": 8
+      },
+      "ote|1-4": {
+        "correct": 19,
+        "missed_slot": 38,
+        "wrong_rewrite": 5
+      },
+      "ote|13+": {
+        "missed_slot": 1
+      },
+      "ote|5-8": {
+        "correct": 25,
+        "missed_slot": 26,
+        "wrong_rewrite": 8,
+        "vocab_mismatch": 1
+      },
+      "ote|9-12": {
+        "wrong_rewrite": 1,
+        "missed_slot": 2
+      }
+    }
+  }
+}

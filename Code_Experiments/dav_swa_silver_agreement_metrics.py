@@ -51,17 +51,57 @@ HERE = Path(__file__).parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(HERE.parent / "hf_space"))
 
-from extract_swahili_grammar import tokenize as grammar_tokenize
+import dataclasses
+
 from kitaita_e2e_pipeline import translate_sentence
 from kitaita_eval_metrics import GoldSlot, GoldSentence, evaluate_corpus
 
 from dav_swa_corpus_eval import load_split, mine_noun_candidates, build_condition_tables
+from dav_swa_eval_common import gtok, normalize_ortho, tokens_match
 
-THRESHOLDS = [0.5, 0.7, 0.9]
+THRESHOLDS = [0.4, 0.5, 0.6, 0.7, 0.8, 0.9]
 
 
-def gtok(text: str) -> list[str]:
-    return [t.lower() for t in grammar_tokenize(text or "")]
+def gold_slot_for(slot, gold_tok: str, bare_swahili: str) -> tuple[GoldSlot, "SlotRecord"]:
+    """2026-10-28 cont. 5 fix: subject_sm's predicted_form is a bare PREFIX
+    (e.g. "u"), not a whole word -- SlotRecord's own docstring, confirmed
+    against hf_space/app.py's identical special-case (line ~286, "every
+    other slot type is a whole standalone word"). An exact-string correct_
+    form would misclassify every genuinely correct subject_sm slot as wrong
+    (checked directly: 0 subject_sm/adjective/possessive slots happened to
+    fall in any PREVIOUSLY reported eligible set -- associative/demonstrative/
+    ote only -- so this did not corrupt earlier numbers, but would have as
+    soon as more sentences became eligible). Mirrors app.py's `corr_word.
+    startswith(predicted_form)` check, encoded into correct_form so compute_
+    agreement_accuracy's existing equality check recovers the right verdict
+    without changing that function.
+
+    2026-10-28 cont. 6 fix (external-review feedback): apostrophe variants
+    (w'undu/wundu etc., cont. 6) must not look like disagreement at this
+    comparison either -- compute_agreement_accuracy() itself does a plain
+    `!=`/`==` string check it would be wrong to modify (production code,
+    shared with the live app.py). Instead both sides are normalized with
+    `normalize_ortho` BEFORE being handed to GoldSlot/SlotRecord, so the
+    existing equality check is apostrophe-insensitive without being touched.
+    Returns (gold_slot, normalized_predicted_slot) -- the caller must use the
+    SECOND value in place of the raw SlotRecord, or only one side of the
+    comparison would be normalized."""
+    gold_tok_n = normalize_ortho(gold_tok)
+    bare_n = normalize_ortho(bare_swahili)
+    pf_n = normalize_ortho(slot.predicted_form) if slot.predicted_form else slot.predicted_form
+    norm_slot = dataclasses.replace(slot, predicted_form=pf_n)
+
+    gold_needs = gold_tok_n != bare_n
+    if not gold_needs:
+        return (GoldSlot(token_idx=slot.token_idx, slot_type=slot.slot_type,
+                          needs_rewrite=False, correct_form=None), norm_slot)
+    if slot.slot_type == "subject_sm":
+        matches = bool(pf_n) and gold_tok_n.startswith(pf_n)
+        correct_form = pf_n if matches else gold_tok_n
+    else:
+        correct_form = gold_tok_n
+    return (GoldSlot(token_idx=slot.token_idx, slot_type=slot.slot_type,
+                      needs_rewrite=True, correct_form=correct_form), norm_slot)
 
 
 def build_silver_pairs(test_rows: list[dict], tables, threshold: float):
@@ -91,22 +131,21 @@ def build_silver_pairs(test_rows: list[dict], tables, threshold: float):
         if len(gold_tokens) != len(d.tokens):
             counts["token_count_mismatch"] += 1
             continue
-        agree = sum(1 for a, b in zip(out_tokens, gold_tokens) if a == b) / len(gold_tokens)
+        agree = sum(1 for a, b in zip(out_tokens, gold_tokens) if tokens_match(a, b)) / len(gold_tokens)
         if agree < threshold:
             counts["below_threshold"] += 1
             continue
         counts["eligible"] += 1
-        gold_slots = []
+        gold_slots, norm_slots = [], []
         for slot in d.slots:
             if slot.token_idx >= len(gold_tokens):
                 continue
             gold_tok = gold_tokens[slot.token_idx]
             bare_swahili = d.tokens[slot.token_idx]
-            gold_needs = gold_tok != bare_swahili
-            gold_slots.append(GoldSlot(token_idx=slot.token_idx, slot_type=slot.slot_type,
-                                        needs_rewrite=gold_needs,
-                                        correct_form=gold_tok if gold_needs else None))
-        predicted.append({"sentence": row["swa"], "slots": d.slots})
+            gslot, nslot = gold_slot_for(slot, gold_tok, bare_swahili)
+            gold_slots.append(gslot)
+            norm_slots.append(nslot)
+        predicted.append({"sentence": row["swa"], "slots": norm_slots})
         gold.append(GoldSentence(sentence=row["swa"], gold_translation=row["dav"], slots=gold_slots))
     return predicted, gold, counts
 

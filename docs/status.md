@@ -27225,3 +27225,396 @@ patching it.
 
 Files: `docs/status.md` only (this entry); dashboard artifact note text
 updated to match (https://claude.ai/artifact/KVza63DNMnJNQN1vxiG4Gu).
+
+## 2026-10-28 cont. 4: threshold sweep (0.4-0.9) + "Approach 2" -- vocabulary-tolerant agreement scoring via sequence alignment, not a whole-sentence similarity gate
+
+Direct follow-up. Two asks: (1) sweep cont. 2/3's match-threshold lower
+(down to 0.4) and see the trend; (2) a genuinely different second method
+("Approach 2") that stops excluding a sentence just because it differs
+from the reference in places, and instead treats most differences as
+VOCABULARY mismatches (expected between two independent translations)
+while still scoring the agreement slot itself whenever it can be lined
+up at all. Explicitly framed by the user as one of (at least) two
+candidate methods to choose between later, not a replacement.
+
+**Bug found and fixed before either of these ran**: `subject_sm`'s
+`predicted_form` is a bare PREFIX (e.g. "u"), not a whole word (`SlotRecord`'s
+own docstring) -- `hf_space/app.py` already knows this and uses `corr_word.
+startswith(predicted_form)` for that slot type only (line ~286); cont. 2/3's
+script compared it with plain equality against the whole gold word, which
+would misclassify every correct `subject_sm` slot as wrong. **Checked
+whether this corrupted anything already reported: no** -- every sentence
+eligible at thresholds 0.5/0.7/0.9 in cont. 2 happened to carry only
+`associative`/`demonstrative`/`ote` slots (confirmed by direct breakdown),
+all genuinely whole-word types. Fixed in `dav_swa_silver_agreement_metrics.
+py` (`gold_slot_for()`, mirroring app.py's rule exactly) before it could
+affect anything -- would have, at lower thresholds and certainly in
+Approach 2 below.
+
+**Threshold sweep, Approach 1, condition A** (B nearly identical throughout):
+
+| threshold | n sentences | scored slots | accuracy | 95% CI |
+|---|---|---|---|---|
+| >=0.4 | 221 | 253 | 0.553 | [0.49,0.61] |
+| >=0.5 | 142 | 156 | 0.609 | [0.53,0.68] |
+| >=0.6 | 74 | 77 | 0.558 | [0.45,0.66] |
+| >=0.7 | 26 | 27 | 0.704 | [0.52,0.84] |
+| >=0.8 | 13 | 13 | 0.615 | [0.36,0.82] |
+| >=0.9 | 8 | 8 | 0.750 | [0.41,0.93] |
+
+**Honest reading, not the clean story 3 points suggested last time**: with
+all 6 points, this is NOT a monotonic "stricter threshold -> better
+agreement" curve -- 0.6 and 0.8 dip below their neighbors. Every CI
+overlaps every other CI. The cont. 3 selection-bias caveat still holds
+(the slot position is part of what the threshold measures), but the data
+doesn't support treating this as a clean trend at all; it's noise around
+~55-70% over a shrinking, increasingly self-selected n.
+
+**Approach 2** (`dav_swa_vocab_tolerant_agreement_metrics.py`): no per-
+sentence similarity gate at all. `difflib.SequenceMatcher` aligns
+`out_tokens` against `gold_tokens` directly (handles different lengths
+from insertions/deletions elsewhere in the sentence, which Approach 1
+excluded outright -- 681/1,480 sentences at every threshold). Each slot's
+aligned counterpart (if any) is classified: `correct` (exact match, or the
+`subject_sm` startswith rule); `wrong_rewrite` (doesn't match, but shares
+a long-enough common suffix with the gold word -- `>=3` chars, same
+longest-common-suffix idea as this project's existing root-derivation code
+-- to call it the SAME underlying word with the wrong agreement marking);
+`vocab_mismatch` (doesn't match, no shared stem -- a different word was
+used, cannot speak to agreement correctness, scored separately, NOT folded
+into correct/wrong); `missed_slot`/`spurious_rewrite` as before;
+`unalignable` (the position falls in a delete block or a size-mismatched
+replace block in the alignment -- no clean counterpart, excluded, not
+guessed). This is a genuinely different classifier, not a reuse of
+`compute_agreement_accuracy` unchanged -- that function has no `vocab_
+mismatch` category, so a 5th outcome needed its own code, left as a
+separate script rather than modifying Approach 1's.
+
+**Results, full test set, no threshold** (condition A / B, nearly
+identical again):
+
+- 1,383/1,480 slotted sentences used (vs. Approach 1's best case of 221 at
+  threshold 0.4) -- only 97 excluded, and that's the structural `assemble_
+  in_order` token-count bug from cont. 2, not a vocabulary judgment call.
+- Slot outcomes (A): `correct` 317, `missed_slot` 387, `unalignable` 701,
+  `spurious_rewrite` 67, `wrong_rewrite` 27, `vocab_mismatch` 146.
+- **Accuracy excluding vocab_mismatch and unalignable**: 0.397, 95% CI
+  [0.364, 0.432], n=798 scored slots -- noticeably LOWER than every
+  Approach 1 threshold above, and far more precise (much larger n, tight
+  CI). `unalignable` (701, 47% of all slots) is itself the main
+  remaining gap -- most come from word-order/count differences the
+  alignment can't resolve to a clean 1:1 slot correspondence, excluded
+  rather than guessed, same discipline as everything else here.
+- **Descriptive, not used to score anything**: of 4,112 non-slot positions
+  that DID get a clean aligned counterpart, 58.2% differ from the gold
+  token at all -- i.e. most of the raw word-level disagreement between our
+  output and the real reference is just vocabulary choice, exactly the
+  thing this approach was built to stop conflating with agreement error.
+- **Stability** (accuracy by number of judgeable slots, vocab_mismatch
+  excluded from the count): 1 slot -> 0.395 (n=659), 2 slots -> 0.408
+  (n=65), 3 slots -> 0.444 (n=3, too thin). Flat within noise, same
+  conclusion as every stability check so far this session.
+- **Sensitivity check on the `>=3`-char stem-overlap bar** (condition A):
+  at `>=2` chars, `wrong_rewrite`=38/`vocab_mismatch`=135, accuracy 0.392;
+  at `>=4` chars, `wrong_rewrite`=1/`vocab_mismatch`=172, accuracy 0.411.
+  **The headline accuracy is stable across this choice (0.39-0.41); the
+  wrong_rewrite-vs-vocab_mismatch split is NOT** (38 -> 27 -> 1) -- don't
+  lean on the exact wrong_rewrite count, the correct/judgeable ratio is
+  the robust number here.
+
+**Approach 1 vs. Approach 2, not resolved, by design (user's own framing)**:
+Approach 1 trusts whole-sentence similarity as a proxy for "this specific
+slot comparison is meaningful," uses very little data (8-221 sentences),
+and its accuracy numbers (55-75%) may be inflated by selecting for already-
+closer sentences. Approach 2 trusts a word-level alignment plus a stem-
+overlap heuristic instead, uses nearly all the data (1,383 sentences, 798
+scored slots), and reports a lower, tighter number (39.7% [36,43]) that
+still depends on one chosen parameter (the stem-overlap bar) shown to be
+robust on the headline number but not on the internal wrong_rewrite/vocab_
+mismatch split. Neither is native-speaker gold; both are silver, for
+different reasons. Left open per direct instruction.
+
+Not fixed, per direct instruction: the `za`->`ra` associative gap and the
+token-expansion bug remain as-is -- this and cont. 2/3 are about measuring
+the pipeline, not patching it.
+
+Files: `Code_Experiments/dav_swa_silver_agreement_metrics.py` (subject_sm
+fix + threshold sweep extended to 0.4-0.9), `Code_Experiments/dav_swa_
+silver_agreement_results.json` (re-run), `Code_Experiments/dav_swa_vocab_
+tolerant_agreement_metrics.py` (new, Approach 2), `Code_Experiments/dav_
+swa_vocab_tolerant_agreement_results.json` (new). No production dictionary
+or pipeline file changed.
+
+## 2026-10-28 cont. 5: external-review feedback, items 3 and 1 -- orthography normalization (retraction of cont. 2-4's exact numbers) and a true naive-dictionary baseline (concord contribution)
+
+User relayed feedback from an external review of this session's own work,
+with 6 concrete fixes, explicitly "each is one change, per rule 9." Taken
+in the given order; items 3 and 1 first (cheapest, and item 3 had to
+happen "before any comparison" per the review itself).
+
+**Item 3, orthography normalization -- RETRACTS cont. 2-4's exact numbers,
+not silently overwritten.** Confirmed directly (not assumed): the apostrophe
+variation is a word-initial "w" + apostrophe + vowel pattern that varies
+freely in this data (w'undu/wundu, w'alimu/walimu, w'omi/womi); "ng'"
+(e.g. "ng'ombe") appeared WITH the apostrophe in every attestation checked
+and was left alone -- a real phonemic digraph, not spelling noise. New
+shared module `dav_swa_eval_common.py` (`normalize_ortho`: strips all
+apostrophes, COMPARISON ONLY, never applied to displayed/stored text) now
+underlies every dav_swa_* comparison. Stated risk: this can only ever
+INFLATE apparent matches, never deflate them -- a known direction of
+error, not a silent one.
+
+Re-ran everything affected:
+- Mining validity (cont. 1): 24/50 -> **27/50 exact match (54%, 95% CI
+  [40%,67%])**, mismatches 26 -> 23.
+- Condition A/B exact-match (cont. 1): 0.77% -> **0.88%** (both).
+  chrF unchanged (char-level, apostrophes move it negligibly; not
+  re-normalized there, deliberately -- see module docstring).
+- Approach 1, full threshold sweep (cont. 4) -- **larger n at every
+  threshold, and the earlier numbers are superseded**:
+
+  | threshold | n sentences | accuracy | 95% CI |
+  |---|---|---|---|
+  | >=0.4 | 270 (was 221) | 53.3% | [47.7,58.9]% |
+  | >=0.5 | 182 (was 142) | 58.8% | [51.9,65.4]% |
+  | >=0.6 | 98 (was 74) | 60.2% | [50.5,69.1]% |
+  | >=0.7 | 40 (was 26) | 65.1% | [50.2,77.6]% |
+  | >=0.8 | 18 (was 13) | 63.2% | [41.0,80.9]% |
+  | >=0.9 | 10 (was 8) | 70.0% | [39.7,89.2]% |
+
+  Reads closer to a real monotonic trend now than cont. 4's noisier
+  version did, but every CI still overlaps its neighbors -- not claiming
+  more than that.
+- Approach 2 (cont. 4): accuracy excluding vocab_mismatch **39.7% -> 42.4%,
+  95% CI [39.1%,45.8%], n=823** (was n=798); `wrong_rewrite` dropped
+  27->13 (several were pure apostrophe artifacts, now correctly `correct`);
+  `vocab_mismatch` roughly unchanged (146->140, these are genuinely
+  different words, not spelling).
+
+**Item 1, a TRUE naive-dictionary baseline + concord contribution.**
+Checked directly before reusing it: `assemble_in_order(d, None, noun_
+kitaita)` (used for cont. 1-4's "no agreement resolved" fallback path) is
+NOT pure dictionary substitution -- `apply_ote_concord`/`apply_
+associative_concord`/`apply_demonstrative_concord` all run UNCONDITIONALLY
+inside `decompose_sentence()` itself, independent of whether subject/
+adjective agreement (`translate()`) ever runs. Reusing it would have
+silently kept most of one concord mechanism while claiming "no concord."
+Built a real one instead (`dav_swa_concord_contribution.py`): `decompose_
+sentence()` for structure only, every recognized noun (subject/object/
+secondary) substituted via `lookup_noun_kitaita` (same lookup production
+uses), every other token -- verb, adjective, every concord particle --
+kept as untouched Swahili. Scored on the full test split, both ways:
+
+| | chrF | Approach-2 accuracy (excl. vocab_mismatch) |
+|---|---|---|
+| C: no dictionary (null) | 23.21 | -- (no comparable run) |
+| D: dictionary-only (naive) | **28.12** [27.71,28.52] | **21.4%** (n=1,027) |
+| A: full pipeline | 30.75 [30.31,31.20] | 42.4% [39.1,45.8]% (n=823) |
+
+**Concord contribution = A - D**: +2.63 chrF, +21.0 percentage points of
+slot accuracy. **Dictionary contribution alone = D - C**: +4.91 chrF.
+Honest reading: of the full pipeline's +7.54 chrF lift over the null,
+~65% (4.91 pts) comes from VOCABULARY substitution alone and ~35%
+(2.63 pts) from concord rewriting specifically -- vocabulary is doing
+most of the aggregate-chrF work. But at the SLOT level, where concord
+specifically operates, the effect is much larger in relative terms
+(21.4%->42.4%, roughly doubling) -- chrF dilutes a few-character fix
+across a whole sentence, slot accuracy doesn't. Both readings are real;
+neither alone is "the" answer to whether concord rewriting matters.
+
+Not fixed, per standing instruction: pipeline itself untouched.
+
+Files: `Code_Experiments/dav_swa_eval_common.py` (new, shared tokenizer/
+normalizer), `Code_Experiments/dav_swa_corpus_eval.py` (orthography fix),
+`Code_Experiments/dav_swa_silver_agreement_metrics.py` (orthography fix),
+`Code_Experiments/dav_swa_vocab_tolerant_agreement_metrics.py`
+(orthography fix), `Code_Experiments/dav_swa_concord_contribution.py`
+(new), `Code_Experiments/dav_swa_concord_contribution_results.json` (new),
+re-run result JSONs for the corpus-eval/silver-agreement/vocab-tolerant
+scripts. Remaining review items (source-to-reference eflomal alignment,
+excluded/unalignable breakdown by slot type x length, 50-case hand audit,
+fine-tuned NLLB baseline) continue in the next entries.
+
+## 2026-10-28 cont. 6: external-review feedback, items 4 and 5 -- "Approach 3", source-to-reference alignment via a trained eflomal word aligner
+
+Item 4: "Align source to reference, not output to reference. Train
+eflomal or fast_align on the 21k training pairs. Map each Swahili slot
+position to its gold Kitaita word... makes the scoring independent of
+what the pipeline produced." `fast_align` has no pip package (would need
+a from-source C++ build); `eflomal` installed cleanly via pip and is what
+was used. Trained on the tokenized TRAIN+TEST Swahili/Kitaita pairs in one
+corpus (standard practice for a word aligner used purely as a measurement
+tool -- it never sees or uses this project's own pipeline output, so this
+is not a leakage concern for evaluating that pipeline). Viterbi, source
+(Swahili)->target (Kitaita) direction. `dav_swa_source_aligned_agreement_
+metrics.py` reuses Approach 2's `classify_slot()` UNCHANGED -- only the
+source of `aligned_gold` changes (eflomal's alignment instead of difflib
+against our own output).
+
+**Result**: every one of the 1,480 slotted test sentences is now usable
+(no `token_count_mismatch`/`output_tokens_ne_d_tokens` exclusion category
+at all -- those were specifically about OUR output, which this approach
+never aligns against). `unalignable` dropped from 41.5% of all slots
+(Approach 2, 682/1,645) to **26.8%** (474/1,769) -- "cut substantially," as
+predicted, though not eliminated (a source token eflomal's own alignment
+drops entirely -- effectively NULL-aligned -- is still excluded, not
+guessed). **Accuracy excluding vocab_mismatch and unalignable: 33.1%, 95%
+CI [30.3%, 36.0%], n=1,039 scored slots** (A and B conditions identical
+here -- checked directly that tables_a/tables_b really do differ for a
+known affected sentence; the 22 mined nouns just never happen to coincide
+with a concord slot's own position or its target's class resolution, so
+this specific metric doesn't move between them). Lower than Approach 2's
+42.4% despite covering far more data -- same direction as every other
+"broaden coverage -> lower, more representative number" pattern this
+session has found; Approach 2's narrower alignment criteria were
+apparently also selecting for easier cases.
+
+Item 5: missingness broken out by slot type and by sentence length
+(tokens), condition A:
+
+| slot type | total slots | unalignable | rate |
+|---|---|---|---|
+| associative | 1,146 | 334 | 29.1% |
+| demonstrative | 497 | 139 | 28.0% |
+| ote | 126 | 1 | **0.8%** |
+
+| sentence length | total slots | unalignable | rate |
+|---|---|---|---|
+| 1-4 tokens | 343 | 53 | 15.5% |
+| 5-8 | 1,109 | 307 | 27.7% |
+| 9-12 | 263 | 92 | 35.0% |
+| 13+ | 54 | 22 | **40.7%** |
+
+Two clean, genuinely informative patterns, not just a missingness count:
+(1) "ote" ("all/whole") concord is almost always alignable (rare,
+distinctive word -- statistical aligners handle it well); `associative`/
+`demonstrative` (common, short, flexible function words -- "ya"/"wa",
+"huyu"/"yule") are much harder for the aligner specifically, independent
+of this project's own pipeline. (2) unalignability rises MONOTONICALLY
+with sentence length (15.5% -> 40.7%) -- longer sentences give the
+alignment model more ambiguity to lose track in, exactly what word-
+alignment literature would predict, not a project-specific artifact.
+
+Not fixed, per standing instruction: pipeline itself untouched; `eflomal`
+added to the environment for this measurement task only (not a pipeline
+dependency).
+
+Files: `Code_Experiments/dav_swa_source_aligned_agreement_metrics.py`
+(new), `Code_Experiments/dav_swa_source_aligned_agreement_results.json`
+(new). Remaining review items: 50-case hand audit of missed_slot
+(next entry), fine-tuned NLLB baseline (compute feasibility needs a
+decision from the user -- see next message).
+
+## 2026-10-28 cont. 7: external-review feedback, item 2 -- hand audit of 50 random missed_slot cases, and a bug the audit itself caught
+
+**Bug found mid-audit, fixed before finishing it**: the FIRST audit sample
+showed case "bare='wa' aligned_gold=\"w'a\"" classified `missed_slot` --
+these are the SAME word except for an apostrophe. Checked why: Approach 3
+(`dav_swa_source_aligned_agreement_metrics.py`) imports the shared,
+UN-normalized `gtok` and never applied `normalize_ortho` to its own gold-
+token list; `classify_slot()` normalized `bare_swahili`/`predicted_form`
+but never `aligned_gold` either -- cont. 6's orthography fix only reached
+Approach 2 by accident (that script pre-normalizes its OWN token lists
+before calling `classify_slot`), not Approach 3. Fixed at the shared
+choke point instead of patching every caller: `classify_slot()` now
+normalizes `aligned_gold` itself (idempotent -- re-running Approach 2
+confirmed byte-identical numbers, 0.4240583232077764 both times). Re-ran
+Approach 3: accuracy excluding vocab_mismatch **33.1% -> 36.4%, 95% CI
+[33.6%, 39.4%], n=1,051** (was n=1,039) -- this is now the authoritative
+Approach 3 number, superseding cont. 6's.
+
+**The audit itself** (50 of the 563 corrected `missed_slot` cases,
+`Code_Experiments/dav_swa_missed_slot_audit_sample.json`, fixed seed
+20261028), read from the Swahili side plus the project's own known
+concord tables, classified into the user's 3 categories:
+
+| label | n | % |
+|---|---|---|
+| agreement_error (a real miss) | 42 | 84% |
+| vocabulary_or_paraphrase | 3 | 6% |
+| construction_difference | 5 | 10% |
+
+**84% are real agreement errors -- this suggests 36.4%/42.4% are roughly
+right, if anything slightly UNDERSTATED, not badly understated.** Recurring,
+NAMED patterns found (not just "it's broken"):
+- `-ote` family (wote/yote/zote/kote/vyote) systematically missing class-
+  specific Kitaita forms (wose/ghose/rose/kose/vose) -- the mechanism
+  exists (per cont. 1's worked examples) but doesn't cover every class.
+- Associative `ya`/`za`/`wa`/`la` missing forms for several classes
+  (gha/ra/va/ghwa/cha/ye) -- `za`->`ra` is the SAME gap this whole
+  investigation's very first worked example found (this session's earlier
+  turn), now confirmed recurring at scale, not a one-off.
+- Demonstrative triggers `huyo`/`yule`/`wale` appear NEVER recognized as
+  demonstrative-concord triggers at all (every occurrence missed,
+  regardless of what the correct target would be) -- a coverage gap,
+  distinct from `huu`/`hiyo`/`hii`/`hivi`/`hivyo`, which ARE recognized as
+  triggers but lack some class-specific target forms (e.g. "huu"->"ughu"
+  is ALREADY in `KITAITA_DEM_PROXIMAL_VERIFIED`, yet still missed for
+  several nouns -- a class-resolution bug, not a missing-table-entry one).
+- `wote` itself resolves to at least 3 different gold forms depending on
+  what it modifies (w'ose/wose/chose) across the sample -- Swahili's
+  surface-invariant "wote" needs real class-sensitivity Kitaita already
+  has and the current mechanism doesn't fully use.
+
+**The 8 non-agreement-error cases, read plainly**: 2 are genuine mis-
+parses, not paraphrase -- "Una haya" (idiom, "haya"=shyness, a noun) and
+"Walisema Hawa" ("Hawa" almost certainly the proper name Eve) both got
+flagged as demonstrative slots by homograph confusion with the pronoun
+"hawa"/determiner "haya". The other 6 are the gold translator choosing a
+different syntactic strategy entirely (e.g. the general preposition "kwa"
+in place of class concord, 2 cases also seen in cont. 4's original
+examples; repeating a noun instead of an anaphoric demonstrative; a
+heavily compressed paraphrase) -- not something any concord TABLE fix
+would address.
+
+**Correction estimate**: extrapolating the 16% non-agreement-error rate
+to the full 559 `missed_slot` count (condition A) suggests roughly ~89
+of them are not real agreement targets at all. Removing them from both
+the numerator-excluded and denominator (rather than counting them as
+misses): accuracy rises from 36.4% to roughly **~40%** -- closer to
+Approach 2's 42.4% than the raw Approach 3 number suggested, consistent
+with this being a genuine measurement artifact Approach 3's broader
+coverage picks up MORE of, not evidence the two approaches disagree about
+the underlying pipeline. Not re-scored exactly (would need the same
+3-way read applied to all 559, not just the sampled 50) -- stated as an
+estimate, not a new authoritative number.
+
+Not fixed, per standing instruction: none of the named concord gaps above
+were patched; this stays a measurement/audit entry.
+
+Files: `Code_Experiments/dav_swa_vocab_tolerant_agreement_metrics.py`
+(`classify_slot` normalization fix), `Code_Experiments/dav_swa_source_
+aligned_agreement_results.json` (re-run), `Code_Experiments/dav_swa_
+missed_slot_audit_sample.json` (new -- the 50 classified cases, for
+anyone who wants to check the calls directly). Remaining review item:
+fine-tuned NLLB baseline -- a real compute-feasibility question for the
+user, see next message.
+
+## 2026-10-28 cont. 8: external-review feedback, item 6 -- deferred, blocked on compute
+
+Checked directly before attempting anything: no GPU in this environment
+(`torch.cuda.is_available()` is False, no nvidia driver present).
+Benchmarked one real training step on `facebook/nllb-200-distilled-600M`
+(smaller than this project's usual 1.3B) -- 8.5s/step at batch size 4,
+CPU only. 21,329 train pairs -> ~5,300 steps/epoch -> **~12.6 hours of
+wall-clock CPU time per epoch**, for the smaller model; the project's
+usual 1.3B would be slower still. No existing NLLB/Bible fine-tuning code
+was found anywhere in this repo (searched broadly for `Trainer`/
+`TrainingArguments`/"fine-tun" across every `.py` file) to extend --
+the external review's premise that this project "already has" it does
+not hold here, so this would be new code regardless of compute.
+
+Given the choice between (a) a real ~12+ hour background run, (b) a
+heavily-caveated short diagnostic that likely wouldn't actually answer
+"does fine-tuning beat 30.75 chrF" (an undertrained model's score isn't
+informative about a properly-trained one's), or (c) deferring -- **the
+user chose to defer rather than spend hours on a run of uncertain value.**
+This remains open: a real answer needs either GPU access (the HF Space's
+hardware, if it has any -- not confirmed either way -- or elsewhere) or
+an explicit decision to spend the CPU-only budget on it later.
+
+Not attempted. This closes out the external review's 6-item list for this
+session: items 1 (naive-dictionary/concord-contribution), 3 (orthography),
+4 (eflomal source-alignment), 5 (missingness breakdown), and 2 (hand
+audit) are done (cont. 5-7 above); item 6 is explicitly deferred, not
+silently dropped.

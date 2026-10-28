@@ -8,7 +8,7 @@
     "random_seed": 20261028,
     "min_freq": 3,
     "min_dice": 0.25,
-    "git_sha": "098535183d7a3713e342a9f9e3b61a9a29558880",
+    "git_sha": "8f8ab25b08ca98ecbfb7a9d64e1c6f0234503f8d",
     "train_parquet_sha256_16": "dd779b2e8713fcf8",
     "test_parquet_sha256_16": "84a57bc97d1d9f55"
   },
@@ -43,12 +43,12 @@
     "validity_vs_verified_nouns": {
       "n_overlap": 50,
       "exact_match": {
-        "rate": 0.48,
+        "rate": 0.54,
         "ci95": [
-          0.3479691239550571,
-          0.6148848774119157
+          0.40398634328388083,
+          0.6703056539821737
         ],
-        "k": 24,
+        "k": 27,
         "n": 50,
         "low_n": false
       },
@@ -149,24 +149,9 @@
           "verified": "maghome"
         },
         {
-          "swahili": "sababu",
-          "mined": "w'undu",
-          "verified": "wundu"
-        },
-        {
           "swahili": "waandishi",
           "mined": "w'iandikagha",
           "verified": "waandishi"
-        },
-        {
-          "swahili": "walimu",
-          "mined": "w'alimu",
-          "verified": "walimu"
-        },
-        {
-          "swahili": "wanaume",
-          "mined": "w'omi",
-          "verified": "womi"
         },
         {
           "swahili": "mvulana",
@@ -189,12 +174,12 @@
   "conditions": {
     "A_current_production": {
       "exact_match": {
-        "rate": 0.007687980498781174,
+        "rate": 0.00881305081567598,
         "ci95": [
-          0.005672327806280567,
-          0.010412391665251059
+          0.0066342359476863014,
+          0.011699004446782216
         ],
-        "k": 41,
+        "k": 47,
         "n": 5333,
         "low_n": false
       },
@@ -213,20 +198,20 @@
     },
     "B_current_plus_train_mined": {
       "exact_match": {
-        "rate": 0.007687980498781174,
+        "rate": 0.00881305081567598,
         "ci95": [
-          0.005672327806280567,
-          0.010412391665251059
+          0.0066342359476863014,
+          0.011699004446782216
         ],
-        "k": 41,
+        "k": 47,
         "n": 5333,
         "low_n": false
       },
       "chrf": {
-        "mean": 30.837812226875375,
+        "mean": 30.836808770135942,
         "ci95": [
-          30.393541062322516,
-          31.282083391428234
+          30.392569632782713,
+          31.28104790748917
         ],
         "n": 5333,
         "low_n": false
@@ -299,10 +284,10 @@
         "low_n": false
       },
       "chrf": {
-        "mean": 38.31834168655524,
+        "mean": 38.217371218792415,
         "ci95": [
-          33.608299327866796,
-          43.02838404524369
+          33.52768237651847,
+          42.90706006106636
         ],
         "n": 53,
         "low_n": false

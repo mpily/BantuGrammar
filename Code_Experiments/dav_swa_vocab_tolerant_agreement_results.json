@@ -1,0 +1,68 @@
+{
+  "A_current_production": {
+    "sentence_counts": {
+      "no_slots": 3853,
+      "used": 1383,
+      "output_tokens_ne_d_tokens": 97
+    },
+    "slot_counts": {
+      "vocab_mismatch": 140,
+      "correct": 349,
+      "missed_slot": 380,
+      "unalignable": 682,
+      "spurious_rewrite": 81,
+      "wrong_rewrite": 13
+    },
+    "scorable_slots_excl_vocab_mismatch": 823,
+    "accuracy_excl_vocab_mismatch": 0.4240583232077764,
+    "non_slot_positions_compared": 4216,
+    "non_slot_vocab_mismatch_rate": 0.5424573055028463,
+    "stability_by_n_judgeable_slots": {
+      "1": {
+        "n_sentences": 684,
+        "mean_accuracy": 0.42251461988304095
+      },
+      "2": {
+        "n_sentences": 65,
+        "mean_accuracy": 0.4307692307692308
+      },
+      "3": {
+        "n_sentences": 3,
+        "mean_accuracy": 0.4444444444444444
+      }
+    }
+  },
+  "B_current_plus_train_mined": {
+    "sentence_counts": {
+      "no_slots": 3853,
+      "used": 1383,
+      "output_tokens_ne_d_tokens": 97
+    },
+    "slot_counts": {
+      "vocab_mismatch": 140,
+      "correct": 349,
+      "missed_slot": 381,
+      "unalignable": 681,
+      "spurious_rewrite": 81,
+      "wrong_rewrite": 13
+    },
+    "scorable_slots_excl_vocab_mismatch": 824,
+    "accuracy_excl_vocab_mismatch": 0.42354368932038833,
+    "non_slot_positions_compared": 4216,
+    "non_slot_vocab_mismatch_rate": 0.5412713472485768,
+    "stability_by_n_judgeable_slots": {
+      "1": {
+        "n_sentences": 685,
+        "mean_accuracy": 0.4218978102189781
+      },
+      "2": {
+        "n_sentences": 65,
+        "mean_accuracy": 0.4307692307692308
+      },
+      "3": {
+        "n_sentences": 3,
+        "mean_accuracy": 0.4444444444444444
+      }
+    }
+  }
+}
