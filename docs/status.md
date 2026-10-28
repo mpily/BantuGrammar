@@ -27618,3 +27618,144 @@ session: items 1 (naive-dictionary/concord-contribution), 3 (orthography),
 4 (eflomal source-alignment), 5 (missingness breakdown), and 2 (hand
 audit) are done (cont. 5-7 above); item 6 is explicitly deferred, not
 silently dropped.
+
+## 2026-10-28 cont. 9: fine-tuned NLLB baseline (review item 6) -- script built and smoke-tested; train/test overlap found in the released dav_swa split
+
+User asked for a fine-tuned ("transfer-trained") NLLB Swahili->Kidaw'ida
+model as a baseline, using both corpora (dav_swa + the scraped Bible).
+Built, not yet run at scale (compute, below).
+
+**Files**: `Code_Experiments/nllb_finetune_dav.py` (new: adds a `dav_Latn`
+token initialised from `swh_Latn`; validation carved from train with a fixed
+seed; best-val-chrF checkpoint decoded once on test; checkpoint/resume for
+training and test decoding; every hyperparameter required on the CLI and
+logged; scoring reuses `api.stats.chrf/mean_ci/rate_ci` + `normalize_kitaita`
++ `tokens_match` exactly as cont. 1/5). `Code_Experiments/bible_to_pairs.py`
+(new: `bible_collect.py align` output -> {id, swa, dav} JSONL). Arms, one
+change each: (1) dav_swa train only; (2) + Bible (NEN Swahili version).
+
+**Real data problem 1 -- the released dav_swa split overlaps.** Checked
+directly: 1,818/5,333 test sentences (34%) have a Swahili side that also
+occurs in train; 1,518 (28.5%) are exact swa+dav duplicates of a train pair.
+A fine-tuned model would be rewarded for memorisation on those. The script
+now reports test on the full split (comparable with cont. 1) AND on the
+"novel" subset (test Swahili never seen in train, ~66% of test) -- the novel
+subset is the headline. Also dropped: 86 train rows whose text is the
+literal string "nan"; train rows duplicating a validation sentence (else
+checkpoint selection rewards memorisation). **Consequence for earlier
+entries, not yet acted on**: cont. 1-7's pipeline numbers (A/B/D) were
+scored on the full overlapping test split, with vocabulary mined from train
+(cont. 1) -- they need re-scoring on the novel subset before any comparison
+with the fine-tuned model.
+
+**Real data problem 2 -- the Bible scrape is not clean.** Every verse on both
+sides starts with its verse number (stripped), and footnotes/cross-references
+leaked into the text as "# ..." despite `bible_collect.py`'s docstring
+(TAITA 3,332/31,103 verses; Swahili NEN 1,205, SUV 17,836, BHN ~1,628). In
+NEN they sit mid-sentence with no end marker, so pairs with "#" on either
+side are dropped, not repaired: 31,103 -> 27,003 pairs (NEN chosen as the
+cleanest Swahili version). 3 more dropped for overlapping val/test. Fixing
+the scraper's note filter and re-parsing the cached raw HTML would recover
+~4k verses. Bible folder excluded from git locally (rights-reserved text).
+
+**Smoke tests only (NOT results)**: 600M, 3 and 20 steps, n_test 8/40 --
+pipeline runs end to end for both arms; numbers meaningless.
+
+**Compute**: no usable GPU here (integrated AMD Radeon "Barcelo", unsupported
+by ROCm, shares the 14 GB system RAM; installed torch is the CUDA build).
+Measured 12.7 s per batch of 4 on CPU for 600M -> ~19 h/epoch (arm 1), ~42
+h/epoch (arm 2). 1.3B cannot be fine-tuned in 14 GB RAM. Next: run on a
+free cloud GPU (Kaggle/Colab) or accept a multi-day CPU run -- user's call.
+
+Addendum (same session): user chose Colab free GPU. Script gained
+`--delete-resume-state-when-done` (frees ~7.4 GB of Drive per finished
+arm), refuses to rerun an arm whose results.json exists, and logs its own
+SHA256 (`script_sha256_16`) since the Colab bundle is not a git checkout.
+Bundle + notebook (outside the repo): `~/languagemodels/kitaita_colab_bundle.zip`,
+`~/languagemodels/kitaita_colab/kitaita_finetune_colab.ipynb`. Shared
+hyperparameters for both arms: 600M, seed 20261028, val 500, 3 epochs,
+lr 1e-4, wd 0.01, warmup 500, batch 16, max-len 128, beam 4, eval every
+500 steps. Not yet run.
+
+Addendum 2: arm 2 ran out of GPU memory on the Colab T4 at step 60/8,895
+(Bible verses are much longer than dav_swa sentences; 1.62 GiB allocation
+failed in backward at batch 16). Fixed with `--gradient-checkpointing`
+(memory only, same math; ~30% slower) rather than a smaller batch, which
+would have made arm 2 differ from arm 1 in a second variable (rule 9).
+`generate()` now passes `use_cache=True` explicitly, since checkpointing
+turns the cache off. Smoke-tested locally on CPU (2 steps); notebook
+also sets PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True. Script sha256
+prefix after this change: e9756dec3d30e347 (arm-2 crash ran 0dcbcde120b09c4c).
+Arm-2 facts from the crashed run's logged config: n_train 47,431, val 500
+(310 train rows dropped as val duplicates), test 5,307 after cleaning, of
+which 3,511 novel; ~1.4 s/step on T4 before checkpointing.
+
+## 2026-10-28 cont. 10: arm 1 result -- fine-tuned NLLB-600M on dav_swa train only: test_novel chrF 59.39 vs the rule-based pipeline's 30.75 (full test)
+
+Ran on Colab T4 (user), script sha256 prefix 0dcbcde120b09c4c (pre-
+checkpointing version; arm 1 did not need it), bundle base git f8f5858.
+Config exactly as cont. 9's addendum: 600M, seed 20261028, 3 epochs = 3,831
+steps at batch 16, lr 1e-4, wd 0.01, warmup 500, beam 4, val 500 (carved
+from train; 310 train rows dropped as val duplicates), n_train 20,431,
+~0.68 s/step. Best validation checkpoint = the LAST step (val chrF 42.6 ->
+53.6 -> 57.0 -> 58.0 -> 60.2 -> 60.4 -> 60.9 -> 61.2 at steps 500..3,831):
+still rising slowly, so 3 epochs is probably slightly undertrained; any
+extra-epoch run is a separate experiment and must apply to both arms.
+
+| Test set | n | chrF mean [95% CI] | exact match k/n [Wilson 95%] |
+|---|---|---|---|
+| full test (after "nan"/empty cleaning) | 5,307 | 63.02 [62.36, 63.69] | 996/5,307 = 18.8% [17.7, 19.8] |
+| **novel** (Swahili never in train) | 3,511 | **59.39 [58.66, 60.13]** | 390/3,511 = 11.1% [10.1, 12.2] |
+
+For reference (cont. 1/5, full 5,333-row test, NOT yet re-scored on the
+novel subset): pipeline A 30.75 [30.31, 31.20], dictionary-only D 28.12,
+no-dictionary null C 23.21; exact match 0.88%.
+
+**Reading, stated plainly**: on this corpus's own held-out sentences, a
+plain fine-tune of the smallest NLLB on ~20k pairs roughly DOUBLES the
+rule-based pipeline's chrF, and its novel-subset number (which removes the
+memorisation advantage) still beats the pipeline's full-test number by
+~29 chrF with non-overlapping CIs. The full-vs-novel gap (63.0 vs 59.4;
+18.8% vs 11.1% exact) confirms the overlap found in cont. 9 does inflate
+full-test scores, but it is nowhere near enough to explain the difference.
+This directly challenges CLAUDE.md s1's premise that Kitaita data is too
+scarce to train on: 20k pairs is enough for a strong in-domain model.
+
+**What this does NOT show** (not hedging; each is a real open gap):
+1. Pipeline not yet re-scored on the identical 3,511 novel sentences --
+   needed for a like-for-like table. Blocked locally: the scoring scripts
+   import `multi_version_pipeline.py`, which is not in the repo (cont. 9).
+2. chrF is surface overlap with ONE reference in the corpus's own style and
+   domain. The fine-tune learned that style; the pipeline cannot. Concord
+   correctness specifically (the project's actual target) is not measured
+   here -- the slot-level scoring (Approach 3) needs adapting to run on
+   free-form model output (test_predictions.jsonl, saved on the user's Drive).
+3. In-domain only: novel test sentences still come from the same corpus,
+   translators and topics as train. Out-of-domain behaviour and fluency /
+   adequacy need native-speaker judgment (Stage F).
+Arm 2 (+ Bible) re-running on Colab with gradient checkpointing.
+
+## 2026-10-28 cont. 11: arm 1 output inspection (test_predictions.jsonl, downloaded by user to ~/languagemodels/)
+
+File reproduces cont. 10 exactly (full 63.02, 996/5,307; novel 59.39,
+390/3,511). On the 3,511 novel sentences: output identical to the Swahili
+input in 2; mean 4.0% of output words are Swahili words absent from the
+reference (i.e. little untranslated leftover); length ratio out/ref <0.6 in
+20, >1.5 in 60; 1 short output with a degenerate repeated word. chrF
+distribution (0-20/20-40/40-60/60-80/80-100): 112/620/1,097/1,015/667.
+Low-chrF cases inspected are mostly paraphrase vs a loosely translated
+reference, plus some kept Swahili structure (e.g. "si", "matunda").
+
+**Concord spot check on the pipeline's known gaps (cont. 7 audit), novel
+subset, surface-only -- NOT the slot-level metric:**
+- -ote triggers (107 sentences): output never leaves Swahili wote/zote/...;
+  where the reference has an -ose form (105), the output has the SAME -ose
+  form in 86 (82%). Form distribution closely matches the reference's
+  (wose 35/35, ghose 29/27, rose 17/14, vose 8/10). The pipeline missed
+  this family systematically.
+- associative "za" (102): never left as "za" in output; Kitaita
+  associatives produced (e.g. "garama ra ndoe").
+- demonstratives yule/wale/huyo/hao (60): Swahili form left in 1 output
+  (reference also 1); rendered as uja/uo/iro etc.
+Caveat: "same form as reference" is silver -- a mismatch can be a valid
+form for a different noun choice; a match is not speaker-verified.
