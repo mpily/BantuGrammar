@@ -21,7 +21,7 @@ from . import API_VERSION
 from .africastalking import ATClient, Conversations, sms_reply_for_translation
 from .game import GameConfig, GameError, GameManager
 from .schemas import (MACHINE_LABEL, FeedbackRequest, FeedbackResponse, HealthResponse, PlayerWordReview,
-                      PlayerWordsResponse, ProgressResponse, RoomCreated, RoomInfo,
+                      PlayerWordsResponse, ProgressResponse, ReviewQueueResponse, RoomCreated, RoomInfo,
                       TranslateRequest, TranslateResponse, VerifiedPairsResponse)
 from .settings import Settings
 from .store import Store
@@ -262,12 +262,28 @@ def create_app(settings: Settings, store: Store, translator: Translator, at_clie
             words = [w for w in words if w["status"] == status]
         return PlayerWordsResponse(words=words)
 
+    def require_reviewer(key: str | None) -> None:
+        if not key or key not in settings.trusted_reviewer_keys:
+            raise HTTPException(403, "requires a valid X-Reviewer-Key")
+
+    def known_noun_classes() -> list[str]:
+        oracle = getattr(game, "oracle", None)
+        return sorted(getattr(oracle, "concord", {}) or {})
+
+    @app.get("/api/player_words/review_queue", response_model=ReviewQueueResponse)
+    def review_queue(x_reviewer_key: str | None = Header(default=None)):
+        require_reviewer(x_reviewer_key)
+        return ReviewQueueResponse(words=store.review_queue(), noun_classes=known_noun_classes())
+
     @app.post("/api/player_words/review", response_model=PlayerWordsResponse)
     def review_player_word(req: PlayerWordReview, x_reviewer_key: str | None = Header(default=None)):
-        if not x_reviewer_key or x_reviewer_key not in settings.trusted_reviewer_keys:
-            raise HTTPException(403, "requires a valid X-Reviewer-Key")
+        require_reviewer(x_reviewer_key)
+        classes = known_noun_classes()
+        if req.noun_class and classes and req.noun_class not in classes:
+            raise HTTPException(422, f"unknown noun class {req.noun_class!r}; known: {', '.join(classes)}")
         store.add_word_vote({"word": req.word, "room_id": None, "accepted": req.approve, "yes": 0, "no": 0,
-                             "n_eligible": 0, "kind": "reviewer"})
+                             "n_eligible": 0, "kind": "reviewer", "translation": req.translation,
+                             "word_type": req.word_type, "noun_class": req.noun_class})
         if game is not None:
             game.refresh_player_words()
         return PlayerWordsResponse(words=[w for w in store.player_words() if w["word"] == req.word.strip().lower()])
