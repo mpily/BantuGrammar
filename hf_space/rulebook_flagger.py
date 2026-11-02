@@ -73,6 +73,11 @@ def candidate_stems(word: str, max_prefixes: int = 3) -> set[str]:
 def resources():
     data = json.loads(VOCAB_PATH.read_text(encoding="utf-8"))
     vocab = collections.Counter(data["vocab"])
+    # native-speaker-verified words always count as known Kidaw'ida
+    verified = Path(__file__).parent / "kitaita_speaker_verified.json"
+    if verified.exists():
+        for x in json.loads(verified.read_text(encoding="utf-8")).get("sentences", []):
+            vocab.update(norm(t) for t in x["kitaita"].split() if norm(t))
     dav_n = collections.Counter(data["davswa_dav"])
     swa_n = collections.Counter(data["davswa_swa"])
     stems = set()

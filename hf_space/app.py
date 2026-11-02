@@ -94,7 +94,8 @@ CHANGE_LABELS = {"rerank": "agreement: picked another model candidate",
                  "fill": "copied Swahili replaced from the mined lexicon",
                  "unknown": "unknown word replaced by the Swahili source word",
                  "repeat": "repetition removed",
-                 "applicative": "applicative ('do for') added to match the Swahili verb"}
+                 "applicative": "applicative ('do for') added to match the Swahili verb",
+                 "verified": "replaced by a native-speaker-verified translation"}
 
 
 def translate_finetuned(text: str):

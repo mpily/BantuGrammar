@@ -50,3 +50,20 @@ def test_applicative_added_when_the_draft_drops_it():
 def test_applicative_left_alone_without_one_in_the_source_or_for_passives():
     assert correct("Watoto walipigana", ["W'ana w'edelwa"], steps=("applicative",))["changes"] == []
     assert correct("Wamekataliwa", ["W'alegha"], steps=("applicative",))["changes"] == []
+
+
+def test_speaker_verified_sentence_wins():
+    r = correct("Hawa wazee ndio walipigania uhuru wetu.", ["Aw'a w'aghosi niw'o w'ilwidieghe w'uhuru ghodu"])
+    assert r["kitaita"] == "Awa waghosi niwo wiluieghe wuhuru ghodu"
+    assert r["changes"][0][0] == "verified"
+
+
+def test_verified_applicative_perfective_and_id_repair_before_unknown_step():
+    # speaker-verified wi-lu-ie-ghe: lw + applicative + perfective -> lu-ie
+    for draft in ("W'aghosi niw'o w'ilwidieghe w'uhuru", "W'aghosi niw'o w'ilwieghe w'uhuru"):
+        assert correct("Wazee ndio walipigania uhuru", [draft])["kitaita"] == "W'aghosi niw'o w'iluieghe w'uhuru"
+
+
+def test_palatal_root_ere_left_alone():
+    # di-bony-er-e 'do for us' already carries the applicative
+    assert correct("Tutendee mema", ["Dibonyere mecha"], steps=("applicative",))["changes"] == []

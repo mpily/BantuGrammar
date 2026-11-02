@@ -28376,3 +28376,31 @@ nice'), Kidaw'ida stems that may already contain an extension (weser- 'wait'), a
 -e- where the rule says -i- (reference shomea vs rule shomia). On the 500-sentence
 n-best sample it fires on 2 (1 better / 1 worse); all five steps together: 24 changed,
 B-A -0.18 [-0.58, 0.18], 12/12. Clean evaluation = the speaker study.
+
+## 2026-11-02 cont. 10: first native-speaker-verified verb form for the rule book -- wi-lu-ie-ghe 'who fought for'
+
+VERIFIED (native speaker, relayed by the user): "Hawa wazee ndio walipigania uhuru
+wetu" -> "Awa waghosi niwo wiluieghe wuhuru ghodu". Arm 2 had produced w'ilwidieghe
+(-id- unattested); my rule predictions w'iluyieghe / w'ilwirieghe were both WRONG
+(retracted). Analysis: wi- (bare SM in the relative/focus past, cf. attested
+wilindieghe, witesieghe) + lu-ie (lw 'fight' + applicative merged into the
+perfective -ie; w -> u before i; the applicative y of luy-a drops before i) + -ghe.
+Corpus context (exploratory): applicative + perfective keeps -ir-/-er- after palatal
+roots (bony-er-ie: wibonyerie, werembonyerieghe; rum-ir-ie) but merges into plain -ie
+elsewhere (vik-ie, nek-ie), so only lw shows a visible change.
+
+Rule-book changes (hf_space/rulebook_correct.py):
+- New file `hf_space/kitaita_speaker_verified.json` (verified sentences + verified
+  morphology). New first step "verified": an exact source match (normalised, apostrophes
+  ignored) returns the verified sentence and nothing else runs. The flagger counts every
+  verified word as known vocabulary.
+- Applicative step extended to perfective drafts, conservatively: it changes only a
+  speaker-verified applicative-perfective stem (lw -> lu) or a malformed -id- before
+  the perfective (w'ilwidieghe / w'ilwieghe -> w'iluieghe). A first version also rewrote
+  palatal-root -ere/-ire; on the test outputs it fired 4 times, all wrong (di-bony-er-e
+  'do for us' is applicative + subjunctive, spelled like the perfective), so that was
+  removed.
+- Step order fixed: applicative now runs before the unknown-word step. Before, the
+  unknown step replaced w'ilwidieghe with Swahili before the repair could run.
+Plain applicative firings on the test outputs are unchanged (36); perfective firings
+0 there (the verified case is not in the test set). Tests 88 passed / 1 skipped.

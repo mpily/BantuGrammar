@@ -19,12 +19,18 @@ be switched off on its own, so each is evaluated as a separate change.
                one unknown word and exactly one source word that nothing in the
                output accounts for. Otherwise the model's word is kept.
   repeat    -- 3rd+ consecutive copies of a token are dropped.
+  verified  -- if the source is a native-speaker-verified sentence
+               (kitaita_speaker_verified.json), output it exactly; nothing else runs.
   applicative -- the Swahili source has an applicative verb (walipigania 'fought
                for', base pigan) but the draft's verb on that base's Kidaw'ida
                root has none (w'edelwa 'fought'): add it (w'edeluya), using the
                attested applicative root if round 1 lists one, else the corpus rule
                (root-final ny/nj/s/sh/z/ch/j -> -ir-/-er-, otherwise -i-; lw -> luy).
                Fires only when exactly one draft word matches. User report 2026-11-02.
+               Perfective drafts (-ie/-ire/-ere, -ghe) are changed only for a
+               speaker-verified stem (lw -> lu: wi-lu-ie-ghe) or a malformed -id-
+               before the perfective; after a palatal root, -ere/-ire is also
+               applicative + subjunctive (di-bony-er-e), so those are left alone.
 
 Flagged words are never shown as [?] (user decision, 2026-11-02: brackets would
 bias the speakers judging A vs B); the default is the Swahili word.
@@ -42,7 +48,8 @@ from rulebook_flagger import flag, norm
 
 _DATA = Path(__file__).parent / "kitaita_agreement_data.json"
 _ROOTS = Path(__file__).parent / "kitaita_verb_roots.json"
-ALL_STEPS = ("rerank", "fill", "unknown", "repeat", "applicative")
+_VERIFIED = Path(__file__).parent / "kitaita_speaker_verified.json"
+ALL_STEPS = ("verified", "rerank", "fill", "unknown", "repeat", "applicative")
 
 # Applicative shape by Kidaw'ida root (docs/status.md 2026-11-02 cont. 8): after a
 # root-final ny/nj/s/sh/z/ch/j the extension is -ir- (-er- if the root vowel is
@@ -58,6 +65,35 @@ def _agreement():
     return ({f: set(c) for f, c in d["concord_forms"].items()},
             {w: set(v["classes"]) for w, v in d["noun_classes"].items()},
             set(d.get("demonstratives", [])))
+
+
+@lru_cache(maxsize=1)
+def _speaker_verified():
+    try:
+        d = json.loads(_VERIFIED.read_text(encoding="utf-8"))
+    except FileNotFoundError:
+        return {}, {}
+    sentences = {_sentence_key(x["swahili"]): x for x in d.get("sentences", [])}
+    stems = {r: v["stem"] for r, v in d.get("morphology", {}).get("applicative_perfective_stem", {}).items()}
+    return sentences, stems
+
+
+def _sentence_key(text: str) -> str:
+    return " ".join(norm(t) for t in text.split() if norm(t))
+
+
+def applicative_perfective(root: str) -> str:
+    """Root + applicative, in front of the perfective -ie. Speaker-verified stems
+    first (lw -> lu: wi-lu-ie-ghe); after root-final ny/nj/s/sh/z/ch/j the corpus
+    keeps -ir-/-er- (bony-er-ie, rum-ir-ie); elsewhere the applicative -i- merges
+    into -ie, so the root is unchanged (vik-ie, nek-ie)."""
+    stems = _speaker_verified()[1]
+    if root in stems:
+        return stems[root]
+    if root.endswith(_PALATAL):
+        vowels = re.findall(r"[aeiou]", root)
+        return root + ("er" if vowels and vowels[-1] in "eo" else "ir")
+    return root
 
 
 def applicative_stem(root: str) -> str:
@@ -154,6 +190,11 @@ def correct(src: str, nbest: list[str], steps=ALL_STEPS) -> dict:
     a list of what changed."""
     changes = []
     chosen = 0
+    if "verified" in steps:
+        hit = _speaker_verified()[0].get(_sentence_key(src))
+        if hit:
+            return {"kitaita": hit["kitaita"], "draft": nbest[0], "chosen_candidate": 0,
+                    "changes": [("verified", f"native-speaker-verified sentence ({hit['verified']})")]}
     if "rerank" in steps and len(nbest) > 1:
         counts = [len(violations(h)) for h in nbest]
         chosen = min(range(len(nbest)), key=lambda i: (counts[i], i))
@@ -171,17 +212,6 @@ def correct(src: str, nbest: list[str], steps=ALL_STEPS) -> dict:
                     words[i] = _swap(t, e["kitaita"])
                     changes.append(("fill", f"{norm(t)} -> {e['kitaita']}"))
 
-    if "unknown" in steps:
-        unknown = [i for i, (_, c) in enumerate(tokens) if c == "unknown"]
-        if len(unknown) == 1:
-            others = [norm(w) for j, w in enumerate(words) if j != unknown[0]]
-            src_words = [norm(t) for t in src.split() if norm(t)]
-            free = [s for s in dict.fromkeys(src_words) if s not in _covered_source_words(src, others)]
-            if len(free) == 1:
-                i = unknown[0]
-                changes.append(("unknown", f"{norm(words[i])} -> {free[0]} (Swahili)"))
-                words[i] = _swap(words[i], free[0])
-
     if "applicative" in steps:
         for base, attested in swahili_applicatives(src):
             hits = []
@@ -190,16 +220,42 @@ def correct(src: str, nbest: list[str], steps=ALL_STEPS) -> dict:
                 for kr in _verb_roots()[base]:
                     if kr[-1] in "aeiou" and not attested:
                         continue  # the rule covers consonant-final roots only (churi- 'add' already ends in i)
+                    if t in _agreement()[1]:
+                        continue  # a known noun, not a verb
                     # a finite verb: subject/tense prefix + root + final, no applicative yet
                     m = re.fullmatch(rf"([a-z]+){re.escape(kr)}({'|'.join(_FINALS)})", t)
-                    if m and m.group(1) != "ku" and t not in _agreement()[1]:  # skip known nouns
-                        hits.append((i, kr, m.group(2)))
+                    if m and m.group(1) != "ku":
+                        hits.append((i, kr, m.group(2), "plain"))
+                        break
+                    # perfective (-ie/-ire/-ere, optional -ghe), also the malformed -id- seen in drafts
+                    m = re.fullmatch(rf"([a-z]+){re.escape(kr)}(id)?(ie|ire|ere)(ghe)?", t)
+                    # Only verified stems (lw -> lu) or a malformed -id- are changed: after a
+                    # palatal root, -ere/-ire is also applicative + subjunctive (di-bony-er-e
+                    # 'do for us'), so it may already carry the applicative.
+                    if m and (kr in _speaker_verified()[1] or m.group(2)):
+                        hits.append((i, kr, "ie" + (m.group(4) or ""), "perfective"))
                         break
             if len(hits) == 1:
-                i, kr, final = hits[0]
-                stem = attested or applicative_stem(kr)
+                i, kr, final, kind = hits[0]
                 core = re.sub(r"\W+$", "", words[i])
                 trail = words[i][len(core):]
+                if kind == "perfective":
+                    stem = applicative_perfective(kr)
+                    m = re.fullmatch(rf"(.*?){re.escape(kr)}(?:id)?(?:ie|ire|ere)(?:ghe)?", norm(core))
+                    new_norm = m.group(1) + stem + final
+                    if new_norm != norm(core):
+                        # rebuild from the original prefix so its apostrophes survive
+                        k, j = 0, len(m.group(1))
+                        while j > 0:
+                            if core[k] != "'":
+                                j -= 1
+                            k += 1
+                        new = core[:k] + stem + final + trail
+                        changes.append(("applicative", f"{norm(words[i])} -> {norm(new)} (Swahili -{base}- + applicative, "
+                                        "perfective)"))
+                        words[i] = new
+                    continue
+                stem = attested or applicative_stem(kr)
                 tail = kr + final
                 if norm(core).endswith(tail) and core.lower().replace("'", "").endswith(tail):
                     # edit only the end of the original token, so apostrophes in the prefix survive
@@ -213,6 +269,21 @@ def correct(src: str, nbest: list[str], steps=ALL_STEPS) -> dict:
                     changes.append(("applicative", f"{norm(words[i])} -> {norm(new)} (Swahili -{base}- + applicative"
                                     + (", attested root)" if attested else ", rule)")))
                     words[i] = new
+
+    if "unknown" in steps:
+        # re-flag the current words: a verb the applicative step repaired is no longer unknown
+        reflag = flag(src, " ".join(words))
+        if len(reflag) == len(words):
+            tokens = reflag
+        unknown = [i for i, (_, c) in enumerate(tokens) if c == "unknown"]
+        if len(unknown) == 1:
+            others = [norm(w) for j, w in enumerate(words) if j != unknown[0]]
+            src_words = [norm(t) for t in src.split() if norm(t)]
+            free = [s for s in dict.fromkeys(src_words) if s not in _covered_source_words(src, others)]
+            if len(free) == 1:
+                i = unknown[0]
+                changes.append(("unknown", f"{norm(words[i])} -> {free[0]} (Swahili)"))
+                words[i] = _swap(words[i], free[0])
 
     if "repeat" in steps:
         kept = [w for w, (_, c) in zip(words, tokens) if c != "repeat"]

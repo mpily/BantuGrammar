@@ -1,0 +1,19 @@
+{
+ "_meta": {
+  "description": "Native-speaker-verified material for the version-B rule book (rulebook_correct.py) and flagger. Takes priority over every corpus-mined rule.",
+  "status": "verified by a native Kidaw'ida speaker, relayed by the project owner"
+ },
+ "sentences": [
+  {
+   "swahili": "Hawa wazee ndio walipigania uhuru wetu",
+   "kitaita": "Awa waghosi niwo wiluieghe wuhuru ghodu",
+   "verified": "2026-11-02",
+   "notes": "wi-lu-ie-ghe 'who fought for': relative past (bare wi-), lw 'fight' + applicative merged into the perfective -ie (w -> u before i), -ghe. Arm 2 had produced w'ilwidieghe."
+  }
+ ],
+ "morphology": {
+  "applicative_perfective_stem": {
+   "lw": {"stem": "lu", "verified": "2026-11-02", "example": "wiluieghe"}
+  }
+ }
+}
