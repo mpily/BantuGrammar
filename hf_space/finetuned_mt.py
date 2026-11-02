@@ -56,16 +56,21 @@ def status() -> str:
 
 
 def translate(text: str) -> dict:
-    """{'kitaita': str|None, 'flags': [(token, category)], 'status': str}"""
+    """{'kitaita': A's top-1, 'flags': [(token, category)] on it,
+        'version_b': rule-book correction of A (rulebook_correct.correct), 'status'}"""
     if _state["model"] is None:
-        return {"kitaita": None, "flags": [], "status": status()}
+        return {"kitaita": None, "flags": [], "version_b": None, "status": status()}
     import torch
+    from rulebook_correct import correct
     from rulebook_flagger import flag
     tok, model = _state["tok"], _state["model"]
     with _lock, torch.no_grad():
         enc = tok([text], return_tensors="pt", truncation=True, max_length=256)
         gen = model.generate(**enc, forced_bos_token_id=tok.convert_tokens_to_ids("dav_Latn"),
                              num_beams=int(_CFG.get("num_beams", 4)),
+                             num_return_sequences=int(_CFG.get("num_beams", 4)),
                              max_new_tokens=int(_CFG.get("max_new_tokens", 128)))
-    hyp = tok.batch_decode(gen, skip_special_tokens=True)[0]
-    return {"kitaita": hyp, "flags": [(t, c) for t, c in flag(text, hyp) if c != "ok"], "status": "ready"}
+    nbest = tok.batch_decode(gen, skip_special_tokens=True)
+    hyp = nbest[0]
+    return {"kitaita": hyp, "flags": [(t, c) for t, c in flag(text, hyp) if c != "ok"],
+            "version_b": correct(text, nbest), "status": "ready"}

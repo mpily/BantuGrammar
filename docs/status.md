@@ -28258,3 +28258,50 @@ the evaluation, to avoid a rabbit hole.)
   Africa's Talking endpoints (503 because PHONE_HASH_SALT / AT secrets are not
   configured; expected, documented 2026-10-26, not a regression). Translate p50
   631 ms / p95 705 ms (n=3, uncached).
+
+## 2026-11-02 cont. 6: version B (rule book on arm 2's draft) -- built; no measurable effect in domain, fires rarely
+
+`hf_space/rulebook_correct.py`, four switchable steps on arm 2's beam-4 n-best:
+rerank (fewest noun-phrase agreement violations; ties keep model order), fill
+(copied Swahili -> mined lexicon form, else stays Swahili), unknown (word not in
+training vocab -> the Swahili source word, only if exactly one unknown word and
+exactly one unaccounted-for source word), repeat (drop 3rd+ consecutive copies).
+No [?] ever (user decision). Agreement data `hf_space/kitaita_agreement_data.json`
+(Code_Experiments/rulebook/build_agreement_data.py): 257 concord forms from the
+round-1 table (kwa excluded: it is also the preposition) and 1,522 Kidaw'ida noun
+forms with their classes, voted by the concord word after each noun in the training
+text (>= 3 votes, top class >= 50%, <= 3 classes). Pre-nominal demonstratives are
+checked too (kwa ijo isanga).
+Dev disclosure: the noun-filter and kwa fixes were made after seeing the top
+false-alarm pairs on the novel-test references (function words na/ni/kufuma
+treated as nouns). After that, tuning used arm 2's validation references
+(0.4% false alarms, optimistic: those sentences are in the agreement data).
+
+Eval (`Code_Experiments/rulebook/eval_version_b.py`, results
+`eval_version_b_test_novel_results.json`): 500 novel test sentences (seeded sample,
+`decode_nbest.py`, beam 4, 4 candidates kept), A = arm 2 top-1, chrF 59.97.
+One bug fixed before the reported run: re-joining tokens changed spacing
+("a,b" -> "a, b") even when nothing was corrected.
+
+| step (alone) | sentences changed | B-A chrF, all 500 [95% CI] | changed: better/worse |
+|---|---|---|---|
+| rerank | 4 | +0.01 [-0.11, 0.17] | 1/3 |
+| fill | 16 | -0.05 [-0.27, 0.14] | 10/6 |
+| unknown | 2 | -0.19 [-0.49, 0.00] | 0/2 |
+| repeat | 0 | 0 | -- |
+| all four | 22 (4.4%) | -0.23 [-0.62, 0.11] | 11/11 |
+
+Agreement checker: violations in 2.0% [1.1, 3.6] of real references vs 2.8%
+[1.7, 4.6] of A's top-1, so it barely separates good from bad text in domain.
+Storybook check (out of domain; the same 20 ASB sentences as cont. 2): B changed 0/20.
+Reading (n < 8 for rerank/unknown/repeat: no per-step claims). In domain, arm 2
+rarely produces what the rule book looks for, and when B changes something, chrF
+calls it a coin flip. chrF is a weak judge of one-word changes against free
+references, so this is not evidence that B is wrong. Errors seen on inspection:
+"unknown" replaced plausible Kidaw'ida verbs missing from the vocabulary with
+Swahili (yeendelia -> iliendelea); "fill" used bad mined entries (kilimo->kama,
+mahitaji->vindo 'food') but also good ones (kweli->loli, kujibu->kutumbulia);
+rerank's alternative candidates often differ in more than the agreement word.
+Consequence for the speaker study: at ~4% of sentences changed, about 100
+differing pairs need about 2,500 source sentences; or use harder, out-of-domain
+input where the model breaks more.
