@@ -99,6 +99,7 @@ from kitaita_verified_corrections import (
     KITAITA_DEM_REFERENTIAL_VERIFIED, KITAITA_DEM_DISTAL_VERIFIED, SWAHILI_CLASS_DEFAULT_SM_GUESS,
 )
 from kitaita_sentence_generator import load_pages, build_lookup_tables, translate, resolve_verb_root
+from kitaita_mined_lexicon import apply_mined_lexicon_fallback
 
 LEXICON_BY_SURFACE = {lemma: (cls, gloss) for lemma, cls, gloss in SWAHILI_LEXICON}
 ADJ_PREFIXES = sorted({p for p in ADJ_BASE.values()}, key=len, reverse=True)  # "", "m", "wa", "mi", "ki", "vi", "n", "ma"
@@ -257,6 +258,9 @@ class Decomposition:
     adjective_idx: int | None = None
     secondary_nouns: list[tuple] = field(default_factory=list)  # (idx, swahili_lemma, kitaita_or_None)
     passthrough: list[tuple] = field(default_factory=list)      # (idx, original_token_text)
+    # 2026-11-02: words filled by the round-1 mined lexicon instead of being kept
+    # as Swahili -- (idx, swahili, kitaita, confidence). See kitaita_mined_lexicon.py.
+    mined_fills: list[tuple] = field(default_factory=list)
     flags: list[str] = field(default_factory=list)
     coordinated_subject: tuple | None = None  # (primary_lemma, secondary_lemma) when detected -- see
                                                 # the "na"-adjacency check in decompose_sentence() below
@@ -1401,6 +1405,7 @@ def decompose_sentence(text: str, noun_kitaita: dict, noun_class_of: dict | None
     for i, is_assigned in enumerate(assigned):
         if not is_assigned:
             d.passthrough.append((i, tokens[i]))
+    apply_mined_lexicon_fallback(d)  # 2026-11-02: last-resort tier, see kitaita_mined_lexicon.py
     if d.passthrough:
         words = ", ".join(tokens[i] for i, _ in sorted(set(d.passthrough)))
         d.flags.append(f"No Kitaita translation/mechanism for: {words} -- kept as the original Swahili "
@@ -1684,6 +1689,9 @@ def assemble_in_order(d: Decomposition, result: dict | None, noun_kitaita: dict)
     for idx, tok in d.passthrough:
         if not any(i == idx for i, _ in pieces):
             pieces.append((idx, tok))
+    for idx, _sw, kit, _conf in d.mined_fills:
+        if not any(i == idx for i, _ in pieces):
+            pieces.append((idx, kit))
 
     if not pieces:
         return None
@@ -2929,7 +2937,9 @@ def decompose_sentence_with_probes(text: str, noun_kitaita: dict, noun_class_of:
     for i, is_assigned in enumerate(assigned):
         if not is_assigned:
             d.passthrough.append((i, tokens[i]))
-    leftover = [tokens[i] for i, a in enumerate(assigned) if not a]
+    apply_mined_lexicon_fallback(d)  # 2026-11-02: last-resort tier, see kitaita_mined_lexicon.py
+    still_unknown = {i for i, _ in d.passthrough}
+    leftover = [tokens[i] for i, a in enumerate(assigned) if not a and i in still_unknown]
     if leftover:
         d.flags.append(f"No Kitaita translation/mechanism for: {', '.join(leftover)} -- kept as the "
                         f"original Swahili word(s) in place.")
@@ -3299,6 +3309,8 @@ def assemble_multi_clause(d: Decomposition, clause_results: list, noun_kitaita: 
         add(idx, kit or lemma)
     for idx, tok in d.passthrough:
         add(idx, tok)
+    for idx, _sw, kit, _conf in d.mined_fills:
+        add(idx, kit)
 
     if not pieces:
         return None

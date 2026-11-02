@@ -1,0 +1,371 @@
+{
+ "experiment": "round-1 mined-lexicon fallback tier (one change)",
+ "date": "2026-11-02",
+ "config": {
+  "git_sha_base": "1cd0d611525ba72fd02253d51b0e18e7b1dc6007",
+  "path": "translate_sentence (rule-based, no NLLB)",
+  "floors_swept": [
+   null,
+   "high",
+   "medium",
+   "low",
+   "derived"
+  ],
+  "chosen_floor_on_holdout": "derived",
+  "bootstrap": {
+   "B": 2000,
+   "seed": 20261102
+  },
+  "files_sha256_16": {
+   "kitaita_mined_lexicon_round1.json": "b72337283399f2cf",
+   "kitaita_mined_lexicon.py": "44fa135c26d34a8b",
+   "kitaita_e2e_pipeline.py": "faad5960686c5e71",
+   "holdout.jsonl": "253f76b91ff8ce9d",
+   "test.parquet": "84a57bc97d1d9f55",
+   "train.parquet": "dd779b2e8713fcf8"
+  }
+ },
+ "validation_holdout": [
+  {
+   "floor": null,
+   "n": 1000,
+   "chrf": {
+    "mean": 31.619272705850566,
+    "ci95": [
+     30.600757613275107,
+     32.637787798426025
+    ],
+    "n": 1000,
+    "low_n": false
+   },
+   "errors": 0,
+   "copied_token_share": 0.6331,
+   "mined_fills": 0
+  },
+  {
+   "floor": "high",
+   "n": 1000,
+   "chrf": {
+    "mean": 33.84390140907825,
+    "ci95": [
+     32.770840482831474,
+     34.916962335325024
+    ],
+    "n": 1000,
+    "low_n": false
+   },
+   "errors": 0,
+   "copied_token_share": 0.5892,
+   "mined_fills": 201
+  },
+  {
+   "floor": "medium",
+   "n": 1000,
+   "chrf": {
+    "mean": 34.854167808520124,
+    "ci95": [
+     33.76299422190326,
+     35.945341395136985
+    ],
+    "n": 1000,
+    "low_n": false
+   },
+   "errors": 0,
+   "copied_token_share": 0.5398,
+   "mined_fills": 425
+  },
+  {
+   "floor": "low",
+   "n": 1000,
+   "chrf": {
+    "mean": 34.99571215108927,
+    "ci95": [
+     33.91051669734109,
+     36.080907604837456
+    ],
+    "n": 1000,
+    "low_n": false
+   },
+   "errors": 0,
+   "copied_token_share": 0.5282,
+   "mined_fills": 479
+  },
+  {
+   "floor": "derived",
+   "n": 1000,
+   "chrf": {
+    "mean": 37.82765196271477,
+    "ci95": [
+     36.664546104172594,
+     38.99075782125694
+    ],
+    "n": 1000,
+    "low_n": false
+   },
+   "errors": 0,
+   "copied_token_share": 0.4392,
+   "mined_fills": 878
+  }
+ ],
+ "test": {
+  "test": {
+   "off": {
+    "floor": null,
+    "n": 5333,
+    "chrf": {
+     "mean": 30.754751930272253,
+     "ci95": [
+      30.31130221601802,
+      31.198201644526485
+     ],
+     "n": 5333,
+     "low_n": false
+    },
+    "errors": 0,
+    "copied_token_share": 0.6386,
+    "mined_fills": 0
+   },
+   "on": {
+    "floor": "derived",
+    "n": 5333,
+    "chrf": {
+     "mean": 37.58430452959245,
+     "ci95": [
+      37.075010703444974,
+      38.09359835573993
+     ],
+     "n": 5333,
+     "low_n": false
+    },
+    "errors": 0,
+    "copied_token_share": 0.4333,
+    "mined_fills": 4900
+   },
+   "paired_on_minus_off": {
+    "mean": 6.83,
+    "ci95": [
+     6.498,
+     7.139
+    ],
+    "improved": 2730,
+    "worse": 431,
+    "same": 2172
+   },
+   "shuffled_control": {
+    "floor": "derived",
+    "n": 5333,
+    "chrf": {
+     "mean": 29.56413686306327,
+     "ci95": [
+      29.13569768279752,
+      29.992576043329016
+     ],
+     "n": 5333,
+     "low_n": false
+    },
+    "errors": 0,
+    "copied_token_share": 0.4331,
+    "mined_fills": 4900,
+    "paired_control_minus_off": {
+     "mean": -1.191,
+     "ci95": [
+      -1.318,
+      -1.067
+     ],
+     "improved": 1239,
+     "worse": 1945,
+     "same": 2149
+    },
+    "paired_on_minus_control": {
+     "mean": 8.02,
+     "ci95": [
+      7.695,
+      8.344
+     ],
+     "improved": 2810,
+     "worse": 370,
+     "same": 2153
+    },
+    "seed": 20261102
+   }
+  },
+  "test_novel": {
+   "off": {
+    "floor": null,
+    "n": 3515,
+    "chrf": {
+     "mean": 30.526814088650017,
+     "ci95": [
+      30.02424027924803,
+      31.029387898052004
+     ],
+     "n": 3515,
+     "low_n": false
+    },
+    "errors": 0,
+    "copied_token_share": 0.648,
+    "mined_fills": 0
+   },
+   "on": {
+    "floor": "derived",
+    "n": 3515,
+    "chrf": {
+     "mean": 37.014869292994,
+     "ci95": [
+      36.444076848585524,
+      37.585661737402475
+     ],
+     "n": 3515,
+     "low_n": false
+    },
+    "errors": 0,
+    "copied_token_share": 0.442,
+    "mined_fills": 3562
+   },
+   "paired_on_minus_off": {
+    "mean": 6.488,
+    "ci95": [
+     6.127,
+     6.863
+    ],
+    "improved": 1928,
+    "worse": 298,
+    "same": 1289
+   }
+  }
+ },
+ "experiment2_davswa_preferred_form": {
+  "validation_holdout": {
+   "e1": {
+    "floor": "derived",
+    "n": 1000,
+    "chrf": {
+     "mean": 37.82765196271477,
+     "ci95": [
+      36.664546104172594,
+      38.99075782125694
+     ],
+     "n": 1000,
+     "low_n": false
+    },
+    "errors": 0,
+    "copied_token_share": 0.4392,
+    "mined_fills": 878
+   },
+   "e1_e2": {
+    "floor": "derived",
+    "n": 1000,
+    "chrf": {
+     "mean": 38.08048289854736,
+     "ci95": [
+      36.909448086661406,
+      39.25151771043331
+     ],
+     "n": 1000,
+     "low_n": false
+    },
+    "errors": 0,
+    "copied_token_share": 0.4452,
+    "mined_fills": 851
+   },
+   "paired": {
+    "mean": 0.253,
+    "ci95": [
+     -0.009,
+     0.518
+    ],
+    "improved": 61,
+    "worse": 48,
+    "same": 891
+   }
+  },
+  "test": {
+   "e1": {
+    "floor": "derived",
+    "n": 5333,
+    "chrf": {
+     "mean": 37.58430452959245,
+     "ci95": [
+      37.075010703444974,
+      38.09359835573993
+     ],
+     "n": 5333,
+     "low_n": false
+    },
+    "errors": 0,
+    "copied_token_share": 0.4333,
+    "mined_fills": 4900
+   },
+   "e1_e2": {
+    "floor": "derived",
+    "n": 5333,
+    "chrf": {
+     "mean": 37.94100396353227,
+     "ci95": [
+      37.42874057701777,
+      38.453267350046765
+     ],
+     "n": 5333,
+     "low_n": false
+    },
+    "errors": 0,
+    "copied_token_share": 0.439,
+    "mined_fills": 4770
+   },
+   "paired": {
+    "mean": 0.357,
+    "ci95": [
+     0.247,
+     0.472
+    ],
+    "improved": 405,
+    "worse": 229,
+    "same": 4699
+   }
+  },
+  "test_novel": {
+   "e1": {
+    "floor": "derived",
+    "n": 3515,
+    "chrf": {
+     "mean": 37.014869292994,
+     "ci95": [
+      36.444076848585524,
+      37.585661737402475
+     ],
+     "n": 3515,
+     "low_n": false
+    },
+    "errors": 0,
+    "copied_token_share": 0.442,
+    "mined_fills": 3562
+   },
+   "e1_e2": {
+    "floor": "derived",
+    "n": 3515,
+    "chrf": {
+     "mean": 37.369422478876345,
+     "ci95": [
+      36.79388802953388,
+      37.94495692821881
+     ],
+     "n": 3515,
+     "low_n": false
+    },
+    "errors": 0,
+    "copied_token_share": 0.4482,
+    "mined_fills": 3460
+   },
+   "paired": {
+    "mean": 0.355,
+    "ci95": [
+     0.212,
+     0.492
+    ],
+    "improved": 311,
+    "worse": 166,
+    "same": 3038
+   }
+  }
+ }
+}

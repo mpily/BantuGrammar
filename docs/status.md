@@ -27759,3 +27759,428 @@ subset, surface-only -- NOT the slot-level metric:**
   (reference also 1); rendered as uja/uo/iro etc.
 Caveat: "same form as reference" is silver -- a mismatch can be a valid
 form for a different noun choice; a match is not speaker-verified.
+
+## 2026-10-28 cont. 12: how similar are dav_swa test sentences to train? (near-duplicate check on arm 1)
+
+User asked to quantify train/test similarity beyond exact duplicates.
+Method: arm 1's exact training set reconstructed from the script's own
+seeded split (20,431 rows, matches the logged n); for each of the 5,307
+cleaned test sentences, nearest training sentence by character 3-5-gram
+TF-IDF cosine (normalized, apostrophes stripped), then word-level overlap
+with that neighbour = difflib ratio over word lists (1.0 = same words).
+scikit-learn installed for this measurement only. Arm-1 chrF per band:
+
+| Swahili word overlap with nearest train sentence | all test n (%) | chrF | novel n (%) | chrF [95% CI] |
+|---|---|---|---|---|
+| identical words | 1,691 (31.9%) | 70.6 | 0 | -- |
+| 0.8-<1 (1-2 words differ) | 161 (3.0%) | 67.0 | 155 (4.4%) | 66.7 [63.2, 70.3] |
+| 0.6-0.8 | 401 (7.6%) | 67.2 | 385 (11.0%) | 66.9 [64.6, 69.2] |
+| 0.4-0.6 | 1,076 (20.3%) | 61.2 | 1,024 (29.2%) | 61.2 [59.8, 62.6] |
+| <0.4 (no close neighbour) | 1,978 (37.3%) | 56.4 | 1,947 (55.5%) | 56.4 [55.4, 57.3] |
+
+Reading: true near-duplicates the novel filter misses (1-2 words differ)
+are small, 155/3,511 = 4.4%. Score rises with similarity (~+10 chrF from
+the no-neighbour band to near-duplicates), so similarity helps, but on the
+55% of novel sentences with NO close training neighbour arm 1 still scores
+56.4 [55.4, 57.3] -- ~26 chrF above the pipeline's 30.75. The cont. 10
+conclusion survives this check: it is not driven by near-duplicates.
+Inspection: the 0.6-0.8 and 0.4-0.6 bands are mostly partial overlap with
+very short training entries ("wanyama", "vizuri"), not paraphrases.
+Kitaita side, novel subset: 128 (3.6%) have a near-identical training
+Kitaita sentence (cosine >= 0.95) despite different Swahili.
+Data: scratchpad only (derived per-sentence similarity, not committed).
+
+## 2026-10-29: memorisation diagnostics on arm 1 + corpus reference noise; external-ideas prompt
+
+User suspects memorisation. Two cheap checks on the arm-1 predictions
+against arm 1's reconstructed training set (20,431 rows), novel subset:
+1. Verbatim regurgitation: 28/3,511 (0.8%) outputs equal some training
+   Kitaita sentence (18 of them exactly correct); chrF 87.2 vs 59.2 for
+   the rest. Whole-sentence copying is rare.
+2. Collocation dependence (-ose concord only): at reference positions
+   where an -ose word follows a head word the model also produced, the
+   model's next word is the reference -ose form in 54/66 = 82% [71, 89]
+   when that (head, -ose) bigram occurs in training targets, vs 13/25 =
+   52% [33, 70] when it never does. Above chance (~8 forms) but much
+   lower; n=25 is too small for a claim. Partial support for the
+   memorisation suspicion; needs an all-concord-types, frequency-
+   controlled version.
+Corpus reference noise (from cont. 12's Kitaita-side group): 117 of the
+128 novel sentences with a near-identical training Kitaita sentence have
+an IDENTICAL Kitaita reference with different Swahili; several are wrong
+for their Swahili, including agreement (Nimempatia/Nimewapa -> both
+"Namneka"; Mkaa umeisha -> class-6 "Maka ghasia", where arm 1's "Mkaa
+wasia" follows the Swahili class). Exact-match and silver agreement
+scoring against this corpus therefore under-credit correct concord.
+List: ~/languagemodels/kitaita_dup_group.tsv (corpus text, not committed).
+Next (proposed, not run): probe whether grammatical structure has formed
+in the fine-tuned model and mirrors Swahili's -- base vs fine-tuned
+encoder probes, decoder-side class decodability at Kitaita concord
+tokens, cross-attention to the controller noun -- plus behavioural nonce/
+minimal-pair tests. Needs arm 1's best_model.pt locally. External ideas
+requested via `docs/memorization_vs_structure_prompt.md`.
+Also new: `Code_Experiments/export_finetuned_to_hf.py` (state_dict -> HF
+folder + model card + equivalence check against saved predictions;
+smoke-tested 8/8 identical; push only on request, private by default,
+refuses public push of a Bible-trained run).
+
+## 2026-10-31: multi-agent grammar/vocabulary mining from both corpora -- round 1
+
+User request: run repeatedly over the corpora (dav_swa train + Bible) with
+multiple agents, extracting grammatical rules and vocabulary, combining
+statistics with linguistic rules, and use the results to fill gaps.
+
+Setup (`Code_Experiments/grammar_mining/`): `prepare_mining_data.py` builds
+MINE = dav_swa train minus a seeded 1,000-pair HOLDOUT (seed 20261031) +
+27,003 Bible (NEN) pairs = 46,641 pairs, runs eflomal both directions
+(symmetrised), and writes alignment-count tables and Kidaw'ida affix
+statistics. dav_swa TEST untouched. `mine_query.py` (grep/align/count/
+check) is the shared agent tool; `check` = holdout hit rate (a lexicon entry
+hits when the Swahili word is in a holdout pair and one predicted form is in
+its Kidaw'ida side; free translation caps this well below 100%).
+`merge_round.py` pools areas, finds conflicts/gaps. Corpus text and agent
+outputs live in ~/languagemodels/mining/ (not in git: gated + rights-
+reserved text). Agents' brief: ~/languagemodels/mining/BRIEFING.md.
+
+Round 1: six agents by area. Holdout hit rates (alignment top-1 baseline in
+brackets where reported):
+
+| area | entries | high/med/low | holdout hit (n) |
+|---|---|---|---|
+| nouns | 1,033 | 408/468/157 | 0.805 (1,194) [0.689]; calibrated: high .845, med .724, low .447 |
+| phrases_and_rephrasings | 130 | 71/44/15 | 0.683 (530) [0.636] |
+| noun_classes_concord | 465 | 357/87/21 | 0.615 (340) [0.49]; class->next-concord-word 184/203 |
+| roots_and_function_words | 1,044 | 223/274/547 | 0.534 (1,885) [0.460] |
+| verb_morphology | 73 | 36/31/6 | 0.527 (298); verb rewrite exact 0.446 (160/359) vs in-sample ceiling 0.555 |
+| sound_correspondences | 51 | 14/18/19 | predictor +~1 pt over copy baseline on holdout |
+| pooled lexicon | 28,595 Swahili forms | | 0.646 [0.629, 0.663] (3,205); 74.9% Swahili token coverage of MINE |
+
+Key findings (evidence-backed, NOT speaker-verified):
+- Agreement follows the Kidaw'ida noun's class: 18 natural minimal pairs
+  (same Swahili, translators chose different-class nouns, every agreeing
+  word changed with the noun). ~46% of nouns differ in class from Swahili;
+  animals mostly take cl. 9/10 concord.
+- Full concord series tabulated for classes 1-11, 14-18; relatives use the
+  referential demonstrative (no amba-); two adjective types (nominal prefix
+  vs stative verb + SM), resolving the old kubwa/zuri puzzle.
+- Verb: SM fuses with a tense vowel (SM+a perfect, SM+e past), SM+a+da
+  habitual (corrects page3's "perfect da"), nde-+SM negative, SM+se- prohibitive.
+- davswa and Bible differ in grammar, not only spelling (present -we-, past,
+  future, -ape 'his', kila/kula, -boie/-ghokie): rules need register labels.
+- Sound correspondences: t->d (102/128), g->gh except after nasal, z->r, j->ch,
+  -ni->-nyi; ny->ch and y->gh mostly fail; low gap-filling power because
+  frequent words are lexical replacements.
+- VERIFIED items contradicted or unsupported by the corpus (flagged, not
+  changed): nouns lugha->lumi, ushirikiano->mapatano, huduma->wutesia,
+  mvulana->mndwawomi, waandishi, vyoo->vyoronyi (locative), 8/36 verb roots
+  (ambia, pita, kwisha, elekea, ongea, vunjika, angusha, rejea), -zuri
+  ghokie (Bible-only), maisha->irangi (Bible-only); uluja/ukuja unattested;
+  POSS_PERSON_FORM_BY_CLASS["ghu"] ghwedu/ghwenyu (0 attestations; corpus
+  ghodu/ghonyu). False friend: mfalme->mzuri ('king').
+- Corpus defect: interview block train:2521-2535 repeated at 8857-8869,
+  15144-15157, 16612-16662 with Kidaw'ida shifted by one line; 53 noise
+  clusters total. Should be removed before any further fine-tuning.
+Caveat: some round-1 agents adjusted entries after viewing holdout misses
+(stated in their reports; nouns reverted theirs). Holdout numbers are
+therefore slightly optimistic; the final evaluation must use dav_swa TEST.
+Round 2 (running): conflict resolution (68), grammatical gap words (-enye,
+relatives, nd- focus, na+ref), content gaps + names, register layer, and an
+independent audit of 240 sampled round-1 entries.
+Round 2 HALTED (2026-11-01, user request): all five round-2 agents were cut
+off by the usage limit; per the user, they are not being resumed until the
+round-1 findings have been discussed. Any partial files in
+~/languagemodels/mining/round2/ are incomplete and must not be used.
+
+## 2026-11-01: arm 2 result -- adding 27k Bible verse pairs does not help on dav_swa test
+
+Colab T4, script sha256 e9756dec3d30e347 (gradient checkpointing; otherwise
+identical to arm 1), resumed once from step 6,000 after a quota stop. 8,895
+steps (3 epochs over 47,431 pairs). Best validation = last step (val chrF
+60.96; arm 1 ended at 61.24).
+
+| test set | n | arm 1 (dav_swa only) | arm 2 (+ Bible) |
+|---|---|---|---|
+| full test chrF | 5,307 | 63.02 [62.36, 63.69] | 62.19 [61.54, 62.83] |
+| full test exact | 5,307 | 996 (18.8%) | 884 (16.7%) [15.7, 17.7] |
+| **novel chrF** | 3,511 | 59.39 [58.66, 60.13] | **59.64 [58.91, 60.38]** |
+| novel exact | 3,511 | 390 (11.1%) | 387 (11.0%) [10.0, 12.1] |
+
+Reading: on the novel subset the two arms are indistinguishable (+0.25 chrF,
+CIs overlap almost entirely; exact 387 vs 390). On the full test arm 2 is
+LOWER (-0.83 chrF, -112 exact matches): the full-test advantage comes from
+the 34% train/test overlap, and arm 2 memorises the dav_swa train sentences
+slightly less (they are 43% of its data instead of 100%). The Bible adds no
+measurable in-domain benefit. Consistent with mining round 1's finding that
+the Bible is a different register (tense/aspect forms, spelling, lexis)
+from dav_swa. Not yet checked: whether arm 2's output shifts toward Bible
+forms (e.g. -cha- future, -re-...-ieghe past) on dav_swa input -- a
+register-leakage check needs arm 2's test_predictions.jsonl.
+
+## 2026-11-01 cont.: probes 1-2 on base NLLB-600M vs fine-tuned arm 1 -- the Swahili encoder is essentially unchanged by fine-tuning
+
+Model: arm 1 `best_model.pt` exported with `export_finetuned_to_hf.py` to
+~/languagemodels/arm1_davswa_hf; equivalence check 50/50 test sentences
+reproduce the saved Colab translations exactly. Base = facebook/nllb-200-
+distilled-600M. Note: the 2026-10 probe heads (L2H12, L1H11, L1H2) were on
+NLLB-1.3B (24 layers); 600M has 12 encoder layers x 16 heads, so heads are
+re-selected per model here.
+
+**Probe 1 -- noun-class decodability from input embeddings**
+(`nllb_swahili_embedding_decodability_probe.py`, 319-noun/11-class lexicon,
+5-fold CV, 20 label shuffles). Fixed in passing: main() raised NameError
+(n_total/majority_baseline lost in the 2026-10-01 refactor); added --model.
+
+| model | accuracy | shuffled control | selectivity |
+|---|---|---|---|
+| base 600M | 0.7838 | 0.1060 | 0.6778 |
+| fine-tuned | 0.7838 | 0.1061 | 0.6777 |
+
+Identical to 4 decimals -- checked it is not a loading error: the noun
+pieces' embeddings did change (mean relative change 3.0%, cosine 0.9994;
+Kitaita-only pieces 3.6%; rarely-used vocabulary 12%, most likely AdamW
+weight decay on tokens never seen, not learning). Fine-tuning moved the
+Swahili noun embeddings too little to change class decodability.
+
+**Probe 2 -- adjective-concord encoder attention, noun -> adjective**
+(`nllb_attention_amod_check.py`, NEW: rebuild of the 2026-10-05 cont. 4-8
+check, whose scripts and SWH_UDT gold corpus are not in this checkout).
+Generated Swahili noun phrases "H ASSOC(H) D ADJ"; each (H, D, stem)
+appears with the adjective agreeing with the FAR noun H and with the NEAR
+noun D, so a purely positional head scores exactly 0.5; plus an invariant-
+adjective control (safi, ghali, ...). 400 pairs (1,200 sentences), seed
+20261101; heads selected on half the pairs, reported on the other half.
+A bug caught by a pre-run span check (NLLB offsets include the leading
+space, dropping word-initial pieces) was fixed before any numbers.
+
+| head (held-out half, n=400 agreeing items) | base controller-win [95% CI] | fine-tuned |
+|---|---|---|
+| L2H6 | 0.757 [0.713, 0.797] | 0.725 [0.679, 0.766] |
+| L3H10 | 0.715 [0.669, 0.757] | 0.688 [0.640, 0.731] |
+| L6H8 | 0.682 [0.635, 0.726] | 0.688 [0.640, 0.731] |
+| mean over all 192 heads | 0.527 | 0.528 |
+
+- Real agreement sensitivity beyond position: e.g. base L2H6 prefers H in
+  91% when the adjective agrees with H, 80.5% with an invariant adjective,
+  39.5% when it agrees with D.
+- Alliteration confound, partly: on controllers whose surface prefix
+  matches the adjective prefix (kitabu/kizuri) the top heads reach
+  0.70-0.80 (n=291); on prefix-MISMATCHED controllers (animates like
+  kipepeo -> mzuri; prefixless 9/10 nouns) they drop to 0.59-0.65
+  (n=109, CIs ~[0.49-0.56, 0.68-0.73]) -- still above chance for L2H6 and
+  L3H10 in both models, so not pure string matching, but a substantial
+  share of the signal is prefix identity.
+- Base vs fine-tuned: same top heads, per-head rate correlation 0.928
+  across all 192 heads; no head gained or lost the signal.
+
+**Reading**: fine-tuning left the Swahili analysis side (embeddings and
+encoder concord attention) essentially as it was -- no damage, no new
+encoder machinery. Expected under every hypothesis (memorisation, source-
+form mapping, or computed agreement) per the 2026-10-29 critique, so these
+probes do NOT tell us how much Kitaita grammar the model learnt; they tell
+us the Kitaita decoder sits on an unchanged Swahili encoder. The
+informative next probes are on the Kitaita side: decoder states and
+cross-attention while writing concord words, and the behavioural test on
+the round-1 class-mismatch nouns. Results JSON:
+~/languagemodels/arm1_davswa/amod_attention_results.json.
+
+## 2026-11-01 cont. 2: behavioural agreement test -- given a Kidaw'ida noun, are the fine-tuned model's next-word predictions in the right class?
+
+User's question: "given a noun, are all top-k predicted tokens of the
+correct class?" New: `Code_Experiments/ft_concord_topk_check.py`. Arm 1
+(exported, equivalence-checked), dav_swa TEST novel subset only (3,511
+pairs; analysis only, no training or selection). Slot = reference position
+where word i is a round-1 lexicon noun (high/medium) and word i+1 is a
+round-1 concord word agreeing with it (reference-confirmed class T).
+Teacher-forced on source + reference up to the noun; top-5 word-initial
+next pieces, each greedily completed to a word and classified with the
+round-1 concord table. 600 slots (seed 20261101); 161 are class-MISMATCH
+nouns (Kidaw'ida class differs from Swahili class).
+
+| | n | top-1 correct class [95% CI] | all top-5 concord candidates correct | correct share of concord prob. mass |
+|---|---|---|---|---|
+| all | 600 | 0.852 [0.821, 0.878] | 0.345 (n=582) | 0.955 |
+| class match | 439 | 0.854 [0.818, 0.884] | 0.359 | 0.953 |
+| class MISMATCH | 161 | 0.845 [0.781, 0.893] | 0.307 | 0.963 |
+
+- "All top-5 correct" is low because low-probability tail candidates often
+  include other classes; by probability mass the predictions are ~95%
+  class-pure. Some "wrong" tail items may be legitimate (agreeing with a
+  different word); not adjudicated.
+- Mismatch nouns are handled as well as matching ones; only 2/161 mismatch
+  slots have a SWAHILI-class form as top-1 (wrong-class tail candidates
+  that are Swahili-class forms: 44/146, 1.9 of 5.0 mass). Pure source-form
+  mapping (H2 of the 2026-10-29 critique) is ruled out as the main mechanism.
+- Training exposure (arm 1's exact training set reconstructed), intention-
+  to-treat (teacher-forced, no conditioning on the model's own output --
+  supersedes the biased n=25 check of 2026-10-29):
+  | | n | top-1 correct class |
+  |---|---|---|
+  | noun + this concord word seen together in training | 479 | 0.868 [0.835, 0.896] |
+  | noun seen, never with this concord word | 116 | 0.776 [0.692, 0.842] |
+  | ... class MISMATCH subset, unseen pair | 36 | 0.750 [0.589, 0.862] |
+  | noun never in training targets | 5 | too few |
+  Gap ~9 points (not frequency-matched; unseen pairs skew to rarer words
+  and concord types). Under the critique's pre-registered reading (<=10
+  points rule-like, >=25 retrieval-dominant) this is rule-like,
+  provisionally. The model applies a noun's Kidaw'ida class to concord
+  words it never saw with that noun, including where Swahili differs.
+- Noun-swap counterfactual (Kidaw'ida noun replaced by a noun of another
+  class, Swahili unchanged): top-1 follows the NEW noun's class 27%,
+  stays with the ORIGINAL class 15%, rest non-concord. Noun-first slots
+  (no earlier agreeing words), n=189: new 0.307 [0.246, 0.376] vs original
+  0.159; concord mass new 39.8 vs original 20.4 vs non-concord 41.5. The
+  decoder partly follows its own noun but also the source; swapped inputs
+  are incoherent and some swap nouns have wrong lexicon classes (e.g.
+  kituri listed cl. 8, model answers cl. 7 chawo), so this condition is
+  weak evidence either way.
+Results: ~/languagemodels/arm1_davswa/topk_concord_results.json.
+
+## 2026-11-01 cont. 3: arm 1 on Bible verses (out-of-domain, never in its training) -- failure inspection
+
+New: `Code_Experiments/ft_translate_sample.py`. 120 random Bible verse pairs
+from MINE (3-25 Swahili words, seed 20261101, beam 4). chrF mean 36.7
+(median 35.3) vs 59.4 on the in-domain novel test; buckets <20/20-40/40-
+60/>=60: 5/72/40/3. Not all of the drop is error: references are the 1997
+Bible register (no w' apostrophes, mundu, -re-...-ieghe past: 16 refs vs 5
+outputs) and are often free renderings, which chrF penalises. Failure types
+seen on inspection:
+1. Untranslated Swahili for vocabulary absent from dav_swa (religious/legal/
+   formal: minyororo, sadaka, sehemu, thamani, msaidizi); 28/120 outputs
+   copy >=2 Swahili words; mean copied share 6.4% (in-domain 4.0%).
+2. Silent omission of whole clauses in long multi-sentence verses (EXO 2.19,
+   ZEC 7.10: second sentence dropped; 4/120 outputs < 0.6x reference length).
+3. Attachment/agreement error at distance: "Yashikeni maagizo haya yote" ->
+   "w'andu w'ose ... iri ilagho jhose" -- 'all' attached to the people
+   (cl. 2) and a cl. 10 demonstrative on a cl. 5 noun.
+4. Lexical substitution with a frequent in-domain word: wokovu 'salvation'
+   -> lukundo 'love'.
+5. Name adaptation errors and spelling over-generalisation: Musa -> Mosi,
+   Reubeni -> Ruw'eni (dav_swa w' apostrophe inserted inside a name).
+6. Malformed verb forms on rare prohibitives: "Msew'uw'ade" for Msishike.
+Output: ~/languagemodels/arm1_davswa/bible_sample_translations.jsonl (corpus
+text; not in git).
+
+## 2026-11-02: how predictable are verb affixes within one register? (round-1 parsed verbs)
+
+Question: does restricting to one register make the round-1 verb rules
+predictable enough for deterministic generation? Script (scratchpad, not
+in git): majority-form ceiling per (neg, TAM, SM, OM, Swahili final) on
+~/languagemodels/mining/scratch/verbmorph/parsed.json (30,760 aligned verb
+pairs from MINE); target = Kidaw'ida (prefix string, suffix). "Held-out" =
+majority rule fitted on 80% of sentence ids, scored on the other 20% (seed 0).
+Wilson 95% CIs.
+
+| register | all subjects, held-out | person subjects (1/2 sg/pl), held-out |
+|---|---|---|
+| davswa only | 0.472 [0.447, 0.496] (n=1586) | 0.547 [0.510, 0.584] (n=709) |
+| Bible only | 0.464 [0.449, 0.478] (n=4544) | 0.454 [0.429, 0.480] (n=1514) |
+| mixed | 0.435 [0.422, 0.447] (n=6115) | 0.441 [0.421, 0.462] (n=2219) |
+
+Note: the round-1 HOLDOUT (0.446) was already davswa-only.
+davswa per TAM (person subjects, in-sample ceiling): subjunctive 0.81,
+-me- 0.75, -si- 0.65, -ki- 0.47, -ta- 0.43, -na- 0.41, -li- 0.33.
+Within davswa 1sg, the competing forms are all attested, e.g. -li-: ne-R-a 22 /
+nede-R-a 18 / na-R-a 10; -na-: nawe-R-a 18 / na-R-a 15; -ta-: ni-R-a 20 /
+ni-R-agha 17 / nicha-R-a 5.
+Reading: restricting the register gains about 4 points overall, and about
+11 points once noun-class subject markers are removed. The remaining spread
+comes from variation inside davswa plus translators choosing a different tense
+(free translation) plus alignment noise. This measures "matches the
+translator", not grammaticality, so it is a lower bound on how often a
+deterministic choice is acceptable. Not speaker-verified.
+
+## 2026-11-02 cont.: one news sentence, round-1 rules (agent) vs fine-tuned arm 1 -- qualitative only (n=1)
+
+Source: "Uganda imeanza rasmi kuwaondoa wanajeshi wake nchini Somalia ... katika
+taifa hilo la Pembe ya Afrika." (out of domain: news/military).
+- Rules (agent, davswa register, round-1 lexicon + mine_query only): "Uganda
+  yazoya [?rasmi] kuwiinja w'andu w'a ijeshi wake isangenyi Somalia kwa [?awamu]
+  na kwa ifungu, nyuma ya [?takribani] [?miongo] iwi ya kuwadana kwa
+  [?operesheni] ra wuda ra kughumangisha wusalama kwa isanga ijo ja mbembe ya
+  Afrika." 34 words: 6 high / 11 medium / 12 low / 5 unknown.
+- Fine-tuned arm 1 (arm1_davswa_hf, beam 4): "Uganda yaw'oka kisheria kuw'inga
+  w'andu w'aro w'a izanga Somalia kwa ngelo na kwa sehemu, baada ya miaka ighadi
+  iw'i kushiriki kwa majeshi ghekumbasha w'ulindiri kwa ijo isanga ja mbembe ya
+  Afrika." The 4 beams differ only in the demonstrative before isanga (ijo / iyo
+  / ugho / icho; only ijo is the cl.5 form); scores -0.455 to -0.467.
+Both pick w'andu for 'soldiers', perfect ya- with Uganda as class 9, and
+"isanga ... ja mbembe ya Afrika". The model copies Swahili (sehemu,
+kushiriki, baada ya) where the rules output [?word]. n=1, not speaker-checked;
+nothing here should be generalised.
+
+## 2026-11-02 cont. 2: 20 storybook sentences, round-1 rules (agent) vs fine-tuned arm 1 -- no references
+
+Sample: 20 African Storybook sentences from hf_space/test_sentences.json (ASB ids,
+4-15 words, random.Random(20261102)). There is no Kidaw'ida reference, so these
+are reference-free measures only. Files (scratchpad, not in git): story20.json,
+story20_rules.json, story20_ft.json, cmp_story.py.
+- Rules agent (davswa, round-1 lexicon + mine_query): 153 words/phrases: 58 high
+  (7 of them names or ideophones kept unchanged) / 56 medium / 29 low /
+  10 unknown [?]. It took ~7 min with LLM judgement, so it is not yet deterministic code.
+- Fine-tuned arm 1 (beam 4): one repetition collapse (ASB.0052.56 "W'eke w'eke ...
+  x8"), the interjection "Hii hoo?" dropped, quotes dropped, 3 Swahili copies
+  (rahisi, juani, rubani; plus aina/zaidi/matunda, which also occur in Kidaw'ida).
+- Output tokens attested in the Kidaw'ida corpus (_dav.txt): FT 124/149 = 0.83
+  [0.76, 0.88]; rules 135/148 non-[?] = 0.91 [0.86, 0.95]. BIASED toward rules:
+  the agent checked attestation while choosing forms. Attested also does not mean
+  correct in context.
+- chrF between the two outputs: mean 48.4 (range 24-80). They converge on simple
+  sentences (0291.9: 80, 0027.12: 76) and diverge on idioms and rare words.
+Not speaker-checked. n=20 sentences, so read as qualitative.
+
+## 2026-11-02 cont. 3: round-1 mined lexicon as the pipeline's last-resort vocabulary tier -- +6.8 chrF on dav_swa test (branch pipeline-round1-lexicon, NOT deployed)
+
+User request: improve the existing deterministic pipeline with the round-1
+findings and wire it into the Space. Diagnosis first (current tables,
+translate_sentence, full test): chrF 30.75 (reproduces 2026-10-28); 63.9% of
+output tokens are identical to a Swahili source token.
+
+One change: new tier `hf_space/kitaita_mined_lexicon.py` + table
+`hf_space/kitaita_mined_lexicon_round1.json` (28,138 Swahili words; built by
+`Code_Experiments/grammar_mining/build_pipeline_lexicon.py` from round-1 areas
+nouns > verb_morphology > phrases > roots_and_function_words). It fires only on
+words the pipeline would keep as Swahili (passthrough tokens; secondary nouns
+with no form), so it never overrides a VERIFIED or Bible-derived form. It also never fills
+class-dependent words: the noun_classes_concord area, plus possessive / demonstrative /
+associative / -ote forms detected by the pipeline's own detectors (77 skipped).
+Each fill goes into Decomposition.mined_fills with a flag "Mined-lexicon fallback
+(round 1, NOT speaker-verified)". Filled words leave d.passthrough, so the API no
+longer reports them in unknown_words. Hooked in decompose_sentence and
+decompose_sentence_with_probes just before the "No Kitaita" flag, and in both
+assemblers.
+
+Validation = mining HOLDOUT (1,000 dav_swa train pairs unused by mining; the
+pipeline's own tables are Bible-derived, so it is clean for the pipeline).
+Floor sweep (chrF): off 31.62, high 33.84, medium 34.85, low 35.00, derived
+(all) 37.83 -> chosen "derived". Test, run once (translate_sentence):
+
+| | off | on | paired on-off [95% bootstrap CI] | improved/worse/same |
+|---|---|---|---|---|
+| test (n=5,333) | 30.75 | 37.58 | +6.83 [6.50, 7.14] | 2730/431/2172 |
+| test_novel (n=3,515) | 30.53 | 37.01 | +6.49 [6.13, 6.86] | 1928/298/1289 |
+| control: same table, forms shuffled | 30.75 | 29.56 | -1.19 [-1.32, -1.07] | |
+
+Untranslated (source-identical) output tokens: 63.9% -> 43.3%. The control
+shows the gain is lexical, not "Kidaw'ida-looking letters". Caveats: (1) the lexicon
+was mined from dav_swa train and test shares sentences with train; the novel
+subset (Swahili side never in train) keeps +6.5. (2) Worse cases are mostly translator
+choice and register (davswa reference keeps a loan, e.g. changamoto/Jumapili),
+plus some bad low-confidence entries (kilimo->kama). (3) Mined adjective and verb
+forms carry the agreement of the Swahili class; a class mismatch is wrong but
+flagged. (4) Measured on the heuristic path only; the probe path uses the same
+hook (check pending, slow on CPU).
+
+Experiment 2 (separate change, flag PREFER_DAVSWA_FORM): among listed forms, pick
+the one davswa translators used most in MINE (or keep the Swahili word if that was most
+common). Holdout +0.25 [-0.01, 0.52] (61/48/891), test +0.36 [0.25, 0.47].
+The validation CI includes 0, so it was NOT adopted (flag left False). Inconclusive, not a win.
+
+Config: base git SHA 1cd0d61; eval
+`Code_Experiments/grammar_mining/eval_mined_lexicon_fallback.py`, results
+`..._results.json` (file hashes inside: lexicon table b72337283399f2cf at eval
+time; the table was later rebuilt only to add the per-form davswa counts used by
+experiment 2, giving 63dc39f606c64147; Kidaw'ida forms unchanged). Bootstrap B=2000, seed
+20261102. Tests: new `hf_space/tests/test_mined_lexicon.py`; full suite 72
+passed / 1 skipped in a CI-equivalent venv (no torch). Not merged to main (= not
+on the Space): the user then proposed a different system design (fine-tuned NLLB
++ rule book as post-editor), see the next entry.
