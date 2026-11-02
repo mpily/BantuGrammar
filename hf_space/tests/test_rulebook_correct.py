@@ -38,3 +38,15 @@ def test_repeats_removed_and_draft_kept_for_comparison():
 def test_no_brackets_ever():
     r = correct("Mtoto analala zzqsw.", ["Mwana walala qqzzx."])
     assert "[?" not in r["kitaita"]
+
+
+def test_applicative_added_when_the_draft_drops_it():
+    # user report 2026-11-02: "watoto walipigania chakula" -> draft "w'ana w'edelwa vindo"
+    r = correct("Watoto walipigania chakula", ["W'ana w'edelwa vindo"], steps=("applicative",))
+    assert r["kitaita"] == "W'ana w'edeluya vindo"
+    assert correct("Alimfanyia kazi", ["Wambonya kazi"], steps=("applicative",))["kitaita"] == "Wambonyera kazi"
+
+
+def test_applicative_left_alone_without_one_in_the_source_or_for_passives():
+    assert correct("Watoto walipigana", ["W'ana w'edelwa"], steps=("applicative",))["changes"] == []
+    assert correct("Wamekataliwa", ["W'alegha"], steps=("applicative",))["changes"] == []

@@ -93,7 +93,8 @@ FLAG_LABELS = {"unknown": "not in the model's training vocabulary",
 CHANGE_LABELS = {"rerank": "agreement: picked another model candidate",
                  "fill": "copied Swahili replaced from the mined lexicon",
                  "unknown": "unknown word replaced by the Swahili source word",
-                 "repeat": "repetition removed"}
+                 "repeat": "repetition removed",
+                 "applicative": "applicative ('do for') added to match the Swahili verb"}
 
 
 def translate_finetuned(text: str):

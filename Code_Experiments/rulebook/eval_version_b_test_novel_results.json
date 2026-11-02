@@ -127,34 +127,64 @@
    "changed_worse": 0,
    "changed_same": 0
   },
-  "rerank+fill+unknown+repeat": {
-   "changed": 22,
+  "applicative": {
+   "changed": 2,
    "changed_share": [
-    0.044,
-    0.0292,
-    0.0657
+    0.004,
+    0.0011,
+    0.0145
    ],
    "B_chrf": {
-    "mean": 59.74087646285797,
+    "mean": 60.0186318979191,
     "ci95": [
-     57.757297453207414,
-     61.724455472508524
+     58.04194825102786,
+     61.99531554481034
     ],
     "n": 500,
     "low_n": false
    },
    "paired_B_minus_A_all": [
-    -0.231,
-    -0.615,
-    0.113
+    0.047,
+    -0.003,
+    0.145
    ],
    "paired_B_minus_A_changed_only": [
-    -5.246,
-    -13.788,
-    2.392
+    11.734,
+    -0.74,
+    24.208
    ],
-   "changed_better": 11,
-   "changed_worse": 11,
+   "changed_better": 1,
+   "changed_worse": 1,
+   "changed_same": 0
+  },
+  "rerank+fill+unknown+repeat+applicative": {
+   "changed": 24,
+   "changed_share": [
+    0.048,
+    0.0325,
+    0.0704
+   ],
+   "B_chrf": {
+    "mean": 59.7878136818443,
+    "ci95": [
+     57.80689422177268,
+     61.76873314191592
+    ],
+    "n": 500,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    -0.184,
+    -0.578,
+    0.18
+   ],
+   "paired_B_minus_A_changed_only": [
+    -3.831,
+    -11.765,
+    3.535
+   ],
+   "changed_better": 12,
+   "changed_worse": 12,
    "changed_same": 0
   }
  },
@@ -348,7 +378,35 @@
    }
   ],
   "repeat": [],
-  "rerank+fill+unknown+repeat": [
+  "applicative": [
+   {
+    "swa": "Unasomea nini shuleni?",
+    "A": "Kwaw'eshoma kihi skulu?",
+    "B": "Kwaw'eshomia kihi skulu?",
+    "ref": "Kwaw'eshomea kii skulu?",
+    "changes": [
+     [
+      "applicative",
+      "kwaweshoma -> kwaweshomia (Swahili -som- + applicative, rule)"
+     ]
+    ],
+    "chrf_diff": -0.7
+   },
+   {
+    "swa": "Tunapitia wapi?",
+    "A": "Daw'iaida hao?",
+    "B": "Daw'iaidia hao?",
+    "ref": "Daweidia hao",
+    "changes": [
+     [
+      "applicative",
+      "dawiaida -> dawiaidia (Swahili -pit- + applicative, rule)"
+     ]
+    ],
+    "chrf_diff": 24.2
+   }
+  ],
+  "rerank+fill+unknown+repeat+applicative": [
    {
     "swa": "Safari hii ni ndefu",
     "A": "Ughu charo ni mlacha",
@@ -466,14 +524,14 @@
   0.0464
  ],
  "config": {
-  "git_sha": "9df82059abf8c595cb5fa5b3a3844c705e8a7049",
+  "git_sha": "4fb9ac630419684e94d13fb1a8a8afe9ac250b4c",
   "nbest_file_sha256_16": "342c92f95553aefa",
   "bootstrap": {
    "B": 2000,
    "seed": 20261102
   },
   "files_sha256_16": {
-   "rulebook_correct.py": "a9aee9faeee68090",
+   "rulebook_correct.py": "8e594534a6462561",
    "rulebook_flagger.py": "2ef7b977226b6ae2",
    "kitaita_agreement_data.json": "4f412f4f3429357f",
    "kitaita_training_vocab.json": "2ebede980d2c7fc0",

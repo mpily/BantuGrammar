@@ -28320,3 +28320,59 @@ Note: this tab is not blind (A/B are labelled); the speaker study needs a separa
 blind, randomised page. finetuned_mt.py honours FINETUNED_MODEL_REPO (local dev).
 Checked by calling the real handlers with Gradio stubbed (gradio is not installed
 locally); CI-equivalent tests pass.
+
+## 2026-11-02 cont. 8: applicative and perfective endings follow one shared corpus rule (root-final consonant + vowel harmony)
+
+Question (user): is there a general rule for the applicative? Swahili-aligned
+base/applicative infinitive pairs gave only 20 pairs (too few), so the test used the
+Kidaw'ida side alone: roots = stems of infinitives ku-R-a with >= 5 tokens in the
+training vocabulary (hf_space/kitaita_training_vocab.json); for each root, the
+dominant shape among tokens ending R-{i,e,ir,er,...}-a (applicative) or
+R-{ie,ire,ere}(-ghe) (perfective). Counts by root type.
+
+| root ends in | root vowel | applicative (182 roots) | perfective (266 roots) |
+|---|---|---|---|
+| ny, nj, s, sh, z, ch, j | a/i/u | -ir- 23/28 | -ire 45/47 |
+| ny, nj, s, sh, z, ch, j | e/o | -er- 16/16 | -ere 26/26 |
+| other consonant | a/i/u | -i- 79/95 | -ie 121/125 |
+| other consonant | e/o | -i- 42/43 (no harmony) | -ie 67/68 |
+
+The rule matches the dominant shape for 160/182 applicative roots (88%) and 259/266
+perfective roots (97%). Exceptions: pat-ire 'got', zighan-ire. Also lw 'fight'
+-> luy (w + i -> uy) for the applicative.
+Caveats: exploratory. The consonant grouping was chosen after seeing the
+applicative table and then confirmed on the perfective (a separate suffix, so a partial
+replication). The string matching can catch non-verbs. Not speaker-verified.
+Answers round-1 open question "what conditions -ie vs -ire vs -ere".
+Arm 2 already follows it: of 328 perfective verbs in its test outputs, 9 mismatch,
+all of them the lexical exceptions pat-ire / zighan-ire, which the references also
+use (12/290 reference mismatches, same words). So a verb-ending correction in
+version B would only "fix" correct forms. If it is used anywhere, it belongs in the
+rule-based pipeline's verb generator, with an exceptions list.
+
+## 2026-11-02 cont. 9: version B step 5 -- add a missing applicative (user report)
+
+User report: "Watoto walipigania chakula" ('the children fought FOR food') ->
+arm 2 "W'ana w'edelwa vindo" ('fought'): the applicative was dropped. New step
+"applicative" in hf_space/rulebook_correct.py: if a Swahili source word is base
++ applicative -i-/-e- + final -a/-e (not -wa, which is usually passive) on a known
+root (table `hf_space/kitaita_verb_roots.json`, 283 high/medium round-1 verb
+roots, built by Code_Experiments/rulebook/build_verb_roots.py), and exactly one
+draft word is prefix + that base's Kidaw'ida root + final with no applicative,
+insert it. Uses the attested applicative root when round 1 lists base+i (fanyi ->
+bonyer, pigi -> kabi, ombe -> lombi, weke -> wiki, kutani -> kwani); skips
+lexicalised cases where base+i is a different Kidaw'ida verb (tumi 'use' vs tum
+'send', pati -> nek, anzi -> fum); otherwise uses the cont. 8 rule (lw -> luy;
+ny/nj/s/sh/z/ch/j -> -ir-/-er-; else -i-). Skips vowel-final Kidaw'ida roots with no
+attested form, known nouns, and object-marker pseudo-roots from round-1 parse noise
+(kup/nip/wap). Example: w'edelwa -> w'edeluya. Apostrophes are kept, and are treated as
+optional throughout (user: the Bible writes none).
+DEVELOPMENT numbers (the step was refined by inspecting its firings on the full dav_swa
+test outputs of arm 2, so these are NOT a clean held-out estimate): fires on 36/5,307
+top-1 outputs, chrF better/worse 25/11; good fixes include nikudeke -> nikudekie
+(= reference), nilole -> nilolie, daw'ikunda -> daw'ikundia, ulalagha -> ulaliagha
+(= reference). Remaining errors: lexicalised Swahili applicatives (tokea, nukia 'smell
+nice'), Kidaw'ida stems that may already contain an extension (weser- 'wait'), and
+-e- where the rule says -i- (reference shomea vs rule shomia). On the 500-sentence
+n-best sample it fires on 2 (1 better / 1 worse); all five steps together: 24 changed,
+B-A -0.18 [-0.58, 0.18], 12/12. Clean evaluation = the speaker study.
