@@ -156,6 +156,45 @@ def random_test_sentence():
     return choice["sw"], ""
 
 
+def submit_ab_feedback(swahili: str, a_output: str, b_output: str, rule_book_report: str,
+                       rating_a: str, rating_b: str, correction: str):
+    """2026-11-02: one record per A/B rating (fine-tuned vs fine-tuned + rule
+    book), written to feedback_ab/ in the same private dataset so the Progress
+    tab's rule-pipeline charts (which read feedback/) are not mixed with it."""
+    swahili = (swahili or "").strip()
+    if not swahili or not (a_output or "").strip():
+        return "Nothing to log yet -- translate a sentence first."
+    if not rating_a and not rating_b:
+        return "Rate A and/or B (1-5) before submitting."
+    token = os.environ.get("HF_TOKEN")
+    if not token:
+        return "Feedback was NOT saved: this Space has no HF_TOKEN secret configured."
+    record = {
+        "id": str(uuid.uuid4()),
+        "timestamp": datetime.now(timezone.utc).isoformat(),
+        "swahili_input": swahili,
+        "system_a": "finetuned:" + str(finetuned_mt._CFG.get("model_repo")),
+        "system_b": "finetuned+rulebook",
+        "a_output": (a_output or "").strip(),
+        "b_output": (b_output or "").strip(),
+        "b_equals_a": (a_output or "").strip() == (b_output or "").strip(),
+        "rule_book_report": rule_book_report,
+        "rating_a": rating_a or None,
+        "rating_b": rating_b or None,
+        "native_speaker_correction": (correction or "").strip() or None,
+    }
+    try:
+        from huggingface_hub import HfApi
+        import io
+        HfApi(token=token).upload_file(
+            path_or_fileobj=io.BytesIO(json.dumps(record, ensure_ascii=False, indent=1).encode("utf-8")),
+            path_in_repo=f"feedback_ab/{record['timestamp'].replace(':', '-')}_{record['id']}.json",
+            repo_id=FEEDBACK_DATASET_REPO, repo_type="dataset")
+    except Exception as e:
+        return f"Feedback was NOT saved -- upload failed: {type(e).__name__}: {e}"
+    return "Thanks -- logged for review." + (" (your correction was included.)" if record["native_speaker_correction"] else "")
+
+
 def submit_feedback(swahili: str, kitaita_output: str, mode: str, rating: str, correction: str):
     """Logs ONE rating (+ optional corrected translation) as its own small
     JSON file in a private HF Dataset -- one file per submission (not a
@@ -394,53 +433,65 @@ with gr.Blocks(title="Kitaita Translator") as demo:
         with gr.Tab("Translator"):
             gr.Markdown(
                 "# Kitaita Translator\n"
-                "Swahili &rarr; Kitaita (Kidaw'ida, ISO `dav`), via NLLB's Swahili output "
-                "run through a probe-guided rule-based concord pipeline -- see this Space's "
-                "README for the full methodology, what's validated, and what's still open. "
-                "**Probes** mode runs the real NLLB encoder + 5 trained relation/POS probes "
-                "(the full pipeline this project validates); **heuristic** mode is a plain "
-                "adjacency-based decomposer kept for comparison."
+                "Swahili &rarr; Kitaita (Kidaw'ida, ISO `dav`). Two systems side by side:\n"
+                "- **A: fine-tuned NLLB** (NLLB-600M fine-tuned on the dav_swa corpus + Bible pairs)\n"
+                "- **B: A + rule book**: the same draft, checked by a deterministic rule book "
+                "(agreement, copied Swahili, unknown words, repetition). Often B = A.\n\n"
+                "Both are machine translation awaiting native-speaker review."
             )
-            with gr.Row():
-                inp = gr.Textbox(label="Swahili sentence", lines=2,
-                                  placeholder="e.g. Mbwa mkubwa aliona Kijana mdogo akitembea.")
-                mode = gr.Radio(["Probes (full pipeline)", "Heuristic (for comparison)"],
-                                 value="Probes (full pipeline)", label="Mode")
+            inp = gr.Textbox(label="Swahili sentence", lines=2,
+                             placeholder="e.g. Mbwa mkubwa aliona Kijana mdogo akitembea.")
             with gr.Row():
                 btn = gr.Button("Translate", variant="primary")
                 sample_btn = gr.Button("🎲 Give me a sentence to test")
             with gr.Row():
-                out = gr.Textbox(label="Rule-based pipeline (machine translation, awaiting native-speaker review)",
-                                 lines=2)
-                ft_out = gr.Textbox(label="A: fine-tuned NLLB, dav_swa + Bible (machine translation, awaiting "
-                                          "native-speaker review)", lines=2)
-                b_out = gr.Textbox(label="B: A + deterministic rule book (machine translation, awaiting "
-                                         "native-speaker review)", lines=2)
+                ft_out = gr.Textbox(label="A: fine-tuned NLLB", lines=2)
+                b_out = gr.Textbox(label="B: fine-tuned NLLB + rule book", lines=2)
             with gr.Accordion("Rule book: what it flagged in A and changed in B", open=False):
                 ft_flags_box = gr.Markdown()
-            with gr.Accordion("Flags (identification/translation caveats on this sentence)", open=False):
-                flags_box = gr.Markdown()
-            with gr.Accordion("Evidence trail (full per-step trace)", open=False):
-                trace_box = gr.Markdown()
 
-            gr.Markdown("### Is this translation right?")
+            gr.Markdown("### Are these translations right?")
             gr.Markdown(
-                "If you speak Kitaita: rate the **rule-based** output above (left box) and, if it's wrong, tell us what it "
-                "should have been. This is logged for review, not applied automatically -- it's exactly "
-                "how this project finds the vocabulary and rules it's still missing. Your correction "
-                "also feeds the **📊 Progress** tab's charts."
+                "If you speak Kitaita: rate **A** and **B** separately and, if both are wrong, write "
+                "the correct translation. Logged for review, not applied automatically."
             )
             with gr.Row():
-                rating = gr.Radio(["1", "2", "3", "4", "5"], label="Rating (1 = way off, 5 = correct)")
-                correction = gr.Textbox(label="Correct Kitaita translation (optional)", lines=2,
-                                         placeholder="If the output above is wrong, what should it be?")
+                rating_a = gr.Radio(["1", "2", "3", "4", "5"], label="Rating for A (1 = way off, 5 = correct)")
+                rating_b = gr.Radio(["1", "2", "3", "4", "5"], label="Rating for B (1 = way off, 5 = correct)")
+            correction = gr.Textbox(label="Correct Kitaita translation (optional)", lines=2,
+                                    placeholder="If neither output is right, what should it be?")
             feedback_btn = gr.Button("Submit feedback")
             feedback_status = gr.Markdown()
 
-            btn.click(translate, inputs=[inp, mode], outputs=[out, flags_box, trace_box, ft_out, b_out, ft_flags_box])
-            inp.submit(translate, inputs=[inp, mode], outputs=[out, flags_box, trace_box, ft_out, b_out, ft_flags_box])
+            with gr.Accordion("Research: the earlier rule-based pipeline (NLLB probes + concord rewriting)",
+                              open=False):
+                gr.Markdown(
+                    "Translates directly from Swahili with dictionaries and concord rules; kept for "
+                    "research. **Probes** mode uses the NLLB encoder + trained relation probes; "
+                    "**heuristic** mode is an adjacency-based decomposer."
+                )
+                mode = gr.Radio(["Probes (full pipeline)", "Heuristic (for comparison)"],
+                                value="Probes (full pipeline)", label="Mode")
+                out = gr.Textbox(label="Rule-based pipeline output", lines=2)
+                with gr.Accordion("Flags (identification/translation caveats on this sentence)", open=False):
+                    flags_box = gr.Markdown()
+                with gr.Accordion("Evidence trail (full per-step trace)", open=False):
+                    trace_box = gr.Markdown()
+                with gr.Row():
+                    rating = gr.Radio(["1", "2", "3", "4", "5"], label="Rating for the rule-based output")
+                    rb_correction = gr.Textbox(label="Correct Kitaita translation (optional)", lines=2)
+                rb_feedback_btn = gr.Button("Submit feedback on the rule-based output")
+                rb_feedback_status = gr.Markdown()
+
+            outputs = [out, flags_box, trace_box, ft_out, b_out, ft_flags_box]
+            btn.click(translate, inputs=[inp, mode], outputs=outputs)
+            inp.submit(translate, inputs=[inp, mode], outputs=outputs)
             sample_btn.click(random_test_sentence, inputs=[], outputs=[inp, feedback_status])
-            feedback_btn.click(submit_feedback, inputs=[inp, out, mode, rating, correction], outputs=[feedback_status])
+            feedback_btn.click(submit_ab_feedback,
+                               inputs=[inp, ft_out, b_out, ft_flags_box, rating_a, rating_b, correction],
+                               outputs=[feedback_status])
+            rb_feedback_btn.click(submit_feedback, inputs=[inp, out, mode, rating, rb_correction],
+                                  outputs=[rb_feedback_status])
             gr.Examples(examples=EXAMPLES, inputs=[inp, mode])
 
         with gr.Tab("📊 Progress"):

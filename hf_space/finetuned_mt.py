@@ -27,7 +27,9 @@ _lock = threading.Lock()
 def _load():
     try:
         from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
-        repo, token = _CFG["model_repo"], os.environ.get("HF_TOKEN") or None
+        # FINETUNED_MODEL_REPO overrides config.yaml (e.g. a local folder for development)
+        repo = os.environ.get("FINETUNED_MODEL_REPO") or _CFG["model_repo"]
+        token = os.environ.get("HF_TOKEN") or None
         tok = AutoTokenizer.from_pretrained(repo, src_lang="swh_Latn", token=token)
         model = AutoModelForSeq2SeqLM.from_pretrained(repo, token=token).eval()
         from rulebook_flagger import resources

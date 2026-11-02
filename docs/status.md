@@ -28305,3 +28305,18 @@ rerank's alternative candidates often differ in more than the agreement word.
 Consequence for the speaker study: at ~4% of sentences changed, about 100
 differing pairs need about 2,500 source sentences; or use harder, out-of-domain
 input where the model breaks more.
+
+## 2026-11-02 cont. 7: Translator tab is now A (fine-tuned) vs B (fine-tuned + rule book)
+
+User decision: the comparison is fine-tuned NLLB alone (A) vs fine-tuned NLLB
++ rule book (B); A and B side by side; the earlier rule-based pipeline is kept
+in a collapsed "Research" section (its Probes/Heuristic modes, flags, trace and
+its own rating form unchanged; the API's probes/heuristic modes untouched).
+Ratings: separate 1-5 for A and B plus an optional correction, stored as one
+record per submission under feedback_ab/ in mpily/kitaita-translation-feedback
+(record: input, both outputs, b_equals_a, rule-book report, ratings, correction).
+The Progress tab reads only feedback/, so its rule-pipeline charts are unaffected.
+Note: this tab is not blind (A/B are labelled); the speaker study needs a separate
+blind, randomised page. finetuned_mt.py honours FINETUNED_MODEL_REPO (local dev).
+Checked by calling the real handlers with Gradio stubbed (gradio is not installed
+locally); CI-equivalent tests pass.
