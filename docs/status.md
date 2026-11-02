@@ -28184,3 +28184,77 @@ experiment 2, giving 63dc39f606c64147; Kidaw'ida forms unchanged). Bootstrap B=2
 passed / 1 skipped in a CI-equivalent venv (no torch). Not merged to main (= not
 on the Space): the user then proposed a different system design (fine-tuned NLLB
 + rule book as post-editor), see the next entry.
+
+## 2026-11-02 cont. 4: deployed the mined-lexicon tier; new two-system design; arm 2 exported; flagger v0
+
+Deploy: branch pipeline-round1-lexicon fast-forwarded to main (a239e97, pushed
+over SSH); the sync workflow ran tests and uploaded hf_space/ successfully. The
+merge also carried 1cd0d61 (fine-tune baseline scripts, nothing in hf_space/).
+
+User design decision (2026-11-02): compare two systems with native speakers.
+  A = fine-tuned NLLB (arm 2: dav_swa + Bible, so A sees the same data the
+      rule book was mined from; on the novel test it ties arm 1, 59.64 vs 59.39)
+  B = A's draft + a deterministic rule book: flag hallucinated / untranslated /
+      garbled words, fix agreement.
+Flagged words are shown to judges as the Swahili source word, NOT as [?]
+(the user's call: brackets would bias judges against B). A flagged word that
+cannot be aligned to a source word keeps the model's form. Speakers judge only
+sentences where B differs from A.
+
+Arm 2 exported to ~/languagemodels/arm2_davswa_hf (export_finetuned_to_hf.py;
+equivalence check 50/50 identical to the saved test predictions).
+
+Flagger v0 (`Code_Experiments/rulebook/flagger.py`): categories name / swahili
+(copied from source, and not an established shared word: davswa Kidaw'ida-side
+count >= 3 and >= 0.2 x Swahili-side count) / unknown (not in the training
+vocabulary = Kidaw'ida side of MINE + HOLDOUT, and no stem match after stripping
+<= 3 verb prefixes + a final suffix) / repeat (3rd+ consecutive copy). Evaluated
+on arm 2's saved dav_swa test predictions (no new decoding):
+
+| test_novel (n=3,511) | flag rate on arm-2 output | false-alarm rate on real references | flagged arm-2 words absent from reference |
+|---|---|---|---|
+| unknown | 0.9% (155/16,858) | 1.7% [1.5, 1.9] | 95.2% [90.4, 97.6] |
+| swahili copy | 1.6% (275) | 1.3% [1.1, 1.4] | 63.3% [57.4, 68.8] |
+| repeat | 0 | 0 | -- |
+| baseline: unflagged words | | | 44.3% [43.6, 45.1] |
+
+Reading: in-domain, arm 2 rarely invents words. When it does, the "unknown" flag
+is a strong signal (95% vs 44% absent from the reference). The swahili-copy flag
+is weaker. "Absent from the reference" is only a proxy for "wrong": free
+translation alone gives 44%. The false-alarm rate on references is about as high
+as the flag rate on outputs, so B must only change a word when it has a
+replacement it trusts. B's effect will matter mostly out of domain (stories,
+news), where we have no references; speakers are needed there. (Bible verses are
+in arm 2's training data, so they are not out of domain for it.)
+
+## 2026-11-02 cont. 5: Space shows the fine-tuned NLLB next to the rule-based pipeline (system A + flagger)
+
+User request: the fine-tuned translation was missing from the Space page. (The
+three rule-pipeline bugs found in one trace, cont. 4 discussion -- sentence-initial
+capital treated as a name, "Magozwe" parsed as m- + verb, mined fills for
+numerals/adjectives -- are deliberately NOT fixed: the user wants them left for
+the evaluation, to avoid a rabbit hole.)
+
+- Arm 2 uploaded to a PRIVATE model repo `mpily/nllb-600m-swh-dav-bible`
+  (private because it was trained partly on rights-reserved Bible text; NLLB is
+  CC-BY-NC). The Space reads it with its HF_TOKEN secret.
+- `hf_space/finetuned_mt.py`: loads the model in a background thread at startup
+  (config.yaml `finetuned:` model_repo, num_beams 4, max_new_tokens 128). If
+  loading fails, the UI shows why and the Space stays up. Independent of
+  kitaita_e2e_pipeline.py: no pipeline logic changed.
+- Flagger moved to `hf_space/rulebook_flagger.py` (Code_Experiments/rulebook/
+  flagger.py now re-exports it; not forked). It reads derived word counts from
+  `hf_space/kitaita_training_vocab.json` (53,386 words, built by
+  Code_Experiments/rulebook/build_training_vocab.py). Same numbers as cont. 4
+  after the comma-split fix (unknown false-alarm rate on novel references 1.6%).
+- Translator tab: two output boxes, rule-based (left) and fine-tuned (right), both
+  labelled "machine translation, awaiting native-speaker review", plus an
+  accordion listing what the flagger found in the fine-tuned output (not yet
+  corrected: version B's correction step is not built). The feedback form still
+  rates the rule-based output only (label now says so).
+- Local check: arm 2 via finetuned_mt ~5 s per sentence on the laptop CPU.
+  Tests: new tests/test_rulebook_flagger.py; CI-equivalent suite 77 passed / 1 skipped.
+- Earlier today: live smoke test after the a239e97 deploy passed except the two
+  Africa's Talking endpoints (503 because PHONE_HASH_SALT / AT secrets are not
+  configured; expected, documented 2026-10-26, not a regression). Translate p50
+  631 ms / p95 705 ms (n=3, uncached).

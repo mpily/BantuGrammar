@@ -77,18 +77,38 @@ print("Pre-warming NLLB + trained probes (one-time cost)...", flush=True)
 from nllb_probe_identification import load_probes  # noqa: E402
 
 load_probes()
+# 2026-11-02: system A of the two-system comparison (fine-tuned NLLB, arm 2),
+# loaded in the background so the rule-based pipeline is usable immediately.
+import finetuned_mt  # noqa: E402
+
+finetuned_mt.start_loading()
 print("Ready.", flush=True)
+
+
+FLAG_LABELS = {"unknown": "not in the model's training vocabulary",
+               "swahili": "copied from the Swahili source",
+               "repeat": "repetition", "name": "proper name (kept)"}
+
+
+def translate_finetuned(text: str):
+    """Fine-tuned NLLB draft + what the rule-book flagger found in it."""
+    r = finetuned_mt.translate(text)
+    if r["kitaita"] is None:
+        return f"(fine-tuned model {r['status']})", ""
+    flagged = [f"- **{t}**: {FLAG_LABELS.get(c, c)}" for t, c in r["flags"]]
+    return r["kitaita"], ("\n".join(flagged) if flagged else "(nothing flagged)")
 
 
 def translate(text: str, mode: str):
     text = (text or "").strip()
     if not text:
-        return "", "", ""
+        return "", "", "", "", ""
+    ft_out, ft_flags = translate_finetuned(text)
     fn = translate_sentence_with_probes if mode.startswith("Probes") else translate_sentence
     try:
         r = fn(text, _tables)
     except Exception as e:  # keep the Space up even if one input trips a bug
-        return "", "", f"SERVER ERROR: {type(e).__name__}: {e}"
+        return "", "", f"SERVER ERROR: {type(e).__name__}: {e}", ft_out, ft_flags
     sentence = r.get("kitaita_sentence") or ""
     error = r.get("error")
     flags = r.get("flags")
@@ -110,7 +130,7 @@ def translate(text: str, mode: str):
         out = f"(no output)\n\nERROR: {error}" if error else "(no output)"
     else:
         out = sentence
-    return out, flags_text, trace_text
+    return out, flags_text, trace_text, ft_out, ft_flags
 
 
 def random_test_sentence():
@@ -377,7 +397,14 @@ with gr.Blocks(title="Kitaita Translator") as demo:
             with gr.Row():
                 btn = gr.Button("Translate", variant="primary")
                 sample_btn = gr.Button("🎲 Give me a sentence to test")
-            out = gr.Textbox(label="Kitaita output", lines=2)
+            with gr.Row():
+                out = gr.Textbox(label="Rule-based pipeline (machine translation, awaiting native-speaker review)",
+                                 lines=2)
+                ft_out = gr.Textbox(label="Fine-tuned NLLB, dav_swa + Bible (machine translation, awaiting "
+                                          "native-speaker review)", lines=2)
+            with gr.Accordion("Rule-book check on the fine-tuned output (flagged words; not yet corrected)",
+                              open=False):
+                ft_flags_box = gr.Markdown()
             with gr.Accordion("Flags (identification/translation caveats on this sentence)", open=False):
                 flags_box = gr.Markdown()
             with gr.Accordion("Evidence trail (full per-step trace)", open=False):
@@ -385,7 +412,7 @@ with gr.Blocks(title="Kitaita Translator") as demo:
 
             gr.Markdown("### Is this translation right?")
             gr.Markdown(
-                "If you speak Kitaita: rate the output above and, if it's wrong, tell us what it "
+                "If you speak Kitaita: rate the **rule-based** output above (left box) and, if it's wrong, tell us what it "
                 "should have been. This is logged for review, not applied automatically -- it's exactly "
                 "how this project finds the vocabulary and rules it's still missing. Your correction "
                 "also feeds the **📊 Progress** tab's charts."
@@ -397,8 +424,8 @@ with gr.Blocks(title="Kitaita Translator") as demo:
             feedback_btn = gr.Button("Submit feedback")
             feedback_status = gr.Markdown()
 
-            btn.click(translate, inputs=[inp, mode], outputs=[out, flags_box, trace_box])
-            inp.submit(translate, inputs=[inp, mode], outputs=[out, flags_box, trace_box])
+            btn.click(translate, inputs=[inp, mode], outputs=[out, flags_box, trace_box, ft_out, ft_flags_box])
+            inp.submit(translate, inputs=[inp, mode], outputs=[out, flags_box, trace_box, ft_out, ft_flags_box])
             sample_btn.click(random_test_sentence, inputs=[], outputs=[inp, feedback_status])
             feedback_btn.click(submit_feedback, inputs=[inp, out, mode, rating, correction], outputs=[feedback_status])
             gr.Examples(examples=EXAMPLES, inputs=[inp, mode])

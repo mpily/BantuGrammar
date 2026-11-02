@@ -59,3 +59,11 @@ game:
   min_vowels: 4
   long_word_letters: 7
   long_word_bonus: 10
+
+finetuned:
+  # System A of the two-system comparison (2026-11-02): NLLB-600M fine-tuned on
+  # dav_swa train + 27k Bible NEN pairs ("arm 2"). Private repo; the Space reads
+  # it with its HF_TOKEN secret. Shown next to the rule-based output.
+  model_repo: "mpily/nllb-600m-swh-dav-bible"
+  num_beams: 4
+  max_new_tokens: 128
