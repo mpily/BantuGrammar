@@ -67,3 +67,13 @@ def test_verified_applicative_perfective_and_id_repair_before_unknown_step():
 def test_palatal_root_ere_left_alone():
     # di-bony-er-e 'do for us' already carries the applicative
     assert correct("Tutendee mema", ["Dibonyere mecha"], steps=("applicative",))["changes"] == []
+
+
+def test_one_consonant_root_applicative():
+    # ku-l-a 'eat' -> Kidaw'ida -j- (kula -> kuja); a-li-m-ku-l-i-a 'ate for/on him'
+    r = correct("Mama alimkulia chakula mtoto", ["Mao odemja mwana vindo"], steps=("applicative",))
+    assert r["kitaita"] == "Mao odemjia mwana vindo"  # plain -i-, as attested ra-di-ch-i-a 'came to us'
+    assert correct("Mvua zilitukujia", ["Mbua radicha"], steps=("applicative",))["kitaita"] == "Mbua radichia"
+    # look-alikes without an object marker before ku: 'cried', 'grew up', 'cried for you'
+    for src in ("Mama alilia", "Mtoto amekulia mjini", "Alikulia"):
+        assert correct(src, ["Mao odeja"], steps=("applicative",))["changes"] == []

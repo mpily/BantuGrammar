@@ -27,6 +27,8 @@ be switched off on its own, so each is evaluated as a separate change.
                attested applicative root if round 1 lists one, else the corpus rule
                (root-final ny/nj/s/sh/z/ch/j -> -ir-/-er-, otherwise -i-; lw -> luy).
                Fires only when exactly one draft word matches. User report 2026-11-02.
+               One-consonant roots (ku-l-a 'eat' -> -j-) need an object marker
+               before ku (a-li-m-ku-l-i-a); user request 2026-11-02.
                Perfective drafts (-ie/-ire/-ere, -ghe) are changed only for a
                speaker-verified stem (lw -> lu: wi-lu-ie-ghe) or a malformed -id-
                before the perfective; after a palatal root, -ere/-ire is also
@@ -120,6 +122,33 @@ def _om_pseudo_root(base: str, roots: dict) -> bool:
     return any(base.startswith(om) and 0 < len(base) - len(om) <= 2 for om in _SW_OBJECT_MARKERS)
 
 
+# One-consonant Swahili roots (ku-l-a 'eat'). Round 1's root table lists j 'come'
+# and p 'give' but not l; l -> j is from the mined lexicon (kula -> kuja, high;
+# alikula -> odeja). Not speaker-verified.
+# Their applicative is plain -i- even after j/ch: the only two training sentences
+# with this shape have zi-li-tu-ku-j-i-a -> ra-di-ch-i-a and zi-me-wa-ku-j-i-a ->
+# ra-di-ch-e-a 'came to us/them' (not the palatal -ir-).
+SHORT_ROOTS_ADDED = {"l": ["j"]}
+_SW_SM = ("a", "u", "wa", "ni", "tu", "m", "mw", "ki", "vi", "i", "li", "ya", "zi", "ku", "pa")
+_SW_TAM = ("li", "na", "me", "ta", "ka", "nge", "ngali")
+
+
+def _kitaita_roots(base: str) -> list[str]:
+    return _verb_roots().get(base) or SHORT_ROOTS_ADDED[base]
+
+
+@lru_cache(maxsize=1)
+def _short_applicative_re():
+    """Subject + tense + object marker + ku + one-consonant root + i/e + a:
+    a-li-m-ku-l-i-a. Monosyllabic verbs keep ku- after the object marker, which
+    rules out the look-alikes a-li-l-i-a 'cried' and a-me-ku-li-a 'grew up'
+    (-li- 'cry' / -ku- 'grow' + applicative). Without an object marker it does
+    not fire."""
+    bases = sorted({b for b in _verb_roots() if len(b) == 1 and b not in "aeiou"} | set(SHORT_ROOTS_ADDED))
+    alt = lambda xs: "|".join(sorted(xs, key=len, reverse=True))
+    return re.compile(rf"(?:{alt(_SW_SM)})(?:{alt(_SW_TAM)})(?:{alt(_SW_OBJECT_MARKERS)})ku({alt(bases)})(?:i|e)a")
+
+
 def swahili_applicatives(src: str) -> list[tuple[str, str | None]]:
     """(Swahili base root, attested Kidaw'ida applicative root or None) for each
     source word built on base + applicative -i-/-e- (walipigania -> pigan).
@@ -130,6 +159,10 @@ def swahili_applicatives(src: str) -> list[tuple[str, str | None]]:
     roots = _verb_roots()
     out = []
     for tok in (norm(t) for t in src.split()):
+        short = _short_applicative_re().fullmatch(tok)
+        if short:
+            out.append((short.group(1), None))
+            continue
         for base in sorted(roots, key=len, reverse=True):
             if len(base) < 3 or _om_pseudo_root(base, roots):
                 continue
@@ -217,7 +250,7 @@ def correct(src: str, nbest: list[str], steps=ALL_STEPS) -> dict:
             hits = []
             for i, w in enumerate(words):
                 t = norm(w)
-                for kr in _verb_roots()[base]:
+                for kr in _kitaita_roots(base):
                     if kr[-1] in "aeiou" and not attested:
                         continue  # the rule covers consonant-final roots only (churi- 'add' already ends in i)
                     if t in _agreement()[1]:
@@ -240,7 +273,7 @@ def correct(src: str, nbest: list[str], steps=ALL_STEPS) -> dict:
                 core = re.sub(r"\W+$", "", words[i])
                 trail = words[i][len(core):]
                 if kind == "perfective":
-                    stem = applicative_perfective(kr)
+                    stem = kr if len(base) == 1 else applicative_perfective(kr)
                     m = re.fullmatch(rf"(.*?){re.escape(kr)}(?:id)?(?:ie|ire|ere)(?:ghe)?", norm(core))
                     new_norm = m.group(1) + stem + final
                     if new_norm != norm(core):
@@ -255,7 +288,7 @@ def correct(src: str, nbest: list[str], steps=ALL_STEPS) -> dict:
                                         "perfective)"))
                         words[i] = new
                     continue
-                stem = attested or applicative_stem(kr)
+                stem = attested or (kr + "i" if len(base) == 1 else applicative_stem(kr))
                 tail = kr + final
                 if norm(core).endswith(tail) and core.lower().replace("'", "").endswith(tail):
                     # edit only the end of the original token, so apostrophes in the prefix survive

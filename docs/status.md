@@ -28404,3 +28404,27 @@ Rule-book changes (hf_space/rulebook_correct.py):
   unknown step replaced w'ilwidieghe with Swahili before the repair could run.
 Plain applicative firings on the test outputs are unchanged (36); perfective firings
 0 there (the verified case is not in the test set). Tests 88 passed / 1 skipped.
+
+## 2026-11-02 (cont. 11) — rule book: applicative for one-consonant roots (ku-l-a 'eat')
+
+User request after "Mama alimkulia chakula mtoto": the applicative step skipped
+Swahili roots shorter than 3 letters, so a-li-m-ku-l-i-a 'ate for/on him' was
+never seen. One change, `hf_space/rulebook_correct.py`:
+
+- One-consonant roots from round 1's table (j 'come' -> ch, p 'give' -> nek) plus
+  l 'eat' -> j, added from the mined lexicon (kula -> kuja, high; alikula -> odeja).
+  NOT speaker-verified.
+- Detected only as subject + tense + object marker + ku + root + i/e + a. The
+  object marker before ku rules out look-alikes a-li-l-i-a 'cried',
+  a-me-ku-li-a 'grew up', a-li-ku-li-a 'cried for you'.
+- Shape: plain -i- (not the palatal -ir-). The only 2 training sentences with this
+  Swahili shape (of 46,641 in MINE) are zilitukujia -> radichia and zimewakujia ->
+  radichea 'came to us/them'. My first version used the palatal rule (-> odemjira);
+  changed before commit on that evidence. n = 2: weak.
+- Effect: fires on 0 of 500 novel test sentences (no source has the pattern), so
+  version B's test numbers are unchanged. On the user's sentence it also does not
+  fire: arm 2's draft uses -lel- 'raise' (Mao odemlela mwana vindo), not -j- 'eat',
+  and the step only repairs the right verb. A speaker's form for "alimkulia" is
+  needed; the rule would predict o-de-m-j-i-a (odemjia), unattested.
+- Tests: `test_one_consonant_root_applicative` (+ look-alikes). CI-like suite 89
+  passed / 1 skipped.
