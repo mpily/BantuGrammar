@@ -3254,6 +3254,8 @@ def translate_sentence_with_probes(text: str, tables) -> dict:
     # 2026-11-02: per-verb subject analysis, in sentence order, for the version-B
     # subject-agreement step (rulebook_correct.py). Read-only summary of the above.
     report["clauses"] = [{"verb": c["verb_surface"], "verb_idx": c["verb_idx"], "subject": c.get("subject"),
+                          "swahili_sm": (c.get("verb") or {}).get("sm"),
+                          "subject_kitaita": (r["components"].get("subject_noun") if r else None),
                           "subject_class_marker": (r["components"].get("subject_class_marker") if r else None)}
                          for c, r in sorted(clause_results, key=lambda cr: cr[0]["verb_idx"])]
     first_result = next((r for _, r in clause_results if r is not None), None)

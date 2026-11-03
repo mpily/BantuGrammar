@@ -12,6 +12,9 @@ Sets:
                 for debugging only.
   test_novel -- a seeded random sample of the novel test subset (Swahili side
                 never in train): clean for the model and the rule book.
+  test_novel2 -- 2026-11-03: a second 500 from the same subset, disjoint from
+                test_novel (whose errors were inspected while building the
+                subject step), seed 20261103. Fresh test for that step.
 Writes ~/languagemodels/arm2_nbest_<set>.jsonl (corpus text: not in git).
 Resumable per item (CLAUDE.md: checkpoint runs > 10 min).
 """
@@ -44,12 +47,15 @@ def sets(n_test: int):
     val = [train_all[i] for i in order[:500]]
     train_keys = {_key(r["swa"]) for r in train_all}
     novel = [r for r in test if _key(r["swa"]) not in train_keys]
-    return {"val": val, "test_novel": random.Random(SAMPLE_SEED).sample(novel, n_test)}
+    first = random.Random(SAMPLE_SEED).sample(novel, n_test)
+    used = {r["id"] for r in first}
+    rest = [r for r in novel if r["id"] not in used]
+    return {"val": val, "test_novel": first, "test_novel2": random.Random(20261103).sample(rest, n_test)}
 
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--set", required=True, choices=["val", "test_novel"])
+    ap.add_argument("--set", required=True, choices=["val", "test_novel", "test_novel2"])
     ap.add_argument("--n-test", type=int, default=500)
     ap.add_argument("--beams", type=int, default=4)
     ap.add_argument("--batch", type=int, default=8)

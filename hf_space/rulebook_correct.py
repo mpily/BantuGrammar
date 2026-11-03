@@ -20,8 +20,9 @@ be switched off on its own, so each is evaluated as a separate change.
                output accounts for. Otherwise the model's word is kept.
   repeat    -- 3rd+ consecutive copies of a token are dropped.
   subject   -- the pipeline's own analysis of the Swahili source (probe path:
-               each verb's subject and that subject's class marker, from the
-               speaker-verified table or class data) is used to fix the subject
+               each verb's subject and the Swahili subject marker) and the
+               subject-class resolver (subject_class_resolver.py: class pair from
+               the Kidaw'ida noun, number from the Swahili verb) fix the subject
                marker on the draft's verbs (Nguku orekoghe -> erekoghe: nguku is
                an i- noun). Only the marker changes; root and tense stay the
                model's. Surface by class and tense from kitaita_subject_markers.json
@@ -55,6 +56,7 @@ from functools import lru_cache
 from pathlib import Path
 
 from kitaita_mined_lexicon import mined_lookup
+from subject_class_resolver import resolve as resolve_subject_class
 from rulebook_flagger import flag, norm
 
 _DATA = Path(__file__).parent / "kitaita_agreement_data.json"
@@ -214,6 +216,20 @@ def _subject_markers():
     return dominant, attested
 
 
+@lru_cache(maxsize=1)
+def _noun_forms() -> set[str]:
+    """Kidaw'ida forms known to be nouns: agreement data, round-1 nouns, voted
+    subject classes, and the mined lexicon's noun entries."""
+    here = Path(__file__).parent
+    forms = set(_agreement()[1])
+    for e in json.loads((here / "kitaita_noun_classes_round1.json").read_text(encoding="utf-8"))["nouns"].values():
+        forms.update(e["kitaita"])
+    forms.update(json.loads((here / "kitaita_subject_classes.json").read_text(encoding="utf-8"))["nouns"])
+    mined = json.loads((here / "kitaita_mined_lexicon_round1.json").read_text(encoding="utf-8"))["entries"]
+    forms.update(norm(e["kitaita"]) for e in mined.values() if e.get("area") == "nouns" and e.get("kitaita"))
+    return forms
+
+
 def verb_prefix(token: str, base: str):
     """(surface, tense) if token starts with this class's dominant subject marker."""
     dominant = _subject_markers()[0]
@@ -308,11 +324,12 @@ def correct(src: str, nbest: list[str], steps=DEFAULT_STEPS, clauses: list[dict]
 
     if "subject" in steps and clauses:
         bases = sorted(_subject_markers()[1])
-        nouns = _agreement()[1]
+        nouns = _noun_forms()
         draft_verbs = []
         for i, w in enumerate(words):
             t = norm(w)
-            if len(t) >= 4 and t not in nouns:
+            # known nouns and -nyi locatives (charonyi 'on the journey') are not verbs
+            if len(t) >= 4 and t not in nouns and not t.endswith("nyi"):
                 m = {b: hit for b in bases if (hit := verb_prefix(t, b))}
                 if m:
                     draft_verbs.append((i, m))
@@ -320,9 +337,12 @@ def correct(src: str, nbest: list[str], steps=DEFAULT_STEPS, clauses: list[dict]
             notes.append(f"subject: not run ({len(draft_verbs)} verb(s) in the draft, {len(clauses)} in the source)")
         else:
             for (i, m), c in zip(draft_verbs, clauses):
-                target_class = c.get("subject_class_marker")
-                if not target_class or target_class in m or target_class not in _subject_markers()[1]:
-                    continue  # no class from the pipeline, or the draft already agrees
+                target_class, why = resolve_subject_class(c.get("subject"), c.get("subject_kitaita"), c.get("swahili_sm"))
+                if not target_class:
+                    notes.append(f"subject: {norm(words[i])} left as is ({c.get('subject')}: {why})")
+                    continue
+                if target_class in m or target_class not in _subject_markers()[1]:
+                    continue  # the draft already agrees, or no surface data for that class
                 surface, tam = next(iter(m.values()))
                 if (surface, tam) in _subject_markers()[1][target_class]:
                     continue  # this surface is also used by the subject's class: leave it
@@ -334,7 +354,7 @@ def correct(src: str, nbest: list[str], steps=DEFAULT_STEPS, clauses: list[dict]
                 core = re.sub(r"\W+$", "", words[i])
                 new = _replace_prefix(core, len(surface), target) + words[i][len(core):]
                 changes.append(("subject", f"{norm(words[i])} -> {norm(new)} (subject {c.get('subject')}: "
-                                           f"class {target_class}-, verb {c.get('verb')})"))
+                                           f"class {target_class}- from {why}, verb {c.get('verb')})"))
                 words[i] = new
                 edited.add(i)
 

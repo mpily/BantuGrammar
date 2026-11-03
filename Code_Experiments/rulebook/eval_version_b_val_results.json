@@ -1,0 +1,267 @@
+{
+ "set": "val",
+ "n": 80,
+ "A_chrf": {
+  "mean": 62.021592661423675,
+  "ci95": [
+   56.48679352258109,
+   67.55639180026625
+  ],
+  "n": 80,
+  "low_n": false
+ },
+ "conditions": {
+  "verified": {
+   "changed": 0,
+   "changed_share": [
+    0.0,
+    -0.0,
+    0.0458
+   ],
+   "B_chrf": {
+    "mean": 62.021592661423675,
+    "ci95": [
+     56.48679352258109,
+     67.55639180026625
+    ],
+    "n": 80,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "paired_B_minus_A_changed_only": null,
+   "changed_better": 0,
+   "changed_worse": 0,
+   "changed_same": 0
+  },
+  "rerank": {
+   "changed": 1,
+   "changed_share": [
+    0.0125,
+    0.0022,
+    0.0675
+   ],
+   "B_chrf": {
+    "mean": 62.04509183195436,
+    "ci95": [
+     56.513155197947825,
+     67.5770284659609
+    ],
+    "n": 80,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    0.023,
+    0.0,
+    0.07
+   ],
+   "paired_B_minus_A_changed_only": [
+    1.88,
+    1.88,
+    1.88
+   ],
+   "changed_better": 1,
+   "changed_worse": 0,
+   "changed_same": 0
+  },
+  "fill": {
+   "changed": 1,
+   "changed_share": [
+    0.0125,
+    0.0022,
+    0.0675
+   ],
+   "B_chrf": {
+    "mean": 62.02583256207489,
+    "ci95": [
+     56.490454270052,
+     67.56121085409778
+    ],
+    "n": 80,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    0.004,
+    0.0,
+    0.013
+   ],
+   "paired_B_minus_A_changed_only": [
+    0.339,
+    0.339,
+    0.339
+   ],
+   "changed_better": 1,
+   "changed_worse": 0,
+   "changed_same": 0
+  },
+  "unknown": {
+   "changed": 0,
+   "changed_share": [
+    0.0,
+    -0.0,
+    0.0458
+   ],
+   "B_chrf": {
+    "mean": 62.021592661423675,
+    "ci95": [
+     56.48679352258109,
+     67.55639180026625
+    ],
+    "n": 80,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "paired_B_minus_A_changed_only": null,
+   "changed_better": 0,
+   "changed_worse": 0,
+   "changed_same": 0
+  },
+  "repeat": {
+   "changed": 0,
+   "changed_share": [
+    0.0,
+    -0.0,
+    0.0458
+   ],
+   "B_chrf": {
+    "mean": 62.021592661423675,
+    "ci95": [
+     56.48679352258109,
+     67.55639180026625
+    ],
+    "n": 80,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "paired_B_minus_A_changed_only": null,
+   "changed_better": 0,
+   "changed_worse": 0,
+   "changed_same": 0
+  },
+  "applicative": {
+   "changed": 1,
+   "changed_share": [
+    0.0125,
+    0.0022,
+    0.0675
+   ],
+   "B_chrf": {
+    "mean": 61.96848373740695,
+    "ci95": [
+     56.444793318084955,
+     67.49217415672894
+    ],
+    "n": 80,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    -0.053,
+    -0.159,
+    0.0
+   ],
+   "paired_B_minus_A_changed_only": [
+    -4.249,
+    -4.249,
+    -4.249
+   ],
+   "changed_better": 0,
+   "changed_worse": 1,
+   "changed_same": 0
+  },
+  "subject": {
+   "changed": 0,
+   "changed_share": [
+    0.0,
+    -0.0,
+    0.0458
+   ],
+   "B_chrf": {
+    "mean": 62.021592661423675,
+    "ci95": [
+     56.48679352258109,
+     67.55639180026625
+    ],
+    "n": 80,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "paired_B_minus_A_changed_only": null,
+   "changed_better": 0,
+   "changed_worse": 0,
+   "changed_same": 0
+  },
+  "verified+rerank+fill+unknown+repeat+applicative+subject": {
+   "changed": 3,
+   "changed_share": [
+    0.0375,
+    0.0128,
+    0.1045
+   ],
+   "B_chrf": {
+    "mean": 61.99622280858883,
+    "ci95": [
+     56.47480755958892,
+     67.51763805758874
+    ],
+    "n": 80,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    -0.025,
+    -0.159,
+    0.07
+   ],
+   "paired_B_minus_A_changed_only": [
+    -0.677,
+    -4.249,
+    1.88
+   ],
+   "changed_better": 2,
+   "changed_worse": 1,
+   "changed_same": 0
+  }
+ },
+ "checker_false_alarm_refs": [
+  0.0,
+  -0.0,
+  0.0458
+ ],
+ "checker_flag_rate_A": [
+  0.0125,
+  0.0022,
+  0.0675
+ ],
+ "config": {
+  "git_sha": "73b773243bc401e99561a85a83e74340f8fbcecc",
+  "nbest_file_sha256_16": "eedeb3cff9a53091",
+  "bootstrap": {
+   "B": 2000,
+   "seed": 20261102
+  },
+  "clauses_file_sha256_16": "1117ce6f901eb5d2",
+  "files_sha256_16": {
+   "rulebook_correct.py": "82c66d5f1d9ecf84",
+   "rulebook_flagger.py": "76fc15334ac5e957",
+   "kitaita_agreement_data.json": "4f412f4f3429357f",
+   "kitaita_training_vocab.json": "2ebede980d2c7fc0",
+   "kitaita_mined_lexicon_round1.json": "63dc39f606c64147",
+   "kitaita_subject_markers.json": "e0997b7af5b60034"
+  }
+ },
+ "examples_file": "~/languagemodels/eval_version_b_val_examples.json (not in git: corpus text)"
+}

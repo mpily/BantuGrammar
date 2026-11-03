@@ -80,7 +80,8 @@ def test_one_consonant_root_applicative():
 
 
 KUKU = "Kuku alipokuwa anarudi nyumbani alikutana na Mama yake Jongoo."
-KUKU_CLAUSES = [{"verb": v, "subject": "kuku", "subject_class_marker": "i"} for v in ("alipokuwa", "anarudi", "alikutana")]
+KUKU_CLAUSES = [{"verb": v, "subject": "kuku", "subject_kitaita": "nguku", "swahili_sm": "a"}
+                for v in ("alipokuwa", "anarudi", "alikutana")]
 
 
 def test_subject_marker_matched_to_pipeline_subject_class():
@@ -94,11 +95,22 @@ def test_subject_marker_matched_to_pipeline_subject_class():
 def test_subject_step_needs_matching_verb_counts_and_a_class():
     two = correct(KUKU, ["Nguku orekoghe nyumbenyi ukakwana"], steps=("subject",), clauses=KUKU_CLAUSES)
     assert two["changes"] == [] and "not run" in two["notes"][0]
-    none = [dict(c, subject_class_marker=None) for c in KUKU_CLAUSES]
+    none = [dict(c, subject="zzqx", subject_kitaita=None) for c in KUKU_CLAUSES]  # no class data
     assert correct(KUKU, ["Nguku orekoghe ukiwuya ukakwana"], steps=("subject",), clauses=none)["changes"] == []
     assert correct(KUKU, ["Nguku orekoghe ukiwuya ukakwana"], steps=("subject",))["changes"] == []
 
 
 def test_subject_step_leaves_agreeing_verbs_alone():
-    cl = [{"verb": "alikuja", "subject": "mtu", "subject_class_marker": "u"}]
+    cl = [{"verb": "alikuja", "subject": "mtu", "subject_kitaita": "mundu", "swahili_sm": "a"}]
     assert correct("Mtu alikuja", ["Mundu ukacha"], steps=("subject",), clauses=cl)["changes"] == []
+
+
+def test_subject_step_needs_the_swahili_number():
+    no_number = [dict(c, swahili_sm=None) for c in KUKU_CLAUSES]
+    assert correct(KUKU, ["Nguku orekoghe ukiwuya ukakwana"], steps=("subject",), clauses=no_number)["changes"] == []
+
+
+def test_nouns_and_locatives_are_not_taken_for_verbs():
+    cl = [{"verb": "Amerudi", "subject": None, "subject_kitaita": None, "swahili_sm": "a"}]
+    r = correct("Amerudi kutoka safari.", ["W'awurieghe kufuma charonyi."], steps=("subject",), clauses=cl)
+    assert r["changes"] == []

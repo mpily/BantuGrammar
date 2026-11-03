@@ -1,0 +1,1889 @@
+{
+ "_meta": {
+  "date": "2026-11-03",
+  "seed": 20261103,
+  "gold": "VERIFIED_SUBJECT_MARKERS (verified tier off)",
+  "votes": "rebuilt per fold without held-out nouns"
+ },
+ "results": {
+  "votes": {
+   "n": 226,
+   "coverage": [
+    0.173,
+    0.129,
+    0.227
+   ],
+   "accuracy_when_answered": [
+    0.897,
+    0.764,
+    0.959
+   ],
+   "right_of_all": [
+    0.155,
+    0.114,
+    0.208
+   ],
+   "by_gold_class": {
+    "chi": {
+     "answered": 3,
+     "right": 3
+    },
+    "ghi": {
+     "answered": 8,
+     "right": 8
+    },
+    "ghu": {
+     "answered": 1,
+     "right": 0
+    },
+    "i": {
+     "answered": 17,
+     "right": 16
+    },
+    "ji": {
+     "answered": 4,
+     "right": 3
+    },
+    "lu": {
+     "answered": 2,
+     "right": 2
+    },
+    "u": {
+     "answered": 2,
+     "right": 1
+    },
+    "va": {
+     "answered": 2,
+     "right": 2
+    }
+   }
+  },
+  "concord": {
+   "n": 226,
+   "coverage": [
+    0.562,
+    0.497,
+    0.625
+   ],
+   "accuracy_when_answered": [
+    0.843,
+    0.769,
+    0.896
+   ],
+   "right_of_all": [
+    0.473,
+    0.409,
+    0.538
+   ],
+   "by_gold_class": {
+    "chi": {
+     "answered": 14,
+     "right": 11
+    },
+    "ghi": {
+     "answered": 22,
+     "right": 21
+    },
+    "ghu": {
+     "answered": 4,
+     "right": 0
+    },
+    "i": {
+     "answered": 21,
+     "right": 15
+    },
+    "ji": {
+     "answered": 13,
+     "right": 13
+    },
+    "ku": {
+     "answered": 6,
+     "right": 2
+    },
+    "lu": {
+     "answered": 4,
+     "right": 4
+    },
+    "ri": {
+     "answered": 3,
+     "right": 3
+    },
+    "u": {
+     "answered": 12,
+     "right": 10
+    },
+    "va": {
+     "answered": 14,
+     "right": 14
+    },
+    "wi": {
+     "answered": 14,
+     "right": 14
+    }
+   }
+  },
+  "round1": {
+   "n": 226,
+   "coverage": [
+    0.588,
+    0.523,
+    0.651
+   ],
+   "accuracy_when_answered": [
+    0.85,
+    0.779,
+    0.9
+   ],
+   "right_of_all": [
+    0.5,
+    0.435,
+    0.565
+   ],
+   "by_gold_class": {
+    "chi": {
+     "answered": 16,
+     "right": 14
+    },
+    "ghi": {
+     "answered": 14,
+     "right": 11
+    },
+    "ghu": {
+     "answered": 13,
+     "right": 9
+    },
+    "i": {
+     "answered": 31,
+     "right": 28
+    },
+    "ji": {
+     "answered": 15,
+     "right": 13
+    },
+    "ku": {
+     "answered": 14,
+     "right": 14
+    },
+    "lu": {
+     "answered": 4,
+     "right": 3
+    },
+    "ri": {
+     "answered": 5,
+     "right": 3
+    },
+    "u": {
+     "answered": 16,
+     "right": 14
+    },
+    "va": {
+     "answered": 2,
+     "right": 2
+    },
+    "wi": {
+     "answered": 3,
+     "right": 2
+    }
+   }
+  },
+  "votes+concord+round1": {
+   "n": 226,
+   "coverage": [
+    0.757,
+    0.697,
+    0.808
+   ],
+   "accuracy_when_answered": [
+    0.848,
+    0.787,
+    0.894
+   ],
+   "right_of_all": [
+    0.642,
+    0.577,
+    0.701
+   ],
+   "by_gold_class": {
+    "chi": {
+     "answered": 15,
+     "right": 12
+    },
+    "ghi": {
+     "answered": 22,
+     "right": 21
+    },
+    "ghu": {
+     "answered": 12,
+     "right": 5
+    },
+    "i": {
+     "answered": 37,
+     "right": 32
+    },
+    "ji": {
+     "answered": 15,
+     "right": 14
+    },
+    "ku": {
+     "answered": 16,
+     "right": 12
+    },
+    "lu": {
+     "answered": 4,
+     "right": 4
+    },
+    "ri": {
+     "answered": 5,
+     "right": 3
+    },
+    "u": {
+     "answered": 17,
+     "right": 14
+    },
+    "va": {
+     "answered": 14,
+     "right": 14
+    },
+    "wi": {
+     "answered": 14,
+     "right": 14
+    }
+   }
+  },
+  "votes+round1+concord": {
+   "n": 226,
+   "coverage": [
+    0.761,
+    0.701,
+    0.812
+   ],
+   "accuracy_when_answered": [
+    0.86,
+    0.801,
+    0.904
+   ],
+   "right_of_all": [
+    0.655,
+    0.591,
+    0.714
+   ],
+   "by_gold_class": {
+    "chi": {
+     "answered": 16,
+     "right": 14
+    },
+    "ghi": {
+     "answered": 22,
+     "right": 19
+    },
+    "ghu": {
+     "answered": 13,
+     "right": 9
+    },
+    "i": {
+     "answered": 36,
+     "right": 32
+    },
+    "ji": {
+     "answered": 16,
+     "right": 13
+    },
+    "ku": {
+     "answered": 15,
+     "right": 14
+    },
+    "lu": {
+     "answered": 4,
+     "right": 3
+    },
+    "ri": {
+     "answered": 5,
+     "right": 3
+    },
+    "u": {
+     "answered": 17,
+     "right": 14
+    },
+    "va": {
+     "answered": 14,
+     "right": 14
+    },
+    "wi": {
+     "answered": 14,
+     "right": 13
+    }
+   }
+  },
+  "round1+votes+concord": {
+   "n": 226,
+   "coverage": [
+    0.761,
+    0.701,
+    0.812
+   ],
+   "accuracy_when_answered": [
+    0.878,
+    0.821,
+    0.919
+   ],
+   "right_of_all": [
+    0.668,
+    0.604,
+    0.726
+   ],
+   "by_gold_class": {
+    "chi": {
+     "answered": 16,
+     "right": 14
+    },
+    "ghi": {
+     "answered": 23,
+     "right": 20
+    },
+    "ghu": {
+     "answered": 13,
+     "right": 9
+    },
+    "i": {
+     "answered": 36,
+     "right": 33
+    },
+    "ji": {
+     "answered": 16,
+     "right": 14
+    },
+    "ku": {
+     "answered": 15,
+     "right": 14
+    },
+    "lu": {
+     "answered": 4,
+     "right": 3
+    },
+    "ri": {
+     "answered": 5,
+     "right": 3
+    },
+    "u": {
+     "answered": 16,
+     "right": 14
+    },
+    "va": {
+     "answered": 14,
+     "right": 14
+    },
+    "wi": {
+     "answered": 14,
+     "right": 13
+    }
+   }
+  },
+  "concord+votes+round1": {
+   "n": 226,
+   "coverage": [
+    0.743,
+    0.683,
+    0.796
+   ],
+   "accuracy_when_answered": [
+    0.851,
+    0.79,
+    0.897
+   ],
+   "right_of_all": [
+    0.633,
+    0.568,
+    0.693
+   ],
+   "by_gold_class": {
+    "chi": {
+     "answered": 15,
+     "right": 12
+    },
+    "ghi": {
+     "answered": 22,
+     "right": 21
+    },
+    "ghu": {
+     "answered": 12,
+     "right": 5
+    },
+    "i": {
+     "answered": 35,
+     "right": 29
+    },
+    "ji": {
+     "answered": 15,
+     "right": 15
+    },
+    "ku": {
+     "answered": 16,
+     "right": 12
+    },
+    "lu": {
+     "answered": 4,
+     "right": 4
+    },
+    "ri": {
+     "answered": 5,
+     "right": 3
+    },
+    "u": {
+     "answered": 16,
+     "right": 14
+    },
+    "va": {
+     "answered": 14,
+     "right": 14
+    },
+    "wi": {
+     "answered": 14,
+     "right": 14
+    }
+   }
+  },
+  "votes+infinitive+concord+round1": {
+   "n": 226,
+   "coverage": [
+    0.792,
+    0.734,
+    0.84
+   ],
+   "accuracy_when_answered": [
+    0.877,
+    0.821,
+    0.917
+   ],
+   "right_of_all": [
+    0.695,
+    0.632,
+    0.751
+   ],
+   "by_gold_class": {
+    "chi": {
+     "answered": 15,
+     "right": 12
+    },
+    "ghi": {
+     "answered": 22,
+     "right": 21
+    },
+    "ghu": {
+     "answered": 12,
+     "right": 5
+    },
+    "i": {
+     "answered": 37,
+     "right": 32
+    },
+    "ji": {
+     "answered": 15,
+     "right": 14
+    },
+    "ku": {
+     "answered": 24,
+     "right": 24
+    },
+    "lu": {
+     "answered": 4,
+     "right": 4
+    },
+    "ri": {
+     "answered": 5,
+     "right": 3
+    },
+    "u": {
+     "answered": 17,
+     "right": 14
+    },
+    "va": {
+     "answered": 14,
+     "right": 14
+    },
+    "wi": {
+     "answered": 14,
+     "right": 14
+    }
+   }
+  },
+  "votes+infinitive+round1+concord": {
+   "n": 226,
+   "coverage": [
+    0.801,
+    0.744,
+    0.848
+   ],
+   "accuracy_when_answered": [
+    0.873,
+    0.817,
+    0.914
+   ],
+   "right_of_all": [
+    0.699,
+    0.636,
+    0.755
+   ],
+   "by_gold_class": {
+    "chi": {
+     "answered": 16,
+     "right": 14
+    },
+    "ghi": {
+     "answered": 22,
+     "right": 19
+    },
+    "ghu": {
+     "answered": 13,
+     "right": 9
+    },
+    "i": {
+     "answered": 36,
+     "right": 32
+    },
+    "ji": {
+     "answered": 16,
+     "right": 13
+    },
+    "ku": {
+     "answered": 24,
+     "right": 24
+    },
+    "lu": {
+     "answered": 4,
+     "right": 3
+    },
+    "ri": {
+     "answered": 5,
+     "right": 3
+    },
+    "u": {
+     "answered": 17,
+     "right": 14
+    },
+    "va": {
+     "answered": 14,
+     "right": 14
+    },
+    "wi": {
+     "answered": 14,
+     "right": 13
+    }
+   }
+  }
+ },
+ "errors": {
+  "concord": [
+   {
+    "noun": "maza",
+    "swahili": "mapacha",
+    "gold": "ghi",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "ighuri",
+    "swahili": "bei",
+    "gold": "i",
+    "pred": "ji",
+    "why": "concord, classes [5]"
+   },
+   {
+    "noun": "wusalama",
+    "swahili": "usalama",
+    "gold": "ghu",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   },
+   {
+    "noun": "nguwo",
+    "swahili": "joho",
+    "gold": "i",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "boi",
+    "swahili": "paka",
+    "gold": "i",
+    "pred": "u",
+    "why": "concord, classes [1, 2]"
+   },
+   {
+    "noun": "nyonyi",
+    "swahili": "ndege",
+    "gold": "i",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "uzi",
+    "swahili": "uzi",
+    "gold": "ghu",
+    "pred": "u",
+    "why": "Bible concord 1/2, class 1"
+   },
+   {
+    "noun": "mkate",
+    "swahili": "mkate",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "Bible concord 3/4, class 4"
+   },
+   {
+    "noun": "wushu",
+    "swahili": "sura",
+    "gold": "u",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "kughua",
+    "swahili": "kununua",
+    "gold": "ku",
+    "pred": "chi",
+    "why": "concord, classes [7]"
+   },
+   {
+    "noun": "mfwano",
+    "swahili": "mfano",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "chia",
+    "swahili": "barabara",
+    "gold": "chi",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "misarigho",
+    "swahili": "mashindano",
+    "gold": "i",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   },
+   {
+    "noun": "kisiwa",
+    "swahili": "kisiwa",
+    "gold": "chi",
+    "pred": "u",
+    "why": "Bible concord 1/2, class 1"
+   },
+   {
+    "noun": "kusela",
+    "swahili": "kutembea",
+    "gold": "ku",
+    "pred": "chi",
+    "why": "Bible concord 7/8, class 7"
+   },
+   {
+    "noun": "kukimbia",
+    "swahili": null,
+    "gold": "ku",
+    "pred": "chi",
+    "why": "concord, classes [7]"
+   },
+   {
+    "noun": "kitambaa",
+    "swahili": "kitambaa",
+    "gold": "chi",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "kusea",
+    "swahili": "kushuka",
+    "gold": "ku",
+    "pred": "chi",
+    "why": "concord, classes [7]"
+   },
+   {
+    "noun": "ngombe",
+    "swahili": "maksai",
+    "gold": "i",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "wughanga",
+    "swahili": "dawa",
+    "gold": "u",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   }
+  ],
+  "votes+concord+round1": [
+   {
+    "noun": "maza",
+    "swahili": "mapacha",
+    "gold": "ghi",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "ighuri",
+    "swahili": "bei",
+    "gold": "i",
+    "pred": "ji",
+    "why": "concord, classes [5]"
+   },
+   {
+    "noun": "wusalama",
+    "swahili": "usalama",
+    "gold": "ghu",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   },
+   {
+    "noun": "nguwo",
+    "swahili": "joho",
+    "gold": "i",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "boi",
+    "swahili": "paka",
+    "gold": "i",
+    "pred": "u",
+    "why": "concord, classes [1, 2]"
+   },
+   {
+    "noun": "uzi",
+    "swahili": "uzi",
+    "gold": "ghu",
+    "pred": "u",
+    "why": "Bible concord 1/2, class 1"
+   },
+   {
+    "noun": "mkate",
+    "swahili": "mkate",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "Bible concord 3/4, class 4"
+   },
+   {
+    "noun": "wushu",
+    "swahili": "sura",
+    "gold": "u",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "kughua",
+    "swahili": "kununua",
+    "gold": "ku",
+    "pred": "chi",
+    "why": "concord, classes [7]"
+   },
+   {
+    "noun": "mfwano",
+    "swahili": "mfano",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "chia",
+    "swahili": "barabara",
+    "gold": "chi",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "ndiwa",
+    "swahili": "ziwa",
+    "gold": "ri",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "misarigho",
+    "swahili": "mashindano",
+    "gold": "i",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   },
+   {
+    "noun": "kisiwa",
+    "swahili": "kisiwa",
+    "gold": "chi",
+    "pred": "u",
+    "why": "Bible concord 1/2, class 1"
+   },
+   {
+    "noun": "kusela",
+    "swahili": "kutembea",
+    "gold": "ku",
+    "pred": "chi",
+    "why": "Bible concord 7/8, class 7"
+   },
+   {
+    "noun": "mumbi",
+    "swahili": "asili",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "ituku",
+    "swahili": "siku",
+    "gold": "ji",
+    "pred": "ghi",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "kukimbia",
+    "swahili": null,
+    "gold": "ku",
+    "pred": "chi",
+    "why": "concord, classes [7]"
+   },
+   {
+    "noun": "loli",
+    "swahili": "ukweli",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "wulacha",
+    "swahili": "urefu",
+    "gold": "u",
+    "pred": "ghu",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "kitambaa",
+    "swahili": "kitambaa",
+    "gold": "chi",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "wanake",
+    "swahili": "utoto",
+    "gold": "ghu",
+    "pred": "wi",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "kusea",
+    "swahili": "kushuka",
+    "gold": "ku",
+    "pred": "chi",
+    "why": "concord, classes [7]"
+   },
+   {
+    "noun": "wughanga",
+    "swahili": "dawa",
+    "gold": "u",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   },
+   {
+    "noun": "mbanga",
+    "swahili": "mwamba",
+    "gold": "i",
+    "pred": "ji",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "soko",
+    "swahili": "kunde",
+    "gold": "ri",
+    "pred": "i",
+    "why": "round1, class 9"
+   }
+  ],
+  "concord+votes+round1": [
+   {
+    "noun": "maza",
+    "swahili": "mapacha",
+    "gold": "ghi",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "ighuri",
+    "swahili": "bei",
+    "gold": "i",
+    "pred": "ji",
+    "why": "concord, classes [5]"
+   },
+   {
+    "noun": "wusalama",
+    "swahili": "usalama",
+    "gold": "ghu",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   },
+   {
+    "noun": "nguwo",
+    "swahili": "joho",
+    "gold": "i",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "boi",
+    "swahili": "paka",
+    "gold": "i",
+    "pred": "u",
+    "why": "concord, classes [1, 2]"
+   },
+   {
+    "noun": "nyonyi",
+    "swahili": "ndege",
+    "gold": "i",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "uzi",
+    "swahili": "uzi",
+    "gold": "ghu",
+    "pred": "u",
+    "why": "Bible concord 1/2, class 1"
+   },
+   {
+    "noun": "mkate",
+    "swahili": "mkate",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "Bible concord 3/4, class 4"
+   },
+   {
+    "noun": "wushu",
+    "swahili": "sura",
+    "gold": "u",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "kughua",
+    "swahili": "kununua",
+    "gold": "ku",
+    "pred": "chi",
+    "why": "concord, classes [7]"
+   },
+   {
+    "noun": "mfwano",
+    "swahili": "mfano",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "chia",
+    "swahili": "barabara",
+    "gold": "chi",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "ndiwa",
+    "swahili": "ziwa",
+    "gold": "ri",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "misarigho",
+    "swahili": "mashindano",
+    "gold": "i",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   },
+   {
+    "noun": "kisiwa",
+    "swahili": "kisiwa",
+    "gold": "chi",
+    "pred": "u",
+    "why": "Bible concord 1/2, class 1"
+   },
+   {
+    "noun": "kusela",
+    "swahili": "kutembea",
+    "gold": "ku",
+    "pred": "chi",
+    "why": "Bible concord 7/8, class 7"
+   },
+   {
+    "noun": "mumbi",
+    "swahili": "asili",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "kukimbia",
+    "swahili": null,
+    "gold": "ku",
+    "pred": "chi",
+    "why": "concord, classes [7]"
+   },
+   {
+    "noun": "loli",
+    "swahili": "ukweli",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "kitambaa",
+    "swahili": "kitambaa",
+    "gold": "chi",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "wanake",
+    "swahili": "utoto",
+    "gold": "ghu",
+    "pred": "wi",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "kusea",
+    "swahili": "kushuka",
+    "gold": "ku",
+    "pred": "chi",
+    "why": "concord, classes [7]"
+   },
+   {
+    "noun": "ngombe",
+    "swahili": "maksai",
+    "gold": "i",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "wughanga",
+    "swahili": "dawa",
+    "gold": "u",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   },
+   {
+    "noun": "soko",
+    "swahili": "kunde",
+    "gold": "ri",
+    "pred": "i",
+    "why": "round1, class 9"
+   }
+  ],
+  "votes+infinitive+concord+round1": [
+   {
+    "noun": "maza",
+    "swahili": "mapacha",
+    "gold": "ghi",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "ighuri",
+    "swahili": "bei",
+    "gold": "i",
+    "pred": "ji",
+    "why": "concord, classes [5]"
+   },
+   {
+    "noun": "wusalama",
+    "swahili": "usalama",
+    "gold": "ghu",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   },
+   {
+    "noun": "nguwo",
+    "swahili": "joho",
+    "gold": "i",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "boi",
+    "swahili": "paka",
+    "gold": "i",
+    "pred": "u",
+    "why": "concord, classes [1, 2]"
+   },
+   {
+    "noun": "uzi",
+    "swahili": "uzi",
+    "gold": "ghu",
+    "pred": "u",
+    "why": "Bible concord 1/2, class 1"
+   },
+   {
+    "noun": "mkate",
+    "swahili": "mkate",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "Bible concord 3/4, class 4"
+   },
+   {
+    "noun": "wushu",
+    "swahili": "sura",
+    "gold": "u",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "mfwano",
+    "swahili": "mfano",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "chia",
+    "swahili": "barabara",
+    "gold": "chi",
+    "pred": "i",
+    "why": "Bible concord 9/10, class 9"
+   },
+   {
+    "noun": "ndiwa",
+    "swahili": "ziwa",
+    "gold": "ri",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "misarigho",
+    "swahili": "mashindano",
+    "gold": "i",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   },
+   {
+    "noun": "kisiwa",
+    "swahili": "kisiwa",
+    "gold": "chi",
+    "pred": "u",
+    "why": "Bible concord 1/2, class 1"
+   },
+   {
+    "noun": "mumbi",
+    "swahili": "asili",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "ituku",
+    "swahili": "siku",
+    "gold": "ji",
+    "pred": "ghi",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "loli",
+    "swahili": "ukweli",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "wulacha",
+    "swahili": "urefu",
+    "gold": "u",
+    "pred": "ghu",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "kitambaa",
+    "swahili": "kitambaa",
+    "gold": "chi",
+    "pred": "ri",
+    "why": "Bible concord 9/10, class 10"
+   },
+   {
+    "noun": "wanake",
+    "swahili": "utoto",
+    "gold": "ghu",
+    "pred": "wi",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "wughanga",
+    "swahili": "dawa",
+    "gold": "u",
+    "pred": "ghi",
+    "why": "concord, classes [6]"
+   },
+   {
+    "noun": "mbanga",
+    "swahili": "mwamba",
+    "gold": "i",
+    "pred": "ji",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "soko",
+    "swahili": "kunde",
+    "gold": "ri",
+    "pred": "i",
+    "why": "round1, class 9"
+   }
+  ],
+  "round1": [
+   {
+    "noun": "magho",
+    "swahili": "vibao",
+    "gold": "ghi",
+    "pred": "va",
+    "why": "round1, class 8"
+   },
+   {
+    "noun": "sanduku",
+    "swahili": "sanduku",
+    "gold": "ji",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "uzi",
+    "swahili": "uzi",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "meso",
+    "swahili": "kipofu",
+    "gold": "ghi",
+    "pred": "va",
+    "why": "round1, class 8"
+   },
+   {
+    "noun": "wushu",
+    "swahili": "sura",
+    "gold": "u",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "maghu",
+    "swahili": "nyayo",
+    "gold": "ghi",
+    "pred": "ri",
+    "why": "round1, class 10"
+   },
+   {
+    "noun": "chia",
+    "swahili": "barabara",
+    "gold": "chi",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "ndiwa",
+    "swahili": "ziwa",
+    "gold": "ri",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "misarigho",
+    "swahili": "mashindano",
+    "gold": "i",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "walindiri",
+    "swahili": "askari",
+    "gold": "wi",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "mumbi",
+    "swahili": "asili",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "loli",
+    "swahili": "ukweli",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "wubanana",
+    "swahili": "afya",
+    "gold": "u",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "chughano",
+    "swahili": "hadithi",
+    "gold": "chi",
+    "pred": "lu",
+    "why": "round1, class 11"
+   },
+   {
+    "noun": "wanake",
+    "swahili": "utoto",
+    "gold": "ghu",
+    "pred": "wi",
+    "why": "round1, class 2"
+   },
+   {
+    "noun": "lumi",
+    "swahili": "lugha",
+    "gold": "lu",
+    "pred": "chi",
+    "why": "round1, class 7"
+   },
+   {
+    "noun": "irangi",
+    "swahili": "maisha",
+    "gold": "ji",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "mighondi",
+    "swahili": "kilima",
+    "gold": "i",
+    "pred": "ghu",
+    "why": "round1, class 3"
+   },
+   {
+    "noun": "mikate",
+    "swahili": "mkate",
+    "gold": "i",
+    "pred": "ghu",
+    "why": "round1, class 3"
+   },
+   {
+    "noun": "soko",
+    "swahili": "kunde",
+    "gold": "ri",
+    "pred": "i",
+    "why": "round1, class 9"
+   }
+  ],
+  "votes+round1+concord": [
+   {
+    "noun": "magho",
+    "swahili": "vibao",
+    "gold": "ghi",
+    "pred": "va",
+    "why": "round1, class 8"
+   },
+   {
+    "noun": "sanduku",
+    "swahili": "sanduku",
+    "gold": "ji",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "uzi",
+    "swahili": "uzi",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "meso",
+    "swahili": "kipofu",
+    "gold": "ghi",
+    "pred": "va",
+    "why": "round1, class 8"
+   },
+   {
+    "noun": "wushu",
+    "swahili": "sura",
+    "gold": "u",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "maghu",
+    "swahili": "nyayo",
+    "gold": "ghi",
+    "pred": "ri",
+    "why": "round1, class 10"
+   },
+   {
+    "noun": "chia",
+    "swahili": "barabara",
+    "gold": "chi",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "ndiwa",
+    "swahili": "ziwa",
+    "gold": "ri",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "misarigho",
+    "swahili": "mashindano",
+    "gold": "i",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "walindiri",
+    "swahili": "askari",
+    "gold": "wi",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "mumbi",
+    "swahili": "asili",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "ituku",
+    "swahili": "siku",
+    "gold": "ji",
+    "pred": "ghi",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "kukimbia",
+    "swahili": null,
+    "gold": "ku",
+    "pred": "chi",
+    "why": "concord, classes [7]"
+   },
+   {
+    "noun": "loli",
+    "swahili": "ukweli",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "wulacha",
+    "swahili": "urefu",
+    "gold": "u",
+    "pred": "ghu",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "wubanana",
+    "swahili": "afya",
+    "gold": "u",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "chughano",
+    "swahili": "hadithi",
+    "gold": "chi",
+    "pred": "lu",
+    "why": "round1, class 11"
+   },
+   {
+    "noun": "wanake",
+    "swahili": "utoto",
+    "gold": "ghu",
+    "pred": "wi",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "lumi",
+    "swahili": "lugha",
+    "gold": "lu",
+    "pred": "chi",
+    "why": "round1, class 7"
+   },
+   {
+    "noun": "irangi",
+    "swahili": "maisha",
+    "gold": "ji",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "mbanga",
+    "swahili": "mwamba",
+    "gold": "i",
+    "pred": "ji",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "mighondi",
+    "swahili": "kilima",
+    "gold": "i",
+    "pred": "ghu",
+    "why": "round1, class 3"
+   },
+   {
+    "noun": "mikate",
+    "swahili": "mkate",
+    "gold": "i",
+    "pred": "ghu",
+    "why": "round1, class 3"
+   },
+   {
+    "noun": "soko",
+    "swahili": "kunde",
+    "gold": "ri",
+    "pred": "i",
+    "why": "round1, class 9"
+   }
+  ],
+  "round1+votes+concord": [
+   {
+    "noun": "magho",
+    "swahili": "vibao",
+    "gold": "ghi",
+    "pred": "va",
+    "why": "round1, class 8"
+   },
+   {
+    "noun": "sanduku",
+    "swahili": "sanduku",
+    "gold": "ji",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "uzi",
+    "swahili": "uzi",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "meso",
+    "swahili": "kipofu",
+    "gold": "ghi",
+    "pred": "va",
+    "why": "round1, class 8"
+   },
+   {
+    "noun": "wushu",
+    "swahili": "sura",
+    "gold": "u",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "maghu",
+    "swahili": "nyayo",
+    "gold": "ghi",
+    "pred": "ri",
+    "why": "round1, class 10"
+   },
+   {
+    "noun": "chia",
+    "swahili": "barabara",
+    "gold": "chi",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "ndiwa",
+    "swahili": "ziwa",
+    "gold": "ri",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "misarigho",
+    "swahili": "mashindano",
+    "gold": "i",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "walindiri",
+    "swahili": "askari",
+    "gold": "wi",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "mumbi",
+    "swahili": "asili",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "kukimbia",
+    "swahili": null,
+    "gold": "ku",
+    "pred": "chi",
+    "why": "concord, classes [7]"
+   },
+   {
+    "noun": "loli",
+    "swahili": "ukweli",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "wubanana",
+    "swahili": "afya",
+    "gold": "u",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "chughano",
+    "swahili": "hadithi",
+    "gold": "chi",
+    "pred": "lu",
+    "why": "round1, class 11"
+   },
+   {
+    "noun": "wanake",
+    "swahili": "utoto",
+    "gold": "ghu",
+    "pred": "wi",
+    "why": "round1, class 2"
+   },
+   {
+    "noun": "lumi",
+    "swahili": "lugha",
+    "gold": "lu",
+    "pred": "chi",
+    "why": "round1, class 7"
+   },
+   {
+    "noun": "irangi",
+    "swahili": "maisha",
+    "gold": "ji",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "mighondi",
+    "swahili": "kilima",
+    "gold": "i",
+    "pred": "ghu",
+    "why": "round1, class 3"
+   },
+   {
+    "noun": "mikate",
+    "swahili": "mkate",
+    "gold": "i",
+    "pred": "ghu",
+    "why": "round1, class 3"
+   },
+   {
+    "noun": "soko",
+    "swahili": "kunde",
+    "gold": "ri",
+    "pred": "i",
+    "why": "round1, class 9"
+   }
+  ],
+  "votes+infinitive+round1+concord": [
+   {
+    "noun": "magho",
+    "swahili": "vibao",
+    "gold": "ghi",
+    "pred": "va",
+    "why": "round1, class 8"
+   },
+   {
+    "noun": "sanduku",
+    "swahili": "sanduku",
+    "gold": "ji",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "uzi",
+    "swahili": "uzi",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "meso",
+    "swahili": "kipofu",
+    "gold": "ghi",
+    "pred": "va",
+    "why": "round1, class 8"
+   },
+   {
+    "noun": "wushu",
+    "swahili": "sura",
+    "gold": "u",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "maghu",
+    "swahili": "nyayo",
+    "gold": "ghi",
+    "pred": "ri",
+    "why": "round1, class 10"
+   },
+   {
+    "noun": "chia",
+    "swahili": "barabara",
+    "gold": "chi",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "ndiwa",
+    "swahili": "ziwa",
+    "gold": "ri",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "misarigho",
+    "swahili": "mashindano",
+    "gold": "i",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "walindiri",
+    "swahili": "askari",
+    "gold": "wi",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "mumbi",
+    "swahili": "asili",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "ituku",
+    "swahili": "siku",
+    "gold": "ji",
+    "pred": "ghi",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "loli",
+    "swahili": "ukweli",
+    "gold": "ghu",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "wulacha",
+    "swahili": "urefu",
+    "gold": "u",
+    "pred": "ghu",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "wubanana",
+    "swahili": "afya",
+    "gold": "u",
+    "pred": "i",
+    "why": "round1, class 9"
+   },
+   {
+    "noun": "chughano",
+    "swahili": "hadithi",
+    "gold": "chi",
+    "pred": "lu",
+    "why": "round1, class 11"
+   },
+   {
+    "noun": "wanake",
+    "swahili": "utoto",
+    "gold": "ghu",
+    "pred": "wi",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "lumi",
+    "swahili": "lugha",
+    "gold": "lu",
+    "pred": "chi",
+    "why": "round1, class 7"
+   },
+   {
+    "noun": "irangi",
+    "swahili": "maisha",
+    "gold": "ji",
+    "pred": "ghi",
+    "why": "round1, class 6"
+   },
+   {
+    "noun": "mbanga",
+    "swahili": "mwamba",
+    "gold": "i",
+    "pred": "ji",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "mighondi",
+    "swahili": "kilima",
+    "gold": "i",
+    "pred": "ghu",
+    "why": "round1, class 3"
+   },
+   {
+    "noun": "mikate",
+    "swahili": "mkate",
+    "gold": "i",
+    "pred": "ghu",
+    "why": "round1, class 3"
+   },
+   {
+    "noun": "soko",
+    "swahili": "kunde",
+    "gold": "ri",
+    "pred": "i",
+    "why": "round1, class 9"
+   }
+  ],
+  "votes": [
+   {
+    "noun": "ituku",
+    "swahili": "siku",
+    "gold": "ji",
+    "pred": "ghi",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "wulacha",
+    "swahili": "urefu",
+    "gold": "u",
+    "pred": "ghu",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "wanake",
+    "swahili": "utoto",
+    "gold": "ghu",
+    "pred": "wi",
+    "why": "votes, the form's own class"
+   },
+   {
+    "noun": "mbanga",
+    "swahili": "mwamba",
+    "gold": "i",
+    "pred": "ji",
+    "why": "votes, the form's own class"
+   }
+  ]
+ }
+}

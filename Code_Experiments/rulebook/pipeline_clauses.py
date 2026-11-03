@@ -18,7 +18,7 @@ sys.path.insert(0, str(ROOT / "hf_space"))
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--set", required=True, choices=["val", "test_novel"])
+    ap.add_argument("--set", required=True, choices=["val", "test_novel", "test_novel2"])
     a = ap.parse_args()
     import os
     os.chdir(ROOT / "hf_space")

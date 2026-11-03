@@ -59,7 +59,7 @@ def boot(d, seed=20261102, B=2000):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--set", required=True, choices=["val", "test_novel"])
+    ap.add_argument("--set", required=True, choices=["val", "test_novel", "test_novel2"])
     a = ap.parse_args()
     path = Path.home() / "languagemodels" / f"arm2_nbest_{a.set}.jsonl"
     rows = [json.loads(l) for l in open(path, encoding="utf-8")]
@@ -108,4 +108,9 @@ if __name__ == "__main__":
                                          ("rulebook_correct.py", "rulebook_flagger.py", "kitaita_agreement_data.json",
                                           "kitaita_training_vocab.json", "kitaita_mined_lexicon_round1.json",
                                           "kitaita_subject_markers.json")}}
+    # example sentences are corpus text (dav_swa test split): kept outside git
+    examples = out.pop("examples")
+    (Path.home() / "languagemodels" / f"eval_version_b_{a.set}_examples.json").write_text(
+        json.dumps(examples, indent=1, ensure_ascii=False))
+    out["examples_file"] = f"~/languagemodels/eval_version_b_{a.set}_examples.json (not in git: corpus text)"
     (Path(__file__).parent / f"eval_version_b_{a.set}_results.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))

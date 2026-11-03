@@ -727,6 +727,9 @@ VERIFIED_KUWA_ROOT_COPULA = "dek"
 # Keyed by the SWAHILI word (same convention as VERIFIED_SENTENCES), consulted before
 # the statistical noun_kitaita lookup.
 VERIFIED_NOUN_TRANSLATIONS = {
+    # 2026-11-03: direct user correction -- kondoo (sheep) -> ngondi. Round 1 also
+    # gives ngondi (9/10, high). Class NOT speaker-verified (corpus: wa 37 vs ra 66).
+    "kondoo": "ngondi",
     # 2026-10-08 cont. 13: direct user request to test "verb-nouns like kuseka" --
     # Swahili class-15 infinitives used nominally ("kucheka" = "the act of laughing"),
     # a category this project's own from-scratch induction had already pulled OUT of

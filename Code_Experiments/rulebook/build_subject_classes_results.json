@@ -1,0 +1,116 @@
+{
+ "_meta": {
+  "built_by": "Code_Experiments/rulebook/build_subject_classes.py",
+  "date": "2026-11-03",
+  "source_sha256_16": {
+   "mine.jsonl": "510600609a399e9f",
+   "holdout.jsonl": "253f76b91ff8ce9d"
+  },
+  "min_pattern_hits": 5,
+  "min_votes": 3,
+  "min_share": 0.5,
+  "status": "corpus-voted, NOT speaker-verified",
+  "seed": 20261103,
+  "n_gold_in_text": 177,
+  "n_gold_total": 226
+ },
+ "cv_5fold": {
+  "votes": {
+   "coverage": [
+    0.215,
+    0.161,
+    0.281
+   ],
+   "accuracy_when_answered": [
+    0.947,
+    0.827,
+    0.985
+   ],
+   "right_of_all": [
+    0.203,
+    0.151,
+    0.269
+   ]
+  },
+  "pipeline_class_table": {
+   "coverage": [
+    0.463,
+    0.391,
+    0.537
+   ],
+   "accuracy_when_answered": [
+    0.232,
+    0.154,
+    0.334
+   ],
+   "right_of_all": [
+    0.107,
+    0.07,
+    0.162
+   ]
+  },
+  "shape": {
+   "coverage": [
+    0.181,
+    0.131,
+    0.244
+   ],
+   "accuracy_when_answered": [
+    0.312,
+    0.18,
+    0.486
+   ],
+   "right_of_all": [
+    0.056,
+    0.031,
+    0.101
+   ]
+  },
+  "majority": {
+   "coverage": [
+    1.0,
+    0.979,
+    1.0
+   ],
+   "accuracy_when_answered": [
+    0.203,
+    0.151,
+    0.269
+   ],
+   "right_of_all": [
+    0.203,
+    0.151,
+    0.269
+   ]
+  },
+  "shuffled_control": {
+   "coverage": [
+    0.028,
+    0.012,
+    0.064
+   ],
+   "accuracy_when_answered": [
+    0.0,
+    -0.0,
+    0.434
+   ],
+   "right_of_all": [
+    0.0,
+    0.0,
+    0.021
+   ]
+  }
+ },
+ "vote_errors": [
+  {
+   "noun": "wulacha",
+   "gold": "u",
+   "votes": "ghu"
+  },
+  {
+   "noun": "chumbo",
+   "gold": "ri",
+   "votes": "i"
+  }
+ ]
+}

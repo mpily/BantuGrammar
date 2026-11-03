@@ -271,5 +271,5 @@
    "kitaita_subject_markers.json": "e0997b7af5b60034"
   }
  },
- "examples_file": "~/languagemodels/eval_version_b_<set>_examples.json (not in git: corpus text)"
+ "examples_file": "~/languagemodels/eval_version_b_test_novel_examples.json (not in git: corpus text)"
 }

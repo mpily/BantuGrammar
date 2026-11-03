@@ -1,0 +1,275 @@
+{
+ "set": "test_novel2",
+ "n": 500,
+ "A_chrf": {
+  "mean": 58.29845113452322,
+  "ci95": [
+   56.3434597845742,
+   60.25344248447224
+  ],
+  "n": 500,
+  "low_n": false
+ },
+ "conditions": {
+  "verified": {
+   "changed": 0,
+   "changed_share": [
+    0.0,
+    0.0,
+    0.0076
+   ],
+   "B_chrf": {
+    "mean": 58.29845113452322,
+    "ci95": [
+     56.3434597845742,
+     60.25344248447224
+    ],
+    "n": 500,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "paired_B_minus_A_changed_only": null,
+   "changed_better": 0,
+   "changed_worse": 0,
+   "changed_same": 0
+  },
+  "rerank": {
+   "changed": 8,
+   "changed_share": [
+    0.016,
+    0.0081,
+    0.0313
+   ],
+   "B_chrf": {
+    "mean": 58.40739501658484,
+    "ci95": [
+     56.446315726871696,
+     60.36847430629799
+    ],
+    "n": 500,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    0.109,
+    -0.036,
+    0.302
+   ],
+   "paired_B_minus_A_changed_only": [
+    6.809,
+    -2.762,
+    17.601
+   ],
+   "changed_better": 5,
+   "changed_worse": 3,
+   "changed_same": 0
+  },
+  "fill": {
+   "changed": 6,
+   "changed_share": [
+    0.012,
+    0.0055,
+    0.0259
+   ],
+   "B_chrf": {
+    "mean": 58.24947762414468,
+    "ci95": [
+     56.29936311780659,
+     60.19959213048277
+    ],
+    "n": 500,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    -0.049,
+    -0.283,
+    0.162
+   ],
+   "paired_B_minus_A_changed_only": [
+    -4.081,
+    -22.72,
+    14.632
+   ],
+   "changed_better": 1,
+   "changed_worse": 5,
+   "changed_same": 0
+  },
+  "unknown": {
+   "changed": 2,
+   "changed_share": [
+    0.004,
+    0.0011,
+    0.0145
+   ],
+   "B_chrf": {
+    "mean": 58.27554826328572,
+    "ci95": [
+     56.31771369570787,
+     60.23338283086357
+    ],
+    "n": 500,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    -0.023,
+    -0.066,
+    0.0
+   ],
+   "paired_B_minus_A_changed_only": [
+    -5.726,
+    -10.014,
+    -1.437
+   ],
+   "changed_better": 0,
+   "changed_worse": 2,
+   "changed_same": 0
+  },
+  "repeat": {
+   "changed": 0,
+   "changed_share": [
+    0.0,
+    0.0,
+    0.0076
+   ],
+   "B_chrf": {
+    "mean": 58.29845113452322,
+    "ci95": [
+     56.3434597845742,
+     60.25344248447224
+    ],
+    "n": 500,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "paired_B_minus_A_changed_only": null,
+   "changed_better": 0,
+   "changed_worse": 0,
+   "changed_same": 0
+  },
+  "applicative": {
+   "changed": 3,
+   "changed_share": [
+    0.006,
+    0.002,
+    0.0175
+   ],
+   "B_chrf": {
+    "mean": 58.26380333669426,
+    "ci95": [
+     56.3119652904007,
+     60.21564138298782
+    ],
+    "n": 500,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    -0.035,
+    -0.114,
+    0.007
+   ],
+   "paired_B_minus_A_changed_only": [
+    -5.775,
+    -18.63,
+    1.627
+   ],
+   "changed_better": 1,
+   "changed_worse": 2,
+   "changed_same": 0
+  },
+  "subject": {
+   "changed": 6,
+   "changed_share": [
+    0.012,
+    0.0055,
+    0.0259
+   ],
+   "B_chrf": {
+    "mean": 58.195245339256836,
+    "ci95": [
+     56.24111627174678,
+     60.14937440676689
+    ],
+    "n": 500,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    -0.103,
+    -0.211,
+    -0.02
+   ],
+   "paired_B_minus_A_changed_only": [
+    -8.6,
+    -13.151,
+    -4.135
+   ],
+   "changed_better": 0,
+   "changed_worse": 5,
+   "changed_same": 1
+  },
+  "verified+rerank+fill+unknown+repeat+applicative+subject": {
+   "changed": 25,
+   "changed_share": [
+    0.05,
+    0.0341,
+    0.0728
+   ],
+   "B_chrf": {
+    "mean": 58.19766504187348,
+    "ci95": [
+     56.242581984459754,
+     60.1527480992872
+    ],
+    "n": 500,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    -0.101,
+    -0.414,
+    0.19
+   ],
+   "paired_B_minus_A_changed_only": [
+    -2.016,
+    -7.737,
+    4.027
+   ],
+   "changed_better": 7,
+   "changed_worse": 17,
+   "changed_same": 1
+  }
+ },
+ "checker_false_alarm_refs": [
+  0.03,
+  0.0183,
+  0.0489
+ ],
+ "checker_flag_rate_A": [
+  0.05,
+  0.0341,
+  0.0728
+ ],
+ "config": {
+  "git_sha": "73b773243bc401e99561a85a83e74340f8fbcecc",
+  "nbest_file_sha256_16": "37a91f47a314e549",
+  "bootstrap": {
+   "B": 2000,
+   "seed": 20261102
+  },
+  "clauses_file_sha256_16": "1eb37c3b341c7072",
+  "files_sha256_16": {
+   "rulebook_correct.py": "82c66d5f1d9ecf84",
+   "rulebook_flagger.py": "76fc15334ac5e957",
+   "kitaita_agreement_data.json": "4f412f4f3429357f",
+   "kitaita_training_vocab.json": "2ebede980d2c7fc0",
+   "kitaita_mined_lexicon_round1.json": "63dc39f606c64147",
+   "kitaita_subject_markers.json": "e0997b7af5b60034"
+  }
+ },
+ "examples_file": "~/languagemodels/eval_version_b_test_novel2_examples.json (not in git: corpus text)"
+}

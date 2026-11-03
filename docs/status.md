@@ -28470,3 +28470,66 @@ Decision: step kept in code but OFF (`DEFAULT_STEPS`); not deployed. Next try, a
 its own experiment, selected on val not test: subject classes only from the
 speaker-verified table (no fallback guesses), skip plural subjects, and require
 the draft verb to be a verb (not in the noun lists). Tests 92 passed / 1 skipped.
+
+## 2026-11-03 (cont. 1) — subject-class resolver + Bible decides variation; subject step still worse, stays OFF
+
+User: improve the subject noun-class table with all the data (kondoo -> ngondi
+added to VERIFIED_NOUN_TRANSLATIONS, class not verified); include stage-1 noun
+classifications; "use the bible corpus to decide in case of variation as it is
+more standardized".
+
+Checked first: the Class Sorter batch (artifact WTboxS96wq4XE6KpQ3cRjr,
+149 assignments) is already in VERIFIED_SUBJECT_MARKERS (148 same class; the
+locative mighondinyi left out on purpose). `kitaita_class_sorter_classifications.py`,
+cited in this log on 2026-10-08, is not in git or on disk.
+
+New data (counts / word pairs only, no sentences):
+- `hf_space/kitaita_subject_classes.json` (`build_subject_classes.py`): noun ->
+  class voted by the verb after it. 5-fold CV on verified nouns: coverage 21%,
+  accuracy 95% [83, 98]; pipeline's own class table on the same nouns: 46%, 23%;
+  shuffled control 3%, 0%. Bible-only vote decides when it is decisive.
+- `hf_space/kitaita_noun_classes_round1.json` (`build_noun_classes_round1.py`):
+  859 round-1 noun lexemes -> class pair.
+- `hf_space/kitaita_bible_class_decisions.json` (`build_bible_class_decisions.py`):
+  Bible-only concord votes by class PAIR (9+10 together) and, for wu- nouns,
+  u- vs ghu- on the next verb.
+- `hf_space/subject_class_resolver.py`: class from the Kidaw'ida form (verified ->
+  Bible class-14 verbs -> verb votes -> ku- infinitive -> Bible concord pair ->
+  both-register concord -> round 1); Swahili verb number used only for
+  number-invariant forms (nguku i-/ri-). Order chosen by CV on verified nouns
+  (`eval_subject_resolver.py`): verified tier off, coverage 79% [73, 84], accuracy
+  88% [82, 92].
+- Variation decided by the Bible: class 14 has no single subject marker (modern
+  ghu- 13 / u- 2; Bible u- 84 / ghu- 78), so per noun (wughoma u- 13/1,
+  wurumwengu ghu- 13/1). Verified entries overruled only with >= 20 Bible votes
+  and < 20% for the verified pair: chia (sorted chi-) -> 9/10 (Bible aligns with
+  njia; ya-/iyo- 281, ra-/rose- 303, cha 28). maza and uzi also met the bar but
+  are kept: Bible maza aligns with mambo 'matters' (homograph), uzi has 40 split
+  votes.
+- Fixes made on validation (80): vindo (class 8 form) was moved to chi- for
+  Swahili singular chakula -> the form's own class now decides.
+- Subject step: known nouns and -nyi locatives are no longer taken as verbs;
+  pipeline report clauses now carry swahili_sm and subject_kitaita.
+
+Result. The first test sample (test_novel) is no longer clean for this step (its
+errors were inspected on 2026-11-03), so a fresh disjoint 500 was decoded
+(`decode_nbest.py --set test_novel2`, seed 20261103) and scored once:
+- subject alone: changed 6 (1.2% [0.6, 2.6]), 0 better / 5 worse / 1 same;
+  B - A = -0.10 [-0.21, -0.02] (was -0.49 on the first sample with the old classes).
+- not run in 287 of 500: draft and source verb counts differ.
+- Error causes seen (fresh sample, so these now contaminate it too): ku-
+  infinitive taken as a verb (kukaia); class from the pipeline's noun form
+  instead of the draft's (gari: igare vs draft magare; maisha: irangi vs draft
+  maisha, 2 edits); a singular-only round-1 entry used with a plural Swahili verb
+  (zighe); wrong pipeline subject inside a relative clause (kikapu kilichojaa).
+- Validation: 0 edits.
+
+Decision: step stays OFF, not deployed. Next try needs (1) the class of the noun
+form actually in the draft, (2) infinitives and relative-clause verbs skipped,
+(3) a new clean set or a speaker evaluation to score it.
+
+Data hygiene: eval_version_b results files had stored ~30 example sentences each
+from the dav_swa test split, and were committed in 7eb9add, 82e7d95, 73b7732.
+Examples now go to ~/languagemodels/eval_version_b_<set>_examples.json (not in
+git); the tracked files keep counts only. The earlier commits still contain
+them (history not rewritten; user to decide). Tests 98 passed / 1 skipped.
