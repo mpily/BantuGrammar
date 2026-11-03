@@ -28533,3 +28533,31 @@ from the dav_swa test split, and were committed in 7eb9add, 82e7d95, 73b7732.
 Examples now go to ~/languagemodels/eval_version_b_<set>_examples.json (not in
 git); the tracked files keep counts only. The earlier commits still contain
 them (history not rewritten; user to decide). Tests 98 passed / 1 skipped.
+
+## 2026-11-03 (cont. 2) — do the (Swahili-trained) relation probes find subjects in Kitaita text? No better than "nearest noun before the verb"
+
+User question: can the probes run on the Kitaita draft, so the rule book finds
+each verb's subject there instead of pairing draft verbs with Swahili verbs?
+`Code_Experiments/rulebook/probe_on_kitaita.py`: saved probes unchanged
+(NLLB-1.3B encoder, Swahili-trained), Kidaw'ida HOLDOUT references encoded as
+swh_Latn. Silver gold from agreement in the reference: verb whose subject marker
+matches exactly one candidate noun's class, with another noun of a different
+class present. Only 87 such cases in 1,000 references (65 with the subject
+before the verb). Not speaker-annotated.
+
+| method | right / 87 |
+|---|---|
+| probe | 50 (57% [47, 67]); abstains on 22 |
+| probe, when it answers | 50/65 (77% [65, 86]) |
+| nearest noun before the verb, same 65 | 80% [69, 88] |
+| nearest noun before the verb, all 87 | 62 (71% [61, 80]) |
+| first noun | 58 (67% [56, 76]) |
+| random noun | 30 (34% [25, 45]) |
+
+Control: with the verb's marker swapped to the other noun's class (n = 77) the
+probe follows the swapped agreement 16% [9, 25], keeps the gold noun 56%: it is
+not just reading agreement, but it is not better than word order either.
+Conclusion: the probes do not solve subject finding on Kitaita drafts; a
+Kitaita-trained probe would need Kitaita dependency data, which does not exist.
+Caveat: silver gold selects cases where agreement is informative, which may
+favour simple word order.
