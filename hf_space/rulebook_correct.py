@@ -63,12 +63,12 @@ _DATA = Path(__file__).parent / "kitaita_agreement_data.json"
 _ROOTS = Path(__file__).parent / "kitaita_verb_roots.json"
 _VERIFIED = Path(__file__).parent / "kitaita_speaker_verified.json"
 _SUBJECT_MARKERS = Path(__file__).parent / "kitaita_subject_markers.json"
-ALL_STEPS = ("verified", "rerank", "fill", "unknown", "repeat", "applicative", "subject")
+ALL_STEPS = ("verified", "rerank", "fill", "unknown", "repeat", "applicative", "subject", "subject_probe")
 # 2026-11-03: the subject step is OFF by default. On 500 novel test sentences it
 # changed 27, 4 better / 21 worse, B-A -0.49 [-0.81, -0.22]: the pipeline's
 # subject class is often a guess (u- fallback for chungu/kondoo/barabara/jeshi)
 # and nouns like charonyi were taken for verbs. docs/status.md 2026-11-03.
-DEFAULT_STEPS = tuple(x for x in ALL_STEPS if x != "subject")
+DEFAULT_STEPS = tuple(x for x in ALL_STEPS if x not in ("subject", "subject_probe"))
 SM_MIN_COUNT = 5
 SM_MIN_SHARE = 0.75
 _SM_TAMS = ("cha", "re", "de", "ka", "ki", "we")  # "" = zero-marked present
@@ -243,6 +243,44 @@ def verb_prefix(token: str, base: str):
     return None
 
 
+def draft_candidates(words: list[str]) -> tuple[list[int], dict]:
+    """Noun positions and verb positions (-> {class: (surface, tense)}) in a draft.
+    Known nouns, -nyi locatives and ku- forms (infinitives: kukaia) are not verbs."""
+    nouns = _noun_forms()
+    bases = sorted(_subject_markers()[1])
+    noun_idxs, verbs = [], {}
+    for i, w in enumerate(words):
+        t = norm(w)
+        if t in nouns:
+            noun_idxs.append(i)
+        elif len(t) >= 4 and not t.endswith("nyi") and not t.startswith("ku"):
+            m = {b: hit for b in bases if (hit := verb_prefix(t, b))}
+            if m:
+                verbs[i] = m
+    return noun_idxs, verbs
+
+
+def draft_words(src: str, hyp: str) -> list[str]:
+    """The rule book's own tokenisation of a draft (same as correct())."""
+    return [t for t, _ in flag(src, hyp)]
+
+
+def _class_of_draft_noun(form: str, clauses: list[dict] | None) -> tuple[str | None, str]:
+    """Subject marker of a noun as written in the draft. The form decides when
+    both numbers give the same marker; otherwise the number comes from a Swahili
+    clause whose subject is this noun."""
+    sg, why = resolve_subject_class(None, form, "ki")
+    pl, _ = resolve_subject_class(None, form, "vi")
+    if sg and sg == pl:
+        return sg, why
+    from subject_class_resolver import kitaita_forms
+    for c in clauses or []:
+        if form in kitaita_forms(c.get("subject"), c.get("subject_kitaita")) and c.get("swahili_sm"):
+            m, why = resolve_subject_class(c.get("subject"), form, c.get("swahili_sm"))
+            return m, f"{why} (number from Swahili {c.get('verb')})"
+    return None, f"{form}: number needed, no Swahili clause for it"
+
+
 def _replace_prefix(word: str, n_letters: int, new: str) -> str:
     """Replace the first n_letters letters of word (apostrophes skipped) with new."""
     k = j = 0
@@ -291,7 +329,8 @@ def _covered_source_words(src: str, hyp_tokens: list[str]) -> set[str]:
     return covered
 
 
-def correct(src: str, nbest: list[str], steps=DEFAULT_STEPS, clauses: list[dict] | None = None) -> dict:
+def correct(src: str, nbest: list[str], steps=DEFAULT_STEPS, clauses: list[dict] | None = None,
+            draft_subjects: dict | None = None) -> dict:
     """nbest: the model's candidates, best first. clauses: the rule-based
     pipeline's per-verb analysis of src (translate_sentence_with_probes()'s
     report["clauses"]), needed by the subject step. Returns the corrected text
@@ -357,6 +396,37 @@ def correct(src: str, nbest: list[str], steps=DEFAULT_STEPS, clauses: list[dict]
                                            f"class {target_class}- from {why}, verb {c.get('verb')})"))
                 words[i] = new
                 edited.add(i)
+
+    if "subject_probe" in steps and draft_subjects is not None and chosen == 0:
+        # subjects found by the relation probes on the Kidaw'ida draft itself
+        # (draft_subjects: verb word index -> subject word index, computed on
+        # nbest[0] by the caller): no pairing of draft and source verbs
+        _, verbs = draft_candidates(words)
+        for i, m in sorted(verbs.items()):
+            s_idx = draft_subjects.get(i)
+            if s_idx is None:
+                notes.append(f"subject_probe: {norm(words[i])}: the probes found no subject")
+                continue
+            target_class, why = _class_of_draft_noun(norm(words[s_idx]), clauses)
+            if not target_class:
+                notes.append(f"subject_probe: {norm(words[i])} left as is ({why})")
+                continue
+            if target_class in m or target_class not in _subject_markers()[1]:
+                continue
+            surface, tam = next(iter(m.values()))
+            if (surface, tam) in _subject_markers()[1][target_class]:
+                continue
+            target = _subject_markers()[0].get((target_class, tam))
+            if not target:
+                notes.append(f"subject_probe: no attested {target_class}- form before -{tam or 'present'}- "
+                             f"for {norm(words[i])}; left as is")
+                continue
+            core = re.sub(r"\W+$", "", words[i])
+            new = _replace_prefix(core, len(surface), target) + words[i][len(core):]
+            changes.append(("subject_probe", f"{norm(words[i])} -> {norm(new)} (probe subject "
+                                             f"{norm(words[s_idx])}: class {target_class}- from {why})"))
+            words[i] = new
+            edited.add(i)
 
     if "applicative" in steps:
         for base, attested in swahili_applicatives(src):

@@ -1,0 +1,84 @@
+{
+ "set": "test_novel2",
+ "n": 500,
+ "coverage": {
+  "drafts_with_noun_and_verb": 178,
+  "verbs": 213,
+  "verbs_with_probe_subject": 135
+ },
+ "conditions": {
+  "subject_probe": {
+   "changed": 15,
+   "changed_share": [
+    0.03,
+    0.0183,
+    0.0489
+   ],
+   "paired_B_minus_A_all": [
+    -0.057,
+    -0.163,
+    0.05
+   ],
+   "paired_B_minus_A_changed_only": [
+    -1.885,
+    -4.933,
+    2.03
+   ],
+   "changed_better": 5,
+   "changed_worse": 7,
+   "changed_same": 3
+  },
+  "subject (order pairing)": {
+   "changed": 6,
+   "changed_share": [
+    0.012,
+    0.0055,
+    0.0259
+   ],
+   "paired_B_minus_A_all": [
+    -0.103,
+    -0.211,
+    -0.02
+   ],
+   "paired_B_minus_A_changed_only": [
+    -8.6,
+    -13.151,
+    -4.135
+   ],
+   "changed_better": 0,
+   "changed_worse": 5,
+   "changed_same": 1
+  },
+  "defaults + subject_probe": {
+   "changed": 33,
+   "changed_share": [
+    0.066,
+    0.0474,
+    0.0912
+   ],
+   "paired_B_minus_A_all": [
+    -0.059,
+    -0.359,
+    0.241
+   ],
+   "paired_B_minus_A_changed_only": [
+    -0.896,
+    -5.507,
+    4.001
+   ],
+   "changed_better": 11,
+   "changed_worse": 19,
+   "changed_same": 3
+  }
+ },
+ "config": {
+  "draftprobe_cache_sha256_16": "8a175c2242dfcbd4",
+  "files_sha256_16": {
+   "rulebook_correct.py": "2d0d0d037978b647",
+   "subject_class_resolver.py": "46ca05ab8cd668ad",
+   "kitaita_subject_markers.json": "e0997b7af5b60034",
+   "kitaita_bible_class_decisions.json": "3fffee4b5473498c"
+  }
+ },
+ "examples_file": "~/languagemodels/eval_subject_probe_test_novel2_examples.json (not in git: corpus text)"
+}

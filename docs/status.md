@@ -28561,3 +28561,34 @@ Conclusion: the probes do not solve subject finding on Kitaita drafts; a
 Kitaita-trained probe would need Kitaita dependency data, which does not exist.
 Caveat: silver gold selects cases where agreement is informative, which may
 favour simple word order.
+
+## 2026-11-03 (cont. 3) — probes on the Kitaita draft to find subjects (`subject_probe`) — worse, OFF
+
+User request: apply the probes to the Kitaita sentence itself to find each verb's
+subject, on the 500-sentence sets already decoded. New rule-book step
+`subject_probe` (off by default): noun/verb candidates in the draft
+(`draft_candidates`; ku- forms and -nyi locatives are not verbs), subjects from
+`identify_relations` on the draft (swh_Latn), class from the noun as written in
+the draft (resolver called for singular and plural; if they differ, number from
+a Swahili clause whose subject is that noun, else skip).
+`Code_Experiments/rulebook/eval_subject_probe_on_draft.py`; probe output cached in
+~/languagemodels/arm2_draftprobe_<set>.jsonl. Both sets had subject-step errors
+inspected before, so neither is clean.
+
+| set | changed | better / worse / same | B - A all |
+|---|---|---|---|
+| test_novel | 11 | 2 / 9 / 0 | -0.18 [-0.34, -0.05] |
+| test_novel2 | 15 | 5 / 7 / 3 | -0.06 [-0.16, 0.05] |
+| test_novel2, order pairing (`subject`) | 6 | 0 / 5 / 1 | -0.10 [-0.21, -0.02] |
+
+(test_novel's clause file predates swahili_sm, so the order-pairing step cannot
+run there.) Coverage: drafts with a noun and a verb 143 / 178 of 500; verbs with
+a probe subject 110/175, 135/213.
+Causes of the bad edits: (1) plural class 9/10 nouns forced to singular i-
+(mbogha rasowa, shimba radima, saa rasia, skulu rasighwa, ngondi rawiwa: about 7)
+-- almost every 9/10 noun has one form for both numbers, not only the
+NUMBER_INVARIANT_NOUNS list; (2) the probe picks a possessor or agent (nguo ra
+mwana, mkurughui wa skulu, ni lufu, kio chose: about 6); (3) non-verbs edited
+(rahisi, champali, karakara).
+Decision: both subject steps stay off. Further tuning on these sets would fit
+them; next evidence should be speaker A/B ratings.
