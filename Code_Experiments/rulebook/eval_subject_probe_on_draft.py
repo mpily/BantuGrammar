@@ -35,7 +35,7 @@ from rulebook_correct import DEFAULT_STEPS, correct, draft_candidates, draft_wor
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--set", required=True, choices=["test_novel", "test_novel2"])
+    ap.add_argument("--set", required=True, choices=["test_novel", "test_novel2", "test_novel3"])
     a = ap.parse_args()
     lm = Path.home() / "languagemodels"
     rows = [json.loads(l) for l in open(lm / f"arm2_nbest_{a.set}.jsonl", encoding="utf-8")]
@@ -74,7 +74,9 @@ if __name__ == "__main__":
         "conditions": {}}
     examples = {}
     conds = {"subject_probe": ("subject_probe",), "subject (order pairing)": ("subject",),
-             "defaults + subject_probe": DEFAULT_STEPS + ("subject_probe",)}
+             "subject_checked": ("subject_checked",),
+             "defaults (Space now)": DEFAULT_STEPS,
+             "defaults + subject_checked": DEFAULT_STEPS + ("subject_checked",)}
     for name, steps in conds.items():
         diffs, ch_d, ch, better, worse, ex = [], [], 0, 0, 0, []
         for r, b0 in zip(rows, base):

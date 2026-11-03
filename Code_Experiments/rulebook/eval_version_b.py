@@ -59,7 +59,7 @@ def boot(d, seed=20261102, B=2000):
 
 if __name__ == "__main__":
     ap = argparse.ArgumentParser()
-    ap.add_argument("--set", required=True, choices=["val", "test_novel", "test_novel2"])
+    ap.add_argument("--set", required=True, choices=["val", "test_novel", "test_novel2", "test_novel3"])
     a = ap.parse_args()
     path = Path.home() / "languagemodels" / f"arm2_nbest_{a.set}.jsonl"
     rows = [json.loads(l) for l in open(path, encoding="utf-8")]

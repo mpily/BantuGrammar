@@ -28649,3 +28649,41 @@ Reference-table conflicts raised by the agents: chia (verified chi-; corpus 9/10
 maza (verified ghi-; corpus 10), boi (verified i-; corpus class 1), ngelo
 (verified ri-; corpus ya 208 vs ra 46), class 14 (verified u- vs concord notes ghu-);
 -wia- progressive and stative-present forms (ghesinga) missing from the tense notes.
+
+## 2026-11-03 (cont. 6) — rule-book `tense` and `extension` steps (user: start with tense and extension)
+
+New, torch-free: `hf_space/swahili_verb.py` (Swahili NEG-SM-TAM-REL-OM-root-ext-final
+parser; every split, kept if the root is in the table; trusted root sources
+first), `hf_space/kitaita_verb.py` (Kidaw'ida prefix readings [nde|si] SM TAM OM,
+SM series bare / +a / +e from verb_morphology.md; corpus attestation of endings),
+`hf_space/kitaita_root_alignment.json` (`Code_Experiments/rulebook/build_root_alignment.py`:
+4,383 Swahili roots: verified 42, round 1 254, mined infinitive pairs 674 incl.
+vowel-final loans, pipeline Dice >= 0.25 3,413).
+Draft verb found by ROOT (the draft word containing the Kidaw'ida root of a
+Swahili verb, with a parsable verb prefix; exactly one such word), not position.
+- `tense` (davswa rules, verb_morphology.md): -me-/-sha- with -we-/-cha-/-wia- or
+  a bare SM -> SM+a; -li- with -we-/-cha- -> SM+e; -ta- with -we-/past -> SM-cha-;
+  prohibitive -si- without -se- -> SM-se-...-e; past negative (ha-..-ku-) with
+  nde-...-agha -> nde-...-ie/-ire/-ere (attested); -lipo- -> SM+e-nda-; present
+  relative SM+a...-agha -> bare SM; hu- with -we-/-wia-/-cha- -> SM+a-da-.
+  No -na- rule (stative 'want': wanataka -> w'ekunda is correct).
+- `extension`: Swahili passive / causative / stative / reciprocal / applicative
+  peeled from the stem; inserted into the draft verb only if the resulting ending
+  is attested >= 2 times (passive -w-/-lw-/-ilw-...); not after a root ending in
+  w (-iw- 'steal'); -pea 'give' lexical.
+Development check on the audited test_novel2 (`eval_tense_extension_dev.py`):
+18 edits, 14 on audited errors (11 = auditor's expected form), 4 on unflagged
+words (2 follow the grammar notes, 1 matches the reference, 1 contradicts it);
+recall 14/40 audited tense/extension errors (35% [22, 50]); chrF B - A +0.19
+[-0.06, 0.43]. Fixes found on this set: dropped the -na- rule, -nyi locatives,
+passive after -w roots, -pea; vowel-final roots; gh- before vowel roots; tense
+vowel merging with the root (we + enda).
+
+### Pre-registered test (test_novel3, 500, never shown to an agent or inspected)
+Conditions: A; B_default (the Space now); B_new = B_default + tense + extension.
+Primary: chrF B_new - B_default, paired bootstrap (B = 2000, seed 20261102).
+Secondary: number of edits; an agent judgement of every tense/extension edit
+(correct / wrong / unsure against the Swahili meaning, shown both forms in random
+order without saying which the rule produced).
+Deploy tense + extension to the Space if B_new - B_default is not significantly
+negative AND at least 70% of judged edits are correct (excluding unsure).

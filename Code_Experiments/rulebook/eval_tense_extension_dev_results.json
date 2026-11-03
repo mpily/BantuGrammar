@@ -1,0 +1,60 @@
+{
+ "_meta": {
+  "date": "2026-11-03",
+  "set": "test_novel2 (development; audited)",
+  "examples_file": "~/languagemodels/eval_tense_extension_dev_examples.json (not in git)"
+ },
+ "results": {
+  "tense": {
+   "edits": 11,
+   "on_audited_error": 9,
+   "equals_auditor_expected": 7,
+   "on_unflagged_words": 2,
+   "audited_errors_of_this_type": 27,
+   "recall": [
+    0.3333,
+    0.1864,
+    0.5218
+   ],
+   "chrf_B_minus_A": [
+    0.131,
+    -0.007,
+    0.299
+   ]
+  },
+  "extension": {
+   "edits": 7,
+   "on_audited_error": 4,
+   "equals_auditor_expected": 4,
+   "on_unflagged_words": 2,
+   "audited_errors_of_this_type": 13,
+   "recall": [
+    0.3077,
+    0.1268,
+    0.5763
+   ],
+   "chrf_B_minus_A": [
+    0.054,
+    -0.143,
+    0.246
+   ]
+  },
+  "tense+extension": {
+   "edits": 18,
+   "on_audited_error": 14,
+   "equals_auditor_expected": 11,
+   "on_unflagged_words": 4,
+   "audited_errors_of_this_type": 40,
+   "recall": [
+    0.35,
+    0.2213,
+    0.5049
+   ],
+   "chrf_B_minus_A": [
+    0.185,
+    -0.059,
+    0.43
+   ]
+  }
+ }
+}

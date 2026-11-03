@@ -114,3 +114,22 @@ def test_nouns_and_locatives_are_not_taken_for_verbs():
     cl = [{"verb": "Amerudi", "subject": None, "subject_kitaita": None, "swahili_sm": "a"}]
     r = correct("Amerudi kutoka safari.", ["W'awurieghe kufuma charonyi."], steps=("subject",), clauses=cl)
     assert r["changes"] == []
+
+
+def test_tense_rules_follow_the_swahili_tense():
+    # verb_morphology.md rewrite rules (davswa register); audit of test_novel2, 2026-11-03
+    t = lambda src, d: correct(src, [d], steps=("tense",))["kitaita"]
+    assert t("Amefika", "Uvika") == "Wavika"                                   # -me- -> SM+a
+    assert t("Nitaenda kesho", "Niwenda kesho") == "Nichaenda kesho"           # -ta- -> SM-cha-
+    assert t("Usiende na watu wabaya", "Kughendanye na wandu wabaya") == "Kuseghendanye na wandu wabaya"
+    assert t("Hakunifahamu", "Ndeunimanyagha") == "Ndeunimanyire"              # past negative -> -ie/-ire
+    assert t("Wanataka kwenda", "W'ekunda kughenda") == "W'ekunda kughenda"    # no -na- rule (stative 'want')
+
+
+def test_extension_rules_insert_only_attested_forms():
+    e = lambda src, d: correct(src, [d], steps=("extension",))["kitaita"]
+    assert e("Ameongezewa mshahara", "W'echuria mshahara") == "Wechurilwa mshahara"   # passive -lw-
+    assert e("Pikia watoto", "Deka wana") == "Dekia wana"                             # applicative, imperative
+    assert e("Watoto walipigana", "W'ana w'edelwa") == "W'ana w'edelwa"               # nothing to add
+    assert e("Ng'ombe zimeibiwa", "Ng'ombe rawiwa") == "Ng'ombe rawiwa"               # -iw- is already passive
+    assert e("Unaweza kunipea maji", "Kwadima kunineka machi") == "Kwadima kunineka machi"  # -pea is lexical

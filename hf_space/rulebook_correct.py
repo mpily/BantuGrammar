@@ -63,12 +63,23 @@ _DATA = Path(__file__).parent / "kitaita_agreement_data.json"
 _ROOTS = Path(__file__).parent / "kitaita_verb_roots.json"
 _VERIFIED = Path(__file__).parent / "kitaita_speaker_verified.json"
 _SUBJECT_MARKERS = Path(__file__).parent / "kitaita_subject_markers.json"
-ALL_STEPS = ("verified", "rerank", "fill", "unknown", "repeat", "applicative", "subject", "subject_probe")
+ALL_STEPS = ("verified", "rerank", "fill", "unknown", "repeat", "applicative", "subject", "subject_probe",
+             "subject_checked", "tense", "extension")
 # 2026-11-03: the subject step is OFF by default. On 500 novel test sentences it
 # changed 27, 4 better / 21 worse, B-A -0.49 [-0.81, -0.22]: the pipeline's
 # subject class is often a guess (u- fallback for chungu/kondoo/barabara/jeshi)
 # and nouns like charonyi were taken for verbs. docs/status.md 2026-11-03.
-DEFAULT_STEPS = tuple(x for x in ALL_STEPS if x not in ("subject", "subject_probe"))
+DEFAULT_STEPS = tuple(x for x in ALL_STEPS if x not in ("subject", "subject_probe", "subject_checked",
+                                                        "tense", "extension"))
+# extension forms tried, in order; one is used only if the corpus attests it
+EXT_FORMS = {"passive": ("w", "lw", "ilw", "elw", "iw", "ew"), "causative": ("isy", "ish", "esh", "is", "es", "ithy"),
+             "stative": ("ik", "ek"), "reciprocal": ("an",),
+             # attested forms only (Pikia -> Dekia, huletea -> radaredia)
+             "applicative": ("i", "ir", "er")}
+MIN_ATTESTED = 2
+# Swahili roots whose applicative is a fixed form with no Kidaw'ida applicative:
+# ku-p-e-a 'give (to)' = Kidaw'ida ku-nek-a (development check 2026-11-03)
+LEXICAL_APPLICATIVES = {"p"}
 SM_MIN_COUNT = 5
 SM_MIN_SHARE = 0.75
 _SM_TAMS = ("cha", "re", "de", "ka", "ki", "we")  # "" = zero-marked present
@@ -281,6 +292,152 @@ def _class_of_draft_noun(form: str, clauses: list[dict] | None) -> tuple[str | N
     return None, f"{form}: number needed, no Swahili clause for it"
 
 
+# Associative particles (round-1 concord table, ASSOC) and agentive ni: a noun
+# right after one is a possessor or an agent (nguo ra mwana, ni lufu), not a subject.
+_NOT_SUBJECT_AFTER = {"cha", "gha", "ghwa", "ja", "jha", "kwa", "lwa", "ra", "va", "wa", "ya", "ni"}
+
+
+@lru_cache(maxsize=1)
+def _vocab() -> set[str]:
+    d = json.loads((Path(__file__).parent / "kitaita_training_vocab.json").read_text(encoding="utf-8"))
+    return {norm(w) for w in d["vocab"]}
+
+
+@lru_cache(maxsize=1)
+def _all_surfaces() -> tuple[str, ...]:
+    return tuple(sorted({sf for pairs in _subject_markers()[1].values() for sf, _ in pairs}, key=len, reverse=True))
+
+
+def inflects(token: str, surface: str, tam: str) -> bool:
+    """True if the training text has the same stem with another subject marker
+    (ra-dima / wa-dima): evidence the word is a verb (not rahisi, champali)."""
+    stem = token[len(surface) + len(tam):]
+    vocab = _vocab()
+    return any(s2 != surface and (s2 + tam + stem) in vocab for s2 in _all_surfaces())
+
+
+def _swahili_subject_forms(c: dict) -> set[str]:
+    from subject_class_resolver import kitaita_forms
+    forms = set(kitaita_forms(c.get("subject"), c.get("subject_kitaita")))
+    e = mined_lookup(c.get("subject") or "", "derived")
+    if e:
+        forms.add(norm(e["kitaita"]))
+        forms.update(norm(x) for x in e.get("alternatives", []))
+    return forms
+
+
+def _has_ext(tail: str, ext: str) -> bool:
+    if ext == "passive":
+        return "w" in tail[:-1]
+    if ext == "causative":
+        return bool(re.match(r"(i|e)(sy|sh|s|thy)", tail))
+    if ext == "stative":
+        return bool(re.match(r"(i|e)k", tail))
+    if ext == "applicative":
+        return bool(re.match(r"(i|ir|er)", tail))
+    return tail.startswith("an")
+
+
+def _find_draft_verb(words, kroots, bare_at, nouns):
+    """The one draft word that contains a Kidaw'ida root with a verb prefix
+    before it: (word index, root position, root, prefix readings) or None.
+    bare_at: for a Swahili imperative, the word position where a bare
+    (prefix-less) verb is accepted, else None."""
+    from kitaita_verb import parse_prefix
+    allow_bare = bare_at is not None
+    hits = []
+    for i, w in enumerate(words):
+        t = norm(w)
+        if (t in nouns and i != bare_at) or t.endswith("nyi"):  # nouns and -nyi locatives (irikonyi)
+            continue
+        # a vowel-initial root may surface with gh- (enda -> -ghend-)
+        for kr in [k for k0 in kroots for k in ((k0, "gh" + k0) if k0[:1] in "aeiou" else (k0,))]:
+            if len(kr) < 2:
+                continue
+            start = 0
+            while (pos := t.find(kr, start)) >= 0:
+                start = pos + 1
+                if pos == 0:
+                    if allow_bare and i == bare_at:
+                        hits.append((i, 0, kr, [{"neg": None, "row": None, "variant": None, "sm": "", "tam": None,
+                                                 "om": None}]))
+                    continue
+                readings = parse_prefix(t[:pos])
+                if not readings and kr[0] in "aeiou":
+                    # the tense vowel and the root's first vowel merge (we + enda -> wenda)
+                    readings = parse_prefix(t[:pos] + kr[0])
+                if readings:
+                    hits.append((i, pos, kr, readings))
+    if len({h[0] for h in hits}) != 1:
+        return None
+    return max(hits, key=lambda h: len(h[2]))  # the longest root inside that word
+
+
+def _pick_reading(readings, sw_sm):
+    """Reading whose row the Swahili subject marker allows, else the draft's own
+    row if all readings agree on it."""
+    from kitaita_verb import SW_SM_ROWS
+    fit = [r for r in readings if r["row"] in SW_SM_ROWS.get(sw_sm or "", ())]
+    pool = fit or readings
+    rows = {r["row"] for r in pool}
+    if len(rows) != 1:
+        return None
+    # prefer a reading with a tense marker over one that reads it as an object marker
+    return sorted(pool, key=lambda r: (r["tam"] is None, r["om"] is not None))[0]
+
+
+def _rebuild(word: str, new_core: str) -> str:
+    core = re.sub(r"\W+$", "", word)
+    if word[:1].isupper():
+        new_core = new_core[:1].upper() + new_core[1:]
+    return new_core + word[len(core):]
+
+
+def _tense_target(sw: dict, r: dict, tail: str, kr: str):
+    """New (prefix, tail) when the draft's tense clearly contradicts the Swahili
+    verb, else None. Modern (davswa) forms, verb_morphology.md rewrite rules."""
+    from kitaita_verb import attested_ending, build_prefix
+    row, om = r["row"], r["om"]
+    if row is None:
+        return None
+    mood, tam = sw["mood"], sw["tam"]
+    if mood == "affirmative" and sw["rel"] == "po" and tam == "li" and r["neg"] is None and r["tam"] != "nda" \
+            and (r["tam"] in ("re", "de") or r["variant"] == "e"):
+        # -lipo- 'when' -> SM+e-nda-R-a (verb_morphology.md TAM table)
+        new_tail = tail[:-5] + "a" if tail.endswith("ieghe") else tail
+        return build_prefix(None, row, "e", "nda", om), new_tail, "-lipo- 'when' -> SM+e-nda-"
+    if mood == "affirmative" and sw["rel"] and sw["rel"] != "po" and tam == "na" and r["neg"] is None \
+            and r["tam"] is None and r["variant"] == "a" and tail.endswith("agha"):
+        # present relative -> bare SM R-agha (wanaopigana -> w'ilwagha)
+        return build_prefix(None, row, "bare", None, om), tail, "present relative -> bare SM ...-agha"
+    if mood == "habitual" and r["neg"] is None and r["tam"] in ("we", "wia", "cha"):
+        return build_prefix(None, row, "a", "da", om), tail, "hu- habitual -> SM+a-da-"
+    if mood == "affirmative" and not sw["rel"] and r["neg"] is None:
+        if tam in ("me", "sha") and (r["tam"] in ("we", "cha", "wia")
+                                     or (r["tam"] is None and r["variant"] == "bare")):
+            return build_prefix(None, row, "a", None, om), tail, f"-{tam}- perfect -> SM+a"
+        if tam == "li" and r["tam"] in ("we", "cha"):
+            return build_prefix(None, row, "e", None, om), tail, "-li- past -> SM+e"
+        if tam == "ta" and (r["tam"] in ("we", "de", "re") or (r["tam"] is None and r["variant"] == "e")):
+            return build_prefix(None, row, "bare", "cha", om), tail, "-ta- future -> SM-cha-"
+        # no -na- rule: stative-like verbs use the past-looking form for the present
+        # (wanataka -> w'ekunda, nilitaka -> nakunde), development check 2026-11-03
+    if mood == "prohibitive" and r["neg"] is None and r["tam"] not in ("se", "seke", "sake") and tail[-1:] in ("a", "e"):
+        return build_prefix(None, row, "bare", "se", om), tail[:-1] + "e", "prohibitive -si- -> SM-se-...-e"
+    # past negative: Swahili ha-SM-ku-...; the final vowel cannot tell it for loan roots (hakufahamu)
+    past_neg = tam == "ku" or (tam is None and sw["fv"] == "a")
+    if mood == "negative" and past_neg and r["neg"] == "nde":
+        for neg_present in ("agha", "aa"):
+            if tail.endswith(neg_present):
+                base = tail[:-len(neg_present)]
+                cands = [base + f for f in ("ie", "ire", "ere")]
+                best = max(cands, key=lambda c: attested_ending(kr + c))
+                if attested_ending(kr + best) >= MIN_ATTESTED:
+                    return build_prefix(r["neg"], row, r["variant"], r["tam"], om), best, \
+                        "past negative -> nde-SM-...-ie"
+    return None
+
+
 def _replace_prefix(word: str, n_letters: int, new: str) -> str:
     """Replace the first n_letters letters of word (apostrophes skipped) with new."""
     k = j = 0
@@ -428,10 +585,117 @@ def correct(src: str, nbest: list[str], steps=DEFAULT_STEPS, clauses: list[dict]
             words[i] = new
             edited.add(i)
 
+    if "subject_checked" in steps and clauses and chosen == 0:
+        # 2026-11-03: subject found in the draft (probe on the draft, else the nearest
+        # noun before the verb) AND confirmed as the subject of a Swahili verb in the
+        # pipeline's analysis; class from the draft's own noun, number from that
+        # Swahili clause; class 9/10 nouns accept i- or ri-; verbs must inflect.
+        noun_idxs, verbs = draft_candidates(words)
+        for i, m in sorted(verbs.items()):
+            surface, tam = next(iter(m.values()))
+            t = norm(words[i])
+            if not inflects(t, surface, tam):
+                notes.append(f"subject_checked: {t}: no other subject marker on this stem in the corpus")
+                continue
+            s_idx = (draft_subjects or {}).get(i)
+            if s_idx is None:
+                before = [n for n in noun_idxs if n < i]
+                s_idx = before[-1] if before else None
+            if s_idx is None:
+                continue
+            if s_idx > 0 and norm(words[s_idx - 1]) in _NOT_SUBJECT_AFTER:
+                notes.append(f"subject_checked: {t}: {norm(words[s_idx])} follows "
+                             f"{norm(words[s_idx - 1])} (possessor/agent)")
+                continue
+            f = norm(words[s_idx])
+            c = next((c for c in clauses if f in _swahili_subject_forms(c)), None)
+            if c is None:
+                notes.append(f"subject_checked: {t}: {f} is not a Swahili subject in the pipeline's analysis")
+                continue
+            target_class, why = resolve_subject_class(c.get("subject"), f, c.get("swahili_sm"))
+            if not target_class:
+                notes.append(f"subject_checked: {t} left as is ({why})")
+                continue
+            allowed = {target_class}
+            if target_class in ("i", "ri") and not f.startswith("mi"):
+                allowed = {"i", "ri"}  # class 9/10: one form for both numbers
+            if allowed & set(m) or target_class not in _subject_markers()[1]:
+                continue
+            if (surface, tam) in _subject_markers()[1][target_class]:
+                continue
+            target = _subject_markers()[0].get((target_class, tam))
+            if not target:
+                notes.append(f"subject_checked: no attested {target_class}- form before -{tam or 'present'}- "
+                             f"for {t}; left as is")
+                continue
+            core = re.sub(r"\W+$", "", words[i])
+            new = _replace_prefix(core, len(surface), target) + words[i][len(core):]
+            changes.append(("subject_checked", f"{t} -> {norm(new)} (subject {f} = Swahili {c.get('subject')}: "
+                                               f"class {target_class}- from {why})"))
+            words[i] = new
+            edited.add(i)
+
+    if ("tense" in steps or "extension" in steps) and chosen == 0:
+        # 2026-11-03: the draft verb that translates a Swahili verb is found by its
+        # root (kitaita_root_alignment.json), not by position.
+        from kitaita_verb import attested_ending
+        from swahili_verb import kitaita_roots, parse as parse_swahili_verb
+        nouns = _noun_forms()
+        for sw_i, sw_tok in enumerate(src.split()):
+            sw = parse_swahili_verb(sw_tok)
+            if not sw or sw["stem"] in ("w", "kuw", "pokuw"):
+                continue
+            decs = sw["decompositions"]
+            # a whole stem is a separate (lexicalised) verb only if its Kidaw'ida root
+            # differs from its peeled form's (piki -> dek is just pik + applicative)
+            peeled = {k for r, e in decs if e for k in kitaita_roots(r)}
+            decs = [(r, e) for r, e in decs if e or not (set(kitaita_roots(r)) & peeled)]
+            for root, exts in decs:
+                hit = _find_draft_verb(words, kitaita_roots(root),
+                                       sw_i if sw["mood"] == "imperative" else None, nouns)
+                if not hit:
+                    continue
+                i, pos, kr, readings = hit
+                if i in edited:
+                    break
+                t = norm(words[i])
+                tail = t[pos + len(kr):]
+                if "extension" in steps:
+                    for ext in exts:
+                        if ext not in EXT_FORMS or _has_ext(tail, ext):
+                            continue
+                        if ext == "passive" and kr.endswith("w"):
+                            continue  # -iw- 'steal': rawiwa is already passive
+                        if ext == "applicative" and root in LEXICAL_APPLICATIVES:
+                            continue
+                        cands = [(attested_ending(kr + f + tail), f) for f in EXT_FORMS[ext]]
+                        n, f = max(cands)
+                        if n >= MIN_ATTESTED:
+                            new = t[:pos] + kr + f + tail
+                            changes.append(("extension", f"{t} -> {new} (Swahili {norm(sw_tok)}: {ext} "
+                                                         f"-{f}-, {n} corpus tokens end in -{kr + f + tail})"))
+                            words[i] = _rebuild(words[i], new)
+                            edited.add(i)
+                            t, tail = new, f + tail
+                            break
+                if "tense" in steps and i not in edited and sw["mood"] != "imperative":
+                    r = _pick_reading(readings, sw["sm"])
+                    tgt = _tense_target(sw, r, tail, kr) if r else None
+                    if tgt:
+                        new_prefix, new_tail, why = tgt
+                        new = new_prefix + kr + new_tail
+                        if new != t:
+                            changes.append(("tense", f"{t} -> {new} (Swahili {norm(sw_tok)}: {why})"))
+                            words[i] = _rebuild(words[i], new)
+                            edited.add(i)
+                break  # first decomposition found in the draft decides
+
     if "applicative" in steps:
         for base, attested in swahili_applicatives(src):
             hits = []
             for i, w in enumerate(words):
+                if i in edited:
+                    continue  # already changed by the extension step
                 t = norm(w)
                 for kr in _kitaita_roots(base):
                     if kr[-1] in "aeiou" and not attested:
