@@ -1,0 +1,71 @@
+{
+ "set": "test_novel3",
+ "n": 500,
+ "A": {
+  "mean": 59.76830554364528,
+  "ci95": [
+   57.748184865627366,
+   61.7884262216632
+  ],
+  "n": 500,
+  "low_n": false
+ },
+ "B_default": {
+  "mean": 59.97352373656593,
+  "ci95": [
+   57.94743849694314,
+   61.99960897618872
+  ],
+  "n": 500,
+  "low_n": false
+ },
+ "B_new": {
+  "mean": 59.99484539678677,
+  "ci95": [
+   57.97120340151,
+   62.01848739206354
+  ],
+  "n": 500,
+  "low_n": false
+ },
+ "B_new_minus_B_default": [
+  0.021,
+  -0.041,
+  0.099
+ ],
+ "B_new_minus_A": [
+  0.227,
+  -0.037,
+  0.518
+ ],
+ "B_default_minus_A": [
+  0.205,
+  -0.048,
+  0.49
+ ],
+ "sentences_changed_by_tense_extension": 8,
+ "changed_better": 3,
+ "changed_worse": 5,
+ "edits": {
+  "tense": 4,
+  "extension": 8
+ },
+ "config": {
+  "git_sha": "5811abdee09bb65214c5929ac9ba6888016fe035",
+  "nbest_sha256_16": "b7a6768877449dc8",
+  "steps_new": [
+   "verified",
+   "rerank",
+   "fill",
+   "unknown",
+   "repeat",
+   "applicative",
+   "tense",
+   "extension"
+  ],
+  "bootstrap": {
+   "B": 2000,
+   "seed": 20261102
+  }
+ }
+}

@@ -69,8 +69,9 @@ ALL_STEPS = ("verified", "rerank", "fill", "unknown", "repeat", "applicative", "
 # changed 27, 4 better / 21 worse, B-A -0.49 [-0.81, -0.22]: the pipeline's
 # subject class is often a guess (u- fallback for chungu/kondoo/barabara/jeshi)
 # and nouns like charonyi were taken for verbs. docs/status.md 2026-11-03.
-DEFAULT_STEPS = tuple(x for x in ALL_STEPS if x not in ("subject", "subject_probe", "subject_checked",
-                                                        "tense", "extension"))
+# tense + extension switched on 2026-11-03 after the pre-registered test_novel3 score
+# (chrF vs previous B +0.02 [-0.04, 0.10]; blind agent judgement 9/11 rule forms correct)
+DEFAULT_STEPS = tuple(x for x in ALL_STEPS if x not in ("subject", "subject_probe", "subject_checked"))
 # extension forms tried, in order; one is used only if the corpus attests it
 EXT_FORMS = {"passive": ("w", "lw", "ilw", "elw", "iw", "ew"), "causative": ("isy", "ish", "esh", "is", "es", "ithy"),
              "stative": ("ik", "ek"), "reciprocal": ("an",),

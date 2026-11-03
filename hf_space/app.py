@@ -96,7 +96,9 @@ CHANGE_LABELS = {"rerank": "agreement: picked another model candidate",
                  "repeat": "repetition removed",
                  "applicative": "applicative ('do for') added to match the Swahili verb",
                  "verified": "replaced by a native-speaker-verified translation",
-                 "subject": "verb subject marker matched to its subject's class (pipeline analysis)"}
+                 "subject": "verb subject marker matched to its subject's class (pipeline analysis)",
+                 "tense": "verb tense/negation matched to the Swahili verb",
+                 "extension": "verb extension (passive, applicative, causative, stative, reciprocal) added"}
 
 
 def translate_finetuned(text: str, clauses=None):

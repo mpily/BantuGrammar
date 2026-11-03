@@ -28687,3 +28687,19 @@ Secondary: number of edits; an agent judgement of every tense/extension edit
 order without saying which the rule produced).
 Deploy tense + extension to the Space if B_new - B_default is not significantly
 negative AND at least 70% of judged edits are correct (excluding unsure).
+
+### Result of the pre-registered test (test_novel3) — tense + extension DEPLOYED
+`Code_Experiments/rulebook/eval_tense_extension_test3.py`, rules frozen at 5811abd:
+A 59.77 [57.75, 61.79]; B_default 59.97; B_new 59.99. B_new - B_default +0.02
+[-0.04, 0.10]; B_new - A +0.23 [-0.04, 0.52]. 12 edits (4 tense, 8 extension) in 8
+of 500 sentences (chrF: 3 better, 5 worse -- single-reference chrF on one-word
+changes).
+Blind agent judgement (both forms in random order, rule not identified;
+~/languagemodels/audit/test3_edits_judged.jsonl, key separate): rule form correct
+9/11 judged (82%), 1 unsure; draft form correct 4/12. Per edit: 8 fixed a wrong
+draft form, 2 broke a correct one, 2 neutral. Broken: wekunda -> wendakunda
+(-lipo- rule on a stative 'want' verb), mneke -> mnekwe (apewe is rendered with
+the active form in the corpus). Not tuned on this set.
+Both pre-registered conditions met -> tense + extension added to DEFAULT_STEPS
+(Space version B) and labelled in the rule-book report. An agent's judgement is
+not a speaker's: speaker A/B ratings are the real test.
