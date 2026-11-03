@@ -19,6 +19,15 @@ be switched off on its own, so each is evaluated as a separate change.
                one unknown word and exactly one source word that nothing in the
                output accounts for. Otherwise the model's word is kept.
   repeat    -- 3rd+ consecutive copies of a token are dropped.
+  subject   -- the pipeline's own analysis of the Swahili source (probe path:
+               each verb's subject and that subject's class marker, from the
+               speaker-verified table or class data) is used to fix the subject
+               marker on the draft's verbs (Nguku orekoghe -> erekoghe: nguku is
+               an i- noun). Only the marker changes; root and tense stay the
+               model's. Surface by class and tense from kitaita_subject_markers.json
+               (corpus counts over verified class nouns; used only where one form
+               has >= 5 hits and >= 75%). Draft and source verbs are paired in
+               order and only when their counts match. User request 2026-11-02.
   verified  -- if the source is a native-speaker-verified sentence
                (kitaita_speaker_verified.json), output it exactly; nothing else runs.
   applicative -- the Swahili source has an applicative verb (walipigania 'fought
@@ -51,7 +60,16 @@ from rulebook_flagger import flag, norm
 _DATA = Path(__file__).parent / "kitaita_agreement_data.json"
 _ROOTS = Path(__file__).parent / "kitaita_verb_roots.json"
 _VERIFIED = Path(__file__).parent / "kitaita_speaker_verified.json"
-ALL_STEPS = ("verified", "rerank", "fill", "unknown", "repeat", "applicative")
+_SUBJECT_MARKERS = Path(__file__).parent / "kitaita_subject_markers.json"
+ALL_STEPS = ("verified", "rerank", "fill", "unknown", "repeat", "applicative", "subject")
+# 2026-11-03: the subject step is OFF by default. On 500 novel test sentences it
+# changed 27, 4 better / 21 worse, B-A -0.49 [-0.81, -0.22]: the pipeline's
+# subject class is often a guess (u- fallback for chungu/kondoo/barabara/jeshi)
+# and nouns like charonyi were taken for verbs. docs/status.md 2026-11-03.
+DEFAULT_STEPS = tuple(x for x in ALL_STEPS if x != "subject")
+SM_MIN_COUNT = 5
+SM_MIN_SHARE = 0.75
+_SM_TAMS = ("cha", "re", "de", "ka", "ki", "we")  # "" = zero-marked present
 
 # Applicative shape by Kidaw'ida root (docs/status.md 2026-11-02 cont. 8): after a
 # root-final ny/nj/s/sh/z/ch/j the extension is -ir- (-er- if the root vowel is
@@ -182,6 +200,45 @@ def swahili_applicatives(src: str) -> list[tuple[str, str | None]]:
     return out
 
 
+@lru_cache(maxsize=1)
+def _subject_markers():
+    """(dominant surface by (class, tense), surfaces with >= 2 hits by class)."""
+    counts = json.loads(_SUBJECT_MARKERS.read_text(encoding="utf-8"))["counts"]
+    dominant, attested = {}, {}
+    for base, by_tam in counts.items():
+        for tam, c in by_tam.items():
+            surface, n = max(c.items(), key=lambda x: x[1])
+            if n >= SM_MIN_COUNT and n / sum(c.values()) >= SM_MIN_SHARE:
+                dominant[(base, tam)] = surface
+            attested.setdefault(base, set()).update((x, tam) for x, k in c.items() if k >= 2)
+    return dominant, attested
+
+
+def verb_prefix(token: str, base: str):
+    """(surface, tense) if token starts with this class's dominant subject marker."""
+    dominant = _subject_markers()[0]
+    for tam in _SM_TAMS:
+        s = dominant.get((base, tam))
+        if s and token.startswith(s + tam) and len(token) > len(s + tam) + 1:
+            return s, tam
+    s = dominant.get((base, ""))
+    if s and token.startswith(s) and len(token) - len(s) >= 3 and token[len(s)] not in "aeiou":
+        return s, ""
+    return None
+
+
+def _replace_prefix(word: str, n_letters: int, new: str) -> str:
+    """Replace the first n_letters letters of word (apostrophes skipped) with new."""
+    k = j = 0
+    while j < n_letters:
+        if word[k] != "'":
+            j += 1
+        k += 1
+    if word[:1].isupper():
+        new = new[:1].upper() + new[1:]
+    return new + word[k:]
+
+
 def violations(hyp: str) -> list[tuple[str, str]]:
     """(noun, concord word) pairs whose classes do not overlap: a noun directly
     followed by a concord word, or a demonstrative directly followed by a noun."""
@@ -218,16 +275,20 @@ def _covered_source_words(src: str, hyp_tokens: list[str]) -> set[str]:
     return covered
 
 
-def correct(src: str, nbest: list[str], steps=ALL_STEPS) -> dict:
-    """nbest: the model's candidates, best first. Returns the corrected text and
-    a list of what changed."""
+def correct(src: str, nbest: list[str], steps=DEFAULT_STEPS, clauses: list[dict] | None = None) -> dict:
+    """nbest: the model's candidates, best first. clauses: the rule-based
+    pipeline's per-verb analysis of src (translate_sentence_with_probes()'s
+    report["clauses"]), needed by the subject step. Returns the corrected text
+    and a list of what changed."""
     changes = []
+    notes = []
+    edited = set()
     chosen = 0
     if "verified" in steps:
         hit = _speaker_verified()[0].get(_sentence_key(src))
         if hit:
             return {"kitaita": hit["kitaita"], "draft": nbest[0], "chosen_candidate": 0,
-                    "changes": [("verified", f"native-speaker-verified sentence ({hit['verified']})")]}
+                    "changes": [("verified", f"native-speaker-verified sentence ({hit['verified']})")], "notes": []}
     if "rerank" in steps and len(nbest) > 1:
         counts = [len(violations(h)) for h in nbest]
         chosen = min(range(len(nbest)), key=lambda i: (counts[i], i))
@@ -244,6 +305,38 @@ def correct(src: str, nbest: list[str], steps=ALL_STEPS) -> dict:
                 if e:
                     words[i] = _swap(t, e["kitaita"])
                     changes.append(("fill", f"{norm(t)} -> {e['kitaita']}"))
+
+    if "subject" in steps and clauses:
+        bases = sorted(_subject_markers()[1])
+        nouns = _agreement()[1]
+        draft_verbs = []
+        for i, w in enumerate(words):
+            t = norm(w)
+            if len(t) >= 4 and t not in nouns:
+                m = {b: hit for b in bases if (hit := verb_prefix(t, b))}
+                if m:
+                    draft_verbs.append((i, m))
+        if len(draft_verbs) != len(clauses):
+            notes.append(f"subject: not run ({len(draft_verbs)} verb(s) in the draft, {len(clauses)} in the source)")
+        else:
+            for (i, m), c in zip(draft_verbs, clauses):
+                target_class = c.get("subject_class_marker")
+                if not target_class or target_class in m or target_class not in _subject_markers()[1]:
+                    continue  # no class from the pipeline, or the draft already agrees
+                surface, tam = next(iter(m.values()))
+                if (surface, tam) in _subject_markers()[1][target_class]:
+                    continue  # this surface is also used by the subject's class: leave it
+                target = _subject_markers()[0].get((target_class, tam))
+                if not target:
+                    notes.append(f"subject: no attested {target_class}- form before -{tam or 'present'}- "
+                                 f"for {norm(words[i])}; left as is")
+                    continue
+                core = re.sub(r"\W+$", "", words[i])
+                new = _replace_prefix(core, len(surface), target) + words[i][len(core):]
+                changes.append(("subject", f"{norm(words[i])} -> {norm(new)} (subject {c.get('subject')}: "
+                                           f"class {target_class}-, verb {c.get('verb')})"))
+                words[i] = new
+                edited.add(i)
 
     if "applicative" in steps:
         for base, attested in swahili_applicatives(src):
@@ -308,7 +401,8 @@ def correct(src: str, nbest: list[str], steps=ALL_STEPS) -> dict:
         reflag = flag(src, " ".join(words))
         if len(reflag) == len(words):
             tokens = reflag
-        unknown = [i for i, (_, c) in enumerate(tokens) if c == "unknown"]
+        # words the rule book itself edited are never sent back to Swahili
+        unknown = [i for i, (_, c) in enumerate(tokens) if c == "unknown" and i not in edited]
         if len(unknown) == 1:
             others = [norm(w) for j, w in enumerate(words) if j != unknown[0]]
             src_words = [norm(t) for t in src.split() if norm(t)]
@@ -328,4 +422,4 @@ def correct(src: str, nbest: list[str], steps=ALL_STEPS) -> dict:
     # Re-joining tokens can alter spacing (e.g. "a,b" -> "a, b"); when no word was
     # edited, return the chosen candidate exactly as the model wrote it.
     text = " ".join(words) if edited else hyp
-    return {"kitaita": text, "draft": nbest[0], "chosen_candidate": chosen, "changes": changes}
+    return {"kitaita": text, "draft": nbest[0], "chosen_candidate": chosen, "changes": changes, "notes": notes}

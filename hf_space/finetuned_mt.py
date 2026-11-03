@@ -57,7 +57,7 @@ def status() -> str:
     return f"unavailable ({_state['error'] or 'not configured'})"
 
 
-def translate(text: str) -> dict:
+def translate(text: str, clauses: list[dict] | None = None) -> dict:
     """{'kitaita': A's top-1, 'flags': [(token, category)] on it,
         'version_b': rule-book correction of A (rulebook_correct.correct), 'status'}"""
     if _state["model"] is None:
@@ -75,4 +75,4 @@ def translate(text: str) -> dict:
     nbest = tok.batch_decode(gen, skip_special_tokens=True)
     hyp = nbest[0]
     return {"kitaita": hyp, "flags": [(t, c) for t, c in flag(text, hyp) if c != "ok"],
-            "version_b": correct(text, nbest), "status": "ready"}
+            "version_b": correct(text, nbest, clauses=clauses), "status": "ready"}

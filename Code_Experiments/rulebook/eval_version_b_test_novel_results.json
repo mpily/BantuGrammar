@@ -11,6 +11,32 @@
   "low_n": false
  },
  "conditions": {
+  "verified": {
+   "changed": 0,
+   "changed_share": [
+    0.0,
+    0.0,
+    0.0076
+   ],
+   "B_chrf": {
+    "mean": 59.971694678932764,
+    "ci95": [
+     57.992303446135665,
+     61.95108591172986
+    ],
+    "n": 500,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    0.0,
+    0.0,
+    0.0
+   ],
+   "paired_B_minus_A_changed_only": null,
+   "changed_better": 0,
+   "changed_worse": 0,
+   "changed_same": 0
+  },
   "rerank": {
    "changed": 4,
    "changed_share": [
@@ -157,361 +183,66 @@
    "changed_worse": 1,
    "changed_same": 0
   },
-  "rerank+fill+unknown+repeat+applicative": {
-   "changed": 24,
+  "subject": {
+   "changed": 27,
    "changed_share": [
-    0.048,
-    0.0325,
-    0.0704
+    0.054,
+    0.0374,
+    0.0774
    ],
    "B_chrf": {
-    "mean": 59.7878136818443,
+    "mean": 59.48162350911808,
     "ci95": [
-     57.80689422177268,
-     61.76873314191592
+     57.50977022097812,
+     61.45347679725804
     ],
     "n": 500,
     "low_n": false
    },
    "paired_B_minus_A_all": [
-    -0.184,
-    -0.578,
-    0.18
+    -0.49,
+    -0.81,
+    -0.223
    ],
    "paired_B_minus_A_changed_only": [
-    -3.831,
-    -11.765,
-    3.535
+    -9.075,
+    -13.745,
+    -4.885
    ],
-   "changed_better": 12,
-   "changed_worse": 12,
-   "changed_same": 0
+   "changed_better": 4,
+   "changed_worse": 21,
+   "changed_same": 2
+  },
+  "verified+rerank+fill+unknown+repeat+applicative+subject": {
+   "changed": 50,
+   "changed_share": [
+    0.1,
+    0.0767,
+    0.1294
+   ],
+   "B_chrf": {
+    "mean": 59.2951440148758,
+    "ci95": [
+     57.322770320476636,
+     61.26751770927497
+    ],
+    "n": 500,
+    "low_n": false
+   },
+   "paired_B_minus_A_all": [
+    -0.677,
+    -1.197,
+    -0.223
+   ],
+   "paired_B_minus_A_changed_only": [
+    -6.766,
+    -11.217,
+    -2.424
+   ],
+   "changed_better": 15,
+   "changed_worse": 33,
+   "changed_same": 2
   }
- },
- "examples": {
-  "rerank": [
-   {
-    "swa": "Safari hii ni ndefu",
-    "A": "Ughu charo ni mlacha",
-    "B": "Charo ichi ni ndacha",
-    "ref": "Charo ichi ni kilacha",
-    "changes": [
-     [
-      "rerank",
-      "candidate 2 (agreement violations 1 -> 0)"
-     ]
-    ],
-    "chrf_diff": 30.6
-   },
-   {
-    "swa": "Barabara zimejengwa kama njia ya kuboresha miundombinu nchini.",
-    "A": "Barabara reaghwa sa chia yeboisa mizi ra isanga.",
-    "B": "Barabara reaghwa sa chia yeboisa vilambo va isanga.",
-    "ref": "Chia raaghilo eri kuboisa maza ra isanga.",
-    "changes": [
-     [
-      "rerank",
-      "candidate 2 (agreement violations 1 -> 0)"
-     ]
-    ],
-    "chrf_diff": -4.4
-   },
-   {
-    "swa": "Alikataa kufichua habari zozote kuhusiana na bunduki hizo.",
-    "A": "Olegha kufunukua habari ingi kuhusu iro bunduki.",
-    "B": "Olegha kufunukua malagho ghangi gha rija bunduki.",
-    "ref": "Olegha kufunya habari irorose ra iro bunduki.",
-    "changes": [
-     [
-      "rerank",
-      "candidate 2 (agreement violations 2 -> 0)"
-     ]
-    ],
-    "chrf_diff": -17.9
-   },
-   {
-    "swa": "Wawekezaji walipata pesa nyingi kutokana na mradi huo.",
-    "A": "W'andu w'iw'angishire w'apatire magome mengi kufuma kwa iyo mradi.",
-    "B": "W'andu w'iw'angishire w'apatire magome mengi kufuma kwa ugho mradi.",
-    "ref": "W'aja w'ikumbie magome kwa iyo zoghori w'apatire faida mbaa.",
-    "changes": [
-     [
-      "rerank",
-      "candidate 2 (agreement violations 1 -> 0)"
-     ]
-    ],
-    "chrf_diff": -3.5
-   }
-  ],
-  "fill": [
-   {
-    "swa": "Kampuni haziwezi kuangalia mahitaji ya watu na kuzishughulikia itakikanavyo.",
-    "A": "Kampuni nderidimagha kuzighana mahitaji gha w'andu na kughikatisha seji ikundikie.",
-    "B": "Kampuni nderidimagha kuzighana vindo gha w'andu na kughikatisha seji ikundikie.",
-    "ref": "Kampuni nderidimagha kuzighana haja ra w'andu na kuridukia msigo seji ifwane.",
-    "changes": [
-     [
-      "fill",
-      "mahitaji -> vindo"
-     ]
-    ],
-    "chrf_diff": -1.2
-   },
-   {
-    "swa": "Unafanya mambo ya kilimo",
-    "A": "Kwawebonya malagho gha kilimo",
-    "B": "Kwawebonya malagho gha kama",
-    "ref": "kwaw'abonya malagha gha kilimo",
-    "changes": [
-     [
-      "fill",
-      "kilimo -> kama"
-     ]
-    ],
-    "chrf_diff": -16.6
-   },
-   {
-    "swa": "Tupeni mda wa kufukiria jinsi ya kujibu hayo maswali.",
-    "A": "Dineke ngelo yefunya malagho seji widimagha kujibu agho makoto.",
-    "B": "Dineke ngelo yefunya malagho seji widimagha kutumbulia agho makoto.",
-    "ref": "Dinekenyi ngelo digheshe seji ifwane kujibu agho makotio.",
-    "changes": [
-     [
-      "fill",
-      "kujibu -> kutumbulia"
-     ]
-    ],
-    "chrf_diff": -10.9
-   },
-   {
-    "swa": "Njia ya kenda mtoni inteleza kwa kweli",
-    "A": "Chia ya ikenda modenyi ni kweli",
-    "B": "Chia ya ikenda modenyi ni loli",
-    "ref": "Chia esea modenyi yaw'ezondoloka tiki",
-    "changes": [
-     [
-      "fill",
-      "kweli -> loli"
-     ]
-    ],
-    "chrf_diff": 0.2
-   },
-   {
-    "swa": "kilimo gani?",
-    "A": "Kilimo ki?",
-    "B": "Kama ki?",
-    "ref": "Kilimo chiao?",
-    "changes": [
-     [
-      "fill",
-      "kilimo -> kama"
-     ]
-    ],
-    "chrf_diff": -34.6
-   },
-   {
-    "swa": "Mashimo ya visima ni nadra sana.",
-    "A": "Mashimo gha visima ni matini sana.",
-    "B": "Vina gha visima ni matini sana.",
-    "ref": "Visima veka kila andu.",
-    "changes": [
-     [
-      "fill",
-      "mashimo -> vina"
-     ]
-    ],
-    "chrf_diff": 1.7
-   },
-   {
-    "swa": "Ninafurahia Krisimasi na familia yangu kila mwaka.",
-    "A": "Naboilwa ni Krismasi na familia yapo kila mwaka.",
-    "B": "Naboilwa ni Krismasi na kichuku yapo kila mwaka.",
-    "ref": "Daboilwaa ni kukaia andu kumweri na w'andu w'a mzi ghwapo ngelo ya Krisimasi kila mwaka.",
-    "changes": [
-     [
-      "fill",
-      "familia -> kichuku"
-     ]
-    ],
-    "chrf_diff": 0.5
-   },
-   {
-    "swa": "Chakula hiki kina ladha ya kipekee.",
-    "A": "Ivi vindo veko na ladha ya kipekee.",
-    "B": "Ivi vindo veko na mzingo ya kipekee.",
-    "ref": "Ivi vindo veko na msingo uboie.",
-    "changes": [
-     [
-      "fill",
-      "ladha -> mzingo"
-     ]
-    ],
-    "chrf_diff": 10.6
-   }
-  ],
-  "unknown": [
-   {
-    "swa": "Mvua iliendelea kunyesha.",
-    "A": "Vua yeendelia kunya.",
-    "B": "Vua iliendelea kunya.",
-    "ref": "Vua yeendelia kunya.",
-    "changes": [
-     [
-      "unknown",
-      "yeendelia -> iliendelea (Swahili)"
-     ]
-    ],
-    "chrf_diff": -52.4
-   },
-   {
-    "swa": "Jua halitawachoma",
-    "A": "Iruwa ndejichaawikora",
-    "B": "Iruwa halitawachoma",
-    "ref": "iruwa ndejicha w'ikaba",
-    "changes": [
-     [
-      "unknown",
-      "ndejichaawikora -> halitawachoma (Swahili)"
-     ]
-    ],
-    "chrf_diff": -43.1
-   }
-  ],
-  "repeat": [],
-  "applicative": [
-   {
-    "swa": "Unasomea nini shuleni?",
-    "A": "Kwaw'eshoma kihi skulu?",
-    "B": "Kwaw'eshomia kihi skulu?",
-    "ref": "Kwaw'eshomea kii skulu?",
-    "changes": [
-     [
-      "applicative",
-      "kwaweshoma -> kwaweshomia (Swahili -som- + applicative, rule)"
-     ]
-    ],
-    "chrf_diff": -0.7
-   },
-   {
-    "swa": "Tunapitia wapi?",
-    "A": "Daw'iaida hao?",
-    "B": "Daw'iaidia hao?",
-    "ref": "Daweidia hao",
-    "changes": [
-     [
-      "applicative",
-      "dawiaida -> dawiaidia (Swahili -pit- + applicative, rule)"
-     ]
-    ],
-    "chrf_diff": 24.2
-   }
-  ],
-  "rerank+fill+unknown+repeat+applicative": [
-   {
-    "swa": "Safari hii ni ndefu",
-    "A": "Ughu charo ni mlacha",
-    "B": "Charo ichi ni ndacha",
-    "ref": "Charo ichi ni kilacha",
-    "changes": [
-     [
-      "rerank",
-      "candidate 2 (agreement violations 1 -> 0)"
-     ]
-    ],
-    "chrf_diff": 30.6
-   },
-   {
-    "swa": "Kampuni haziwezi kuangalia mahitaji ya watu na kuzishughulikia itakikanavyo.",
-    "A": "Kampuni nderidimagha kuzighana mahitaji gha w'andu na kughikatisha seji ikundikie.",
-    "B": "Kampuni nderidimagha kuzighana vindo gha w'andu na kughikatisha seji ikundikie.",
-    "ref": "Kampuni nderidimagha kuzighana haja ra w'andu na kuridukia msigo seji ifwane.",
-    "changes": [
-     [
-      "fill",
-      "mahitaji -> vindo"
-     ]
-    ],
-    "chrf_diff": -1.2
-   },
-   {
-    "swa": "Unafanya mambo ya kilimo",
-    "A": "Kwawebonya malagho gha kilimo",
-    "B": "Kwawebonya malagho gha kama",
-    "ref": "kwaw'abonya malagha gha kilimo",
-    "changes": [
-     [
-      "fill",
-      "kilimo -> kama"
-     ]
-    ],
-    "chrf_diff": -16.6
-   },
-   {
-    "swa": "Tupeni mda wa kufukiria jinsi ya kujibu hayo maswali.",
-    "A": "Dineke ngelo yefunya malagho seji widimagha kujibu agho makoto.",
-    "B": "Dineke ngelo yefunya malagho seji widimagha kutumbulia agho makoto.",
-    "ref": "Dinekenyi ngelo digheshe seji ifwane kujibu agho makotio.",
-    "changes": [
-     [
-      "fill",
-      "kujibu -> kutumbulia"
-     ]
-    ],
-    "chrf_diff": -10.9
-   },
-   {
-    "swa": "Barabara zimejengwa kama njia ya kuboresha miundombinu nchini.",
-    "A": "Barabara reaghwa sa chia yeboisa mizi ra isanga.",
-    "B": "Barabara reaghwa sa chia yeboisa vilambo va isanga.",
-    "ref": "Chia raaghilo eri kuboisa maza ra isanga.",
-    "changes": [
-     [
-      "rerank",
-      "candidate 2 (agreement violations 1 -> 0)"
-     ]
-    ],
-    "chrf_diff": -4.4
-   },
-   {
-    "swa": "Njia ya kenda mtoni inteleza kwa kweli",
-    "A": "Chia ya ikenda modenyi ni kweli",
-    "B": "Chia ya ikenda modenyi ni loli",
-    "ref": "Chia esea modenyi yaw'ezondoloka tiki",
-    "changes": [
-     [
-      "fill",
-      "kweli -> loli"
-     ]
-    ],
-    "chrf_diff": 0.2
-   },
-   {
-    "swa": "kilimo gani?",
-    "A": "Kilimo ki?",
-    "B": "Kama ki?",
-    "ref": "Kilimo chiao?",
-    "changes": [
-     [
-      "fill",
-      "kilimo -> kama"
-     ]
-    ],
-    "chrf_diff": -34.6
-   },
-   {
-    "swa": "Alikataa kufichua habari zozote kuhusiana na bunduki hizo.",
-    "A": "Olegha kufunukua habari ingi kuhusu iro bunduki.",
-    "B": "Olegha kufunukua malagho ghangi gha rija bunduki.",
-    "ref": "Olegha kufunya habari irorose ra iro bunduki.",
-    "changes": [
-     [
-      "rerank",
-      "candidate 2 (agreement violations 2 -> 0)"
-     ]
-    ],
-    "chrf_diff": -17.9
-   }
-  ]
  },
  "checker_false_alarm_refs": [
   0.02,
@@ -524,18 +255,21 @@
   0.0464
  ],
  "config": {
-  "git_sha": "4fb9ac630419684e94d13fb1a8a8afe9ac250b4c",
+  "git_sha": "6a47d116fc0ec84e29396c3bde641e3ab06e1ead",
   "nbest_file_sha256_16": "342c92f95553aefa",
   "bootstrap": {
    "B": 2000,
    "seed": 20261102
   },
+  "clauses_file_sha256_16": "85ceac84f70797e1",
   "files_sha256_16": {
-   "rulebook_correct.py": "8e594534a6462561",
-   "rulebook_flagger.py": "2ef7b977226b6ae2",
+   "rulebook_correct.py": "8297e7059ab57ac2",
+   "rulebook_flagger.py": "76fc15334ac5e957",
    "kitaita_agreement_data.json": "4f412f4f3429357f",
    "kitaita_training_vocab.json": "2ebede980d2c7fc0",
-   "kitaita_mined_lexicon_round1.json": "63dc39f606c64147"
+   "kitaita_mined_lexicon_round1.json": "63dc39f606c64147",
+   "kitaita_subject_markers.json": "e0997b7af5b60034"
   }
- }
+ },
+ "examples_file": "~/languagemodels/eval_version_b_<set>_examples.json (not in git: corpus text)"
 }

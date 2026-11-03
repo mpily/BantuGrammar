@@ -1570,6 +1570,11 @@ def translate(swahili_subject_noun: str | None, swahili_verb: dict, swahili_obje
         "object_noun": obj_part, "adjective_stem": swahili_adjective["stem"] if swahili_adjective else None,
         "adjective_kitaita": adj_part, "adjective_untranslated": adjective_untranslated,
         "kitaita_verb_word": kit_verb,
+        # 2026-11-02: the subject's class marker before any tense-conditioned vowel
+        # change (TAM_SM_ALIAS applied), for noun subjects only. Read by the
+        # version-B subject-agreement step (rulebook_correct.py); not used here.
+        "subject_class_marker": (TAM_SM_ALIAS.get(kit_class, kit_class) if kit_class and person is None
+                                 and swahili_subject_noun not in SWAHILI_PERSONAL_PRONOUNS else None),
     }
     return {"kitaita_sentence": sentence, "trace": trace, "object": obj_part,
             "adjective_flagged": bool(swahili_adjective), "components": components}

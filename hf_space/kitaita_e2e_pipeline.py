@@ -3019,6 +3019,7 @@ def translate_sentence_with_probes(text: str, tables) -> dict:
             "flags": merged_flags,
             "error": "; ".join(errors) if errors else None,
             "per_sentence": sub_reports,
+            "clauses": [c for sr in sub_reports for c in sr.get("clauses", [])],
         }
     noun_kitaita, root_kitaita, root_kitaita_fallback, noun_class_of = tables[0], tables[1], tables[2], tables[3]
     d = decompose_sentence_with_probes(text, noun_kitaita, noun_class_of, root_tables=tables)
@@ -3250,6 +3251,11 @@ def translate_sentence_with_probes(text: str, tables) -> dict:
 
     report["kitaita_sentence"] = assemble_multi_clause(d, clause_results, noun_kitaita)
     report["trace"] = all_trace
+    # 2026-11-02: per-verb subject analysis, in sentence order, for the version-B
+    # subject-agreement step (rulebook_correct.py). Read-only summary of the above.
+    report["clauses"] = [{"verb": c["verb_surface"], "verb_idx": c["verb_idx"], "subject": c.get("subject"),
+                          "subject_class_marker": (r["components"].get("subject_class_marker") if r else None)}
+                         for c, r in sorted(clause_results, key=lambda cr: cr[0]["verb_idx"])]
     first_result = next((r for _, r in clause_results if r is not None), None)
     if first_result is not None:
         report["components"] = first_result["components"]

@@ -28428,3 +28428,45 @@ never seen. One change, `hf_space/rulebook_correct.py`:
   needed; the rule would predict o-de-m-j-i-a (odemjia), unattested.
 - Tests: `test_one_consonant_root_applicative` (+ look-alikes). CI-like suite 89
   passed / 1 skipped.
+
+## 2026-11-03 — rule book: subject-agreement step (verb SM from the pipeline) — FAILS, switched off
+
+User report 2026-11-02: "Kuku alipokuwa anarudi nyumbani alikutana na Mama yake
+Jongoo." -> arm 2 draft "Nguku ingelo orekoghe ukiwuya nyumbenyi ukakwana na mae
+Jongoo.": person-class o-/u- carried over from Swahili a-, but nguku is a
+speaker-verified i- noun. User: correct it with the pipeline, do not edit NLLB
+beyond training (no subject-based rerank).
+
+One change: version-B step `subject` (`hf_space/rulebook_correct.py`).
+- Subject per verb from the pipeline's probe path. Pipeline additions, no logic
+  change: generator `components["subject_class_marker"]` (class marker before
+  tense vowel changes, noun subjects only) and `report["clauses"]` in
+  `translate_sentence_with_probes`.
+- Surface marker by (class, tense) from `hf_space/kitaita_subject_markers.json`
+  (`Code_Experiments/rulebook/build_subject_markers.py`: the word after each
+  speaker-verified class noun in MINE + HOLDOUT). Used only when one form has >= 5
+  hits and >= 75%. E.g. class i: e-re 22, i-ka 39/45, i-cha 25, ya- present 175;
+  i-ki 5/7 (below the bar); i-de no data. First build let one-vowel classes take
+  any vowel and i-nouns picked up the next clause's person verbs; restricted to
+  i/e/ya/ye and u/o/wa/we before any scoring.
+- Draft verbs paired with source verbs in order, only when counts match; only the
+  marker changes; edited words are protected from the unknown step.
+- User's sentence: B = "Nguku ingelo erekoghe ukiwuya nyumbenyi ikakwana na mae
+  Jongoo." (ukiwuya left: i-ki below the bar).
+
+Result, 500 novel test sentences (pipeline clauses:
+`Code_Experiments/rulebook/pipeline_clauses.py`, 0 errors, 254 with a subject class):
+- subject alone: changed 27 (5.4% [3.7, 7.7]), 4 better / 21 worse / 2 same;
+  B - A = -0.49 [-0.81, -0.22] chrF (changed only -9.08 [-13.75, -4.89]).
+- All steps: changed 50, B - A -0.68 [-1.20, -0.22] (was -0.18 [-0.58, 0.18]
+  without it).
+- Of 29 word edits, the new word is in the reference 0 times; the old word 5.
+- Causes seen: (1) the pipeline's subject class is often a fallback guess, mostly
+  u- (chungu, kondoo, barabara, jeshi, bahari, leso -> wa-); (2) nouns taken as
+  verbs (charonyi, ikanisenyi, rangi); (3) plural subjects given the singular
+  class (wanyama -> i-, nguo za -> i-, ndege hao -> i-).
+
+Decision: step kept in code but OFF (`DEFAULT_STEPS`); not deployed. Next try, as
+its own experiment, selected on val not test: subject classes only from the
+speaker-verified table (no fallback guesses), skip plural subjects, and require
+the draft verb to be a verb (not in the noun lists). Tests 92 passed / 1 skipped.

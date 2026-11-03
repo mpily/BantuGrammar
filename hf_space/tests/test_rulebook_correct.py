@@ -77,3 +77,28 @@ def test_one_consonant_root_applicative():
     # look-alikes without an object marker before ku: 'cried', 'grew up', 'cried for you'
     for src in ("Mama alilia", "Mtoto amekulia mjini", "Alikulia"):
         assert correct(src, ["Mao odeja"], steps=("applicative",))["changes"] == []
+
+
+KUKU = "Kuku alipokuwa anarudi nyumbani alikutana na Mama yake Jongoo."
+KUKU_CLAUSES = [{"verb": v, "subject": "kuku", "subject_class_marker": "i"} for v in ("alipokuwa", "anarudi", "alikutana")]
+
+
+def test_subject_marker_matched_to_pipeline_subject_class():
+    # user report 2026-11-02: person-class o-/u- carried over from Swahili a-; nguku is an i- noun
+    r = correct(KUKU, ["Nguku ingelo orekoghe ukiwuya nyumbenyi ukakwana na mae Jongoo."],
+                steps=("subject",), clauses=KUKU_CLAUSES)
+    assert r["kitaita"] == "Nguku ingelo erekoghe ukiwuya nyumbenyi ikakwana na mae Jongoo."
+    assert any("ukiwuya" in n for n in r["notes"])  # i-ki below the 75% bar: left alone, noted
+
+
+def test_subject_step_needs_matching_verb_counts_and_a_class():
+    two = correct(KUKU, ["Nguku orekoghe nyumbenyi ukakwana"], steps=("subject",), clauses=KUKU_CLAUSES)
+    assert two["changes"] == [] and "not run" in two["notes"][0]
+    none = [dict(c, subject_class_marker=None) for c in KUKU_CLAUSES]
+    assert correct(KUKU, ["Nguku orekoghe ukiwuya ukakwana"], steps=("subject",), clauses=none)["changes"] == []
+    assert correct(KUKU, ["Nguku orekoghe ukiwuya ukakwana"], steps=("subject",))["changes"] == []
+
+
+def test_subject_step_leaves_agreeing_verbs_alone():
+    cl = [{"verb": "alikuja", "subject": "mtu", "subject_class_marker": "u"}]
+    assert correct("Mtu alikuja", ["Mundu ukacha"], steps=("subject",), clauses=cl)["changes"] == []

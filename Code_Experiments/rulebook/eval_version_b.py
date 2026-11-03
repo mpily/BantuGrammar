@@ -63,13 +63,19 @@ if __name__ == "__main__":
     a = ap.parse_args()
     path = Path.home() / "languagemodels" / f"arm2_nbest_{a.set}.jsonl"
     rows = [json.loads(l) for l in open(path, encoding="utf-8")]
+    # subject step: the pipeline's per-verb analysis from pipeline_clauses.py (if run)
+    cpath = Path.home() / "languagemodels" / f"arm2_clauses_{a.set}.jsonl"
+    clauses = {}
+    if cpath.exists():
+        clauses = {d["swa"]: d["clauses"] for d in map(json.loads, open(cpath, encoding="utf-8"))}
+    print("pipeline clauses for", sum(r["swa"] in clauses for r in rows), "of", len(rows), "sentences")
     base = [score(r["nbest"][0]["hyp"], r["ref"]) for r in rows]
     out = {"set": a.set, "n": len(rows), "A_chrf": mean_ci(base), "conditions": {}, "examples": {}}
     for steps in CONDITIONS:
         name = "+".join(steps) if len(steps) > 1 else steps[0]
         diffs, changed_diffs, changed, better, worse, ex = [], [], 0, 0, 0, []
         for r, b0 in zip(rows, base):
-            res = correct(r["swa"], [c["hyp"] for c in r["nbest"]], steps)
+            res = correct(r["swa"], [c["hyp"] for c in r["nbest"]], steps, clauses=clauses.get(r["swa"]))
             b = score(res["kitaita"], r["ref"])
             diffs.append(b - b0)
             if res["kitaita"] != r["nbest"][0]["hyp"]:
@@ -97,7 +103,9 @@ if __name__ == "__main__":
     out["config"] = {"git_sha": subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True,
                                                cwd=ROOT).stdout.strip(),
                      "nbest_file_sha256_16": h(path), "bootstrap": {"B": 2000, "seed": 20261102},
+                     "clauses_file_sha256_16": h(cpath) if cpath.exists() else None,
                      "files_sha256_16": {f: h(ROOT / "hf_space" / f) for f in
                                          ("rulebook_correct.py", "rulebook_flagger.py", "kitaita_agreement_data.json",
-                                          "kitaita_training_vocab.json", "kitaita_mined_lexicon_round1.json")}}
+                                          "kitaita_training_vocab.json", "kitaita_mined_lexicon_round1.json",
+                                          "kitaita_subject_markers.json")}}
     (Path(__file__).parent / f"eval_version_b_{a.set}_results.json").write_text(json.dumps(out, indent=1, ensure_ascii=False))

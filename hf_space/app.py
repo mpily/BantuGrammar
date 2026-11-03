@@ -95,21 +95,25 @@ CHANGE_LABELS = {"rerank": "agreement: picked another model candidate",
                  "unknown": "unknown word replaced by the Swahili source word",
                  "repeat": "repetition removed",
                  "applicative": "applicative ('do for') added to match the Swahili verb",
-                 "verified": "replaced by a native-speaker-verified translation"}
+                 "verified": "replaced by a native-speaker-verified translation",
+                 "subject": "verb subject marker matched to its subject's class (pipeline analysis)"}
 
 
-def translate_finetuned(text: str):
+def translate_finetuned(text: str, clauses=None):
     """Fine-tuned NLLB draft (A), the rule-book version (B), and what the
-    rule book flagged / changed."""
-    r = finetuned_mt.translate(text)
+    rule book flagged / changed. clauses: the rule-based pipeline's per-verb
+    subject analysis (probe path), used by the rule book's subject step."""
+    r = finetuned_mt.translate(text, clauses=clauses)
     if r["kitaita"] is None:
         msg = f"(fine-tuned model {r['status']})"
         return msg, msg, ""
     flagged = [f"- **{t}**: {FLAG_LABELS.get(c, c)}" for t, c in r["flags"]]
     b = r["version_b"]
     changes = [f"- {CHANGE_LABELS.get(k, k)}: {v}" for k, v in b["changes"]]
+    notes = [f"- {n}" for n in b.get("notes", [])]
     report = ("**Flagged in the draft (A):**\n" + ("\n".join(flagged) if flagged else "(nothing)")
-              + "\n\n**Changed by the rule book (B):**\n" + ("\n".join(changes) if changes else "(nothing; B = A)"))
+              + "\n\n**Changed by the rule book (B):**\n" + ("\n".join(changes) if changes else "(nothing; B = A)")
+              + ("\n\n**Checked, not changed:**\n" + "\n".join(notes) if notes else ""))
     return r["kitaita"], b["kitaita"], report
 
 
@@ -117,10 +121,21 @@ def translate(text: str, mode: str):
     text = (text or "").strip()
     if not text:
         return "", "", "", "", "", ""
-    ft_out, b_out, ft_flags = translate_finetuned(text)
-    fn = translate_sentence_with_probes if mode.startswith("Probes") else translate_sentence
+    # 2026-11-02: the probe path always runs, because version B's subject step
+    # uses its per-verb subject analysis; it is reused when that mode is selected.
     try:
-        r = fn(text, _tables)
+        probe_report = translate_sentence_with_probes(text, _tables)
+        probe_error = None
+    except Exception as e:  # keep the Space up even if one input trips a bug
+        probe_report, probe_error = None, e
+    ft_out, b_out, ft_flags = translate_finetuned(text, (probe_report or {}).get("clauses"))
+    try:
+        if mode.startswith("Probes"):
+            if probe_error:
+                raise probe_error
+            r = probe_report
+        else:
+            r = translate_sentence(text, _tables)
     except Exception as e:  # keep the Space up even if one input trips a bug
         return "", "", f"SERVER ERROR: {type(e).__name__}: {e}", ft_out, b_out, ft_flags
     sentence = r.get("kitaita_sentence") or ""
