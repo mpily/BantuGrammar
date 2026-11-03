@@ -28605,3 +28605,47 @@ always A), so a rater who notices that B is the one that sometimes differs could
 infer it; randomising the order per sentence is not done.
 Also reverted the unpushed change that ran the probe pipeline on every
 translation (the subject steps it fed are off; it only added ~6 s).
+
+## 2026-11-03 (cont. 5) — agent audit of class and verb-ending errors in the fine-tuned drafts (test_novel2)
+
+User: the 60/61 "agreement correct" figure covered only 29% of verbs, easy cases,
+subject marker only; count class and verb-ending errors properly, with agents
+and the grammar references, before building rules. Retracted: 60/61 is not a
+measure of draft quality.
+
+Setup: briefing `~/languagemodels/audit/AUDIT_BRIEFING.md` (not in git); 4 agents x
+125 drafts of test_novel2 (arm 2 top-1), plus 20 per agent audited by a second
+agent (80 double). References: round-1 verb_morphology / noun_classes_concord /
+nouns notes, speaker-verified tables, kitaita_subject_markers.json, resolver,
+mine_query.py. Every error needs evidence; differing from the one reference is
+not an error. test_novel3 (the final test) was not shown to any agent.
+Outputs: ~/languagemodels/audit/round_a/ (corpus text, not in git).
+
+Results, 500 sentences (each counted once), 743 verbs and 404 noun-phrase
+concord words checked:
+
+| type | n | rate | severe / moderate / minor |
+|---|---|---|---|
+| class_subject | 6 | 0.8% of verbs [0.4, 1.8] | 1 / 2 / 3 |
+| class_object | 11 | 1.5% [0.8, 2.6] | 0 / 5 / 6 |
+| class_np_concord | 18 | 4.5% of NP words [2.8, 6.9] | 0 / 0 / 18 |
+| ending_extension | 13 | 1.7% [1.0, 3.0] | 3 / 6 / 4 |
+| ending_tam | 27 | 3.6% [2.5, 5.2] | 1 / 9 / 17 |
+
+Sentences with >= 1 class/ending error: 70/500 (14.0% [11.2, 17.3]); with a severe
+one: 5/500 (1.0% [0.4, 2.3]). Sentences with other problems (wrong word, copied
+Swahili, garbled forms): 146/500. Agreement on the 80 double-audited sentences:
+same "has an error or not" 92% [85, 97]; 13 errors flagged by both of 17 / 15.
+
+Main patterns (agents' summaries): TAM: present -we- used for Swahili -me-/-li-/-ta-,
+-me- not rendered as SM+a, present negative -agha for past negative, prohibitive
+-se- dropped (severe: "don't go" -> "go"). Extensions: applicative dropped (Pikia ->
+Deka "cook the children"), passive dropped (ongezewa -> w'echuria), causative
+dropped (wakaangusha -> w'ikaghwa), stative dropped. NP concord: class 7 nouns
+with class 5 demonstratives (chuo, choro), class 9 singular with ri-/ra-.
+Object markers: mostly missing where the Swahili has a pronominal object.
+Animal nouns took class 9/10 agreement correctly throughout.
+Reference-table conflicts raised by the agents: chia (verified chi-; corpus 9/10),
+maza (verified ghi-; corpus 10), boi (verified i-; corpus class 1), ngelo
+(verified ri-; corpus ya 208 vs ra 46), class 14 (verified u- vs concord notes ghu-);
+-wia- progressive and stative-present forms (ghesinga) missing from the tense notes.
