@@ -28592,3 +28592,16 @@ mwana, mkurughui wa skulu, ni lufu, kio chose: about 6); (3) non-verbs edited
 (rahisi, champali, karakara).
 Decision: both subject steps stay off. Further tuning on these sets would fit
 them; next evidence should be speaker A/B ratings.
+
+## 2026-11-03 (cont. 4) — Translator tab made blind
+
+User request: "make the hugging face page blind just remove the labels".
+`hf_space/app.py`: the two outputs are "Translation 1" / "Translation 2" (1 = A
+fine-tuned NLLB, 2 = B A + rule book), ratings "translation 1 / 2", header no
+longer names the systems. The rule-book report (it says what was changed in B)
+moved into the collapsed Research section, labelled as revealing. Feedback
+records unchanged (rating_a / rating_b) plus "blind": true. Order is fixed (1 is
+always A), so a rater who notices that B is the one that sometimes differs could
+infer it; randomising the order per sentence is not done.
+Also reverted the unpushed change that ran the probe pipeline on every
+translation (the subject steps it fed are off; it only added ~6 s).

@@ -121,23 +121,17 @@ def translate(text: str, mode: str):
     text = (text or "").strip()
     if not text:
         return "", "", "", "", "", ""
-    # 2026-11-02: the probe path always runs, because version B's subject step
-    # uses its per-verb subject analysis; it is reused when that mode is selected.
+    fn = translate_sentence_with_probes if mode.startswith("Probes") else translate_sentence
     try:
-        probe_report = translate_sentence_with_probes(text, _tables)
-        probe_error = None
+        r = fn(text, _tables)
     except Exception as e:  # keep the Space up even if one input trips a bug
-        probe_report, probe_error = None, e
-    ft_out, b_out, ft_flags = translate_finetuned(text, (probe_report or {}).get("clauses"))
-    try:
-        if mode.startswith("Probes"):
-            if probe_error:
-                raise probe_error
-            r = probe_report
-        else:
-            r = translate_sentence(text, _tables)
-    except Exception as e:  # keep the Space up even if one input trips a bug
-        return "", "", f"SERVER ERROR: {type(e).__name__}: {e}", ft_out, b_out, ft_flags
+        r = None
+        err = f"SERVER ERROR: {type(e).__name__}: {e}"
+    # the rule book's subject steps are off (docs/status.md 2026-11-03), so the
+    # pipeline's clauses are passed only when they were computed anyway
+    ft_out, b_out, ft_flags = translate_finetuned(text, (r or {}).get("clauses"))
+    if r is None:
+        return "", "", err, ft_out, b_out, ft_flags
     sentence = r.get("kitaita_sentence") or ""
     error = r.get("error")
     flags = r.get("flags")
@@ -182,7 +176,7 @@ def submit_ab_feedback(swahili: str, a_output: str, b_output: str, rule_book_rep
     if not swahili or not (a_output or "").strip():
         return "Nothing to log yet -- translate a sentence first."
     if not rating_a and not rating_b:
-        return "Rate A and/or B (1-5) before submitting."
+        return "Rate translation 1 and/or 2 (1-5) before submitting."
     token = os.environ.get("HF_TOKEN")
     if not token:
         return "Feedback was NOT saved: this Space has no HF_TOKEN secret configured."
@@ -196,6 +190,7 @@ def submit_ab_feedback(swahili: str, a_output: str, b_output: str, rule_book_rep
         "b_output": (b_output or "").strip(),
         "b_equals_a": (a_output or "").strip() == (b_output or "").strip(),
         "rule_book_report": rule_book_report,
+        "blind": True,  # 2026-11-03: labels hidden; translation 1 = A, translation 2 = B (fixed order)
         "rating_a": rating_a or None,
         "rating_b": rating_b or None,
         "native_speaker_correction": (correction or "").strip() or None,
@@ -450,10 +445,8 @@ with gr.Blocks(title="Kitaita Translator") as demo:
         with gr.Tab("Translator"):
             gr.Markdown(
                 "# Kitaita Translator\n"
-                "Swahili &rarr; Kitaita (Kidaw'ida, ISO `dav`). Two systems side by side:\n"
-                "- **A: fine-tuned NLLB** (NLLB-600M fine-tuned on the dav_swa corpus + Bible pairs)\n"
-                "- **B: A + rule book**: the same draft, checked by a deterministic rule book "
-                "(agreement, copied Swahili, unknown words, repetition). Often B = A.\n\n"
+                "Swahili &rarr; Kitaita (Kidaw'ida, ISO `dav`). Two machine translations of the same "
+                "sentence, side by side. They are often identical.\n\n"
                 "Both are machine translation awaiting native-speaker review."
             )
             inp = gr.Textbox(label="Swahili sentence", lines=2,
@@ -462,19 +455,20 @@ with gr.Blocks(title="Kitaita Translator") as demo:
                 btn = gr.Button("Translate", variant="primary")
                 sample_btn = gr.Button("🎲 Give me a sentence to test")
             with gr.Row():
-                ft_out = gr.Textbox(label="A: fine-tuned NLLB", lines=2)
-                b_out = gr.Textbox(label="B: fine-tuned NLLB + rule book", lines=2)
-            with gr.Accordion("Rule book: what it flagged in A and changed in B", open=False):
-                ft_flags_box = gr.Markdown()
+                # 2026-11-03, user request: blind comparison -- no system names on the page.
+                # Translation 1 = fine-tuned NLLB (A), Translation 2 = A + rule book (B);
+                # submit_ab_feedback stores the ratings under A and B.
+                ft_out = gr.Textbox(label="Translation 1", lines=2)
+                b_out = gr.Textbox(label="Translation 2", lines=2)
 
             gr.Markdown("### Are these translations right?")
             gr.Markdown(
-                "If you speak Kitaita: rate **A** and **B** separately and, if both are wrong, write "
+                "If you speak Kitaita: rate **each translation** separately and, if both are wrong, write "
                 "the correct translation. Logged for review, not applied automatically."
             )
             with gr.Row():
-                rating_a = gr.Radio(["1", "2", "3", "4", "5"], label="Rating for A (1 = way off, 5 = correct)")
-                rating_b = gr.Radio(["1", "2", "3", "4", "5"], label="Rating for B (1 = way off, 5 = correct)")
+                rating_a = gr.Radio(["1", "2", "3", "4", "5"], label="Rating for translation 1 (1 = way off, 5 = correct)")
+                rating_b = gr.Radio(["1", "2", "3", "4", "5"], label="Rating for translation 2 (1 = way off, 5 = correct)")
             correction = gr.Textbox(label="Correct Kitaita translation (optional)", lines=2,
                                     placeholder="If neither output is right, what should it be?")
             feedback_btn = gr.Button("Submit feedback")
@@ -499,6 +493,10 @@ with gr.Blocks(title="Kitaita Translator") as demo:
                     rb_correction = gr.Textbox(label="Correct Kitaita translation (optional)", lines=2)
                 rb_feedback_btn = gr.Button("Submit feedback on the rule-based output")
                 rb_feedback_status = gr.Markdown()
+                # moved here from next to the two translations: it names which one the rule book changed
+                with gr.Accordion("Rule book report (shows which translation is which -- not for blind raters)",
+                                  open=False):
+                    ft_flags_box = gr.Markdown()
 
             outputs = [out, flags_box, trace_box, ft_out, b_out, ft_flags_box]
             btn.click(translate, inputs=[inp, mode], outputs=outputs)
