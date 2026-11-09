@@ -28703,3 +28703,18 @@ the active form in the corpus). Not tuned on this set.
 Both pre-registered conditions met -> tense + extension added to DEFAULT_STEPS
 (Space version B) and labelled in the rule-book report. An agent's judgement is
 not a speaker's: speaker A/B ratings are the real test.
+
+## 2026-11-09 — Progress tab was not counting the main feedback button (fixed)
+Bug: since the blind A/B Translator tab (c070041), the main "Submit feedback" button
+writes to `feedback_ab/` in `mpily/kitaita-translation-feedback`, but the Progress tab
+only read `feedback/` (the Research-section rule-based form), so it showed 0. The
+feedback itself was saved: 6 A/B records (2026-11-03 and 2026-11-09).
+Fix (`hf_space/app.py`, UI only, no pipeline change): the Progress tab now counts both
+folders together -- total submissions, distinct sentences, corrections, and a per-system
+table (translation 1, translation 2, rule-based) with n, mean rating + 95% CI, chrF and
+exact match against the speaker correction, plus a ratings-by-system chart. Systems are
+reported side by side, not pooled into one mean. The three concord-slot charts still use
+rule-based records only (A/B records carry no slot ledger).
+Data at fix time: 6 submissions = 2 distinct sentences, each submitted 3 times; both
+translations 5.00/5 (n=6, but only 2 sentences); chrF to correction 91.9, exact match 0/3
+(n=3, low n). In all 6, translation 1 = translation 2, so there is no A/B contrast yet.

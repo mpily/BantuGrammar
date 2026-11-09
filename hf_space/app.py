@@ -316,12 +316,12 @@ class _PredSlot:
     predicted_form: str | None
 
 
-def _load_all_feedback() -> list[dict]:
+def _load_all_feedback(folder: str = "feedback") -> list[dict]:
     try:
         from huggingface_hub import HfApi
         api = HfApi(token=os.environ.get("HF_TOKEN"))
         files = [f for f in api.list_repo_files(FEEDBACK_DATASET_REPO, repo_type="dataset")
-                 if f.startswith("feedback/") and f.endswith(".json")]
+                 if f.startswith(folder + "/") and f.endswith(".json")]
         records = []
         for f in files:
             try:
@@ -401,6 +401,68 @@ def compute_dashboard_data() -> dict:
     }
 
 
+_SYSTEMS = ["Translation 1 (fine-tuned)", "Translation 2 (fine-tuned + rule book)",
+            "Rule-based pipeline (Research section)"]
+
+
+def compute_all_feedback_overview() -> tuple[str, pd.DataFrame]:
+    """2026-11-09: the main "Submit feedback" button writes blind A/B ratings
+    to feedback_ab/, the Research-section button writes to feedback/. Both are
+    counted here together. Ratings stay labelled by system (one rating per
+    output), so different systems are never averaged into one mean."""
+    from api.stats import mean_ci, rate_ci, chrf
+    from api.util import normalize_kitaita
+    ab, rb = _load_all_feedback("feedback_ab"), _load_all_feedback("feedback")
+
+    # (system, rating or None, output, correction or None) -- one row per rated output
+    rows = []
+    for r in ab:
+        corr = r.get("native_speaker_correction")
+        rows.append((_SYSTEMS[0], r.get("rating_a"), r.get("a_output"), corr))
+        rows.append((_SYSTEMS[1], r.get("rating_b"), r.get("b_output"), corr))
+    for r in rb:
+        rows.append((_SYSTEMS[2], r.get("rating"), r.get("kitaita_output"), r.get("native_speaker_correction")))
+
+    all_recs = ab + rb
+    n_sent = len({(r.get("swahili_input") or "").strip().lower() for r in all_recs})
+    n_corr = sum(1 for r in all_recs if r.get("native_speaker_correction"))
+    lines = [f"**{len(all_recs)}** feedback submissions in total ({len(ab)} from the main button, "
+             f"{len(rb)} from the Research section), covering **{n_sent}** different Swahili "
+             f"sentences; **{n_corr}** include a native-speaker correction.", "",
+             "| System | Ratings | Mean rating (95% CI) | Corrections | Match to correction (chrF, 0-100) | Exactly matches correction |",
+             "|---|---|---|---|---|---|"]
+    hist = []
+    for sysname in _SYSTEMS:
+        sr = [x for x in rows if x[0] == sysname]
+        ratings = [int(x[1]) for x in sr if str(x[1] or "").isdigit()]
+        m = mean_ci(ratings)
+        if m["n"] == 0:
+            mean_txt = "--"
+        else:
+            mean_txt = f"{m['mean']:.2f}" + (f" ({m['ci95'][0]:.2f}-{m['ci95'][1]:.2f})" if m["ci95"] else "")
+            mean_txt += " low n" if m["low_n"] else ""
+        with_corr = [x for x in sr if (x[3] or "").strip() and (x[2] or "").strip()]
+        c = mean_ci([chrf(x[2], x[3]) for x in with_corr])
+        chrf_txt = "--" if c["n"] == 0 else f"{c['mean']:.1f}" + (" low n" if c["low_n"] else "")
+        ex = rate_ci(sum(1 for x in with_corr if normalize_kitaita(x[2]) == normalize_kitaita(x[3])), len(with_corr))
+        ex_txt = "--" if ex["n"] == 0 else f"{ex['k']}/{ex['n']}"
+        lines.append(f"| {sysname} | {m['n']} | {mean_txt} | {len(with_corr)} | {chrf_txt} | {ex_txt} |")
+        for star in range(1, 6):
+            hist.append({"stars": str(star), "count": ratings.count(star), "system": sysname})
+
+    pairs = [(int(r["rating_a"]), int(r["rating_b"])) for r in ab if not r.get("b_equals_a")
+             and str(r.get("rating_a") or "").isdigit() and str(r.get("rating_b") or "").isdigit()]
+    if pairs:
+        better = rate_ci(sum(1 for a, b in pairs if b > a), len(pairs))
+        ci = better["ci95"]
+        lines.append(f"\nWhere translations 1 and 2 differed and both were rated, translation 2 was rated "
+                     f"higher in {better['k']}/{better['n']} (95% CI {ci[0]:.2f}-{ci[1]:.2f})"
+                     + (", low n." if better["low_n"] else "."))
+    else:
+        lines.append("\nNo submission yet where translations 1 and 2 differed and both were rated.")
+    return "\n".join(lines), pd.DataFrame(hist)
+
+
 _LABEL_ORDER = ["correct", "wrong_rewrite", "missed_slot", "spurious_rewrite"]
 
 
@@ -439,7 +501,8 @@ def refresh_dashboard():
     else:
         stability_df = pd.DataFrame({"n_slots": [0], "mean_accuracy": [0], "n_sentences": [0]})
 
-    return summary, agreement_df, vocab_df, stability_df
+    overview, ratings_df = compute_all_feedback_overview()
+    return overview, ratings_df, summary, agreement_df, vocab_df, stability_df
 
 
 with gr.Blocks(title="Kitaita Translator") as demo:
@@ -514,13 +577,21 @@ with gr.Blocks(title="Kitaita Translator") as demo:
         with gr.Tab("📊 Progress"):
             gr.Markdown(
                 "# Evaluation progress\n"
-                "Live charts for this project's 3 evaluation metrics, computed directly from "
-                "**Submit feedback** entries on the Translator tab (a native-speaker correction is "
-                "what makes a submission usable here -- a rating alone only counts toward the "
-                "summary line). Refreshes automatically every 60s, or click Refresh now."
+                "Counts every **Submit feedback** entry on the Translator tab: the main button "
+                "and the one in the Research section. Refreshes automatically every 60s, or click "
+                "Refresh now."
+            )
+            refresh_btn = gr.Button("🔄 Refresh now")
+            overview_md = gr.Markdown()
+            ratings_plot = gr.BarPlot(x="stars", y="count", color="system",
+                                      title="Ratings by system (1 = way off, 5 = correct)", height=300)
+            gr.Markdown(
+                "### Concord-slot charts\n"
+                "These three need the rule-based pipeline's per-word record of which agreement slots "
+                "it rewrote. Translations 1 and 2 don't produce that record, so these charts use the "
+                "Research-section submissions only."
             )
             dash_summary = gr.Markdown()
-            refresh_btn = gr.Button("🔄 Refresh now")
             with gr.Row():
                 agreement_plot = gr.BarPlot(x="label", y="count", title="1. Agreement accuracy "
                                              "(concord slots, by outcome)", height=300)
@@ -530,7 +601,7 @@ with gr.Blocks(title="Kitaita Translator") as demo:
                                          "(agreement accuracy vs. agreement-slot count per sentence)",
                                          y_lim=[0, 1], height=300)
 
-            dash_outputs = [dash_summary, agreement_plot, vocab_plot, stability_plot]
+            dash_outputs = [overview_md, ratings_plot, dash_summary, agreement_plot, vocab_plot, stability_plot]
             refresh_btn.click(refresh_dashboard, inputs=[], outputs=dash_outputs)
             demo.load(refresh_dashboard, inputs=[], outputs=dash_outputs)
             # 2026-10-26: Gradio 6's auto-refresh mechanism is gr.Timer (the
