@@ -26,7 +26,6 @@ import json
 import os
 import random
 import uuid
-from dataclasses import dataclass
 from datetime import datetime, timezone
 from pathlib import Path
 
@@ -35,10 +34,6 @@ import pandas as pd
 
 from kitaita_e2e_pipeline import translate_sentence_with_probes, translate_sentence
 from kitaita_sentence_generator import load_pages, build_lookup_tables
-from kitaita_eval_metrics import (
-    GoldSlot, compute_agreement_accuracy, aggregate_agreement_accuracy,
-    compute_vocabulary_choice, aggregate_vocabulary_choice, compute_stability,
-)
 
 EXAMPLES = [
     ["Mbwa mkubwa aliona Kijana mdogo akitembea.", "Probes (full pipeline)"],
@@ -288,34 +283,10 @@ def submit_feedback(swahili: str, kitaita_output: str, mode: str, rating: str, c
 
 
 # --------------------------------------------------------------------------- progress dashboard
-# 2026-10-26: direct user request -- "add summary charts for all three
-# [evaluation] tests that automatically update as people continue to
-# test." Reuses kitaita_eval_metrics.py directly (the SAME module
-# validated in kitaita_eval_demo.py) -- this is not a parallel/ad-hoc
-# metric implementation.
-#
-# The one thing this dashboard has to invent, because the feedback form
-# only ever collects a holistic corrected SENTENCE (not a per-slot
-# correction -- that would need a much heavier submission UI, not asked
-# for here): an APPROXIMATE alignment between the pipeline's output and
-# a native speaker's correction, position by position. This is only
-# reasonable because of how this project's own assembly works --
-# `assemble_in_order`/`assemble_multi_clause` are explicitly POSITION-
-# PRESERVING (each Swahili token's slot keeps its own position in the
-# Kitaita output), so word i of the output and word i of a same-length
-# correction really do correspond to the same original slot, unlike a
-# generic MT alignment problem. When lengths differ (word insertion/
-# deletion/reordering in the correction), that entry is EXCLUDED from
-# the slot/vocabulary charts entirely rather than guessed -- it still
-# counts toward the plain rating-count/mean-rating numbers, which need
-# no alignment at all.
-@dataclass
-class _PredSlot:
-    token_idx: int
-    slot_type: str
-    predicted_form: str | None
-
-
+# 2026-11-09, user decision: the Progress tab tracks only the two systems being
+# compared (fine-tuned, fine-tuned + rule book). The rule-based pipeline's
+# metrics and concord-slot charts were removed; its feedback (feedback/) is
+# still saved but not shown.
 def _load_all_feedback(folder: str = "feedback") -> list[dict]:
     try:
         from huggingface_hub import HfApi
@@ -334,85 +305,15 @@ def _load_all_feedback(folder: str = "feedback") -> list[dict]:
         return []
 
 
-def compute_dashboard_data() -> dict:
-    records = _load_all_feedback()
-    ratings = [int(r["rating"]) for r in records if str(r.get("rating") or "").isdigit()]
-
-    agreement_per_sentence, vocab_per_sentence = [], []
-    for r in records:
-        corr = (r.get("native_speaker_correction") or "").strip()
-        pred_text = (r.get("kitaita_output") or "").strip()
-        if not corr or not pred_text:
-            continue
-        # strip trailing sentence punctuation per token -- `d.secondary_
-        # nouns`'s own kitaita word (what `vocab_choices`/slot predicted_
-        # forms store) never carries it, but a token recovered by
-        # splitting the FULL correction/output STRING does whenever that
-        # word lands at the sentence-final position; found directly while
-        # testing with constructed examples -- a legitimate vocabulary
-        # match at the last word position otherwise reads as a mismatch
-        # purely because one side has "word" and the other "word.".
-        strip_punct = lambda w: w.strip(".,!?;:“”\"'")
-        pred_tokens = [strip_punct(w) for w in pred_text.split()]
-        corr_tokens = [strip_punct(w) for w in corr.split()]
-        if len(pred_tokens) != len(corr_tokens):
-            continue  # not position-alignable -- excluded, not guessed (see module comment)
-
-        pred_slots, gold_slots = [], []
-        for s in r.get("slots") or []:
-            idx = s.get("token_idx")
-            if idx is None or idx >= len(corr_tokens):
-                continue
-            corr_word = corr_tokens[idx]
-            predicted_form = s.get("predicted_form")
-            # subject_sm's predicted_form is a bare PREFIX (e.g. "u"), every
-            # other slot type is a whole standalone word -- see SlotRecord's
-            # own docstring (kitaita_e2e_pipeline.py) for why.
-            if s.get("slot_type") == "subject_sm":
-                matches = bool(predicted_form) and corr_word.startswith(predicted_form)
-            else:
-                matches = predicted_form == corr_word
-            pred_slots.append(_PredSlot(idx, s.get("slot_type"), predicted_form))
-            gold_slots.append(GoldSlot(idx, s.get("slot_type"), needs_rewrite=True,
-                                        correct_form=predicted_form if matches else corr_word))
-        if gold_slots:
-            agreement_per_sentence.append(compute_agreement_accuracy(pred_slots, gold_slots))
-
-        vocab = r.get("vocab_choices") or []
-        pred_words = {v["token_idx"]: v["kitaita"] for v in vocab if v.get("token_idx", -1) < len(corr_tokens)}
-        native_choices = {idx: [corr_tokens[idx]] for idx in pred_words}
-        if pred_words:
-            vocab_per_sentence.append(compute_vocabulary_choice(pred_words, native_choices))
-
-    agreement_agg = aggregate_agreement_accuracy(agreement_per_sentence) if agreement_per_sentence else None
-    vocab_agg = aggregate_vocabulary_choice(vocab_per_sentence) if vocab_per_sentence else None
-    stability_rows = [{"sentence": "", "n_slots": a["scored_slots"], "accuracy": a["accuracy"]}
-                       for a in agreement_per_sentence]
-    stability = compute_stability(stability_rows) if stability_rows else None
-
-    return {
-        "n_feedback": len(records),
-        "n_ratings": len(ratings),
-        "mean_rating": (sum(ratings) / len(ratings)) if ratings else None,
-        "n_alignable": len(agreement_per_sentence),
-        "agreement": agreement_agg,
-        "vocabulary": vocab_agg,
-        "stability": stability,
-    }
-
-
-_SYSTEMS = ["Translation 1 (fine-tuned)", "Translation 2 (fine-tuned + rule book)",
-            "Rule-based pipeline (Research section)"]
+_SYSTEMS = ["Translation 1 (fine-tuned)", "Translation 2 (fine-tuned + rule book)"]
 
 
 def compute_all_feedback_overview() -> tuple[str, pd.DataFrame]:
-    """2026-11-09: the main "Submit feedback" button writes blind A/B ratings
-    to feedback_ab/, the Research-section button writes to feedback/. Both are
-    counted here together. Ratings stay labelled by system (one rating per
-    output), so different systems are never averaged into one mean."""
+    """Blind A/B feedback (feedback_ab/, the Translator tab's Submit feedback
+    button). Ratings stay labelled by system, never averaged into one mean."""
     from api.stats import mean_ci, rate_ci, chrf
     from api.util import normalize_kitaita
-    ab, rb = _load_all_feedback("feedback_ab"), _load_all_feedback("feedback")
+    ab = _load_all_feedback("feedback_ab")
 
     # (system, rating or None, output, correction or None) -- one row per rated output
     rows = []
@@ -420,14 +321,11 @@ def compute_all_feedback_overview() -> tuple[str, pd.DataFrame]:
         corr = r.get("native_speaker_correction")
         rows.append((_SYSTEMS[0], r.get("rating_a"), r.get("a_output"), corr))
         rows.append((_SYSTEMS[1], r.get("rating_b"), r.get("b_output"), corr))
-    for r in rb:
-        rows.append((_SYSTEMS[2], r.get("rating"), r.get("kitaita_output"), r.get("native_speaker_correction")))
 
-    all_recs = ab + rb
+    all_recs = ab
     n_sent = len({(r.get("swahili_input") or "").strip().lower() for r in all_recs})
     n_corr = sum(1 for r in all_recs if r.get("native_speaker_correction"))
-    lines = [f"**{len(all_recs)}** feedback submissions in total ({len(ab)} from the main button, "
-             f"{len(rb)} from the Research section), covering **{n_sent}** different Swahili "
+    lines = [f"**{len(all_recs)}** feedback submissions, covering **{n_sent}** different Swahili "
              f"sentences; **{n_corr}** include a native-speaker correction.", "",
              "| System | Ratings | Mean rating (95% CI) | Corrections | Match to correction (chrF, 0-100) | Exactly matches correction |",
              "|---|---|---|---|---|---|"]
@@ -463,46 +361,9 @@ def compute_all_feedback_overview() -> tuple[str, pd.DataFrame]:
     return "\n".join(lines), pd.DataFrame(hist)
 
 
-_LABEL_ORDER = ["correct", "wrong_rewrite", "missed_slot", "spurious_rewrite"]
-
-
 def refresh_dashboard():
-    """One function, called on page load AND every 60s (see demo.load
-    below) -- feeds all 4 dashboard outputs together so they always
-    reflect the SAME snapshot of feedback data, never 3 separately-timed
-    reads that could show inconsistent totals between charts."""
-    data = compute_dashboard_data()
-
-    summary = (f"**{data['n_feedback']}** feedback submissions logged so far "
-               f"({data['n_ratings']} rated"
-               + (f", mean rating {data['mean_rating']:.2f}/5" if data["mean_rating"] is not None else "")
-               + f"); **{data['n_alignable']}** had a same-length native-speaker correction usable "
-                 f"for the agreement/vocabulary charts below (see this file's own comment for why "
-                 f"length mismatches are excluded rather than guessed).")
-
-    agg = data["agreement"]
-    if agg and agg["scored_slots"]:
-        counts = agg["counts"]
-        agreement_df = pd.DataFrame({"label": _LABEL_ORDER,
-                                      "count": [counts.get(l, 0) for l in _LABEL_ORDER]})
-    else:
-        agreement_df = pd.DataFrame({"label": ["(no data yet)"], "count": [0]})
-
-    vocab = data["vocabulary"]
-    if vocab and vocab["scored_positions"]:
-        vocab_df = pd.DataFrame({"metric": ["mean native-speaker support"],
-                                  "value": [vocab["mean_support"]]})
-    else:
-        vocab_df = pd.DataFrame({"metric": ["(no data yet)"], "value": [0]})
-
-    stab = data["stability"]
-    if stab and stab["curve"]:
-        stability_df = pd.DataFrame(stab["curve"])
-    else:
-        stability_df = pd.DataFrame({"n_slots": [0], "mean_accuracy": [0], "n_sentences": [0]})
-
-    overview, ratings_df = compute_all_feedback_overview()
-    return overview, ratings_df, summary, agreement_df, vocab_df, stability_df
+    """Called on page load, on Refresh now, and every 60s."""
+    return compute_all_feedback_overview()
 
 
 with gr.Blocks(title="Kitaita Translator") as demo:
@@ -577,31 +438,16 @@ with gr.Blocks(title="Kitaita Translator") as demo:
         with gr.Tab("📊 Progress"):
             gr.Markdown(
                 "# Evaluation progress\n"
-                "Counts every **Submit feedback** entry on the Translator tab: the main button "
-                "and the one in the Research section. Refreshes automatically every 60s, or click "
-                "Refresh now."
+                "Native-speaker ratings of translation 1 (fine-tuned) and translation 2 "
+                "(fine-tuned + rule book), from the Translator tab's **Submit feedback** button. "
+                "Refreshes automatically every 60s, or click Refresh now."
             )
             refresh_btn = gr.Button("🔄 Refresh now")
             overview_md = gr.Markdown()
             ratings_plot = gr.BarPlot(x="stars", y="count", color="system",
                                       title="Ratings by system (1 = way off, 5 = correct)", height=300)
-            gr.Markdown(
-                "### Concord-slot charts\n"
-                "These three need the rule-based pipeline's per-word record of which agreement slots "
-                "it rewrote. Translations 1 and 2 don't produce that record, so these charts use the "
-                "Research-section submissions only."
-            )
-            dash_summary = gr.Markdown()
-            with gr.Row():
-                agreement_plot = gr.BarPlot(x="label", y="count", title="1. Agreement accuracy "
-                                             "(concord slots, by outcome)", height=300)
-                vocab_plot = gr.BarPlot(x="metric", y="value", title="2. Vocabulary choice "
-                                         "(mean native-speaker support)", y_lim=[0, 1], height=300)
-            stability_plot = gr.BarPlot(x="n_slots", y="mean_accuracy", title="3. Stability "
-                                         "(agreement accuracy vs. agreement-slot count per sentence)",
-                                         y_lim=[0, 1], height=300)
 
-            dash_outputs = [overview_md, ratings_plot, dash_summary, agreement_plot, vocab_plot, stability_plot]
+            dash_outputs = [overview_md, ratings_plot]
             refresh_btn.click(refresh_dashboard, inputs=[], outputs=dash_outputs)
             demo.load(refresh_dashboard, inputs=[], outputs=dash_outputs)
             # 2026-10-26: Gradio 6's auto-refresh mechanism is gr.Timer (the

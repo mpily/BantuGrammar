@@ -28718,3 +28718,12 @@ rule-based records only (A/B records carry no slot ledger).
 Data at fix time: 6 submissions = 2 distinct sentences, each submitted 3 times; both
 translations 5.00/5 (n=6, but only 2 sentences); chrF to correction 91.9, exact match 0/3
 (n=3, low n). In all 6, translation 1 = translation 2, so there is no A/B contrast yet.
+
+## 2026-11-09 (cont.) — Progress tab: A/B systems only
+User decision: the comparison now being run is fine-tuned vs fine-tuned + rule book, so
+the Progress tab no longer tracks the deterministic (probes + concord rewrite) pipeline.
+Removed: its row in the table, its submission count, and the three concord-slot charts
+(agreement accuracy, vocabulary choice, stability) with their code in `hf_space/app.py`.
+Unchanged: the Translator tab's Research section and its feedback form; feedback/ records
+are still saved, just not shown. `kitaita_eval_metrics.py` is kept (no longer imported
+by app.py).
