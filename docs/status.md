@@ -28767,3 +28767,9 @@ that duplicate test sentences (the dav_swa test split itself was never in the po
 | round-1 agent outputs (nouns, verb_morphology, roots, concord md/json) → mined_lexicon_round1, verb_roots, noun_classes_round1, root_alignment tiers round1/infinitive | agents over mine.jsonl | contaminated — cannot rebuild without re-running agents |
 
 Next: decide how to treat the contaminated inputs (question to the user), then step 2.
+
+**User decision (2026-11-11): leave the contaminated inputs out.** The rule book and
+lexicon use only speaker-verified material, Bible-only sources (page1, bible_class_decisions)
+and count files rebuilt from `rulebook_data/train.jsonl`. Round-1 agent outputs and
+everything derived from them (mined_lexicon_round1, verb_roots, noun_classes_round1,
+root_alignment tiers round1/infinitive) are not used. Next: step 2 (`rules.json` sections 1–4).
