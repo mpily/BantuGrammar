@@ -54,6 +54,8 @@ OUT = HERE / "bootstrap_lexicon.json"
 MAX_RESIDUAL = 4
 ORTHO_BONUS = 0.5  # added to votes when difflib ratio >= 0.75 (loans, names, shared Bantu roots)
 MIN_STEM = 1        # 3 stalled the loop (no function words -> residuals too large); Dice floors guard instead
+TOP_FUNCTION, FUNCTION_MIN_DICE = 150, 0.2
+AGENT_MIN_COOC = 2
 MIN_DICE = {"accepted": 0.05, "tentative": 0.02}  # whole-sentence Dice floor (not the only criterion)
 
 DAV_NEG = ("nde", "si")
@@ -99,7 +101,8 @@ def dav_stems(w: str) -> frozenset:
     for x in _strip_prefixes(w, (DAV_NEG, DAV_SM, DAV_TAM, DAV_OM)) | _strip_prefixes(w, (DAV_NOUN,)):
         out |= _strip_final(x, DAV_FINAL)
     # stems of 1-3 letters collected glosses of unrelated words (ka, da, ndo: agent round 1)
-    return frozenset(s for s in out if len(s) >= MIN_DAV_STEM or s == w)
+    # a stem that is only an ending (eghe, agha, ire: werelueghe -> eghe, agent round 2) is not a lemma
+    return frozenset(s for s in out if (len(s) >= MIN_DAV_STEM and s not in DAV_FINAL) or s == w)
 
 
 @lru_cache(maxsize=None)
@@ -118,12 +121,16 @@ MIN_DAV_STEM = 4  # a stripped Kidaw'ida stem must keep >= 4 letters (else the w
 FREQ_KEEP = 300   # frequent short words (<= 5 letters) keep their own form (function words: mara, huku, ndee)
 
 
-def choose_lemmas(words, stems_fn, freq: collections.Counter | None = None, min_len: int = 4) -> dict[str, str]:
+def choose_lemmas(words, stems_fn, freq: collections.Counter | None = None, min_len: int = 4,
+                  boost: collections.Counter | None = None) -> dict[str, str]:
     """Each word -> the candidate stem shared by most word types (ties: longer stem).
     Frequent words and words shorter than min_len are their own lemma."""
     support = collections.Counter()
     for w in words:
         support.update(stems_fn(w))
+    for l in (boost or {}):
+        if l in support:
+            support[l] += AGENT_BOOST
     out = {}
     for w in words:
         if (freq and freq[w] >= FREQ_KEEP and len(w) <= 5) or len(w) < min_len:
@@ -147,12 +154,50 @@ def names() -> set[str]:
     return out
 
 
+AGENT_DIR = Path.home() / "languagemodels" / "rulebook_data" / "agents"
+AGENT_BOOST = 10   # agent-given roots count as this many supporting word types
+
+
+def _cut(lemma: str) -> str:
+    """Agent lemmas carry the final vowel (kunda); the stripper removes it (kund)."""
+    lemma = norm(lemma)
+    return lemma[:-1] if len(lemma) >= 4 and lemma[-1] in "ae" else lemma
+
+
+@lru_cache(maxsize=1)
+def agent_lemmas() -> tuple[dict, dict]:
+    """word -> root from agent proposals (high/medium confidence), when the root is inside the word.
+    Majority per word. Agent round 2: verb lemmas kept SM/TAM (washoma), nouns were over-cut (kate)."""
+    votes = {"sw": collections.defaultdict(collections.Counter), "dav": collections.defaultdict(collections.Counter)}
+    for f in sorted(AGENT_DIR.glob("round*/out_agent*.jsonl")):
+        for line in open(f, encoding="utf-8"):
+            try:
+                o = json.loads(line)
+            except json.JSONDecodeError:
+                continue
+            if o.get("type") != "proposal" or o.get("confidence") not in ("high", "medium"):
+                continue
+            for side, wk, lk in (("sw", "sw_word", "sw_lemma"), ("dav", "dav_word", "dav_lemma")):
+                w, l = o.get(wk), o.get(lk)
+                if not w or not l or " " in str(w).strip() or " " in str(l).strip():
+                    continue
+                w, l = norm(w), _cut(l)
+                if len(l) >= 2 and l in w:
+                    votes[side][w][l] += 1
+    return ({w: c.most_common(1)[0][0] for w, c in votes["sw"].items()},
+            {w: c.most_common(1)[0][0] for w, c in votes["dav"].items()})
+
+
 @lru_cache(maxsize=1)
 def lemmatizers():
     ps = A.pairs()
     fs = collections.Counter(w for r in ps for w in r["sw"])
     fd = collections.Counter(w for r in ps for w in r["dv"])
-    sw, dv = choose_lemmas(set(fs), sw_stems, fs, min_len=5), choose_lemmas(set(fd), dav_stems, fd, min_len=4)
+    asw, adv = agent_lemmas()
+    sw = choose_lemmas(set(fs), sw_stems, fs, min_len=5, boost=collections.Counter(asw.values()))
+    dv = choose_lemmas(set(fd), dav_stems, fd, min_len=4, boost=collections.Counter(adv.values()))
+    sw.update({w: l for w, l in asw.items() if w in sw})
+    dv.update({w: l for w, l in adv.items() if w in dv})
     for n in names():
         sw[n] = n
         dv[n] = n
@@ -251,6 +296,7 @@ def run(agent_files: list[Path], max_iter: int = 60, hide: set[str] = frozenset(
         known[ls][ld] = {**info, "tier": "seed", "iteration": 0}
     props, wrong = read_agent_files(agent_files)
     blocked = set(blocked) | wrong
+    pending = []
     for o in props:
         for sw_w, dv_w in zip(str(o["sw_word"]).split(), str(o["dav_word"]).split()) \
                 if len(str(o["sw_word"]).split()) == len(str(o["dav_word"]).split()) else [(o["sw_word"], o["dav_word"])]:
@@ -260,9 +306,9 @@ def run(agent_files: list[Path], max_iter: int = 60, hide: set[str] = frozenset(
             ls, ld = sw_lem.get(sw, sw), dv_lem.get(dv, dv)
             if (ls, ld) in blocked or ls in hide:   # hidden seeds stay hidden from agent proposals too
                 continue
-            known[ls].setdefault(ld, {"source": "agent_interpretation", "sw_word": sw, "dav_word": dv,
-                                      "meaning": o.get("meaning"), "confidence": o.get("confidence"),
-                                      "tier": "agent", "iteration": 0, "agent_file": o["agent_file"]})
+            pending.append((ls, ld, {"source": "agent_interpretation", "sw_word": sw, "dav_word": dv,
+                                     "meaning": o.get("meaning"), "confidence": o.get("confidence"),
+                                     "tier": "agent", "iteration": 0, "agent_file": o["agent_file"]}))
     # identical strings on both sides (names, loans)
     same = collections.Counter()
     for s, d in zip(S, D):
@@ -272,12 +318,29 @@ def run(agent_files: list[Path], max_iter: int = 60, hide: set[str] = frozenset(
             known[l].setdefault(l, {"source": "identical_string", "tier": "seed", "iteration": 0, "pairs": c})
     n_sw_pairs = collections.Counter(l for s in S for l in set(s))
     n_dv_pairs = collections.Counter(l for d in D for l in set(d))
+    top_sw = {l for l, _ in n_sw_pairs.most_common(TOP_FUNCTION)}
+    top_dv = {l for l, _ in n_dv_pairs.most_common(TOP_FUNCTION)}
     idx_sw, idx_dv = collections.defaultdict(set), collections.defaultdict(set)
     for i, (s, d) in enumerate(zip(S, D)):
         for l in s:
             idx_sw[l].add(i)
         for l in d:
             idx_dv[l].add(i)
+    # agent proposals enter only with corpus support (round 2 audit: 8/24 agent entries wrong):
+    # not low confidence, and the two lemmas co-occur in >= 2 pairs (>= 1 if high confidence).
+    # The rest are kept in agent_unverified, not used to explain sentences.
+    csw, cdv = concord_words()
+    unverified = []
+    for ls, ld, info in pending:
+        c = len(idx_sw[ls] & idx_dv[ld])
+        conf = info.get("confidence")
+        if ls in csw or ld in cdv:
+            continue
+        if conf != "low" and (c >= AGENT_MIN_COOC or (conf == "high" and c >= 1)):
+            known[ls].setdefault(ld, {**info, "agent_cooc": c})
+        else:
+            unverified.append({"sw_lemma": ls, "dav_lemma": ld, **info, "agent_cooc": c})
+    run.unverified = unverified
     history = []
     for it in range(1, max_iter + 1):
         votes = collections.defaultdict(float)
@@ -330,6 +393,10 @@ def run(agent_files: list[Path], max_iter: int = 60, hide: set[str] = frozenset(
             # (tunasakata = na) cannot pass on a few leftover votes
             dice = 2 * len(idx_sw[a] & idx_dv[b]) / (n_sw_pairs[a] + n_dv_pairs[b])
             tier = None
+            # function-word guard (agent round 2: na = maumivu, kwa = jicho): pairs touching the most
+            # frequent lemmas need strong whole-sentence association
+            if (a in top_sw or b in top_dv) and dice < FUNCTION_MIN_DICE:
+                continue
             if (e >= 2 or (v >= 2 and mutual)) and dice >= MIN_DICE["accepted"]:
                 tier = "accepted"
             elif (e >= 1 or v >= 1) and is_best and dice >= MIN_DICE["tentative"]:
@@ -367,7 +434,8 @@ def suspicious(known) -> set[tuple[str, str]]:
     out = set()
     for a, cands in known.items():
         for b, i in cands.items():
-            if i.get("source") == "bootstrap" and i["n_sw"] >= ERR_MIN_N and \
+            if (i.get("source") == "bootstrap" or (i.get("source") == "agent_interpretation"
+                                                    and i.get("confidence") != "high")) and i["n_sw"] >= ERR_MIN_N and \
                     i["support_sw"] < ERR_MAX_SUPPORT and i["support_dav"] < ERR_MAX_SUPPORT:
                 out.add((a, b))
     return out
@@ -466,7 +534,7 @@ def main():
                   "blocked_as_errors": sorted(f"{x}={y}" for x, y in blocked)},
         "lemmas": {"sw": {w: l for w, l in sw_lem.items() if w != l},
                    "dav": {w: l for w, l in dv_lem.items() if w != l}},
-        "entries": entries}, ensure_ascii=False, indent=0))
+        "entries": entries, "agent_unverified": getattr(run, "unverified", [])}, ensure_ascii=False, indent=0))
     print(f"{len(entries)} entries -> {OUT}")
 
 

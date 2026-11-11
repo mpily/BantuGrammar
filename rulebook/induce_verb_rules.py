@@ -32,7 +32,7 @@ from kitaita_verb import SW_SM_ROWS, parse_prefix  # noqa: E402
 
 OUT = HERE / "induced_verb_rules.json"
 FEATURES = ("tam:me", "tam:sha", "tam:li", "tam:ta", "tam:na", "tam:ka", "tam:ki", "tam:nge", "reltam:li",
-            "reltam:na", "rel:lipo", "hab", "prohib", "neg:pres", "neg:ku", "neg:ta", "neg:ja", "neg:nge")
+            "reltam:na", "rel:lipo", "hab", "prohib", "neg:pres", "neg:ku", "neg:ta", "neg:ja", "neg:nge", "subj")
 ACTIVE = (5, 0.10)
 TENTATIVE = (2, 0.03)
 

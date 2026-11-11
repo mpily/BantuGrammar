@@ -7,7 +7,7 @@
    3,
    4
   ],
-  "git_sha": "8d833c744506c0faa58d47af0ef929b74a79f68f",
+  "git_sha": "2dee7339393eb453ec68129e9fe01235246a6f6e",
   "config": {
    "min_evidence": 2,
    "min_lift": 1.5,
@@ -18,10 +18,10 @@
   },
   "hashes_sha256_16": {
    "train.jsonl": "fd25256c6ddfc22b",
-   "attest.py": "51fa6aab013d9eed",
-   "build_rules.py": "dca00d3db5849e0d",
-   "bootstrap_lexicon.json": "db8c505f74a5e78e",
-   "induced_verb_rules.json": "9f7477907f3b75ce",
+   "attest.py": "03f473ea721b327d",
+   "build_rules.py": "5fb9ff159811b0fc",
+   "bootstrap_lexicon.json": "b36413971661e2af",
+   "induced_verb_rules.json": "1d09943507493366",
    "word_align.py": "c1d01b4a7f92b929",
    "kitaita_verified_corrections.py": "d05695176e55a882",
    "kitaita_speaker_verified.json": "bae5b8ae8347725e",
@@ -37,7 +37,7 @@
   ],
   "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment"
  },
- "n_rules": 324,
+ "n_rules": 342,
  "rejected": [
   {
    "id": "QUANT.ose.ghu",
@@ -520,11 +520,6 @@
    "examples": [],
    "counterexamples": [
     {
-     "pair_id": "train:11079",
-     "sw_word": "alibweka",
-     "dav_word": "etoroka"
-    },
-    {
      "pair_id": "train:11620",
      "sw_word": "walibeba",
      "dav_word": "raduka"
@@ -533,12 +528,17 @@
      "pair_id": "train:10551",
      "sw_word": "walipaa",
      "dav_word": "repuruka"
+    },
+    {
+     "pair_id": "train:6994",
+     "sw_word": "ulianza",
+     "dav_word": "kudezoya"
     }
    ],
    "evidence_count": 0,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:gho|che|ghe|je|de|lo|we|re|ye|ne|mo|ko|ve|o|e)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
+    "dav_regex": "(?:che|gho|ghe|ye|mo|ve|ne|de|ko|je|lo|we|re|o|e)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
     "n_pairs_with_sw_feature": 7733,
     "share_of_feature_pairs": 0.0,
     "lift": null,
@@ -553,25 +553,20 @@
    "reason": "evidence 0, lift None",
    "word_level": {
     "method": "aligned_verbs (bootstrap lexicon)",
-    "n_aligned": 4085,
+    "n_aligned": 3481,
     "k_match": 0,
     "rate": {
      "rate": 0.0,
      "ci95": [
       0.0,
-      0.000939532605029258
+      0.0011023743518213279
      ],
      "k": 0,
-     "n": 4085,
+     "n": 3481,
      "low_n": false
     },
     "examples": [],
     "counterexamples": [
-     {
-      "pair_id": "train:11079",
-      "sw_word": "alibweka",
-      "dav_word": "etoroka"
-     },
      {
       "pair_id": "train:11620",
       "sw_word": "walibeba",
@@ -581,6 +576,11 @@
       "pair_id": "train:10551",
       "sw_word": "walipaa",
       "dav_word": "repuruka"
+     },
+     {
+      "pair_id": "train:6994",
+      "sw_word": "ulianza",
+      "dav_word": "kudezoya"
      }
     ]
    }
@@ -698,6 +698,51 @@
    "conflict": false,
    "notes": "agent round 1",
    "reason": "evidence 38, lift 0.48"
+  },
+  {
+   "id": "CONCORD.variant.ghu.ghose",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghu",
+    "kind": "-ose 'all' (round 2; same form as ghi)"
+   },
+   "then": {
+    "form": "ghose"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18296",
+     "match": "mumbi ghose"
+    },
+    {
+     "pair_id": "train:18420",
+     "match": "mumbi ghose"
+    },
+    {
+     "pair_id": "train:19478",
+     "match": "mumbi ghose"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 10,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ghose",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 4006,
+    "lift": 0.26,
+    "domains": {
+     "davswa": 4,
+     "bible": 6
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent round 1",
+   "reason": "evidence 10, lift 0.26"
   },
   {
    "id": "POSS.ro.i_nasal",

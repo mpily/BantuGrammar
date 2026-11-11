@@ -61,6 +61,9 @@ def sw_parse(word: str):
     return parse(word)
 
 
+SW_DEM_WORDS = set(("huyu hawa huu hii hili haya hiki hivi hizi huku hapa humu yule wale ule ile lile yale kile vile "
+                     "zile kule pale mle huyo hao huo hiyo hilo hayo hicho hivyo hizo huko hapo humo").split())
+SW_HAVE = {"nina", "una", "ana", "tuna", "mna", "wana", "kina", "ina", "zina", "vina", "lina"}
 SW_COPULA_LOC = {"niko", "uko", "yuko", "tuko", "mko", "iko", "kiko", "viko", "ziko", "liko", "kuna", "pana", "mna"}
 
 
@@ -70,9 +73,11 @@ def sw_features(word: str) -> set[str]:
     f = set()
     if word in SW_COPULA_LOC:
         return {"copula:ko"}
+    if word in SW_HAVE:
+        return {"have"}
     if len(word) >= 5 and word.endswith("eni") and not sw_parse(word):
         f.add("imp:pl")
-    if word in _SW_NEG_STOP:
+    if word in _SW_NEG_STOP or word in SW_DEM_WORDS:   # vile, kile are demonstratives, not subjunctives
         return f
     p = sw_parse(word)
     if not p:
@@ -98,6 +103,9 @@ def sw_features(word: str) -> set[str]:
             f.add("neg:pres")
     elif mood == "habitual":
         f.add("hab")
+    elif mood == "subjunctive":
+        f.add("subj")  # SM-ROOT-e (nde- hortative in Kidaw'ida: agent round 2)
+        f.add(f"sm:{p['sm']}")
     elif mood == "affirmative":
         if rel:
             f.add(f"rel:{rel}")

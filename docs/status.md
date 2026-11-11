@@ -28880,3 +28880,42 @@ Swahili haki/hali no longer parsed as negatives (had inflated NEG.word.hachi).
 concord rule); lemma types 4,579 / 20,271 Swahili, 4,253 / 13,873 Kidaw'ida (the rare tail).
 Next: round 2 (same design); convergence = audit precision stops rising and lexicon/rule
 changes per round fall.
+
+## 2026-11-11 (cont. 3) — loop round 2: audit precision FELL; agent proposals now need corpus support
+
+Round 2 (same design; 4 agents; interrupted by the usage limit and resumed; outputs checked:
+every line belongs to its own batch, no duplicates, all 60 pairs + 50 reviews per agent covered,
+after agent 1 reported it had briefly appended to agent 2's file via a shared scratch helper and
+removed those lines).
+
+| random audit (100 entries) | correct | partly | wrong |
+|---|---|---|---|
+| round 1 | 53 [43, 62]% | 45 | 2 |
+| round 2 | 33 [25, 43]% | 54 | 13 |
+
+By tier (round 2): accepted 10/22 correct (1 wrong), tentative 16/54 (4 wrong), **agent entries from
+round 1: 7/24 correct, 8 wrong**. So feeding agent proposals back unchecked added errors; round-2
+agents (briefed on segmentation) were also stricter about stem cuts, so "partly" rose. Not
+convergence. Blocked-by-support check: 4/50 judged wrong (block right) — still over-blocking.
+
+**Changes** (one per issue, all in `bootstrap_lexicon.py` unless stated):
+- Agent proposals enter only with corpus support: not low confidence and the two lemmas co-occur
+  in ≥ 2 clean-train pairs (≥ 1 if high confidence); 917 others kept as `agent_unverified`, unused.
+  Agent entries (not high confidence) also go through the support check.
+- Agent-given roots override segmentation when the root is inside the word (washoma → shom), and
+  boost that stem for other forms; stems that are only an ending (eghe, agha) are not lemmas.
+- Function-word guard: pairs touching the 150 most frequent lemmas need whole-sentence Dice ≥ 0.2
+  (na = maumivu, kwa = jicho).
+- `attest.py`: Swahili subjunctive mood was ignored (parser labels it `subjunctive`); demonstratives
+  (vile, kile) no longer parsed as verbs; 'have' (nina, ana …) feature.
+
+**After round 2**: lexicon 5,304 entries (seed 1,750, accepted 788, tentative 1,609, agent 1,157);
+coverage 86% Swahili / 89% Kidaw'ida tokens; held-out seeds accepted 41/53 (77% [64, 87]),
+tentative 18/24 (75% [55, 88]) — unchanged within CI.
+Rules 342. Confirmed from round-2 notes: reflexive Swahili -ji- → Kidaw'ida OM ku- (203/299 aligned
+verbs; the old OM.c5.from_sw_ji reading it as class 5 is wrong), m+w → mmb (lift 17.8), 'have'
+SM-(e)ka/-ko na, far demonstratives jija / waja / ghaja / chija / rija. Subjunctive: SM-ROOT-e
+(590 + 349 with OM); nde- 'may/let' is real but rare (79/3,403) — tools must not read every nde-
+as negation. Rejected: ghose for class ghu (lift 0.26: it is the ghi form).
+Agent notes still open (need a speaker): maza takes ri- concord in several pairs (speaker: ghi);
+punda with wa-; one coordination case (two class-9 nouns → class-8 ve-).

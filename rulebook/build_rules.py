@@ -433,9 +433,27 @@ def section_round1():
     tam("COPULA.ko", 7, "COPULA", "copula:ko", f"{alt(ALL_BARE + ALL_E)}ko",
         {"template": "SM(bare/+e)-ko 'be at / there is'; SM-ko na 'have'"}, {"sw": "SM-ko / kuna / pana"},
         notes="agent round 1: weko, neko, gheko, wiko")
+    # agent round 2
+    tam("TAM.subj.nde", 3, "TAM", "subj", f"nde{B}?{R}(?:e|o)",
+        {"template": "nde-SM-ROOT-e / -o (subjunctive 'may/let'; passive -o) — NOT negation"},
+        {"sw": "SM-ROOT-e (subjunctive)"}, notes="agent round 2: nde- also hortative; tools must not read it as NEG")
+    tam("TAM.subj.plain", 3, "TAM", "subj", f"{B}(?!nde){R}e", {"template": "SM-ROOT-e (subjunctive)"},
+        {"sw": "SM-ROOT-e (subjunctive)"}, notes="agent round 2")
+    tam("OM.reflexive.ku", 1, "OM", "om:ji", f"(?:nde|si)?{alt(ALL_SM)}{TAMS_RE}ku[a-z]{{3,}}",
+        {"form": "ku", "meaning": "reflexive (Swahili -ji-)"}, {"sw_om": "ji"},
+        notes="agent rounds 1-2: Swahili -ji- is reflexive -> Kidaw'ida ku- (OM.c5.from_sw_ji treats it as class 5)")
+    tam("OM.3sg.mmb", 1, "OM", lambda fs: "om:m" in fs or "om:mw" in fs,
+        f"(?:nde|si)?{alt(ALL_SM)}{TAMS_RE}mmb[a-z]{{2,}}", {"form": "mmb", "phonology": "m + w/b -> mmb"},
+        {"sw_om": "m", "dav_root": "w- / b-initial"}, notes="agent round 2: wichammbona, ummboniagha")
+    tam("COPULA.have", 7, "COPULA", "have", f"{alt(ALL_BARE + ALL_E)}(?:e?ka|oka|ko)",
+        {"template": "SM(+e)-(e)ka / -ko + na 'have'"}, {"sw": "SM-na 'have'"},
+        notes="agent rounds 1-2: neka na, oka na, deka na; check that 'na' follows")
     # concord variants named by agents
     for lab, f, kind in (("i", "iyo", "DEM.mid variant"), ("i_nasal", "iyo", "DEM.mid variant"),
-                         ("ji", "jija", "DEM.far variant"), ("ku", "kose", "-ose 'all/everywhere'")):
+                         ("ji", "jija", "DEM.far variant"), ("ku", "kose", "-ose 'all/everywhere'"),
+                         ("ri", "rija", "DEM.far variant (round 2)"), ("chi", "chija", "DEM.far variant (round 2)"),
+                         ("ghi", "ghaja", "DEM.far variant (round 2)"), ("wi", "waja", "DEM.far variant (round 2)"),
+                         ("ghu", "ghose", "-ose 'all' (round 2; same form as ghi)")):
         ev = A.after_nouns(NOUNS, lab, f)
         e2 = A.after_nouns(NOUNS, lab, f, before=True)
         ev = {**ev, "evidence_count": ev["evidence_count"] + e2["evidence_count"],

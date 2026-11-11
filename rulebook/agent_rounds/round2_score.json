@@ -1,0 +1,289 @@
+{
+ "round": 2,
+ "lines_per_file": {
+  "out_agent1.jsonl": 345,
+  "out_agent2.jsonl": 333,
+  "out_agent3.jsonl": 319,
+  "out_agent4.jsonl": 340
+ },
+ "bad_lines": 0,
+ "audit": {
+  "n": 100,
+  "counts": {
+   "partly": 54,
+   "correct": 33,
+   "wrong": 13
+  },
+  "correct_or_partly": {
+   "rate": 0.87,
+   "ci95": [
+    0.7901947810519012,
+    0.9224290614158575
+   ],
+   "k": 87,
+   "n": 100,
+   "low_n": false
+  },
+  "correct": {
+   "rate": 0.33,
+   "ci95": [
+    0.24562983793895452,
+    0.4269483966028862
+   ],
+   "k": 33,
+   "n": 100,
+   "low_n": false
+  }
+ },
+ "audit_by_tier": {
+  "tentative": {
+   "n": 54,
+   "counts": {
+    "partly": 34,
+    "correct": 16,
+    "wrong": 4
+   },
+   "correct_or_partly": {
+    "rate": 0.9259259259259259,
+    "ci95": [
+     0.8244564280657937,
+     0.9708189446763159
+    ],
+    "k": 50,
+    "n": 54,
+    "low_n": false
+   },
+   "correct": {
+    "rate": 0.2962962962962963,
+    "ci95": [
+     0.19137265695067046,
+     0.42827825173788586
+    ],
+    "k": 16,
+    "n": 54,
+    "low_n": false
+   }
+  },
+  "accepted": {
+   "n": 22,
+   "counts": {
+    "correct": 10,
+    "partly": 11,
+    "wrong": 1
+   },
+   "correct_or_partly": {
+    "rate": 0.9545454545454546,
+    "ci95": [
+     0.7820151050048196,
+     0.9919307806988522
+    ],
+    "k": 21,
+    "n": 22,
+    "low_n": false
+   },
+   "correct": {
+    "rate": 0.45454545454545453,
+    "ci95": [
+     0.26920014432004846,
+     0.6534052671095845
+    ],
+    "k": 10,
+    "n": 22,
+    "low_n": false
+   }
+  },
+  "agent": {
+   "n": 24,
+   "counts": {
+    "correct": 7,
+    "partly": 9,
+    "wrong": 8
+   },
+   "correct_or_partly": {
+    "rate": 0.6666666666666666,
+    "ci95": [
+     0.4670595949408046,
+     0.8202802131162036
+    ],
+    "k": 16,
+    "n": 24,
+    "low_n": false
+   },
+   "correct": {
+    "rate": 0.2916666666666667,
+    "ci95": [
+     0.14914460334164278,
+     0.49168063658709704
+    ],
+    "k": 7,
+    "n": 24,
+    "low_n": false
+   }
+  }
+ },
+ "blocked_check": {
+  "n": 50,
+  "counts": {
+   "correct": 16,
+   "partly": 30,
+   "wrong": 4
+  },
+  "correct_or_partly": {
+   "rate": 0.92,
+   "ci95": [
+    0.8116149745493629,
+    0.9684509967442093
+   ],
+   "k": 46,
+   "n": 50,
+   "low_n": false
+  },
+  "correct": {
+   "rate": 0.32,
+   "ci95": [
+    0.20758044093999403,
+    0.45810557136276076
+   ],
+   "k": 16,
+   "n": 50,
+   "low_n": false
+  }
+ },
+ "low_support_tentative": {
+  "n": 50,
+  "counts": {
+   "wrong": 11,
+   "partly": 28,
+   "correct": 11
+  },
+  "correct_or_partly": {
+   "rate": 0.78,
+   "ci95": [
+    0.6475818431054045,
+    0.8724621377569771
+   ],
+   "k": 39,
+   "n": 50,
+   "low_n": false
+  },
+  "correct": {
+   "rate": 0.22,
+   "ci95": [
+    0.12753786224302288,
+    0.35241815689459555
+   ],
+   "k": 11,
+   "n": 50,
+   "low_n": false
+  }
+ },
+ "proposals": {
+  "n": 1017,
+  "by_confidence": {
+   "medium": 477,
+   "low": 160,
+   "high": 380
+  },
+  "fixes_known": 164,
+  "null_counterpart": 58,
+  "multiword": 229
+ },
+ "rule_notes": {
+  "n": 120,
+  "by_rule": {
+   "new: COPULA.neg_past": 1,
+   "DEM.ri / DEM.i (far)": 1,
+   "new: na+pronoun": 1,
+   "new: cha locative preposition": 1,
+   "new: nde- jussive": 1,
+   "new: -eni 'self/own'": 1,
+   "TAM.rel.lipo": 5,
+   "PLURAL / CLASS.i_nasal (nyumba)": 1,
+   "new: OM m + w-root": 1,
+   "new: COPULA.eka": 1,
+   "NEG.induced.neg_pres.5 / REL": 1,
+   "NEG.jussive nde-": 1,
+   "NOUN.conflict.chia": 1,
+   "CLASS.animate_override": 2,
+   "TAM.narr.nga_1sg": 2,
+   "TAM.induced.tam_nge": 1,
+   "CLASS.ghu (wubaa, wueli, wushu)": 1,
+   "TAM.perf.me (SM u)": 1,
+   "DEM.u (position)": 1,
+   "TAM.fut.ta": 3,
+   "QUANT.ose.ghu (missing)": 1,
+   "NOUN.conflict.maza": 4,
+   "ADJ (nasal + w-stem)": 1,
+   "TAM.pres.awuya": 4,
+   "new: -takapo-": 1,
+   "new: weke plural marker": 1,
+   "TAM.pastprog": 2,
+   "new: reflexive ku-": 1,
+   "new: -ingi 'any/other' concord": 1,
+   "COPULA.eka (extends earlier note)": 1,
+   "NEG.have": 1,
+   "OM.2pl": 1,
+   "REL.neg": 1,
+   "CONCORD.variant.ghi.ghaja": 1,
+   "POSS.kinship_suffix": 1,
+   "COPULA.ko": 1,
+   "NEG/INTERROG.ki": 1,
+   "DEM.ri": 1,
+   "TAM.past.passive": 2,
+   "POSS.ri": 3,
+   "NEG.fut_1sg": 1,
+   "ADJ.i": 1,
+   "SM.ku.locative": 1,
+   "POSS.lu": 1,
+   "TAM.andative.ende": 1,
+   "ADJ.bad.zamie": 1,
+   "COORD.va": 1,
+   "DEM.i": 3,
+   "ASSOC.* / function words": 1,
+   "COPULA.ko (negative, locative possessive)": 1,
+   "POSS.i": 1,
+   "POSS.ghu": 1,
+   "DEM.chi": 2,
+   "TAM.cond.nga_1sg": 1,
+   "NEG.fut": 1,
+   "TAM.rel.past_cleft": 1,
+   "TAM.perf.passive_o": 2,
+   "NEG.* (nde- as optative)": 1,
+   "DEM.ri / DEM.ji / DEM.chi (far)": 1,
+   "OM.3sg.from_sw_m": 2,
+   "IMP.pl_enyi": 1,
+   "new: neg conditional -sipo-": 1,
+   "NOUN class nyama / ng'ombe": 1,
+   "COPULA.ko (negative)": 1,
+   "NEG.ja": 1,
+   "lexicon segmentation": 1,
+   "DEM.wi": 1,
+   "CLASS.va": 1,
+   "SM.person / TAM.pres": 1,
+   "LOC.nyi": 1,
+   "new: OM.reflexive": 2,
+   "lexicon/function words": 2,
+   "TAM.past.li": 2,
+   "REL / TAM.past.passive": 1,
+   "TAM.pres.na": 2,
+   "ASSOC.chi / new": 1,
+   "NEG / new: hortative": 1,
+   "COPULA.ko / new: COPULA.oka": 1,
+   "new: coordination concord": 1,
+   "ASSOC.ji": 1,
+   "NEG.past": 1,
+   "NEG / TAM.perf.passive_o": 1,
+   "new: IMP.subjunctive": 1,
+   "NEG / new: NEG.have": 1,
+   "ADJ.i_nasal / ADJ.ghi": 1,
+   "OM / new: OM.2pl": 1,
+   "QUANT.ose": 1,
+   "NEG / TAM.prohib.se": 1,
+   "TAM.rel.lipo / new: -napo-": 1,
+   "POSS / train dialect": 1,
+   "TAM.progressive.wia": 1,
+   "TAM.past.li / new: train past -de-": 1,
+   "lexicon/segmentation": 1
+  }
+ }
+}

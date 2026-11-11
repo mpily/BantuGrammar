@@ -42,6 +42,23 @@ web. Held-out evaluation depends on this.
 - Speaker-verified facts in RULEBOOK.md (source `speaker`) are ground truth; if the
   pairs contradict one, report it (rule_note), don't override it.
 
+## Lessons from earlier rounds (apply them)
+
+- **Segmentation** was the main loop error. Give `sw_lemma` / `dav_lemma` as the real
+  root or stem (ghamb, not ka; kaia "be/stay" is not ka), never a 1–2 letter fragment,
+  and never keep the SM / TAM / ku- on a verb lemma (zighan, not wikizighan).
+- **Concord words come from the rules**, not the dictionary: possessives (wapo, ghwako,
+  varo), demonstratives, associative (wa, ya, cha), -ose, and SM+ko "be at / there is"
+  (weko, neko). Don't propose them as vocabulary; do report a wrong concord form as a
+  rule_note.
+- **Idioms and paraphrases are not cognates**: give the meaning of the whole unit
+  (`"wikafwa ngolo"` = were terrified) as one multi-word proposal.
+- Homographs: nani = "who" / "and I"; hata = until / even / no; iji = "this" / "when";
+  hachi = negator / righteousness (haki).
+- Rule book now has verb readings induced from aligned verbs (`TAM.induced.*`,
+  `NEG.induced.*`) and round-1 rules (past passive -ilo/-iro-ghe, nga- 1sg, nde- with no
+  3sg SM, -enyi plural imperative, -nyi locative, SM+ko copula). Check them too.
+
 ## Output
 
 Write JSON Lines to `~/languagemodels/rulebook_data/agents/round<R>/out_agent<N>.jsonl`,
