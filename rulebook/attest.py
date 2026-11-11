@@ -61,15 +61,31 @@ def sw_parse(word: str):
     return parse(word)
 
 
+SW_COPULA_LOC = {"niko", "uko", "yuko", "tuko", "mko", "iko", "kiko", "viko", "ziko", "liko", "kuna", "pana", "mna"}
+
+
 def sw_features(word: str) -> set[str]:
     """Swahili verb features used by the TAM / NEG / REL / OM rules."""
+    from rulebook_correct import _SW_NEG_STOP  # haki, hali, hawa ... are not verbs (agent round 1: hachi)
+    f = set()
+    if word in SW_COPULA_LOC:
+        return {"copula:ko"}
+    if len(word) >= 5 and word.endswith("eni") and not sw_parse(word):
+        f.add("imp:pl")
+    if word in _SW_NEG_STOP:
+        return f
     p = sw_parse(word)
     if not p:
-        return set()
-    f = set()
+        if len(word) >= 6 and word.endswith("ni"):
+            f.add("loc:ni")
+        return f
     mood, tam, rel = p["mood"], p["tam"], p["rel"]
     if p["om"]:
         f.add(f"om:{p['om']}")
+    if "passive" in p["exts"] or p["root"].endswith("w"):
+        f.add("ext:passive")
+    if p["root"] in ("kuw", "w") or word.endswith("likuwa"):
+        f.add("kuwa")
     if mood == "prohibitive":
         f.add("prohib")
     elif mood == "negative":
@@ -97,8 +113,14 @@ def pair_features() -> list[set[str]]:
     out = []
     for r in pairs():
         f = set()
-        for w in r["sw"]:
-            f |= sw_features(w)
+        fs = [sw_features(w) for w in r["sw"]]
+        for k, x in enumerate(fs):
+            f |= x
+            # past progressive: alikuwa akisoma (agent round 1)
+            if "kuwa" in x and "tam:li" in x and k + 1 < len(fs) and "tam:ki" in fs[k + 1]:
+                f.add("pastprog")
+            if "tam:li" in x and "ext:passive" in x:
+                f.add("past:passive")
         out.append(f)
     return out
 

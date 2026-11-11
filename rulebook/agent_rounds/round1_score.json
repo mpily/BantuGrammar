@@ -1,0 +1,236 @@
+{
+ "round": 1,
+ "lines_per_file": {
+  "out_agent1.jsonl": 411,
+  "out_agent2.jsonl": 394,
+  "out_agent3.jsonl": 391,
+  "out_agent4.jsonl": 408
+ },
+ "bad_lines": 0,
+ "audit": {
+  "n": 100,
+  "counts": {
+   "partly": 45,
+   "correct": 53,
+   "wrong": 2
+  },
+  "correct_or_partly": {
+   "rate": 0.98,
+   "ci95": [
+    0.9299868370580063,
+    0.9944981477650318
+   ],
+   "k": 98,
+   "n": 100,
+   "low_n": false
+  },
+  "correct": {
+   "rate": 0.53,
+   "ci95": [
+    0.4328868313724773,
+    0.6248934801789626
+   ],
+   "k": 53,
+   "n": 100,
+   "low_n": false
+  }
+ },
+ "audit_by_tier": {
+  "accepted": {
+   "n": 35,
+   "counts": {
+    "partly": 13,
+    "correct": 22
+   },
+   "correct_or_partly": {
+    "rate": 1.0,
+    "ci95": [
+     0.9010957324106112,
+     1.0
+    ],
+    "k": 35,
+    "n": 35,
+    "low_n": false
+   },
+   "correct": {
+    "rate": 0.6285714285714286,
+    "ci95": [
+     0.46336640488021064,
+     0.7683439263110894
+    ],
+    "k": 22,
+    "n": 35,
+    "low_n": false
+   }
+  },
+  "tentative": {
+   "n": 65,
+   "counts": {
+    "correct": 31,
+    "partly": 32,
+    "wrong": 2
+   },
+   "correct_or_partly": {
+    "rate": 0.9692307692307692,
+    "ci95": [
+     0.8945709497407398,
+     0.9915211805990546
+    ],
+    "k": 63,
+    "n": 65,
+    "low_n": false
+   },
+   "correct": {
+    "rate": 0.47692307692307695,
+    "ci95": [
+     0.36021590253064156,
+     0.5962057959772373
+    ],
+    "k": 31,
+    "n": 65,
+    "low_n": false
+   }
+  }
+ },
+ "blocked_check": {
+  "n": 50,
+  "counts": {
+   "partly": 32,
+   "wrong": 8,
+   "correct": 10
+  },
+  "correct_or_partly": {
+   "rate": 0.84,
+   "ci95": [
+    0.7148551903823401,
+    0.9166267863791231
+   ],
+   "k": 42,
+   "n": 50,
+   "low_n": false
+  },
+  "correct": {
+   "rate": 0.2,
+   "ci95": [
+    0.11243629945973886,
+    0.3303737210448524
+   ],
+   "k": 10,
+   "n": 50,
+   "low_n": false
+  }
+ },
+ "low_support_tentative": {
+  "n": 50,
+  "counts": {
+   "partly": 32,
+   "correct": 16,
+   "wrong": 2
+  },
+  "correct_or_partly": {
+   "rate": 0.96,
+   "ci95": [
+    0.8653966212204534,
+    0.9889613473391734
+   ],
+   "k": 48,
+   "n": 50,
+   "low_n": false
+  },
+  "correct": {
+   "rate": 0.32,
+   "ci95": [
+    0.20758044093999403,
+    0.45810557136276076
+   ],
+   "k": 16,
+   "n": 50,
+   "low_n": false
+  }
+ },
+ "proposals": {
+  "n": 1316,
+  "by_confidence": {
+   "medium": 532,
+   "high": 599,
+   "low": 185
+  },
+  "fixes_known": 194,
+  "null_counterpart": 132,
+  "multiword": 200
+ },
+ "rule_notes": {
+  "n": 88,
+  "by_rule": {
+   "NEG.fut": 1,
+   "new: LOC.nyi": 1,
+   "new: COP.ko / COP.eka": 1,
+   "new: TAM.past.passive": 1,
+   "new: NEG.rel / participle -se-": 1,
+   "new: IMP.pl": 2,
+   "TAM.narr.ka": 1,
+   "TAM.cond.ki": 2,
+   "TAM.pres.na": 1,
+   "TAM.perf.me_ie / suffix harmony": 1,
+   "NEG.past_ie": 1,
+   "new: TAM.past.prog": 1,
+   "CLASS.animate_override": 3,
+   "TAM.past.li": 3,
+   "TAM.rel.lipo": 4,
+   "new: NUM.ordinal": 1,
+   "new: KIN.poss": 1,
+   "TAM.fut.ta": 3,
+   "TAM.hab.hu": 3,
+   "new: TAM.past_progressive": 1,
+   "new: TAM.fut_progressive": 1,
+   "new: TAM.pluperfect": 1,
+   "POSS (all classes): non-human 3sg possessor": 1,
+   "new: IMP.2pl -enyi": 1,
+   "new: PASS.subjunctive fusion -w-e > -o": 1,
+   "new: NEG.relative / NEG.subjunctive -se-": 1,
+   "NEG.past (1sg)": 1,
+   "NEG.past (class u 3sg)": 1,
+   "TAM.rel.lipo (class u)": 1,
+   "DEM.ji (far)": 1,
+   "DEM.i (mid)": 2,
+   "POSS.ri (2pl)": 1,
+   "REL.i (past)": 1,
+   "new: EXIST.SM+ko": 1,
+   "TAM.hab.hu (scope)": 1,
+   "NEG.word.hachi": 3,
+   "new: LOC -enyi/-nyi": 1,
+   "new: ADJ.-ngi 'any' / -mu 'some'": 1,
+   "NEG.pres / NEG.past / NEG.fut (class u 3sg)": 1,
+   "TAM.past.li (passive) / TAM.rel.past": 1,
+   "TAM.prohib.sake": 1,
+   "new: TAM.contin.wuya": 1,
+   "TAM.cond.ki / TAM.rel.lipo": 1,
+   "new: NEG.se_subordinate": 1,
+   "NEG.pres (main clause, -sa-)": 1,
+   "new: COP.ne / COP.neg.si / NEG.have": 1,
+   "ADJ.i / ADJ.i_nasal": 1,
+   "TAM.pres.na_stative_taka (extend to relatives)": 1,
+   "TAM.perf.me_ie": 1,
+   "QUANT.ose.ku (missing)": 1,
+   "REL (1st person head)": 1,
+   "new: NOUN.plural.weke": 1,
+   "CLASS (agreement of human-class Swahili nouns)": 1,
+   "new: NEG.subordinate_past": 1,
+   "new: NEG.have": 1,
+   "TAM.rel.past": 1,
+   "new: NEG.rel": 1,
+   "new: OM.reflexive": 2,
+   "new: NEG.rel.hab": 1,
+   "NEG.past": 1,
+   "new: PASS.perfective": 2,
+   "TAM.progressive.wia": 1,
+   "NEG.pres": 2,
+   "POSS.u": 1,
+   "TAM.pres.na_zero": 1,
+   "TAM.cond.nge": 1,
+   "ADJ.i_nasal": 1,
+   "SM.wi.a": 1,
+   "new: lemma.segmentation": 1
+  }
+ }
+}

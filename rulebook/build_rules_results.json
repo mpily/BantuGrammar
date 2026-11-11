@@ -7,7 +7,7 @@
    3,
    4
   ],
-  "git_sha": "c70e3fca88607f95f30193158afaeff1fd4e8025",
+  "git_sha": "8d833c744506c0faa58d47af0ef929b74a79f68f",
   "config": {
    "min_evidence": 2,
    "min_lift": 1.5,
@@ -18,10 +18,10 @@
   },
   "hashes_sha256_16": {
    "train.jsonl": "fd25256c6ddfc22b",
-   "attest.py": "00c8fecaed503c4e",
-   "build_rules.py": "bac8d2c0fca4f02f",
-   "bootstrap_lexicon.json": "3a729a5a6754cfb6",
-   "induced_verb_rules.json": "6430acc08f3117c6",
+   "attest.py": "51fa6aab013d9eed",
+   "build_rules.py": "dca00d3db5849e0d",
+   "bootstrap_lexicon.json": "db8c505f74a5e78e",
+   "induced_verb_rules.json": "9f7477907f3b75ce",
    "word_align.py": "c1d01b4a7f92b929",
    "kitaita_verified_corrections.py": "d05695176e55a882",
    "kitaita_speaker_verified.json": "bae5b8ae8347725e",
@@ -37,7 +37,7 @@
   ],
   "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment"
  },
- "n_rules": 294,
+ "n_rules": 324,
  "rejected": [
   {
    "id": "QUANT.ose.ghu",
@@ -520,6 +520,11 @@
    "examples": [],
    "counterexamples": [
     {
+     "pair_id": "train:11079",
+     "sw_word": "alibweka",
+     "dav_word": "etoroka"
+    },
+    {
      "pair_id": "train:11620",
      "sw_word": "walibeba",
      "dav_word": "raduka"
@@ -528,17 +533,12 @@
      "pair_id": "train:10551",
      "sw_word": "walipaa",
      "dav_word": "repuruka"
-    },
-    {
-     "pair_id": "train:6994",
-     "sw_word": "ulianza",
-     "dav_word": "kudezoya"
     }
    ],
    "evidence_count": 0,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghe|che|gho|ve|mo|we|je|lo|re|ne|ye|de|ko|e|o)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
+    "dav_regex": "(?:gho|che|ghe|je|de|lo|we|re|ye|ne|mo|ko|ve|o|e)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
     "n_pairs_with_sw_feature": 7733,
     "share_of_feature_pairs": 0.0,
     "lift": null,
@@ -553,20 +553,25 @@
    "reason": "evidence 0, lift None",
    "word_level": {
     "method": "aligned_verbs (bootstrap lexicon)",
-    "n_aligned": 3072,
+    "n_aligned": 4085,
     "k_match": 0,
     "rate": {
      "rate": 0.0,
      "ci95": [
       0.0,
-      0.0012489589841037328
+      0.000939532605029258
      ],
      "k": 0,
-     "n": 3072,
+     "n": 4085,
      "low_n": false
     },
     "examples": [],
     "counterexamples": [
+     {
+      "pair_id": "train:11079",
+      "sw_word": "alibweka",
+      "dav_word": "etoroka"
+     },
      {
       "pair_id": "train:11620",
       "sw_word": "walibeba",
@@ -576,14 +581,191 @@
       "pair_id": "train:10551",
       "sw_word": "walipaa",
       "dav_word": "repuruka"
-     },
-     {
-      "pair_id": "train:6994",
-      "sw_word": "ulianza",
-      "dav_word": "kudezoya"
      }
     ]
    }
+  },
+  {
+   "id": "CONCORD.variant.i.iyo",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i",
+    "kind": "DEM.mid variant"
+   },
+   "then": {
+    "form": "iyo"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:JOB.20.17",
+     "match": "meda iyo"
+    },
+    {
+     "pair_id": "bible:NEN:GEN.49.32",
+     "match": "mbuwa iyo"
+    },
+    {
+     "pair_id": "bible:NEN:MAT.27.8",
+     "match": "mbuwa iyo"
+    },
+    {
+     "pair_id": "train:11463",
+     "match": "iyo ngombe"
+    },
+    {
+     "pair_id": "train:13035",
+     "match": "iyo kazi"
+    },
+    {
+     "pair_id": "train:21943",
+     "match": "iyo nguwo"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 125,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "iyo",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 4221,
+    "lift": 0.47,
+    "domains": {
+     "davswa": 0,
+     "bible": 14
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent round 1",
+   "reason": "evidence 125, lift 0.47"
+  },
+  {
+   "id": "CONCORD.variant.i_nasal.iyo",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i_nasal",
+    "kind": "DEM.mid variant"
+   },
+   "then": {
+    "form": "iyo"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:22816",
+     "match": "nyumba iyo"
+    },
+    {
+     "pair_id": "bible:NEN:LEV.14.35",
+     "match": "nyumba iyo"
+    },
+    {
+     "pair_id": "bible:NEN:LEV.14.47",
+     "match": "nyumba iyo"
+    },
+    {
+     "pair_id": "train:14116",
+     "match": "iyo ngolo"
+    },
+    {
+     "pair_id": "train:22257",
+     "match": "iyo nyumba"
+    },
+    {
+     "pair_id": "train:26575",
+     "match": "iyo nyumba"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 38,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "iyo",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 1563,
+    "lift": 0.48,
+    "domains": {
+     "davswa": 1,
+     "bible": 4
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent round 1",
+   "reason": "evidence 38, lift 0.48"
+  },
+  {
+   "id": "POSS.ro.i_nasal",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i_nasal",
+    "kind": "possessive 'its' (non-human possessor)"
+   },
+   "then": {
+    "form": "yaro"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "yaro",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "i"
+    ],
+    "n_noun_tokens": 1563,
+    "lift": 0.0,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent round 1: varo, charo, gharo",
+   "reason": "evidence 0, lift 0.0"
+  },
+  {
+   "id": "POSS.ro.gh",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "gh",
+    "kind": "possessive 'its' (non-human possessor)"
+   },
+   "then": {
+    "form": "ghwaro"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ghwaro",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "ghu"
+    ],
+    "n_noun_tokens": 4,
+    "lift": 0.0,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent round 1: varo, charo, gharo",
+   "reason": "evidence 0, lift 0.0"
   }
  ]
 }

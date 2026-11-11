@@ -332,6 +332,10 @@ def tam(rid, section, slot, feature, dav_re, then, cond, **kw):
     if target is not None:
         target["word_level"] = wl
         target["counterexamples"] = wl["counterexamples"]
+        # sentence-level pass but almost never the aligned verb's form -> tentative
+        if r and r["status"] == "active" and wl["n_aligned"] >= 20 and wl["k_match"] / wl["n_aligned"] < 0.02:
+            r["status"] = "tentative"
+            r["notes"] = (r.get("notes", "") + f"; word-level {wl['k_match']}/{wl['n_aligned']} aligned verbs").strip("; ")
     return r
 
 
@@ -387,7 +391,7 @@ def section3():
     tam("TAM.narr.ka", 3, "TAM", "tam:ka", f"{B}ka{R}", {"template": "SM-ka-ROOT-a"}, {"sw_tam": "ka"})
     tam("TAM.cond.ki", 3, "TAM", "tam:ki", f"{B}ki{R}", {"template": "SM-ki-ROOT-a"}, {"sw_tam": "ki"})
     tam("TAM.prohib.se", 3, "TAM", "prohib", f"{B}se{R}e", {"template": "SM-se-ROOT-e"}, {"sw": "SM-si-ROOT-e"})
-    tam("TAM.prohib.sake", 3, "TAM", "prohib", f"{B}(?:sake|seke){R}", {"template": "SM-sake-ROOT-e"},
+    tam("TAM.prohib.sake", 3, "TAM", "prohib", f"{B}(?:sake|seke){R}", {"template": "SM-sake-ROOT-a"},
         {"sw": "SM-si-ROOT-e"}, notes="second prohibitive reading (m-sake-, ku-sake-)")
     for fid, cond, why in (("TAM.cond.nge", {"sw_tam": "nge|ngali"}, "no consistent Kidaw'ida form in clean train"),
                            ("TAM.progressive.wia", {"dav_tam": "wia"}, "-wia- progressive: in kitaita_verb.TAMS, "
@@ -396,6 +400,53 @@ def section3():
                             "stative present (ghe-singa) missing from the notes")):
         add(fid, 3, "TAM", cond, {"status": "flag"}, source="grammar_notes", status="flag_only",
             notes=why + " (known gap: docs/status.md 2026-11-03 cont. 5; section 8 of the brief)")
+
+
+def section_round1():
+    """Candidates from agent round 1 rule notes (2026-11-11), attested like every other rule."""
+    B, Aa, E = alt(ALL_BARE), alt(ALL_A), alt(ALL_E)
+    R = "[a-z]{2,}"
+    tam("TAM.past.passive", 3, "TAM", "past:passive", f"{E}re{R}(?:il|el|ir|er)o(?:ghe)?",
+        {"template": "SM+e-re-ROOT-ilo/elo/iro/ero-ghe"}, {"sw_tam": "li", "ext": "passive"},
+        notes="agent round 1 (4 agents): passive + final fuse to -o")
+    tam("TAM.perf.passive_o", 3, "TAM", lambda fs: "tam:me" in fs and "ext:passive" in fs,
+        f"{Aa}{R}(?:il|el|ir|er|l|w)o", {"template": "SM+a ROOT-ilo/-elo/-o"}, {"sw_tam": "me", "ext": "passive"})
+    tam("TAM.narr.nga_1sg", 3, "TAM", lambda fs: "tam:ka" in fs and "sm:ni" in fs, f"nga{R}",
+        {"template": "nga-ROOT-a (1sg narrative)"}, {"sw_tam": "ka", "subj": "1sg"}, notes="agent round 1")
+    tam("TAM.cond.nga_1sg", 3, "TAM", lambda fs: "tam:ki" in fs and "sm:ni" in fs, f"nga{R}",
+        {"template": "nga-ROOT-a (1sg conditional)"}, {"sw_tam": "ki", "subj": "1sg"}, notes="agent round 1")
+    tam("TAM.pres.awuya", 3, "TAM", "tam:na", f"{Aa}a?wuya{R}", {"template": "SM+a-awuya-ROOT-a (continuative)"},
+        {"sw_tam": "na"}, notes="agent round 1: -awuya- 'keep on'; Swahili condition not settled")
+    tam("TAM.pastprog", 3, "TAM", "pastprog", f"{B}ki{R}",
+        {"template": "SM+e-re-kogh-e SM-ki-ROOT-a (two words)"}, {"sw": "-li-kuwa + -ki- verb"},
+        notes="agent round 1: orekoghe ukisoghoda; evidence counts the -ki- word only")
+    tam("NEG.fut_3sg", 4, "NEG", lambda fs: "neg:ta" in fs and "negsm:a" in fs, f"ndechaa{R}",
+        {"template": "nde-chaa-ROOT-a (3sg: no SM)"}, {"sw": "ha-ta-ROOT-a"}, notes="agent round 1")
+    tam("NEG.past_3sg", 4, "NEG", lambda fs: "neg:ku" in fs and "negsm:a" in fs, f"ndere{R}",
+        {"template": "nde-re-ROOT-ie-ghe (3sg: nde+o+re -> ndere)"}, {"sw": "ha-ku-ROOT-a"}, notes="agent round 1")
+    tam("NEG.pres_3sg", 4, "NEG", lambda fs: "neg:pres" in fs and "negsm:a" in fs, f"nde(?!we|wi|ri|ji|ghi|chi|vi|ku|di|m){R}agha",
+        {"template": "nde-ROOT-agha (3sg: no SM)"}, {"sw": "ha-ROOT-i"}, notes="agent round 1")
+    tam("IMP.pl_enyi", 6, "FV", "imp:pl", f"{R}enyi", {"template": "ROOT-enyi (plural imperative)"},
+        {"sw": "ROOT-eni"}, notes="agent round 1")
+    tam("LOC.nyi", 7, "LOC", "loc:ni", f"{R}nyi", {"template": "NOUN-(e)nyi (locative)", "phonology": "a+i -> e"},
+        {"sw": "NOUN-ni"}, notes="agent round 1: hekalunyi, isangenyi")
+    tam("COPULA.ko", 7, "COPULA", "copula:ko", f"{alt(ALL_BARE + ALL_E)}ko",
+        {"template": "SM(bare/+e)-ko 'be at / there is'; SM-ko na 'have'"}, {"sw": "SM-ko / kuna / pana"},
+        notes="agent round 1: weko, neko, gheko, wiko")
+    # concord variants named by agents
+    for lab, f, kind in (("i", "iyo", "DEM.mid variant"), ("i_nasal", "iyo", "DEM.mid variant"),
+                         ("ji", "jija", "DEM.far variant"), ("ku", "kose", "-ose 'all/everywhere'")):
+        ev = A.after_nouns(NOUNS, lab, f)
+        e2 = A.after_nouns(NOUNS, lab, f, before=True)
+        ev = {**ev, "evidence_count": ev["evidence_count"] + e2["evidence_count"],
+              "examples": ev["examples"] + e2["examples"]}
+        add(f"CONCORD.variant.{lab}.{f}", 1, "CONCORD", {"noun_class": lab, "kind": kind}, {"form": f}, ev,
+            notes="agent round 1")
+    for lab, (_, row) in CLASSES.items():
+        f = forms(row, 1)[0] + "ro"
+        sf = same(lab, lambda l: forms(CLASSES[l][1], 1)[0])
+        add(f"POSS.ro.{lab}", 1, "CONCORD", {"noun_class": lab, "kind": "possessive 'its' (non-human possessor)"},
+            {"form": f}, A.after_nouns(NOUNS, lab, f, same_form=sf), notes="agent round 1: varo, charo, gharo")
 
 
 def section4():
@@ -462,6 +513,7 @@ def main():
     section2()
     section3()
     section4()
+    section_round1()
     induced()
     rank_readings()
     hashes_extra = {"bootstrap_lexicon.json": A.sha16(HERE / "bootstrap_lexicon.json"),

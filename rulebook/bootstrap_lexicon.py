@@ -61,7 +61,9 @@ DAV_SM = sorted({f for r in SERIES for v in range(3) for f in (SERIES[r][v], *EX
                 key=len, reverse=True)
 DAV_TAM = ("chaa", "cha", "sake", "seke", "nda", "re", "de", "ka", "ki", "we", "da", "se", "wia")
 DAV_OM = tuple(sorted(OMS, key=len, reverse=True))
-DAV_FINAL = ("ieghe", "ireghe", "ereghe", "eghe", "agha", "ire", "ere", "ie", "a", "e")
+# passive perfective -ilo/-elo/-iro/-ero(-ghe), locative / plural imperative -(e)nyi: agent round 1
+DAV_FINAL = ("iloghe", "eloghe", "iroghe", "eroghe", "ieghe", "ireghe", "ereghe", "eghe", "agha", "enyi", "nyi",
+             "ilo", "elo", "iro", "ero", "ire", "ere", "ie", "a", "e")
 DAV_NOUN = ("mw", "mu", "wa", "wu", "ki", "ch", "vi", "vy", "ma", "mi", "lu", "ku", "m", "i", "w")
 SW_NOUN = ("mw", "wa", "ki", "ch", "vi", "vy", "ma", "mi", "ji", "ku", "m", "u")
 SW_FINAL = ("a", "e", "i")
@@ -96,24 +98,24 @@ def dav_stems(w: str) -> frozenset:
     out = set()
     for x in _strip_prefixes(w, (DAV_NEG, DAV_SM, DAV_TAM, DAV_OM)) | _strip_prefixes(w, (DAV_NOUN,)):
         out |= _strip_final(x, DAV_FINAL)
-    return frozenset(s for s in out if len(s) >= 2)
+    # stems of 1-3 letters collected glosses of unrelated words (ka, da, ndo: agent round 1)
+    return frozenset(s for s in out if len(s) >= MIN_DAV_STEM or s == w)
 
 
 @lru_cache(maxsize=None)
 def sw_stems(w: str) -> frozenset:
+    """Swahili: the verb parser's root, else the word itself. Noun-prefix stripping was
+    dropped after agent round 1: it merged unrelated words (chumba / umba, majani / kijana)."""
     if len(w) <= 3:
         return frozenset({w})
-    out = set()
     p = A.sw_parse(w)
-    if p and len(p["root"]) >= 2:
-        out.add(p["root"])
-    for x in _strip_prefixes(w, (SW_NOUN,)):
-        out |= _strip_final(x, SW_FINAL)
-    out.add(w)
-    return frozenset(s for s in out if len(s) >= 2)
+    if p and len(p["root"]) >= 3:
+        return frozenset({p["root"], w})
+    return frozenset({w})
 
 
-FREQ_KEEP = 300   # words this frequent keep their own form (function words: mara, huku, ndee)
+MIN_DAV_STEM = 4  # a stripped Kidaw'ida stem must keep >= 4 letters (else the word stays whole)
+FREQ_KEEP = 300   # frequent short words (<= 5 letters) keep their own form (function words: mara, huku, ndee)
 
 
 def choose_lemmas(words, stems_fn, freq: collections.Counter | None = None, min_len: int = 4) -> dict[str, str]:
@@ -124,7 +126,7 @@ def choose_lemmas(words, stems_fn, freq: collections.Counter | None = None, min_
         support.update(stems_fn(w))
     out = {}
     for w in words:
-        if (freq and freq[w] >= FREQ_KEEP) or len(w) < min_len:
+        if (freq and freq[w] >= FREQ_KEEP and len(w) <= 5) or len(w) < min_len:
             out[w] = w
             continue
         c = stems_fn(w)
@@ -134,11 +136,27 @@ def choose_lemmas(words, stems_fn, freq: collections.Counter | None = None, min_
 
 
 @lru_cache(maxsize=1)
+def names() -> set[str]:
+    """Words written capitalised in mid-sentence on both sides of some pair: proper names,
+    kept whole (ramothi was stripped to mothi: agent round 1)."""
+    import re as _re
+    out = set()
+    for r in A.pairs():
+        caps = lambda t: {norm(w) for w in t.split()[1:] if _re.match(r"[A-Z]", w)}  # noqa: E731
+        out |= caps(r["swa"]) & caps(r["dav"])
+    return out
+
+
+@lru_cache(maxsize=1)
 def lemmatizers():
     ps = A.pairs()
     fs = collections.Counter(w for r in ps for w in r["sw"])
     fd = collections.Counter(w for r in ps for w in r["dv"])
-    return choose_lemmas(set(fs), sw_stems, fs, min_len=5), choose_lemmas(set(fd), dav_stems, fd, min_len=4)
+    sw, dv = choose_lemmas(set(fs), sw_stems, fs, min_len=5), choose_lemmas(set(fd), dav_stems, fd, min_len=4)
+    for n in names():
+        sw[n] = n
+        dv[n] = n
+    return sw, dv
 
 
 def seeds(sw_lem, dv_lem) -> dict[tuple[str, str], dict]:
@@ -161,7 +179,7 @@ def seeds(sw_lem, dv_lem) -> dict[tuple[str, str], dict]:
     sw_agr = {"u": "w", "wi": "w", "ghu": "w", "i": "y", "i_nasal": "y", "ji": "l", "ghi": "y", "chi": "ch",
               "va": "vy", "ri": "z", "lu": "w", "ku": "kw"}
     for r in rules:
-        if r["id"].startswith("POSS.") and r["status"] == "active":
+        if r["id"].startswith("POSS.") and r["status"] == "active" and "forms" in r["then"]:
             lab = r["id"].split(".")[1]
             for (p, cue), f in zip(sw_poss.items(), r["then"]["forms"].values()):
                 if lab in sw_agr and r["evidence"]["by_form"][f]["attested"]:
@@ -196,6 +214,28 @@ def read_agent_files(agent_files) -> tuple[list[dict], set[tuple[str, str]]]:
     return props, wrong
 
 
+SW_AGR = ("w", "y", "l", "ch", "vy", "z", "kw", "p", "mw")
+SW_DEM = ("huyu hawa huu hii hili haya hiki hivi hizi huku hapa humu yule wale ule ile lile yale kile vile "
+          "zile kule pale mle huyo hao huo hiyo hilo hayo hicho hivyo hizo huko hapo humo").split()
+
+
+@lru_cache(maxsize=1)
+def concord_words() -> tuple[frozenset, frozenset]:
+    """Concord words (possessives, -ote, demonstratives, associative): their form comes from the
+    rule book's class tables, so the dictionary loop does not pair them as vocabulary (agent round 1:
+    zako = wako, vile = seji). They count as explained and are left out of the residuals."""
+    sw = set(SW_DEM)
+    for a in SW_AGR:
+        sw |= {a + x for x in ("angu", "ako", "ake", "etu", "enu", "ao", "ote", "a")}
+    import build_rules as R  # rules' own concord forms (POSS / ASSOC / -ose / DEM tables)
+    dv = set(R.STOP)
+    for row in R.SERIES:
+        for f in R.forms(row, 0) + R.forms(row, 2):
+            dv.add(f + "ko")          # existential / copula SM+ko (weko, neko, gheko): agent round 1
+        dv.add(R.forms(row, 1)[0] + "ro")  # non-human 'its' SM+a-ro (varo, charo): agent round 1
+    return frozenset(sw), frozenset(dv)
+
+
 def run(agent_files: list[Path], max_iter: int = 60, hide: set[str] = frozenset(), quiet: bool = False,
         blocked: set = frozenset()):
     ps = A.pairs()
@@ -218,7 +258,7 @@ def run(agent_files: list[Path], max_iter: int = 60, hide: set[str] = frozenset(
             if not sw or not dv:
                 continue
             ls, ld = sw_lem.get(sw, sw), dv_lem.get(dv, dv)
-            if (ls, ld) in blocked:
+            if (ls, ld) in blocked or ls in hide:   # hidden seeds stay hidden from agent proposals too
                 continue
             known[ls].setdefault(ld, {"source": "agent_interpretation", "sw_word": sw, "dav_word": dv,
                                       "meaning": o.get("meaning"), "confidence": o.get("confidence"),
@@ -244,10 +284,11 @@ def run(agent_files: list[Path], max_iter: int = 60, hide: set[str] = frozenset(
         elim = collections.Counter()
         ids = collections.defaultdict(list)
         explained_sw = explained_dv = 0
+        csw, cdv = concord_words()
         for i, (s, d) in enumerate(zip(S, D)):
-            dset = set(d)
+            dset = {x for x in d if x not in cdv}
             us, ud_used = set(), set()
-            for l in set(s):
+            for l in {x for x in s if x not in csw}:
                 hit = [m for m in known.get(l, {}) if m in dset]
                 if hit:
                     ud_used.update(hit)
@@ -317,7 +358,7 @@ def run(agent_files: list[Path], max_iter: int = 60, hide: set[str] = frozenset(
     return sw_lem, dv_lem, known, history, S, D
 
 
-ERR_MIN_N, ERR_MAX_SUPPORT = 4, 0.2
+ERR_MIN_N, ERR_MAX_SUPPORT = 4, 0.1  # 0.2 over-blocked: agents judged 42/50 blocks right word family (round 1)
 
 
 def suspicious(known) -> set[tuple[str, str]]:
@@ -348,7 +389,10 @@ def run_corrected(agent_files, hide=frozenset(), quiet=False, max_rounds=8):
 
 
 def coverage(S, D, known) -> dict:
-    dv_known = {m for v in known.values() for m in v}
+    """Tokens covered by the lexicon or by the rules' concord words (possessives, demonstratives, SM+ko)."""
+    csw, cdv = concord_words()
+    dv_known = {m for v in known.values() for m in v} | set(cdv)
+    known = {**known, **{w: {} for w in csw}}
     sw_types = collections.Counter(l for s in S for l in s)
     dv_types = collections.Counter(l for d in D for l in d)
     sw_cov = sum(c for l, c in sw_types.items() if l in known)

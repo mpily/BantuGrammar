@@ -28825,3 +28825,58 @@ SM+a; -ose = SM+a + ose (a+o → o). Noun conflicts reproduce on clean data: chi
 chi; votes ri 285 / i 181), maza (ghi; ri 275), boi (i; u 6), ngelo (ri; ri 154 / ya-class 116).
 
 Next: step 3 (`lexicon.json` merge, from speaker-verified + Bible-only sources + clean counts).
+
+## 2026-11-11 (cont. 2) — lexicon + rule loop (user: lower the bar, known → unknown, agents, repeat until consistent)
+
+User redirected step 3: lower the acceptance bar, apply the rules recursively from known to
+unknown words (not Dice only), have agents interpret sentences with the known lemmas, and
+repeat (finding errors, correcting them, adding hypotheses, using Bantu grammar and
+paraphrase) until rules + dictionary converge. Clean train only throughout; dev untouched.
+
+**Loop** (`rulebook/`): `bootstrap_lexicon.py` (rule-based lemmas; seeds = speaker-verified
+nouns/roots, rule-book concord words, identical names/loans, agent proposals; each pass
+removes explained words per pair, the leftovers vote, 1-vs-1 = elimination; accepted /
+tentative tiers; whole-sentence Dice only as a floor; error-correction rounds block entries
+whose words rarely co-occur, then re-run) → `word_align.py` (aligned verbs via the lexicon)
+→ `induce_verb_rules.py` (Kidaw'ida verb shape per Swahili TAM, from `kitaita_verb.parse_prefix`)
+→ `build_rules.py` (+ word-level evidence; tentative tier for rules) → `agent_batches.py` /
+`agent_briefing.md` → 4 agents → `score_agent_round.py`.
+
+**Held-out check** (speaker-verified seeds hidden in 2 folds, agent proposals for them dropped):
+precision of the loop's answer for a hidden word, same word family counted correct:
+
+| version | accepted | tentative |
+|---|---|---|
+| first floor (residual Dice) | 4/5 | 22/26 |
+| whole-sentence Dice floor | 44/62 (71%) | 21/31 |
+| + error correction | 37/49 (76% [62, 85]) | 18/25 |
+| + no-fragment / whole-name / no Swahili noun stripping, round-1 agents | 42/54 (78% [65, 87]) | 24/33 (73% [56, 85]) |
+
+Several remaining "misses" are synonyms (lugha kiteto, wazo maghesho — both noted as
+equally valid in kitaita_verified_corrections.py), so these are lower bounds.
+
+**Agent round 1** (4 agents × 60 sentence pairs + 50 reviews; `agent_rounds/round1_score.json`):
+random audit of 100 loop entries: correct 53 [43, 62]%, partly 45, wrong 2 — "partly" is almost
+always the right word with a wrong stem cut. Blocks by the support check: 8/50 judged wrong
+(the block was right) → support threshold 0.2 → 0.1. 1,316 proposals (599 high), 194 fixing a
+wrong gloss, 88 rule notes. Agent verdicts are an LLM's judgement, not speaker verification.
+
+**Fixes from round 1** (all four agents named segmentation as the main error):
+Kidaw'ida stems must keep ≥ 4 letters; names (capitalised mid-sentence on both sides) kept
+whole; Swahili noun-prefix stripping dropped (chumba/umba, majani/kijana); frequent short words
+kept whole; new endings -ilo/-elo/-iro/-ero(-ghe), -(e)nyi; concord words (possessives,
+demonstratives, SM+ko copula, SM+a-ro) are explained by the rules, not paired as vocabulary.
+
+**Rules after round 1** (324): agent notes checked on the corpus like any rule — confirmed:
+past passive SM+e-re-ROOT-ilo/iro-ghe (lift 7.6), 1sg nga- narrative/conditional (16.9 / 10.1),
+3sg zero SM after nde- (future 45/71 aligned verbs, past 42/112), plural imperative -enyi
+(269/436), locative -nyi, copula SM+ko, possessive 'its' SM+a-ro, DEM ji far jija, -ose ku kose;
+-sake- prohibitive ends in -a (fixed). NOT supported: class-9 iyo (lift 0.47: it follows
+ri/chi nouns). -awuya- tentative (4/3,081 aligned verbs). Verb readings now also induced from
+aligned verbs (e.g. -ki- 'if' also SM-ka-; -ja- → SM-se-ROOT-ie/ire; hu- → SM+a-da- 40%).
+Swahili haki/hali no longer parsed as negatives (had inflated NEG.word.hachi).
+
+**Coverage now**: 88% of Swahili and 93% of Kidaw'ida tokens have a hypothesis (lexicon or
+concord rule); lemma types 4,579 / 20,271 Swahili, 4,253 / 13,873 Kidaw'ida (the rare tail).
+Next: round 2 (same design); convergence = audit precision stops rising and lexicon/rule
+changes per round fall.
