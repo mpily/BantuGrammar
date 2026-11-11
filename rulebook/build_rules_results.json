@@ -10,7 +10,7 @@
    6,
    7
   ],
-  "git_sha": "aaa57bccb96029175e3203fe3a81b31f085deecb",
+  "git_sha": "cc5eb96579517541ed964e37dd7c7846e0e3b724",
   "config": {
    "min_evidence": 2,
    "min_lift": 1.5,
@@ -23,9 +23,9 @@
    "train.jsonl": "fd25256c6ddfc22b",
    "attest.py": "dd5015998a3fe5a7",
    "build_rules.py": "e91b066ec7c2046e",
-   "bootstrap_lexicon.json": "150adf37eaeef8c5",
-   "induced_verb_rules.json": "42524e727444b5d2",
-   "induced_extension_rules.json": "45dcf4a615645594",
+   "bootstrap_lexicon.json": "4144a44ae3ebe27e",
+   "induced_verb_rules.json": "8c171b2f0dc46a0e",
+   "induced_extension_rules.json": "f5887f7554044b1c",
    "word_align.py": "c1d01b4a7f92b929",
    "kitaita_verified_corrections.py": "d05695176e55a882",
    "kitaita_speaker_verified.json": "bae5b8ae8347725e",
@@ -41,7 +41,7 @@
   ],
   "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment"
  },
- "n_rules": 424,
+ "n_rules": 408,
  "rejected": [
   {
    "id": "QUANT.ose.ghu",
@@ -529,20 +529,20 @@
      "dav_word": "raduka"
     },
     {
+     "pair_id": "train:10551",
+     "sw_word": "walipaa",
+     "dav_word": "repuruka"
+    },
+    {
      "pair_id": "train:6994",
      "sw_word": "ulianza",
      "dav_word": "kudezoya"
-    },
-    {
-     "pair_id": "train:11219",
-     "sw_word": "alifunga",
-     "dav_word": "ofunga"
     }
    ],
    "evidence_count": 0,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|gho|ghe|mo|de|ne|je|re|ye|ve|lo|ko|we|e|o)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
+    "dav_regex": "(?:che|gho|ghe|re|de|ko|ye|ne|je|mo|we|ve|lo|o|e)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
     "n_pairs_with_sw_feature": 7609,
     "share_of_feature_pairs": 0.0,
     "lift": null,
@@ -557,16 +557,16 @@
    "reason": "evidence 0, lift None",
    "word_level": {
     "method": "aligned_verbs (bootstrap lexicon)",
-    "n_aligned": 4208,
+    "n_aligned": 4557,
     "k_match": 0,
     "rate": {
      "rate": 0.0,
      "ci95": [
       0.0,
-      0.0009120950797389912
+      0.0008423006841544332
      ],
      "k": 0,
-     "n": 4208,
+     "n": 4557,
      "low_n": false
     },
     "examples": [],
@@ -577,14 +577,14 @@
       "dav_word": "raduka"
      },
      {
+      "pair_id": "train:10551",
+      "sw_word": "walipaa",
+      "dav_word": "repuruka"
+     },
+     {
       "pair_id": "train:6994",
       "sw_word": "ulianza",
       "dav_word": "kudezoya"
-     },
-     {
-      "pair_id": "train:11219",
-      "sw_word": "alifunga",
-      "dav_word": "ofunga"
      }
     ]
    }

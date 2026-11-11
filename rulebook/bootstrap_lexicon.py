@@ -202,6 +202,29 @@ def lemmatizers():
     dv = choose_lemmas(set(fd), dav_stems, fd, min_len=4, boost=collections.Counter(adv.values()))
     sw.update({w: l for w, l in asw.items() if w in sw})
     dv.update({w: l for w, l in adv.items() if w in dv})
+    # root-inventory cut (segment.py): every Kidaw'ida word with an analysis, and Swahili words the
+    # verb parser could not analyse
+    import segment as G
+    n_dv = n_sw = 0
+    for w in dv:
+        r = G.dav_root(w)
+        if r and r != dv[w]:
+            dv[w] = r
+            n_dv += 1
+    for w in sw:
+        if not A.sw_parse(w):
+            r = G.sw_root(w)
+            if r and r != sw[w]:
+                sw[w] = r
+                n_sw += 1
+    # root-list pass answers for the exact words (segment1), over everything else except speaker seeds
+    wr = G.word_roots()
+    for side, table in (("dav", dv), ("sw", sw)):
+        for w, r in wr[side].items():
+            if w in table:
+                table[w] = r
+    lemmatizers.recut = {"dav_words_recut": n_dv, "sw_words_recut": n_sw,
+                         "root_list_words": {k: len(v) for k, v in wr.items()}}
     for n in names():
         sw[n] = n
         dv[n] = n
@@ -536,6 +559,7 @@ def main():
                              "tentative": "elimination >= 1 or votes >= 1, best for its Swahili lemma "
                                           "(only mutual-best tentative pairs are fed back)"},
                   "history": history, "correction_rounds": rounds, "heldout_seed_check": held,
+                  "segmentation_recut": getattr(lemmatizers, "recut", None),
                   "blocked_as_errors": sorted(f"{x}={y}" for x, y in blocked)},
         "lemmas": {"sw": {w: l for w, l in sw_lem.items() if w != l},
                    "dav": {w: l for w, l in dv_lem.items() if w != l}},

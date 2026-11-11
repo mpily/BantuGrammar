@@ -2,7 +2,7 @@
  "_meta": {
   "built_by": "rulebook/induce_verb_rules.py",
   "script_sha16": "e2cebfc9274de0f9",
-  "bootstrap_lexicon_sha16": "150adf37eaeef8c5",
+  "bootstrap_lexicon_sha16": "4144a44ae3ebe27e",
   "train_sha16": "fd25256c6ddfc22b",
   "thresholds": {
    "active": [
@@ -17,8 +17,8 @@
  },
  "features": {
   "tam:me": {
-   "n_aligned": 3664,
-   "n_unparsed": 297,
+   "n_aligned": 3802,
+   "n_unparsed": 251,
    "readings": [
     {
      "template": "SM+a-ROOT-a",
@@ -29,57 +29,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 818,
+     "n": 966,
      "share": {
-      "rate": 0.2232532751091703,
+      "rate": 0.2540768016833246,
       "ci95": [
-       0.21006313373954763,
-       0.23702313083632723
+       0.240491594739304,
+       0.26815847624630934
       ],
-      "k": 818,
-      "n": 3664,
-      "low_n": false
-     },
-     "tier": "active",
-     "examples": [
-      {
-       "pair_id": "train:2540",
-       "sw_word": "amefanya",
-       "dav_word": "wabonya",
-       "root": "bony"
-      },
-      {
-       "pair_id": "train:21078",
-       "sw_word": "zimeungua",
-       "dav_word": "ghalungua",
-       "root": "lungu"
-      },
-      {
-       "pair_id": "train:2954",
-       "sw_word": "umeacha",
-       "dav_word": "kwasigha",
-       "root": "sigh"
-      }
-     ]
-    },
-    {
-     "template": "SM+a-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "a",
-      "tam": "-",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 531,
-     "share": {
-      "rate": 0.1449235807860262,
-      "ci95": [
-       0.13389681181167085,
-       0.15669414500609363
-      ],
-      "k": 531,
-      "n": 3664,
+      "k": 966,
+      "n": 3802,
       "low_n": false
      },
      "tier": "active",
@@ -88,19 +46,19 @@
        "pair_id": "train:23963",
        "sw_word": "imekuwa",
        "dav_word": "chakaia",
-       "root": "kaia"
+       "root": "kai"
+      },
+      {
+       "pair_id": "train:2540",
+       "sw_word": "amefanya",
+       "dav_word": "wabonya",
+       "root": "bony"
       },
       {
        "pair_id": "train:13529",
        "sw_word": "nimejaribu",
        "dav_word": "natima",
-       "root": "tima"
-      },
-      {
-       "pair_id": "train:24129",
-       "sw_word": "amerudi",
-       "dav_word": "wawuya",
-       "root": "wuya"
+       "root": "tim"
       }
      ]
     },
@@ -113,15 +71,15 @@
       "om": "OM",
       "final": "a"
      },
-     "n": 226,
+     "n": 254,
      "share": {
-      "rate": 0.06168122270742358,
+      "rate": 0.06680694371383482,
       "ci95": [
-       0.05434099689952277,
-       0.06993961543662612
+       0.059299350952761946,
+       0.07518906285825949
       ],
-      "k": 226,
-      "n": 3664,
+      "k": 254,
+      "n": 3802,
       "low_n": false
      },
      "tier": "tentative",
@@ -133,16 +91,100 @@
        "root": "koti"
       },
       {
-       "pair_id": "train:22845",
-       "sw_word": "amenitumia",
-       "dav_word": "wanidumia",
-       "root": "dumi"
-      },
-      {
        "pair_id": "train:7111",
        "sw_word": "amekuwacha",
        "dav_word": "wakusigha",
        "root": "sigh"
+      },
+      {
+       "pair_id": "train:18687",
+       "sw_word": "umejileta",
+       "dav_word": "kwajireda",
+       "root": "red"
+      }
+     ]
+    },
+    {
+     "template": "SM+a-ROOT",
+     "shape": {
+      "neg": "-",
+      "series": "a",
+      "tam": "-",
+      "om": "-",
+      "final": "-"
+     },
+     "n": 184,
+     "share": {
+      "rate": 0.0483955812730142,
+      "ci95": [
+       0.04201813176272469,
+       0.055684725865401505
+      ],
+      "k": 184,
+      "n": 3802,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "train:13922",
+       "sw_word": "umepita",
+       "dav_word": "ghwaida",
+       "root": "ida"
+      },
+      {
+       "pair_id": "train:26189",
+       "sw_word": "wameiba",
+       "dav_word": "waiwa",
+       "root": "iwa"
+      },
+      {
+       "pair_id": "train:24242",
+       "sw_word": "wamepita",
+       "dav_word": "waida",
+       "root": "ida"
+      }
+     ]
+    },
+    {
+     "template": "SM+a-ROOT-e",
+     "shape": {
+      "neg": "-",
+      "series": "a",
+      "tam": "-",
+      "om": "-",
+      "final": "e"
+     },
+     "n": 154,
+     "share": {
+      "rate": 0.04050499736980537,
+      "ci95": [
+       0.03468831438197912,
+       0.04724930488204911
+      ],
+      "k": 154,
+      "n": 3802,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "train:2551",
+       "sw_word": "wamefanya",
+       "dav_word": "wabonyere",
+       "root": "bonyer"
+      },
+      {
+       "pair_id": "train:20400",
+       "sw_word": "mumefanana",
+       "dav_word": "mwafwanane",
+       "root": "fwanan"
+      },
+      {
+       "pair_id": "train:16054",
+       "sw_word": "umelala",
+       "dav_word": "kwalale",
+       "root": "lal"
       }
      ]
     },
@@ -155,15 +197,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 145,
+     "n": 146,
      "share": {
-      "rate": 0.039574235807860264,
+      "rate": 0.03840084166228301,
       "ci95": [
-       0.03372865832546326,
-       0.04638428875491231
+       0.032743848829270894,
+       0.044989706870997875
       ],
-      "k": 145,
-      "n": 3664,
+      "k": 146,
+      "n": 3802,
       "low_n": false
      },
      "tier": "tentative",
@@ -181,10 +223,10 @@
        "root": "pang"
       },
       {
-       "pair_id": "train:24271",
-       "sw_word": "ameskia",
-       "dav_word": "kuskira",
-       "root": "skir"
+       "pair_id": "train:14676",
+       "sw_word": "wamefika",
+       "dav_word": "kuvika",
+       "root": "vik"
       }
      ]
     },
@@ -197,25 +239,19 @@
       "om": "-",
       "final": "a"
      },
-     "n": 120,
+     "n": 118,
      "share": {
-      "rate": 0.03275109170305677,
+      "rate": 0.03103629668595476,
       "ci95": [
-       0.02745958720664944,
-       0.03902136442441337
+       0.02597977690236276,
+       0.037039556324747896
       ],
-      "k": 120,
-      "n": 3664,
+      "k": 118,
+      "n": 3802,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
-      {
-       "pair_id": "train:24931",
-       "sw_word": "nimekutana",
-       "dav_word": "nekwana",
-       "root": "kwan"
-      },
       {
        "pair_id": "train:10054",
        "sw_word": "amechoshwa",
@@ -227,33 +263,39 @@
        "sw_word": "amekonda",
        "dav_word": "otaruma",
        "root": "tarum"
+      },
+      {
+       "pair_id": "train:25557",
+       "sw_word": "wameenda",
+       "dav_word": "weenda",
+       "root": "end"
       }
      ]
     }
    ]
   },
   "tam:sha": {
-   "n_aligned": 31,
-   "n_unparsed": 26,
+   "n_aligned": 30,
+   "n_unparsed": 23,
    "readings": [
     {
-     "template": "SM+a-ROOT",
+     "template": "SM+a-ROOT-a",
      "shape": {
       "neg": "-",
       "series": "a",
       "tam": "-",
       "om": "-",
-      "final": "-"
+      "final": "a"
      },
-     "n": 3,
+     "n": 4,
      "share": {
-      "rate": 0.0967741935483871,
+      "rate": 0.13333333333333333,
       "ci95": [
-       0.03346403609464399,
-       0.2490028999817704
+       0.05309569424218104,
+       0.2968168394441695
       ],
-      "k": 3,
-      "n": 31,
+      "k": 4,
+      "n": 30,
       "low_n": false
      },
      "tier": "tentative",
@@ -262,27 +304,69 @@
        "pair_id": "train:22290",
        "sw_word": "washaenda",
        "dav_word": "waenda",
-       "root": "enda"
+       "root": "end"
+      },
+      {
+       "pair_id": "train:25002",
+       "sw_word": "zishakatwa",
+       "dav_word": "radumbulwa",
+       "root": "dumbulw"
       },
       {
        "pair_id": "train:22687",
        "sw_word": "nishaenda",
        "dav_word": "naenda",
-       "root": "enda"
+       "root": "end"
+      }
+     ]
+    },
+    {
+     "template": "ROOT-e",
+     "shape": {
+      "neg": "-",
+      "series": "none",
+      "tam": "-",
+      "om": "-",
+      "final": "e"
+     },
+     "n": 3,
+     "share": {
+      "rate": 0.1,
+      "ci95": [
+       0.03459925995971615,
+       0.25621441315266624
+      ],
+      "k": 3,
+      "n": 30,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "bible:NEN:GEN.49.23",
+       "sw_word": "mshale",
+       "dav_word": "wake",
+       "root": "wak"
       },
       {
-       "pair_id": "train:15171",
-       "sw_word": "ushaanza",
-       "dav_word": "ghwazoya",
-       "root": "zoya"
+       "pair_id": "bible:NEN:GEN.49.23",
+       "sw_word": "mshale",
+       "dav_word": "wake",
+       "root": "wak"
+      },
+      {
+       "pair_id": "bible:NEN:ZEC.9.14",
+       "sw_word": "mshale",
+       "dav_word": "wake",
+       "root": "wak"
       }
      ]
     }
    ]
   },
   "tam:li": {
-   "n_aligned": 4208,
-   "n_unparsed": 127,
+   "n_aligned": 4557,
+   "n_unparsed": 197,
    "readings": [
     {
      "template": "SM+e-re-ROOT-e",
@@ -293,25 +377,19 @@
       "om": "-",
       "final": "e"
      },
-     "n": 1507,
+     "n": 1450,
      "share": {
-      "rate": 0.3581273764258555,
+      "rate": 0.3181917928461707,
       "ci95": [
-       0.3437763768692247,
-       0.3727371786263096
+       0.3048261643110875,
+       0.33186369573579505
       ],
-      "k": 1507,
-      "n": 4208,
+      "k": 1450,
+      "n": 4557,
       "low_n": false
      },
      "tier": "active",
      "examples": [
-      {
-       "pair_id": "train:15091",
-       "sw_word": "walikuwa",
-       "dav_word": "werekoghe",
-       "root": "kogh"
-      },
       {
        "pair_id": "train:14868",
        "sw_word": "alikuwa",
@@ -322,6 +400,12 @@
        "pair_id": "train:11608",
        "sw_word": "walikuwa",
        "dav_word": "werekoghe",
+       "root": "kogh"
+      },
+      {
+       "pair_id": "train:12532",
+       "sw_word": "kulikuwa",
+       "dav_word": "korekoghe",
        "root": "kogh"
       }
      ]
@@ -335,24 +419,24 @@
       "om": "-",
       "final": "a"
      },
-     "n": 321,
+     "n": 384,
      "share": {
-      "rate": 0.0762832699619772,
+      "rate": 0.08426596445029624,
       "ci95": [
-       0.06864357346562487,
-       0.08469590634767106
+       0.07654650730018489,
+       0.09268576772554718
       ],
-      "k": 321,
-      "n": 4208,
+      "k": 384,
+      "n": 4557,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:14489",
-       "sw_word": "walipewa",
-       "dav_word": "wikanekwa",
-       "root": "nekw"
+       "pair_id": "train:15091",
+       "sw_word": "walikuwa",
+       "dav_word": "wikawuya",
+       "root": "wuy"
       },
       {
        "pair_id": "train:20276",
@@ -377,15 +461,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 241,
+     "n": 250,
      "share": {
-      "rate": 0.05727186311787072,
+      "rate": 0.054860653938994954,
       "ci95": [
-       0.050646539979466894,
-       0.06470480656689896
+       0.04861632913219325,
+       0.061854861097259135
       ],
-      "k": 241,
-      "n": 4208,
+      "k": 250,
+      "n": 4557,
       "low_n": false
      },
      "tier": "tentative",
@@ -403,94 +487,10 @@
        "root": "legh"
       },
       {
-       "pair_id": "train:24766",
-       "sw_word": "alishikwa",
-       "dav_word": "owadwa",
-       "root": "wadw"
-      }
-     ]
-    },
-    {
-     "template": "SM-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "-",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 137,
-     "share": {
-      "rate": 0.03255703422053232,
-      "ci95": [
-       0.027606575105531172,
-       0.03836019819382558
-      ],
-      "k": 137,
-      "n": 4208,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:13796",
-       "sw_word": "nilifanya",
-       "dav_word": "kubonya",
-       "root": "bony"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.6.2",
-       "sw_word": "walikuwa",
-       "dav_word": "kukaia",
-       "root": "kai"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.19.30",
-       "sw_word": "waliondoka",
-       "dav_word": "kufuma",
-       "root": "fum"
-      }
-     ]
-    },
-    {
-     "template": "SM+e-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "e",
-      "tam": "-",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 130,
-     "share": {
-      "rate": 0.030893536121673004,
-      "ci95": [
-       0.026078276831543224,
-       0.03656453480695715
-      ],
-      "k": 130,
-      "n": 4208,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:25439",
-       "sw_word": "alienda",
-       "dav_word": "oenda",
-       "root": "enda"
-      },
-      {
-       "pair_id": "train:11853",
-       "sw_word": "alienda",
-       "dav_word": "oenda",
-       "root": "enda"
-      },
-      {
-       "pair_id": "train:26088",
-       "sw_word": "alinyoa",
-       "dav_word": "okunua",
-       "root": "kunua"
+       "pair_id": "train:7709",
+       "sw_word": "ulijenga",
+       "dav_word": "koagha",
+       "root": "agh"
       }
      ]
     },
@@ -503,19 +503,25 @@
       "om": "OM",
       "final": "a"
      },
-     "n": 128,
+     "n": 164,
      "share": {
-      "rate": 0.030418250950570342,
+      "rate": 0.03598858898398069,
       "ci95": [
-       0.025642339855969205,
-       0.03605076845085791
+       0.030959551850882103,
+       0.04179930037498779
       ],
-      "k": 128,
-      "n": 4208,
+      "k": 164,
+      "n": 4557,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
+      {
+       "pair_id": "train:14815",
+       "sw_word": "walimwambia",
+       "dav_word": "wikamzera",
+       "root": "zer"
+      },
       {
        "pair_id": "train:15088",
        "sw_word": "nilimpenda",
@@ -527,144 +533,48 @@
        "sw_word": "alimfukuza",
        "dav_word": "ukamwinga",
        "root": "wing"
-      },
-      {
-       "pair_id": "train:14797",
-       "sw_word": "walimzuia",
-       "dav_word": "wikamghiria",
-       "root": "ghiri"
-      }
-     ]
-    }
-   ]
-  },
-  "tam:ta": {
-   "n_aligned": 3172,
-   "n_unparsed": 168,
-   "readings": [
-    {
-     "template": "SM-cha-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "cha",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 598,
-     "share": {
-      "rate": 0.1885245901639344,
-      "ci95": [
-       0.17529271688176185,
-       0.20251000476531272
-      ],
-      "k": 598,
-      "n": 3172,
-      "low_n": false
-     },
-     "tier": "active",
-     "examples": [
-      {
-       "pair_id": "train:18980",
-       "sw_word": "nitapewa",
-       "dav_word": "nichanekwa",
-       "root": "nekw"
-      },
-      {
-       "pair_id": "train:1936",
-       "sw_word": "atapata",
-       "dav_word": "uchapata",
-       "root": "pat"
-      },
-      {
-       "pair_id": "train:18076",
-       "sw_word": "nitawauza",
-       "dav_word": "nichawiuza",
-       "root": "wiuz"
       }
      ]
     },
     {
-     "template": "SM-cha-OM-ROOT-a",
+     "template": "SM+e-re-ROOT-ieghe",
      "shape": {
       "neg": "-",
-      "series": "bare",
-      "tam": "cha",
-      "om": "OM",
-      "final": "a"
-     },
-     "n": 504,
-     "share": {
-      "rate": 0.15889029003783103,
-      "ci95": [
-       0.14658164445810448,
-       0.17202417013919788
-      ],
-      "k": 504,
-      "n": 3172,
-      "low_n": false
-     },
-     "tier": "active",
-     "examples": [
-      {
-       "pair_id": "train:18219",
-       "sw_word": "atakuambia",
-       "dav_word": "uchakughoria",
-       "root": "ghori"
-      },
-      {
-       "pair_id": "train:809",
-       "sw_word": "kitanisaidia",
-       "dav_word": "chichanitesia",
-       "root": "tesi"
-      },
-      {
-       "pair_id": "train:3856",
-       "sw_word": "atatutembelea",
-       "dav_word": "uchadiroghua",
-       "root": "roghu"
-      }
-     ]
-    },
-    {
-     "template": "SM-cha-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "cha",
+      "series": "e",
+      "tam": "re",
       "om": "-",
-      "final": "-"
+      "final": "ieghe"
      },
-     "n": 398,
+     "n": 149,
      "share": {
-      "rate": 0.12547288776796975,
+      "rate": 0.032696949747640994,
       "ci95": [
-       0.11439607511256136,
-       0.137455780471168
+       0.027914161447017707,
+       0.0382669574061343
       ],
-      "k": 398,
-      "n": 3172,
+      "k": 149,
+      "n": 4557,
       "low_n": false
      },
-     "tier": "active",
+     "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:19141",
-       "sw_word": "tutapitia",
-       "dav_word": "dichaidia",
-       "root": "idia"
+       "pair_id": "train:14314",
+       "sw_word": "nilisema",
+       "dav_word": "nereghorieghe",
+       "root": "ghor"
       },
       {
-       "pair_id": "train:20483",
-       "sw_word": "watakuwa",
-       "dav_word": "wichakaia",
-       "root": "kaia"
+       "pair_id": "train:11489",
+       "sw_word": "walitoka",
+       "dav_word": "werefumieghe",
+       "root": "fum"
       },
       {
-       "pair_id": "train:493",
-       "sw_word": "watapata",
-       "dav_word": "wichapata",
-       "root": "pata"
+       "pair_id": "train:8547",
+       "sw_word": "aliziumba",
+       "dav_word": "oreumbieghe",
+       "root": "umb"
       }
      ]
     },
@@ -677,120 +587,168 @@
       "om": "-",
       "final": "a"
      },
-     "n": 247,
+     "n": 141,
      "share": {
-      "rate": 0.0778688524590164,
+      "rate": 0.030941408821593155,
       "ci95": [
-       0.06904573456527544,
-       0.0877132171406283
+       0.026295498227559562,
+       0.036377496160142915
       ],
-      "k": 247,
-      "n": 3172,
+      "k": 141,
+      "n": 4557,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:18188",
-       "sw_word": "mtafurahi",
-       "dav_word": "mpoilwa",
-       "root": "poilw"
+       "pair_id": "train:12338",
+       "sw_word": "kulipa",
+       "dav_word": "kulipa",
+       "root": "lip"
       },
       {
-       "pair_id": "train:18530",
-       "sw_word": "atafurahi",
-       "dav_word": "upoilwa",
-       "root": "poilw"
+       "pair_id": "train:11694",
+       "sw_word": "kulipa",
+       "dav_word": "kulipa",
+       "root": "lip"
       },
       {
-       "pair_id": "train:23839",
-       "sw_word": "atasubiri",
-       "dav_word": "uwesera",
-       "root": "weser"
+       "pair_id": "train:12418",
+       "sw_word": "kulipa",
+       "dav_word": "kulipa",
+       "root": "lip"
+      }
+     ]
+    }
+   ]
+  },
+  "tam:ta": {
+   "n_aligned": 3769,
+   "n_unparsed": 276,
+   "readings": [
+    {
+     "template": "SM-cha-ROOT-a",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "cha",
+      "om": "-",
+      "final": "a"
+     },
+     "n": 974,
+     "share": {
+      "rate": 0.2584239851419475,
+      "ci95": [
+       0.24469877523989866,
+       0.2726411523096705
+      ],
+      "k": 974,
+      "n": 3769,
+      "low_n": false
+     },
+     "tier": "active",
+     "examples": [
+      {
+       "pair_id": "train:1936",
+       "sw_word": "atapata",
+       "dav_word": "uchapata",
+       "root": "pat"
+      },
+      {
+       "pair_id": "train:19141",
+       "sw_word": "tutapitia",
+       "dav_word": "dichaidia",
+       "root": "idi"
+      },
+      {
+       "pair_id": "train:865",
+       "sw_word": "utawacha",
+       "dav_word": "kuchasigha",
+       "root": "sigh"
       }
      ]
     },
     {
-     "template": "SM-cha-OM-ROOT",
+     "template": "SM-cha-OM-ROOT-a",
      "shape": {
       "neg": "-",
       "series": "bare",
       "tam": "cha",
       "om": "OM",
-      "final": "-"
+      "final": "a"
      },
-     "n": 163,
+     "n": 631,
      "share": {
-      "rate": 0.05138713745271122,
+      "rate": 0.16741841337224728,
       "ci95": [
-       0.04423175477510957,
-       0.059627833184189155
+       0.15583881463105267,
+       0.17967529759671755
       ],
-      "k": 163,
-      "n": 3172,
+      "k": 631,
+      "n": 3769,
       "low_n": false
      },
-     "tier": "tentative",
+     "tier": "active",
      "examples": [
       {
-       "pair_id": "train:18658",
-       "sw_word": "utawashangaza",
-       "dav_word": "kuchawishunua",
-       "root": "shunua"
+       "pair_id": "train:809",
+       "sw_word": "kitanisaidia",
+       "dav_word": "chichanitesia",
+       "root": "tesi"
       },
       {
        "pair_id": "train:20477",
        "sw_word": "atahesabu",
        "dav_word": "uchawitala",
-       "root": "tala"
+       "root": "tal"
       },
       {
-       "pair_id": "train:8783",
-       "sw_word": "mtashibishwa",
-       "dav_word": "mchaghudishwa",
-       "root": "dishwa"
+       "pair_id": "train:3856",
+       "sw_word": "atatutembelea",
+       "dav_word": "uchadiroghua",
+       "root": "roghu"
       }
      ]
     },
     {
-     "template": "SM+a-ROOT",
+     "template": "SM-ROOT-a",
      "shape": {
       "neg": "-",
-      "series": "a",
+      "series": "bare",
       "tam": "-",
       "om": "-",
-      "final": "-"
+      "final": "a"
      },
-     "n": 161,
+     "n": 284,
      "share": {
-      "rate": 0.05075662042875158,
+      "rate": 0.07535155213584505,
       "ci95": [
-       0.043646553731819,
-       0.05895352556684627
+       0.06735005394619414,
+       0.08421782528838595
       ],
-      "k": 161,
-      "n": 3172,
+      "k": 284,
+      "n": 3769,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:14439",
-       "sw_word": "wataanza",
-       "dav_word": "wazoya",
-       "root": "zoya"
+       "pair_id": "train:23839",
+       "sw_word": "atasubiri",
+       "dav_word": "uwesera",
+       "root": "weser"
       },
       {
-       "pair_id": "train:12216",
-       "sw_word": "watatu",
-       "dav_word": "wadadu",
-       "root": "dadu"
+       "pair_id": "train:25267",
+       "sw_word": "mtaita",
+       "dav_word": "mdawida",
+       "root": "dawid"
       },
       {
-       "pair_id": "train:3502",
-       "sw_word": "watatu",
-       "dav_word": "wadadu",
-       "root": "dadu"
+       "pair_id": "train:22574",
+       "sw_word": "ataleta",
+       "dav_word": "ureda",
+       "root": "red"
       }
      ]
     },
@@ -803,129 +761,45 @@
       "om": "OM",
       "final": "a"
      },
-     "n": 120,
+     "n": 122,
      "share": {
-      "rate": 0.03783102143757881,
+      "rate": 0.03236932873441231,
       "ci95": [
-       0.03173102551993704,
-       0.045049126235742455
+       0.027178110356933887,
+       0.03851285318630101
       ],
-      "k": 120,
-      "n": 3172,
+      "k": 122,
+      "n": 3769,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:10197",
-       "sw_word": "nitakutumia",
-       "dav_word": "nikudumia",
-       "root": "dumi"
+       "pair_id": "train:17557",
+       "sw_word": "utaninunulia",
+       "dav_word": "kunighuiya",
+       "root": "ghuiy"
       },
       {
-       "pair_id": "train:17553",
-       "sw_word": "utaniletea",
-       "dav_word": "kuniredia",
-       "root": "redi"
+       "pair_id": "train:7549",
+       "sw_word": "utafanya",
+       "dav_word": "kuchibonya",
+       "root": "bony"
       },
       {
-       "pair_id": "train:906",
-       "sw_word": "nitakupigia",
-       "dav_word": "nikukabia",
-       "root": "kabi"
-      }
-     ]
-    },
-    {
-     "template": "ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "none",
-      "tam": "-",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 110,
-     "share": {
-      "rate": 0.03467843631778058,
-      "ci95": [
-       0.028853012249357705,
-       0.04162959620315453
-      ],
-      "k": 110,
-      "n": 3172,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:17082",
-       "sw_word": "nitavunja",
-       "dav_word": "chikanya",
-       "root": "chikany"
-      },
-      {
-       "pair_id": "train:13800",
-       "sw_word": "watawala",
-       "dav_word": "nguma",
-       "root": "ngum"
-      },
-      {
-       "pair_id": "train:20796",
-       "sw_word": "atakama",
-       "dav_word": "ngera",
-       "root": "nger"
+       "pair_id": "train:22683",
+       "sw_word": "atanisaidia",
+       "dav_word": "unitesia",
+       "root": "tesi"
       }
      ]
     }
    ]
   },
   "tam:na": {
-   "n_aligned": 2953,
-   "n_unparsed": 223,
+   "n_aligned": 3152,
+   "n_unparsed": 252,
    "readings": [
-    {
-     "template": "SM+a-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "a",
-      "tam": "-",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 574,
-     "share": {
-      "rate": 0.1943785980358957,
-      "ci95": [
-       0.18050645727060147,
-       0.20904488021058118
-      ],
-      "k": 574,
-      "n": 2953,
-      "low_n": false
-     },
-     "tier": "active",
-     "examples": [
-      {
-       "pair_id": "train:4622",
-       "sw_word": "wanaweza",
-       "dav_word": "yadima",
-       "root": "dima"
-      },
-      {
-       "pair_id": "train:4674",
-       "sw_word": "wanaweza",
-       "dav_word": "vadima",
-       "root": "dima"
-      },
-      {
-       "pair_id": "train:3286",
-       "sw_word": "zinaweza",
-       "dav_word": "ghadima",
-       "root": "dima"
-      }
-     ]
-    },
     {
      "template": "SM+a-ROOT-a",
      "shape": {
@@ -935,78 +809,36 @@
       "om": "-",
       "final": "a"
      },
-     "n": 383,
+     "n": 667,
      "share": {
-      "rate": 0.1296986115814426,
+      "rate": 0.21161167512690354,
       "ci95": [
-       0.11806015207922364,
-       0.14229928009326748
+       0.19770763485540677,
+       0.22621782452126155
       ],
-      "k": 383,
-      "n": 2953,
+      "k": 667,
+      "n": 3152,
       "low_n": false
      },
      "tier": "active",
      "examples": [
       {
-       "pair_id": "train:14900",
-       "sw_word": "unaachana",
-       "dav_word": "kwasighana",
-       "root": "sighan"
+       "pair_id": "train:4622",
+       "sw_word": "wanaweza",
+       "dav_word": "yadima",
+       "root": "dim"
       },
       {
-       "pair_id": "train:10472",
-       "sw_word": "ninasoma",
-       "dav_word": "nashoma",
-       "root": "shom"
+       "pair_id": "train:4674",
+       "sw_word": "wanaweza",
+       "dav_word": "vadima",
+       "root": "dim"
       },
       {
-       "pair_id": "train:10507",
-       "sw_word": "analala",
-       "dav_word": "walalia",
-       "root": "lali"
-      }
-     ]
-    },
-    {
-     "template": "ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "none",
-      "tam": "-",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 216,
-     "share": {
-      "rate": 0.07314595326786319,
-      "ci95": [
-       0.0642989756711319,
-       0.08310208903250323
-      ],
-      "k": 216,
-      "n": 2953,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:10301",
-       "sw_word": "wanawake",
-       "dav_word": "waka",
-       "root": "wak"
-      },
-      {
-       "pair_id": "train:24883",
-       "sw_word": "wanawake",
-       "dav_word": "waka",
-       "root": "wak"
-      },
-      {
-       "pair_id": "train:12132",
-       "sw_word": "wanawake",
-       "dav_word": "waka",
-       "root": "wak"
+       "pair_id": "train:3286",
+       "sw_word": "zinaweza",
+       "dav_word": "ghadima",
+       "root": "dim"
       }
      ]
     },
@@ -1019,15 +851,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 179,
+     "n": 258,
      "share": {
-      "rate": 0.06061632238401626,
+      "rate": 0.08185279187817258,
       "ci95": [
-       0.052567071276669645,
-       0.06980728925721895
+       0.07278356652271668,
+       0.0919400368419135
       ],
-      "k": 179,
-      "n": 2953,
+      "k": 258,
+      "n": 3152,
       "low_n": false
      },
      "tier": "tentative",
@@ -1039,16 +871,58 @@
        "root": "tesi"
       },
       {
+       "pair_id": "train:24656",
+       "sw_word": "unaenda",
+       "dav_word": "kwaweenda",
+       "root": "end"
+      },
+      {
        "pair_id": "train:20332",
        "sw_word": "anacheza",
        "dav_word": "wawesarigha",
        "root": "sarigh"
+      }
+     ]
+    },
+    {
+     "template": "SM+a-ROOT-i",
+     "shape": {
+      "neg": "-",
+      "series": "a",
+      "tam": "-",
+      "om": "-",
+      "final": "i"
+     },
+     "n": 209,
+     "share": {
+      "rate": 0.06630710659898477,
+      "ci95": [
+       0.05813778673243411,
+       0.07553229354028931
+      ],
+      "k": 209,
+      "n": 3152,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "train:11781",
+       "sw_word": "wanafanya",
+       "dav_word": "wabonyi",
+       "root": "bony"
       },
       {
-       "pair_id": "train:15187",
-       "sw_word": "inaungua",
-       "dav_word": "vawelungua",
-       "root": "lungu"
+       "pair_id": "bible:NEN:ISA.8.16",
+       "sw_word": "wanafunzi",
+       "dav_word": "wanughi",
+       "root": "nugh"
+      },
+      {
+       "pair_id": "bible:NEN:ISA.58.3",
+       "sw_word": "mnafanya",
+       "dav_word": "wabonyi",
+       "root": "bony"
       }
      ]
     },
@@ -1061,15 +935,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 177,
+     "n": 190,
      "share": {
-      "rate": 0.05993904503894345,
+      "rate": 0.060279187817258884,
       "ci95": [
-       0.05193561928816533,
-       0.06908594642573697
+       0.05249333505493063,
+       0.06913558320256365
       ],
-      "k": 177,
-      "n": 2953,
+      "k": 190,
+      "n": 3152,
       "low_n": false
      },
      "tier": "tentative",
@@ -1087,60 +961,144 @@
        "root": "kund"
       },
       {
-       "pair_id": "train:20173",
-       "sw_word": "wanafurahishwa",
-       "dav_word": "wadapoilwa",
-       "root": "poilw"
+       "pair_id": "train:4823",
+       "sw_word": "inaleta",
+       "dav_word": "yadareda",
+       "root": "red"
       }
      ]
     },
     {
-     "template": "SM+a-we-ROOT",
+     "template": "ROOT-a",
      "shape": {
       "neg": "-",
-      "series": "a",
-      "tam": "we",
+      "series": "none",
+      "tam": "-",
       "om": "-",
-      "final": "-"
+      "final": "a"
      },
-     "n": 160,
+     "n": 188,
      "share": {
-      "rate": 0.054182187605824585,
+      "rate": 0.05964467005076142,
       "ci95": [
-       0.046581175388142895,
-       0.06294163435587585
+       0.051900486412477506,
+       0.0684609411065716
       ],
-      "k": 160,
-      "n": 2953,
+      "k": 188,
+      "n": 3152,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:24656",
-       "sw_word": "unaenda",
-       "dav_word": "kwaweenda",
-       "root": "enda"
+       "pair_id": "train:10301",
+       "sw_word": "wanawake",
+       "dav_word": "waka",
+       "root": "wak"
       },
       {
-       "pair_id": "train:1273",
-       "sw_word": "wanatembea",
-       "dav_word": "raweenda",
-       "root": "enda"
+       "pair_id": "train:24883",
+       "sw_word": "wanawake",
+       "dav_word": "waka",
+       "root": "wak"
       },
       {
-       "pair_id": "train:3200",
-       "sw_word": "anameza",
-       "dav_word": "wawemila",
-       "root": "mila"
+       "pair_id": "train:3672",
+       "sw_word": "kunaweza",
+       "dav_word": "dima",
+       "root": "dim"
+      }
+     ]
+    },
+    {
+     "template": "SM-ROOT-a",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "-",
+      "om": "-",
+      "final": "a"
+     },
+     "n": 112,
+     "share": {
+      "rate": 0.03553299492385787,
+      "ci95": [
+       0.029614797690258043,
+       0.04258198176787445
+      ],
+      "k": 112,
+      "n": 3152,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "train:4677",
+       "sw_word": "wanaweza",
+       "dav_word": "ridima",
+       "root": "dim"
+      },
+      {
+       "pair_id": "train:26111",
+       "sw_word": "unaweza",
+       "dav_word": "kudima",
+       "root": "dim"
+      },
+      {
+       "pair_id": "train:26008",
+       "sw_word": "wanashindwa",
+       "dav_word": "wilemwa",
+       "root": "lemw"
+      }
+     ]
+    },
+    {
+     "template": "SM-ROOT-agha",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "-",
+      "om": "-",
+      "final": "agha"
+     },
+     "n": 108,
+     "share": {
+      "rate": 0.03426395939086294,
+      "ci95": [
+       0.028458949339644594,
+       0.041202848641597546
+      ],
+      "k": 108,
+      "n": 3152,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "train:13504",
+       "sw_word": "wanakunywa",
+       "dav_word": "winywagha",
+       "root": "nyw"
+      },
+      {
+       "pair_id": "train:5205",
+       "sw_word": "wanalia",
+       "dav_word": "wililagha",
+       "root": "lil"
+      },
+      {
+       "pair_id": "train:20790",
+       "sw_word": "yanatengeneza",
+       "dav_word": "ghiboisagha",
+       "root": "bois"
       }
      ]
     }
    ]
   },
   "tam:ka": {
-   "n_aligned": 7487,
-   "n_unparsed": 909,
+   "n_aligned": 8012,
+   "n_unparsed": 958,
    "readings": [
     {
      "template": "SM-ka-ROOT-a",
@@ -1151,15 +1109,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 2372,
+     "n": 2771,
      "share": {
-      "rate": 0.31681581407773474,
+      "rate": 0.3458562156764853,
       "ci95": [
-       0.30637364669805134,
-       0.3274458696564262
+       0.3355170659550018,
+       0.3563431125195829
       ],
-      "k": 2372,
-      "n": 7487,
+      "k": 2771,
+      "n": 8012,
       "low_n": false
      },
      "tier": "active",
@@ -1171,13 +1129,13 @@
        "root": "sughusik"
       },
       {
-       "pair_id": "train:25702",
-       "sw_word": "akakataa",
-       "dav_word": "ukalegha",
-       "root": "legh"
+       "pair_id": "train:25079",
+       "sw_word": "wakarudi",
+       "dav_word": "wikawuya",
+       "root": "wuy"
       },
       {
-       "pair_id": "train:26257",
+       "pair_id": "train:25702",
        "sw_word": "akakataa",
        "dav_word": "ukalegha",
        "root": "legh"
@@ -1193,15 +1151,15 @@
       "om": "OM",
       "final": "a"
      },
-     "n": 1655,
+     "n": 2296,
      "share": {
-      "rate": 0.22104981968745827,
+      "rate": 0.2865701447828258,
       "ci95": [
-       0.2117947559045542,
-       0.23059099685251921
+       0.2767733291159997,
+       0.2965715333872714
       ],
-      "k": 1655,
-      "n": 7487,
+      "k": 2296,
+      "n": 8012,
       "low_n": false
      },
      "tier": "active",
@@ -1213,108 +1171,66 @@
        "root": "kali"
       },
       {
+       "pair_id": "train:18837",
+       "sw_word": "ukaingia",
+       "dav_word": "kukaingia",
+       "root": "ngi"
+      },
+      {
        "pair_id": "train:14831",
        "sw_word": "akanitazama",
        "dav_word": "ukanizighana",
        "root": "zighan"
-      },
-      {
-       "pair_id": "train:20645",
-       "sw_word": "akavibariki",
-       "dav_word": "ukavirasimia",
-       "root": "rasimi"
       }
      ]
     },
     {
-     "template": "SM-ka-OM-ROOT",
+     "template": "SM-ROOT-a",
      "shape": {
       "neg": "-",
       "series": "bare",
-      "tam": "ka",
-      "om": "OM",
-      "final": "-"
-     },
-     "n": 674,
-     "share": {
-      "rate": 0.09002270602377455,
-      "ci95": [
-       0.08374795163705134,
-       0.09671796557043574
-      ],
-      "k": 674,
-      "n": 7487,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:24163",
-       "sw_word": "akafukuzwa",
-       "dav_word": "ukawingwa",
-       "root": "ngwa"
-      },
-      {
-       "pair_id": "train:18837",
-       "sw_word": "ukaingia",
-       "dav_word": "kukaingia",
-       "root": "ngia"
-      },
-      {
-       "pair_id": "train:932",
-       "sw_word": "akakishika",
-       "dav_word": "ukachiwada",
-       "root": "wada"
-      }
-     ]
-    },
-    {
-     "template": "SM-ka-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "ka",
+      "tam": "-",
       "om": "-",
-      "final": "-"
+      "final": "a"
      },
-     "n": 566,
+     "n": 259,
      "share": {
-      "rate": 0.0755977026846534,
+      "rate": 0.032326510234648026,
       "ci95": [
-       0.06982486213782221,
-       0.08180584381649941
+       0.02867225067684496,
+       0.036429035755761195
       ],
-      "k": 566,
-      "n": 7487,
+      "k": 259,
+      "n": 8012,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:25079",
-       "sw_word": "wakarudi",
-       "dav_word": "wikawuya",
-       "root": "wuya"
+       "pair_id": "train:12411",
+       "sw_word": "ikashinda",
+       "dav_word": "kushinda",
+       "root": "shind"
       },
       {
-       "pair_id": "train:24873",
-       "sw_word": "nikaingia",
-       "dav_word": "nikangia",
-       "root": "ngia"
+       "pair_id": "train:14562",
+       "sw_word": "wakakosa",
+       "dav_word": "kusowa",
+       "root": "sow"
       },
       {
-       "pair_id": "train:22224",
-       "sw_word": "kikamwagika",
-       "dav_word": "vikadika",
-       "root": "dika"
+       "pair_id": "train:1004",
+       "sw_word": "tukamwangalie",
+       "dav_word": "kuzighana",
+       "root": "zighan"
       }
      ]
     }
    ]
   },
   "tam:ki": {
-   "n_aligned": 1376,
-   "n_unparsed": 177,
+   "n_aligned": 1454,
+   "n_unparsed": 195,
    "readings": [
     {
      "template": "SM-ki-ROOT-a",
@@ -1325,25 +1241,19 @@
       "om": "-",
       "final": "a"
      },
-     "n": 291,
+     "n": 331,
      "share": {
-      "rate": 0.21148255813953487,
+      "rate": 0.22764786795048142,
       "ci95": [
-       0.190723969095216,
-       0.23384766289500664
+       0.20682872790660972,
+       0.24990237374393992
       ],
-      "k": 291,
-      "n": 1376,
+      "k": 331,
+      "n": 1454,
       "low_n": false
      },
      "tier": "active",
      "examples": [
-      {
-       "pair_id": "train:24656",
-       "sw_word": "ukiambia",
-       "dav_word": "kukighoria",
-       "root": "ghori"
-      },
       {
        "pair_id": "train:8677",
        "sw_word": "akiomba",
@@ -1355,6 +1265,12 @@
        "sw_word": "ikitegemea",
        "dav_word": "ikitegemea",
        "root": "tegeme"
+      },
+      {
+       "pair_id": "train:25211",
+       "sw_word": "akitafuta",
+       "dav_word": "ukilola",
+       "root": "lol"
       }
      ]
     },
@@ -1367,15 +1283,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 198,
+     "n": 224,
      "share": {
-      "rate": 0.1438953488372093,
+      "rate": 0.15405777166437415,
       "ci95": [
-       0.1263407992115806,
-       0.1634327516075859
+       0.13641535969800608,
+       0.17352338810559617
       ],
-      "k": 198,
-      "n": 1376,
+      "k": 224,
+      "n": 1454,
       "low_n": false
      },
      "tier": "active",
@@ -1401,6 +1317,48 @@
      ]
     },
     {
+     "template": "SM-ka-OM-ROOT-a",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "ka",
+      "om": "OM",
+      "final": "a"
+     },
+     "n": 91,
+     "share": {
+      "rate": 0.06258596973865199,
+      "ci95": [
+       0.051251464506749236,
+       0.0762257593562548
+      ],
+      "k": 91,
+      "n": 1454,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "train:1797",
+       "sw_word": "ukiniuliza",
+       "dav_word": "kukanikotia",
+       "root": "koti"
+      },
+      {
+       "pair_id": "train:915",
+       "sw_word": "mkinipenda",
+       "dav_word": "mkanikunda",
+       "root": "kund"
+      },
+      {
+       "pair_id": "train:14058",
+       "sw_word": "akiniambia",
+       "dav_word": "ukanizera",
+       "root": "zer"
+      }
+     ]
+    },
+    {
      "template": "ROOT-a",
      "shape": {
       "neg": "-",
@@ -1409,15 +1367,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 76,
+     "n": 74,
      "share": {
-      "rate": 0.055232558139534885,
+      "rate": 0.05089408528198074,
       "ci95": [
-       0.044354214471264745,
-       0.06858744491920445
+       0.040733486502825766,
+       0.06342158768356045
       ],
-      "k": 76,
-      "n": 1376,
+      "k": 74,
+      "n": 1454,
       "low_n": false
      },
      "tier": "tentative",
@@ -1443,132 +1401,6 @@
      ]
     },
     {
-     "template": "SM-ka-OM-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "ka",
-      "om": "OM",
-      "final": "a"
-     },
-     "n": 73,
-     "share": {
-      "rate": 0.053052325581395346,
-      "ci95": [
-       0.0424048732865312,
-       0.06618846090487164
-      ],
-      "k": 73,
-      "n": 1376,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:1797",
-       "sw_word": "ukiniuliza",
-       "dav_word": "kukanikotia",
-       "root": "koti"
-      },
-      {
-       "pair_id": "train:23347",
-       "sw_word": "nikimpigia",
-       "dav_word": "nikamkabia",
-       "root": "kabi"
-      },
-      {
-       "pair_id": "train:915",
-       "sw_word": "mkinipenda",
-       "dav_word": "mkanikunda",
-       "root": "kund"
-      }
-     ]
-    },
-    {
-     "template": "SM-ki-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "ki",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 69,
-     "share": {
-      "rate": 0.0501453488372093,
-      "ci95": [
-       0.03981430848418556,
-       0.06298125877512883
-      ],
-      "k": 69,
-      "n": 1376,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:20876",
-       "sw_word": "wakicheza",
-       "dav_word": "wikivina",
-       "root": "vina"
-      },
-      {
-       "pair_id": "train:25211",
-       "sw_word": "akitafuta",
-       "dav_word": "ukilola",
-       "root": "lola"
-      },
-      {
-       "pair_id": "train:941",
-       "sw_word": "akitafuta",
-       "dav_word": "ukilola",
-       "root": "lola"
-      }
-     ]
-    },
-    {
-     "template": "SM-ka-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "ka",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 64,
-     "share": {
-      "rate": 0.046511627906976744,
-      "ci95": [
-       0.03659099631468272,
-       0.05895736227952115
-      ],
-      "k": 64,
-      "n": 1376,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:14028",
-       "sw_word": "ukiamka",
-       "dav_word": "kukawuka",
-       "root": "wuka"
-      },
-      {
-       "pair_id": "train:23906",
-       "sw_word": "ikilala",
-       "dav_word": "vikalala",
-       "root": "lala"
-      },
-      {
-       "pair_id": "train:25318",
-       "sw_word": "akipika",
-       "dav_word": "ukadeka",
-       "root": "deka"
-      }
-     ]
-    },
-    {
      "template": "SM-ROOT-a",
      "shape": {
       "neg": "-",
@@ -1577,15 +1409,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 60,
+     "n": 61,
      "share": {
-      "rate": 0.0436046511627907,
+      "rate": 0.041953232462173314,
       "ci95": [
-       0.03402540452061828,
-       0.05572518714149714
+       0.03279824583565402,
+       0.0535222433039068
       ],
-      "k": 60,
-      "n": 1376,
+      "k": 61,
+      "n": 1454,
       "low_n": false
      },
      "tier": "tentative",
@@ -1597,16 +1429,16 @@
        "root": "dumbu"
       },
       {
-       "pair_id": "bible:NEN:GEN.42.38",
-       "sw_word": "akipatwa",
-       "dav_word": "kupatwa",
-       "root": "patw"
-      },
-      {
        "pair_id": "bible:NEN:EXO.5.8",
        "sw_word": "wakisema",
        "dav_word": "kughamba",
        "root": "ghamb"
+      },
+      {
+       "pair_id": "bible:NEN:EXO.22.10",
+       "sw_word": "akijeruhiwa",
+       "dav_word": "kushoghonoka",
+       "root": "shoghonok"
       }
      ]
     },
@@ -1619,15 +1451,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 49,
+     "n": 60,
      "share": {
-      "rate": 0.03561046511627907,
+      "rate": 0.04126547455295736,
       "ci95": [
-       0.027040114575500655,
-       0.046766618023371564
+       0.032192573193866966,
+       0.052756024788245745
       ],
-      "k": 49,
-      "n": 1376,
+      "k": 60,
+      "n": 1454,
       "low_n": false
      },
      "tier": "tentative",
@@ -1639,67 +1471,67 @@
        "root": "rurum"
       },
       {
-       "pair_id": "train:22793",
-       "sw_word": "ukimaliza",
-       "dav_word": "kwameria",
-       "root": "meri"
+       "pair_id": "train:18186",
+       "sw_word": "ukifika",
+       "dav_word": "kwavika",
+       "root": "vik"
       },
       {
-       "pair_id": "bible:NEN:GEN.24.5",
-       "sw_word": "akikataa",
-       "dav_word": "walegha",
-       "root": "legh"
+       "pair_id": "train:16657",
+       "sw_word": "akipatwa",
+       "dav_word": "wapata",
+       "root": "pat"
+      }
+     ]
+    },
+    {
+     "template": "SM-ki-OM-ROOT-a",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "ki",
+      "om": "OM",
+      "final": "a"
+     },
+     "n": 52,
+     "share": {
+      "rate": 0.03576341127922971,
+      "ci95": [
+       0.02737594258000734,
+       0.04659752614252053
+      ],
+      "k": 52,
+      "n": 1454,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "train:11100",
+       "sw_word": "ukinisubiri",
+       "dav_word": "kukiniwesera",
+       "root": "weser"
+      },
+      {
+       "pair_id": "train:13855",
+       "sw_word": "wakikuambia",
+       "dav_word": "wikikuzera",
+       "root": "zer"
+      },
+      {
+       "pair_id": "train:14400",
+       "sw_word": "akimwambia",
+       "dav_word": "ukimzera",
+       "root": "zer"
       }
      ]
     }
    ]
   },
   "tam:nge": {
-   "n_aligned": 129,
-   "n_unparsed": 7,
+   "n_aligned": 158,
+   "n_unparsed": 16,
    "readings": [
-    {
-     "template": "SM+a-ROOT-e",
-     "shape": {
-      "neg": "-",
-      "series": "a",
-      "tam": "-",
-      "om": "-",
-      "final": "e"
-     },
-     "n": 10,
-     "share": {
-      "rate": 0.07751937984496124,
-      "ci95": [
-       0.042649313988268156,
-       0.13682458575398126
-      ],
-      "k": 10,
-      "n": 129,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:14276",
-       "sw_word": "ningetaka",
-       "dav_word": "nakunde",
-       "root": "kund"
-      },
-      {
-       "pair_id": "train:11164",
-       "sw_word": "ningependa",
-       "dav_word": "nakunde",
-       "root": "kund"
-      },
-      {
-       "pair_id": "train:14259",
-       "sw_word": "ningetaka",
-       "dav_word": "nakunde",
-       "root": "kund"
-      }
-     ]
-    },
     {
      "template": "SM-ROOT-a",
      "shape": {
@@ -1709,15 +1541,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 10,
+     "n": 14,
      "share": {
-      "rate": 0.07751937984496124,
+      "rate": 0.08860759493670886,
       "ci95": [
-       0.042649313988268156,
-       0.13682458575398126
+       0.05351458793371128,
+       0.14323087182447203
       ],
-      "k": 10,
-      "n": 129,
+      "k": 14,
+      "n": 158,
       "low_n": false
      },
      "tier": "tentative",
@@ -1751,25 +1583,19 @@
       "om": "-",
       "final": "a"
      },
-     "n": 7,
+     "n": 12,
      "share": {
-      "rate": 0.05426356589147287,
+      "rate": 0.0759493670886076,
       "ci95": [
-       0.026530617490702076,
-       0.10777670792543265
+       0.0439770159976039,
+       0.12805291944544658
       ],
-      "k": 7,
-      "n": 129,
+      "k": 12,
+      "n": 158,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
-      {
-       "pair_id": "train:24121",
-       "sw_word": "wangebeba",
-       "dav_word": "wadukaa",
-       "root": "duka"
-      },
       {
        "pair_id": "train:10053",
        "sw_word": "angeweza",
@@ -1777,9 +1603,15 @@
        "root": "dim"
       },
       {
-       "pair_id": "bible:NEN:2SA.11.20",
-       "sw_word": "wangeweza",
-       "dav_word": "wadima",
+       "pair_id": "bible:NEN:GEN.26.9",
+       "sw_word": "ningeweza",
+       "dav_word": "nadima",
+       "root": "dim"
+      },
+      {
+       "pair_id": "bible:NEN:GEN.31.31",
+       "sw_word": "ungeweza",
+       "dav_word": "kwadima",
        "root": "dim"
       }
      ]
@@ -1793,19 +1625,25 @@
       "om": "OM",
       "final": "a"
      },
-     "n": 7,
+     "n": 11,
      "share": {
-      "rate": 0.05426356589147287,
+      "rate": 0.06962025316455696,
       "ci95": [
-       0.026530617490702076,
-       0.10777670792543265
+       0.03931605683447239,
+       0.12035611645101166
       ],
-      "k": 7,
-      "n": 129,
+      "k": 11,
+      "n": 158,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
+      {
+       "pair_id": "bible:NEN:NUM.11.22",
+       "sw_word": "wangetosheka",
+       "dav_word": "riwikata",
+       "root": "kat"
+      },
       {
        "pair_id": "bible:NEN:NUM.22.33",
        "sw_word": "ningemwacha",
@@ -1817,117 +1655,111 @@
        "sw_word": "angewaangamiza",
        "dav_word": "kumtotesha",
        "root": "totesh"
-      },
-      {
-       "pair_id": "bible:NEN:1SA.16.23",
-       "sw_word": "ingemwacha",
-       "dav_word": "kumsigha",
-       "root": "sigh"
       }
      ]
     },
     {
-     "template": "SM+a-ROOT",
+     "template": "SM+a-ROOT-e",
      "shape": {
       "neg": "-",
       "series": "a",
       "tam": "-",
       "om": "-",
-      "final": "-"
+      "final": "e"
      },
-     "n": 6,
+     "n": 9,
      "share": {
-      "rate": 0.046511627906976744,
+      "rate": 0.056962025316455694,
       "ci95": [
-       0.021488293026176247,
-       0.09776350761458688
+       0.03025373514703126,
+       0.10470291382331998
       ],
-      "k": 6,
-      "n": 129,
+      "k": 9,
+      "n": 158,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "bible:NEN:GEN.26.9",
-       "sw_word": "ningeweza",
-       "dav_word": "nadima",
-       "root": "dima"
+       "pair_id": "train:14276",
+       "sw_word": "ningetaka",
+       "dav_word": "nakunde",
+       "root": "kund"
       },
       {
-       "pair_id": "bible:NEN:GEN.31.31",
-       "sw_word": "ungeweza",
-       "dav_word": "kwadima",
-       "root": "dima"
+       "pair_id": "train:11164",
+       "sw_word": "ningependa",
+       "dav_word": "nakunde",
+       "root": "kund"
       },
       {
-       "pair_id": "bible:NEN:JOB.6.27",
-       "sw_word": "mngeweza",
-       "dav_word": "mwadima",
-       "root": "dima"
+       "pair_id": "train:14259",
+       "sw_word": "ningetaka",
+       "dav_word": "nakunde",
+       "root": "kund"
       }
      ]
     },
     {
-     "template": "SM+a-OM-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "a",
-      "tam": "-",
-      "om": "OM",
-      "final": "a"
-     },
-     "n": 6,
-     "share": {
-      "rate": 0.046511627906976744,
-      "ci95": [
-       0.021488293026176247,
-       0.09776350761458688
-      ],
-      "k": 6,
-      "n": 129,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "bible:NEN:2KI.5.3",
-       "sw_word": "angemponya",
-       "dav_word": "wamboisa",
-       "root": "bois"
-      },
-      {
-       "pair_id": "bible:NEN:JER.9.2",
-       "sw_word": "ningewaacha",
-       "dav_word": "nawisigha",
-       "root": "sigh"
-      },
-      {
-       "pair_id": "bible:NEN:LUK.17.6",
-       "sw_word": "ungewatii",
-       "dav_word": "ghwamsikira",
-       "root": "sikir"
-      }
-     ]
-    },
-    {
-     "template": "SM-ROOT",
+     "template": "SM-ROOT-agha",
      "shape": {
       "neg": "-",
       "series": "bare",
       "tam": "-",
       "om": "-",
-      "final": "-"
+      "final": "agha"
      },
-     "n": 5,
+     "n": 8,
      "share": {
-      "rate": 0.03875968992248062,
+      "rate": 0.05063291139240506,
       "ci95": [
-       0.01666725738662231,
-       0.08752901847876926
+       0.02587651500396356,
+       0.09672237180882129
       ],
-      "k": 5,
-      "n": 129,
+      "k": 8,
+      "n": 158,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "bible:NEN:PSA.130.3",
+       "sw_word": "angeweza",
+       "dav_word": "udimagha",
+       "root": "dim"
+      },
+      {
+       "pair_id": "bible:NEN:2KI.3.21",
+       "sw_word": "angeweza",
+       "dav_word": "widimagha",
+       "root": "dim"
+      },
+      {
+       "pair_id": "bible:NEN:1CH.5.18",
+       "sw_word": "wangeweza",
+       "dav_word": "widimagha",
+       "root": "dim"
+      }
+     ]
+    },
+    {
+     "template": "SM-ROOT-e",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "-",
+      "om": "-",
+      "final": "e"
+     },
+     "n": 6,
+     "share": {
+      "rate": 0.0379746835443038,
+      "ci95": [
+       0.017518093902477168,
+       0.08036526859517487
+      ],
+      "k": 6,
+      "n": 158,
       "low_n": false
      },
      "tier": "tentative",
@@ -1936,19 +1768,19 @@
        "pair_id": "train:13735",
        "sw_word": "wangepitia",
        "dav_word": "wiidie",
-       "root": "idie"
+       "root": "idi"
       },
       {
-       "pair_id": "bible:NEN:1SA.2.15",
-       "sw_word": "angekuja",
-       "dav_word": "kuocha",
-       "root": "ocha"
+       "pair_id": "bible:NEN:2SA.6.20",
+       "sw_word": "angefanya",
+       "dav_word": "idime",
+       "root": "dim"
       },
       {
-       "pair_id": "bible:NEN:2CH.31.16",
-       "sw_word": "wangeingia",
-       "dav_word": "kungia",
-       "root": "ngia"
+       "pair_id": "bible:NEN:1CH.4.10",
+       "sw_word": "ungenibariki",
+       "dav_word": "nirasimie",
+       "root": "rasimi"
       }
      ]
     },
@@ -1961,15 +1793,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 5,
+     "n": 6,
      "share": {
-      "rate": 0.03875968992248062,
+      "rate": 0.0379746835443038,
       "ci95": [
-       0.01666725738662231,
-       0.08752901847876926
+       0.017518093902477168,
+       0.08036526859517487
       ],
-      "k": 5,
-      "n": 129,
+      "k": 6,
+      "n": 158,
       "low_n": false
      },
      "tier": "tentative",
@@ -1987,94 +1819,52 @@
        "root": "shashir"
       },
       {
-       "pair_id": "bible:NEN:1SA.9.9",
-       "sw_word": "angesema",
-       "dav_word": "wadaghamba",
-       "root": "ghamb"
+       "pair_id": "bible:NEN:JOB.23.3",
+       "sw_word": "ningefahamu",
+       "dav_word": "nadamanya",
+       "root": "many"
       }
      ]
     },
     {
-     "template": "SM+a-ROOT-agha",
+     "template": "SM+a-OM-ROOT-a",
      "shape": {
       "neg": "-",
       "series": "a",
       "tam": "-",
-      "om": "-",
-      "final": "agha"
-     },
-     "n": 4,
-     "share": {
-      "rate": 0.031007751937984496,
-      "ci95": [
-       0.012122842184807997,
-       0.077017908905212
-      ],
-      "k": 4,
-      "n": 129,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:14689",
-       "sw_word": "ingewaletea",
-       "dav_word": "yaredagha",
-       "root": "red"
-      },
-      {
-       "pair_id": "bible:NEN:PSA.55.12",
-       "sw_word": "ningevumilia",
-       "dav_word": "narumaghiagha",
-       "root": "rumaghi"
-      },
-      {
-       "pair_id": "bible:NEN:2SA.19.6",
-       "sw_word": "ungefurahi",
-       "dav_word": "kwaboilwagha",
-       "root": "boilw"
-      }
-     ]
-    },
-    {
-     "template": "SM-ki-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "ki",
-      "om": "-",
+      "om": "OM",
       "final": "a"
      },
-     "n": 4,
+     "n": 6,
      "share": {
-      "rate": 0.031007751937984496,
+      "rate": 0.0379746835443038,
       "ci95": [
-       0.012122842184807997,
-       0.077017908905212
+       0.017518093902477168,
+       0.08036526859517487
       ],
-      "k": 4,
-      "n": 129,
+      "k": 6,
+      "n": 158,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "bible:NEN:GEN.43.7",
-       "sw_word": "angesema",
-       "dav_word": "ukighamba",
-       "root": "ghamb"
+       "pair_id": "bible:NEN:PSA.55.12",
+       "sw_word": "ningejificha",
+       "dav_word": "nakuvisa",
+       "root": "vis"
       },
       {
-       "pair_id": "bible:NEN:EXO.33.7",
-       "sw_word": "angeenda",
-       "dav_word": "ukighenda",
-       "root": "ghend"
+       "pair_id": "bible:NEN:2KI.5.3",
+       "sw_word": "angemponya",
+       "dav_word": "wamboisa",
+       "root": "bois"
       },
       {
-       "pair_id": "bible:NEN:LUK.1.62",
-       "sw_word": "angependa",
-       "dav_word": "wikikunda",
-       "root": "kund"
+       "pair_id": "bible:NEN:JER.9.2",
+       "sw_word": "ningewaacha",
+       "dav_word": "nawisigha",
+       "root": "sigh"
       }
      ]
     },
@@ -2087,15 +1877,15 @@
       "om": "OM",
       "final": "a"
      },
-     "n": 4,
+     "n": 5,
      "share": {
-      "rate": 0.031007751937984496,
+      "rate": 0.03164556962025317,
       "ci95": [
-       0.012122842184807997,
-       0.077017908905212
+       0.013591135465855646,
+       0.07193446487422996
       ],
-      "k": 4,
-      "n": 129,
+      "k": 5,
+      "n": 158,
       "low_n": false
      },
      "tier": "tentative",
@@ -2121,128 +1911,92 @@
      ]
     },
     {
-     "template": "SM-ROOT-agha",
+     "template": "SM+e-ROOT-a",
      "shape": {
       "neg": "-",
-      "series": "bare",
+      "series": "e",
       "tam": "-",
       "om": "-",
-      "final": "agha"
+      "final": "a"
      },
-     "n": 4,
+     "n": 5,
      "share": {
-      "rate": 0.031007751937984496,
+      "rate": 0.03164556962025317,
       "ci95": [
-       0.012122842184807997,
-       0.077017908905212
+       0.013591135465855646,
+       0.07193446487422996
       ],
-      "k": 4,
-      "n": 129,
+      "k": 5,
+      "n": 158,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "bible:NEN:PSA.38.12",
-       "sw_word": "wangetaka",
-       "dav_word": "wilolagha",
-       "root": "lol"
+       "pair_id": "bible:NEN:1CH.16.5",
+       "sw_word": "wangepiga",
+       "dav_word": "wekaba",
+       "root": "kab"
       },
       {
-       "pair_id": "bible:NEN:PSA.130.3",
-       "sw_word": "angeweza",
-       "dav_word": "udimagha",
-       "root": "dim"
+       "pair_id": "bible:NEN:1CH.16.5",
+       "sw_word": "angepiga",
+       "dav_word": "wekaba",
+       "root": "kab"
       },
       {
-       "pair_id": "bible:NEN:JOB.23.5",
-       "sw_word": "angenijibu",
-       "dav_word": "utumbuliagha",
-       "root": "tumbuli"
+       "pair_id": "bible:NEN:EST.2.14",
+       "sw_word": "angeenda",
+       "dav_word": "eghenda",
+       "root": "ghend"
       }
      ]
-    },
+    }
+   ]
+  },
+  "reltam:li": {
+   "n_aligned": 2116,
+   "n_unparsed": 170,
+   "readings": [
     {
-     "template": "SM+a-da-ROOT",
+     "template": "SM+e-re-OM-ROOT-ieghe",
      "shape": {
       "neg": "-",
-      "series": "a",
-      "tam": "da",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 4,
-     "share": {
-      "rate": 0.031007751937984496,
-      "ci95": [
-       0.012122842184807997,
-       0.077017908905212
-      ],
-      "k": 4,
-      "n": 129,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "bible:NEN:NUM.3.38",
-       "sw_word": "angeuawa",
-       "dav_word": "wadabwaghwa",
-       "root": "bwaghwa"
-      },
-      {
-       "pair_id": "bible:NEN:JER.37.10",
-       "sw_word": "mngelishinda",
-       "dav_word": "mwadasima",
-       "root": "sima"
-      },
-      {
-       "pair_id": "bible:NEN:EZK.14.14",
-       "sw_word": "wangeweza",
-       "dav_word": "wadadima",
-       "root": "dima"
-      }
-     ]
-    },
-    {
-     "template": "SM-OM-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "-",
+      "series": "e",
+      "tam": "re",
       "om": "OM",
-      "final": "-"
+      "final": "ieghe"
      },
-     "n": 4,
+     "n": 186,
      "share": {
-      "rate": 0.031007751937984496,
+      "rate": 0.08790170132325142,
       "ci95": [
-       0.012122842184807997,
-       0.077017908905212
+       0.0765716019417029,
+       0.10072541874135188
       ],
-      "k": 4,
-      "n": 129,
+      "k": 186,
+      "n": 2116,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "bible:NEN:NUM.11.22",
-       "sw_word": "wangetosheka",
-       "dav_word": "riwikata",
-       "root": "kata"
+       "pair_id": "train:14090",
+       "sw_word": "walichotuambia",
+       "dav_word": "weredizerieghe",
+       "root": "zer"
       },
       {
-       "pair_id": "bible:NEN:JDG.9.29",
-       "sw_word": "ningemwambia",
-       "dav_word": "kumzera",
-       "root": "zera"
+       "pair_id": "bible:NEN:GEN.17.23",
+       "sw_word": "alivyomwagiza",
+       "dav_word": "oremlaghirieghe",
+       "root": "laghir"
       },
       {
-       "pair_id": "bible:NEN:2KI.5.13",
-       "sw_word": "angekuambia",
-       "dav_word": "kumzera",
-       "root": "zera"
+       "pair_id": "bible:NEN:GEN.24.5",
+       "sw_word": "uliyotoka",
+       "dav_word": "korejifumieghe",
+       "root": "fum"
       }
      ]
     },
@@ -2255,45 +2009,39 @@
       "om": "-",
       "final": "e"
      },
-     "n": 4,
+     "n": 130,
      "share": {
-      "rate": 0.031007751937984496,
+      "rate": 0.06143667296786389,
       "ci95": [
-       0.012122842184807997,
-       0.077017908905212
+       0.051978260309131406,
+       0.07248462408751405
       ],
-      "k": 4,
-      "n": 129,
+      "k": 130,
+      "n": 2116,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "bible:NEN:1CH.4.10",
-       "sw_word": "ungenibariki",
-       "dav_word": "nirasimie",
-       "root": "rasimi"
+       "pair_id": "train:12707",
+       "sw_word": "iliyopita",
+       "dav_word": "ghiidie",
+       "root": "idi"
       },
       {
-       "pair_id": "bible:NEN:JOB.32.7",
-       "sw_word": "ungefundisha",
-       "dav_word": "mfundishe",
-       "root": "fundish"
+       "pair_id": "train:14389",
+       "sw_word": "aliyetaka",
+       "dav_word": "ukunde",
+       "root": "kund"
       },
       {
-       "pair_id": "bible:NEN:MAL.1.10",
-       "sw_word": "angeifunga",
-       "dav_word": "urughe",
-       "root": "rugh"
+       "pair_id": "train:14087",
+       "sw_word": "aliyefanya",
+       "dav_word": "ubonyere",
+       "root": "bonyer"
       }
      ]
-    }
-   ]
-  },
-  "reltam:li": {
-   "n_aligned": 1721,
-   "n_unparsed": 85,
-   "readings": [
+    },
     {
      "template": "SM+e-re-OM-ROOT-eghe",
      "shape": {
@@ -2303,15 +2051,15 @@
       "om": "OM",
       "final": "eghe"
      },
-     "n": 140,
+     "n": 108,
      "share": {
-      "rate": 0.08134805345729228,
+      "rate": 0.05103969754253308,
       "ci95": [
-       0.06934561846875235,
-       0.09521534759329069
+       0.04244927956787604,
+       0.06125733700196578
       ],
-      "k": 140,
-      "n": 1721,
+      "k": 108,
+      "n": 2116,
       "low_n": false
      },
      "tier": "tentative",
@@ -2329,10 +2077,10 @@
        "root": "kai"
       },
       {
-       "pair_id": "bible:NEN:GEN.17.23",
-       "sw_word": "alivyomwagiza",
-       "dav_word": "oremlaghirieghe",
-       "root": "laghiri"
+       "pair_id": "bible:NEN:GEN.38.10",
+       "sw_word": "alichofanya",
+       "dav_word": "orejibonyereghe",
+       "root": "bonyer"
       }
      ]
     },
@@ -2345,15 +2093,15 @@
       "om": "-",
       "final": "ie"
      },
-     "n": 88,
+     "n": 97,
      "share": {
-      "rate": 0.05113306217315514,
+      "rate": 0.045841209829867675,
       "ci95": [
-       0.04168957339819146,
-       0.06257600090150077
+       0.03772315023486685,
+       0.05560533242157314
       ],
-      "k": 88,
-      "n": 1721,
+      "k": 97,
+      "n": 2116,
       "low_n": false
      },
      "tier": "tentative",
@@ -2365,16 +2113,16 @@
        "root": "barik"
       },
       {
-       "pair_id": "train:20969",
-       "sw_word": "kilichovunjika",
-       "dav_word": "ghuchikie",
-       "root": "chik"
+       "pair_id": "train:10429",
+       "sw_word": "waliokosa",
+       "dav_word": "wisowie",
+       "root": "sow"
       },
       {
-       "pair_id": "train:23689",
-       "sw_word": "iliyokauka",
-       "dav_word": "iomie",
-       "root": "om"
+       "pair_id": "train:19371",
+       "sw_word": "uliopita",
+       "dav_word": "ghusirie",
+       "root": "sir"
       }
      ]
     },
@@ -2387,78 +2135,36 @@
       "om": "-",
       "final": "ieghe"
      },
-     "n": 87,
+     "n": 92,
      "share": {
-      "rate": 0.0505520046484602,
+      "rate": 0.043478260869565216,
       "ci95": [
-       0.04116549493248381,
-       0.06194055260254783
+       0.03558488100178252,
+       0.05302626805765663
       ],
-      "k": 87,
-      "n": 1721,
+      "k": 92,
+      "n": 2116,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
+      {
+       "pair_id": "train:13319",
+       "sw_word": "walioenda",
+       "dav_word": "wereendieghe",
+       "root": "end"
+      },
+      {
+       "pair_id": "train:13364",
+       "sw_word": "waliopiga",
+       "dav_word": "werekabieghe",
+       "root": "kab"
+      },
       {
        "pair_id": "train:14080",
        "sw_word": "walioingia",
        "dav_word": "werengirieghe",
        "root": "ngir"
-      },
-      {
-       "pair_id": "train:10663",
-       "sw_word": "alivyosema",
-       "dav_word": "oreghorieghe",
-       "root": "ghor"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.7.23",
-       "sw_word": "waliobaki",
-       "dav_word": "oresigharikieghe",
-       "root": "sigharik"
-      }
-     ]
-    },
-    {
-     "template": "SM+a-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "a",
-      "tam": "-",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 86,
-     "share": {
-      "rate": 0.04997094712376525,
-      "ci95": [
-       0.04064178921493174,
-       0.06130473155543929
-      ],
-      "k": 86,
-      "n": 1721,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:22702",
-       "sw_word": "iliyopikwa",
-       "dav_word": "yadekwa",
-       "root": "dekw"
-      },
-      {
-       "pair_id": "train:6023",
-       "sw_word": "mlivyotumwa",
-       "dav_word": "mwadumwa",
-       "root": "dumw"
-      },
-      {
-       "pair_id": "train:11036",
-       "sw_word": "alichosema",
-       "dav_word": "waghora",
-       "root": "ghor"
       }
      ]
     },
@@ -2473,13 +2179,13 @@
      },
      "n": 85,
      "share": {
-      "rate": 0.04938988959907031,
+      "rate": 0.04017013232514178,
       "ci95": [
-       0.040118462346357006,
-       0.06066853165935343
+       0.03260303037327542,
+       0.04940385165036256
       ],
       "k": 85,
-      "n": 1721,
+      "n": 2116,
       "low_n": false
      },
      "tier": "tentative",
@@ -2505,174 +2211,6 @@
      ]
     },
     {
-     "template": "SM+e-re-OM-ROOT-ieghe",
-     "shape": {
-      "neg": "-",
-      "series": "e",
-      "tam": "re",
-      "om": "OM",
-      "final": "ieghe"
-     },
-     "n": 78,
-     "share": {
-      "rate": 0.0453224869262057,
-      "ci95": [
-       0.036466333480707186,
-       0.056203973172379115
-      ],
-      "k": 78,
-      "n": 1721,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "bible:NEN:EXO.7.6",
-       "sw_word": "alivyowaamuru",
-       "dav_word": "orewilaghirieghe",
-       "root": "laghir"
-      },
-      {
-       "pair_id": "bible:NEN:EXO.7.10",
-       "sw_word": "alivyoagiza",
-       "dav_word": "orewilaghirieghe",
-       "root": "laghir"
-      },
-      {
-       "pair_id": "bible:NEN:EXO.8.13",
-       "sw_word": "alilomwomba",
-       "dav_word": "oremlombieghe",
-       "root": "lomb"
-      }
-     ]
-    },
-    {
-     "template": "SM+e-re-OM-ROOT-ereghe",
-     "shape": {
-      "neg": "-",
-      "series": "e",
-      "tam": "re",
-      "om": "OM",
-      "final": "ereghe"
-     },
-     "n": 72,
-     "share": {
-      "rate": 0.041836141778036025,
-      "ci95": [
-       0.03335282052570286,
-       0.05236032553941988
-      ],
-      "k": 72,
-      "n": 1721,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "bible:NEN:GEN.38.10",
-       "sw_word": "alichofanya",
-       "dav_word": "orejibonyereghe",
-       "root": "bony"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.39.23",
-       "sw_word": "alichofanya",
-       "dav_word": "orechibonyereghe",
-       "root": "bony"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.50.15",
-       "sw_word": "tuliyomtendea",
-       "dav_word": "derembonyereghe",
-       "root": "bony"
-      }
-     ]
-    },
-    {
-     "template": "SM-ROOT-e",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "-",
-      "om": "-",
-      "final": "e"
-     },
-     "n": 62,
-     "share": {
-      "rate": 0.03602556653108658,
-      "ci95": [
-       0.028203765096629016,
-       0.0459141133218878
-      ],
-      "k": 62,
-      "n": 1721,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:19371",
-       "sw_word": "uliopita",
-       "dav_word": "ghusirie",
-       "root": "siri"
-      },
-      {
-       "pair_id": "train:7349",
-       "sw_word": "uliopita",
-       "dav_word": "ghusirie",
-       "root": "siri"
-      },
-      {
-       "pair_id": "train:10662",
-       "sw_word": "lililopita",
-       "dav_word": "isirie",
-       "root": "siri"
-      }
-     ]
-    },
-    {
-     "template": "SM-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "-",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 56,
-     "share": {
-      "rate": 0.03253922138291691,
-      "ci95": [
-       0.025142482510222885,
-       0.042018235320330374
-      ],
-      "k": 56,
-      "n": 1721,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:26496",
-       "sw_word": "uliyezaliwa",
-       "dav_word": "kuvalo",
-       "root": "valo"
-      },
-      {
-       "pair_id": "train:12707",
-       "sw_word": "iliyopita",
-       "dav_word": "ghiidie",
-       "root": "idie"
-      },
-      {
-       "pair_id": "train:4381",
-       "sw_word": "iliyonyesha",
-       "dav_word": "inyee",
-       "root": "nyee"
-      }
-     ]
-    },
-    {
      "template": "SM-OM-ROOT-e",
      "shape": {
       "neg": "-",
@@ -2681,25 +2219,19 @@
       "om": "OM",
       "final": "e"
      },
-     "n": 53,
+     "n": 65,
      "share": {
-      "rate": 0.030796048808832074,
+      "rate": 0.030718336483931945,
       "ci95": [
-       0.02362101249984204,
-       0.04006112503672943
+       0.024174092245705978,
+       0.03896345538992867
       ],
-      "k": 53,
-      "n": 1721,
+      "k": 65,
+      "n": 2116,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
-      {
-       "pair_id": "train:22599",
-       "sw_word": "niliyokutumia",
-       "dav_word": "nikudumie",
-       "root": "dumi"
-      },
       {
        "pair_id": "train:13722",
        "sw_word": "nilivyosema",
@@ -2711,56 +2243,20 @@
        "sw_word": "alichokifanya",
        "dav_word": "umbonyere",
        "root": "bonyer"
-      }
-     ]
-    },
-    {
-     "template": "SM-ROOT-ere",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "-",
-      "om": "-",
-      "final": "ere"
-     },
-     "n": 53,
-     "share": {
-      "rate": 0.030796048808832074,
-      "ci95": [
-       0.02362101249984204,
-       0.04006112503672943
-      ],
-      "k": 53,
-      "n": 1721,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:14087",
-       "sw_word": "aliyefanya",
-       "dav_word": "ubonyere",
-       "root": "bony"
       },
       {
-       "pair_id": "train:12968",
-       "sw_word": "alioifanya",
-       "dav_word": "ubonyere",
-       "root": "bony"
-      },
-      {
-       "pair_id": "train:701",
-       "sw_word": "uliyotenda",
-       "dav_word": "kubonyere",
-       "root": "bony"
+       "pair_id": "train:14278",
+       "sw_word": "niliyoyatenda",
+       "dav_word": "nighibonyere",
+       "root": "bonyer"
       }
      ]
     }
    ]
   },
   "reltam:na": {
-   "n_aligned": 846,
-   "n_unparsed": 43,
+   "n_aligned": 1130,
+   "n_unparsed": 84,
    "readings": [
     {
      "template": "SM-ROOT-agha",
@@ -2771,19 +2267,25 @@
       "om": "-",
       "final": "agha"
      },
-     "n": 225,
+     "n": 308,
      "share": {
-      "rate": 0.26595744680851063,
+      "rate": 0.27256637168141595,
       "ci95": [
-       0.23728991679828376,
-       0.2967408955319199
+       0.2474068242416626,
+       0.29926706742010045
       ],
-      "k": 225,
-      "n": 846,
+      "k": 308,
+      "n": 1130,
       "low_n": false
      },
      "tier": "active",
      "examples": [
+      {
+       "pair_id": "train:4133",
+       "sw_word": "kinachoweza",
+       "dav_word": "chidimagha",
+       "root": "dim"
+      },
       {
        "pair_id": "train:4490",
        "sw_word": "wanaotenda",
@@ -2795,12 +2297,6 @@
        "sw_word": "wanaosimama",
        "dav_word": "wisimamagha",
        "root": "simam"
-      },
-      {
-       "pair_id": "train:14149",
-       "sw_word": "yanayotendeka",
-       "dav_word": "ribonyekagha",
-       "root": "bonyek"
       }
      ]
     },
@@ -2813,15 +2309,15 @@
       "om": "OM",
       "final": "agha"
      },
-     "n": 126,
+     "n": 130,
      "share": {
-      "rate": 0.14893617021276595,
+      "rate": 0.11504424778761062,
       "ci95": [
-       0.12653364428154149,
-       0.17451257421376395
+       0.09773016888315587,
+       0.13496688509687096
       ],
-      "k": 126,
-      "n": 846,
+      "k": 130,
+      "n": 1130,
       "low_n": false
      },
      "tier": "active",
@@ -2833,10 +2329,10 @@
        "root": "tegeme"
       },
       {
-       "pair_id": "train:14153",
-       "sw_word": "wanaotegemea",
-       "dav_word": "wikusaghikagha",
-       "root": "saghik"
+       "pair_id": "train:3490",
+       "sw_word": "unayoipata",
+       "dav_word": "kujipatagha",
+       "root": "pat"
       },
       {
        "pair_id": "train:22064",
@@ -2857,13 +2353,13 @@
      },
      "n": 71,
      "share": {
-      "rate": 0.08392434988179669,
+      "rate": 0.06283185840707965,
       "ci95": [
-       0.06706834670615107,
-       0.10454198632532209
+       0.05011091123112849,
+       0.0785151684611319
       ],
       "k": 71,
-      "n": 846,
+      "n": 1130,
       "low_n": false
      },
      "tier": "tentative",
@@ -2875,58 +2371,16 @@
        "root": "ghor"
       },
       {
-       "pair_id": "train:24856",
-       "sw_word": "anayetafuta",
-       "dav_word": "ulolaa",
-       "root": "lola"
+       "pair_id": "train:1937",
+       "sw_word": "anayempiga",
+       "dav_word": "ukaba",
+       "root": "kab"
       },
       {
        "pair_id": "bible:NEN:GEN.4.20",
        "sw_word": "wanaoishi",
        "dav_word": "kukaia",
        "root": "kai"
-      }
-     ]
-    },
-    {
-     "template": "SM+a-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "a",
-      "tam": "-",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 34,
-     "share": {
-      "rate": 0.04018912529550828,
-      "ci95": [
-       0.028900185857051883,
-       0.05563509695329774
-      ],
-      "k": 34,
-      "n": 846,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:802",
-       "sw_word": "anayeshikwa",
-       "dav_word": "wawadwa",
-       "root": "wadw"
-      },
-      {
-       "pair_id": "train:3606",
-       "sw_word": "unapokosea",
-       "dav_word": "kwakosera",
-       "root": "koser"
-      },
-      {
-       "pair_id": "bible:NEN:PSA.20.9",
-       "sw_word": "tunapokuita",
-       "dav_word": "dawanga",
-       "root": "wang"
       }
      ]
     },
@@ -2939,15 +2393,15 @@
       "om": "-",
       "final": "e"
      },
-     "n": 29,
+     "n": 47,
      "share": {
-      "rate": 0.034278959810874705,
+      "rate": 0.0415929203539823,
       "ci95": [
-       0.023971537382922348,
-       0.048796846748897046
+       0.0314211736575704,
+       0.0548709503922087
       ],
-      "k": 29,
-      "n": 846,
+      "k": 47,
+      "n": 1130,
       "low_n": false
      },
      "tier": "tentative",
@@ -2973,6 +2427,48 @@
      ]
     },
     {
+     "template": "SM+a-ROOT-a",
+     "shape": {
+      "neg": "-",
+      "series": "a",
+      "tam": "-",
+      "om": "-",
+      "final": "a"
+     },
+     "n": 40,
+     "share": {
+      "rate": 0.035398230088495575,
+      "ci95": [
+       0.02610193404926249,
+       0.04784278627145956
+      ],
+      "k": 40,
+      "n": 1130,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "bible:NEN:EXO.30.12",
+       "sw_word": "unapowahesabu",
+       "dav_word": "kwatala",
+       "root": "tal"
+      },
+      {
+       "pair_id": "bible:NEN:PSA.28.2",
+       "sw_word": "ninapoinua",
+       "dav_word": "nawusira",
+       "root": "wusir"
+      },
+      {
+       "pair_id": "bible:NEN:PSA.48.1",
+       "sw_word": "anayestahili",
+       "dav_word": "wafwana",
+       "root": "fwan"
+      }
+     ]
+    },
+    {
      "template": "SM-ka-ROOT-a",
      "shape": {
       "neg": "-",
@@ -2981,19 +2477,25 @@
       "om": "-",
       "final": "a"
      },
-     "n": 29,
+     "n": 34,
      "share": {
-      "rate": 0.034278959810874705,
+      "rate": 0.03008849557522124,
       "ci95": [
-       0.023971537382922348,
-       0.048796846748897046
+       0.02161030404711752,
+       0.04175092736298422
       ],
-      "k": 29,
-      "n": 846,
+      "k": 34,
+      "n": 1130,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
+      {
+       "pair_id": "train:16366",
+       "sw_word": "inapofika",
+       "dav_word": "ikavika",
+       "root": "vik"
+      },
       {
        "pair_id": "train:10354",
        "sw_word": "unapotenda",
@@ -3001,109 +2503,19 @@
        "root": "bony"
       },
       {
-       "pair_id": "train:13345",
-       "sw_word": "wanapomaliza",
-       "dav_word": "wikameria",
-       "root": "meri"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.18.5",
-       "sw_word": "unavyosema",
-       "dav_word": "wikaghamba",
-       "root": "ghamb"
+       "pair_id": "train:11788",
+       "sw_word": "ninapoamka",
+       "dav_word": "nikawuka",
+       "root": "wuk"
       }
      ]
     }
    ]
   },
   "rel:lipo": {
-   "n_aligned": 980,
-   "n_unparsed": 150,
+   "n_aligned": 1038,
+   "n_unparsed": 160,
    "readings": [
-    {
-     "template": "SM+e-re-ROOT-e",
-     "shape": {
-      "neg": "-",
-      "series": "e",
-      "tam": "re",
-      "om": "-",
-      "final": "e"
-     },
-     "n": 200,
-     "share": {
-      "rate": 0.20408163265306123,
-      "ci95": [
-       0.18002632074944022,
-       0.23044788566752775
-      ],
-      "k": 200,
-      "n": 980,
-      "low_n": false
-     },
-     "tier": "active",
-     "examples": [
-      {
-       "pair_id": "train:14298",
-       "sw_word": "alipokuwa",
-       "dav_word": "orekoghe",
-       "root": "kogh"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.5.3",
-       "sw_word": "alipokuwa",
-       "dav_word": "orekoghe",
-       "root": "kogh"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.5.6",
-       "sw_word": "alipokuwa",
-       "dav_word": "orekoghe",
-       "root": "kogh"
-      }
-     ]
-    },
-    {
-     "template": "SM+a-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "a",
-      "tam": "-",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 109,
-     "share": {
-      "rate": 0.11122448979591837,
-      "ci95": [
-       0.09303727316573882,
-       0.13244780492000185
-      ],
-      "k": 109,
-      "n": 980,
-      "low_n": false
-     },
-     "tier": "active",
-     "examples": [
-      {
-       "pair_id": "train:9368",
-       "sw_word": "walipoona",
-       "dav_word": "wawona",
-       "root": "wona"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.12.14",
-       "sw_word": "alipoingia",
-       "dav_word": "wangia",
-       "root": "ngia"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.24.54",
-       "sw_word": "walipoamka",
-       "dav_word": "wawuka",
-       "root": "wuka"
-      }
-     ]
-    },
     {
      "template": "SM+a-ROOT-a",
      "shape": {
@@ -3113,19 +2525,25 @@
       "om": "-",
       "final": "a"
      },
-     "n": 109,
+     "n": 198,
      "share": {
-      "rate": 0.11122448979591837,
+      "rate": 0.1907514450867052,
       "ci95": [
-       0.09303727316573882,
-       0.13244780492000185
+       0.16800672305510578,
+       0.2157767618815678
       ],
-      "k": 109,
-      "n": 980,
+      "k": 198,
+      "n": 1038,
       "low_n": false
      },
      "tier": "active",
      "examples": [
+      {
+       "pair_id": "train:9368",
+       "sw_word": "walipoona",
+       "dav_word": "wawona",
+       "root": "won"
+      },
       {
        "pair_id": "train:14974",
        "sw_word": "ulipopanga",
@@ -3137,12 +2555,48 @@
        "sw_word": "alipokaribia",
        "dav_word": "walighisa",
        "root": "lighis"
+      }
+     ]
+    },
+    {
+     "template": "SM+e-re-ROOT-e",
+     "shape": {
+      "neg": "-",
+      "series": "e",
+      "tam": "re",
+      "om": "-",
+      "final": "e"
+     },
+     "n": 193,
+     "share": {
+      "rate": 0.1859344894026975,
+      "ci95": [
+       0.16343955931224785,
+       0.21074553753932723
+      ],
+      "k": 193,
+      "n": 1038,
+      "low_n": false
+     },
+     "tier": "active",
+     "examples": [
+      {
+       "pair_id": "bible:NEN:GEN.5.3",
+       "sw_word": "alipokuwa",
+       "dav_word": "orekoghe",
+       "root": "kogh"
       },
       {
-       "pair_id": "bible:NEN:GEN.29.13",
-       "sw_word": "aliposikia",
-       "dav_word": "wasikira",
-       "root": "sikir"
+       "pair_id": "bible:NEN:GEN.5.6",
+       "sw_word": "alipokuwa",
+       "dav_word": "orekoghe",
+       "root": "kogh"
+      },
+      {
+       "pair_id": "bible:NEN:GEN.5.9",
+       "sw_word": "alipokuwa",
+       "dav_word": "orekoghe",
+       "root": "kogh"
       }
      ]
     },
@@ -3155,15 +2609,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 51,
+     "n": 87,
      "share": {
-      "rate": 0.05204081632653061,
+      "rate": 0.0838150289017341,
       "ci95": [
-       0.03980110440745452,
-       0.06777881496167971
+       0.06845276143186471,
+       0.10224650801562132
       ],
-      "k": 51,
-      "n": 980,
+      "k": 87,
+      "n": 1038,
       "low_n": false
      },
      "tier": "tentative",
@@ -3175,16 +2629,16 @@
        "root": "sikir"
       },
       {
-       "pair_id": "bible:NEN:GEN.19.33",
-       "sw_word": "alipolewa",
-       "dav_word": "ukawongia",
-       "root": "wongi"
+       "pair_id": "bible:NEN:GEN.9.21",
+       "sw_word": "alipokunywa",
+       "dav_word": "ukanywa",
+       "root": "nyw"
       },
       {
-       "pair_id": "bible:NEN:GEN.24.63",
-       "sw_word": "alipoinua",
-       "dav_word": "ukawusira",
-       "root": "wusir"
+       "pair_id": "bible:NEN:GEN.18.8",
+       "sw_word": "walipokuwa",
+       "dav_word": "ukakaia",
+       "root": "kai"
       }
      ]
     },
@@ -3197,15 +2651,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 42,
+     "n": 54,
      "share": {
-      "rate": 0.04285714285714286,
+      "rate": 0.05202312138728324,
       "ci95": [
-       0.03186097354714454,
-       0.0574233177452749
+       0.04008911929663388,
+       0.06726078878920182
       ],
-      "k": 42,
-      "n": 980,
+      "k": 54,
+      "n": 1038,
       "low_n": false
      },
      "tier": "tentative",
@@ -3217,58 +2671,16 @@
        "root": "ghor"
       },
       {
+       "pair_id": "train:14564",
+       "sw_word": "ilipopata",
+       "dav_word": "kupata",
+       "root": "pat"
+      },
+      {
        "pair_id": "bible:NEN:GEN.27.5",
        "sw_word": "alipoenda",
        "dav_word": "kughenda",
        "root": "ghend"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.27.30",
-       "sw_word": "alipoondoka",
-       "dav_word": "kufuma",
-       "root": "fum"
-      }
-     ]
-    },
-    {
-     "template": "SM-ka-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "ka",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 39,
-     "share": {
-      "rate": 0.03979591836734694,
-      "ci95": [
-       0.029246376977670595,
-       0.053939371622510564
-      ],
-      "k": 39,
-      "n": 980,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "bible:NEN:GEN.9.21",
-       "sw_word": "alipokunywa",
-       "dav_word": "ukanywa",
-       "root": "nywa"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.18.8",
-       "sw_word": "walipokuwa",
-       "dav_word": "ukakaia",
-       "root": "kaia"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.19.33",
-       "sw_word": "alipoingia",
-       "dav_word": "ukangia",
-       "root": "ngia"
       }
      ]
     },
@@ -3281,15 +2693,15 @@
       "om": "-",
       "final": "eghe"
      },
-     "n": 36,
+     "n": 37,
      "share": {
-      "rate": 0.036734693877551024,
+      "rate": 0.03564547206165703,
       "ci95": [
-       0.026650717043390025,
-       0.05043648886455288
+       0.02596986095377542,
+       0.04874552764272523
       ],
-      "k": 36,
-      "n": 980,
+      "k": 37,
+      "n": 1038,
       "low_n": false
      },
      "tier": "tentative",
@@ -3301,10 +2713,10 @@
        "root": "viki"
       },
       {
-       "pair_id": "bible:NEN:GEN.37.29",
-       "sw_word": "aliporudi",
-       "dav_word": "orewurieghe",
-       "root": "wuri"
+       "pair_id": "bible:NEN:GEN.19.23",
+       "sw_word": "alipofika",
+       "dav_word": "orevikieghe",
+       "root": "viki"
       },
       {
        "pair_id": "bible:NEN:GEN.38.27",
@@ -3323,26 +2735,20 @@
       "om": "-",
       "final": "ieghe"
      },
-     "n": 35,
+     "n": 37,
      "share": {
-      "rate": 0.03571428571428571,
+      "rate": 0.03564547206165703,
       "ci95": [
-       0.02579008204135344,
-       0.049264276302510054
+       0.02596986095377542,
+       0.04874552764272523
       ],
-      "k": 35,
-      "n": 980,
+      "k": 37,
+      "n": 1038,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "bible:NEN:GEN.19.23",
-       "sw_word": "alipofika",
-       "dav_word": "orevikieghe",
-       "root": "vik"
-      },
-      {
        "pair_id": "bible:NEN:GEN.31.8",
        "sw_word": "aliposema",
        "dav_word": "oreghorieghe",
@@ -3353,14 +2759,62 @@
        "sw_word": "aliposema",
        "dav_word": "oreghorieghe",
        "root": "ghor"
+      },
+      {
+       "pair_id": "bible:NEN:GEN.32.10",
+       "sw_word": "nilipovuka",
+       "dav_word": "nereruwukieghe",
+       "root": "ruwuk"
+      }
+     ]
+    },
+    {
+     "template": "SM+e-re-ROOT-agha",
+     "shape": {
+      "neg": "-",
+      "series": "e",
+      "tam": "re",
+      "om": "-",
+      "final": "agha"
+     },
+     "n": 33,
+     "share": {
+      "rate": 0.031791907514450865,
+      "ci95": [
+       0.022725724234205658,
+       0.04431095389421616
+      ],
+      "k": 33,
+      "n": 1038,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "bible:NEN:GEN.32.31",
+       "sw_word": "alipoondoka",
+       "dav_word": "orefumagha",
+       "root": "fum"
+      },
+      {
+       "pair_id": "bible:NEN:EXO.7.7",
+       "sw_word": "walipozungumza",
+       "dav_word": "wereghoragha",
+       "root": "ghor"
+      },
+      {
+       "pair_id": "bible:NEN:DEU.2.22",
+       "sw_word": "alipowaangamiza",
+       "dav_word": "oretoteshagha",
+       "root": "totesh"
       }
      ]
     }
    ]
   },
   "hab": {
-   "n_aligned": 760,
-   "n_unparsed": 30,
+   "n_aligned": 838,
+   "n_unparsed": 50,
    "readings": [
     {
      "template": "SM+a-da-ROOT-a",
@@ -3371,15 +2825,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 178,
+     "n": 231,
      "share": {
-      "rate": 0.23421052631578948,
+      "rate": 0.2756563245823389,
       "ci95": [
-       0.20548359177779943,
-       0.26561093881597814
+       0.24647730477274307,
+       0.3068828522924341
       ],
-      "k": 178,
-      "n": 760,
+      "k": 231,
+      "n": 838,
       "low_n": false
      },
      "tier": "active",
@@ -3391,58 +2845,16 @@
        "root": "chor"
       },
       {
+       "pair_id": "train:16697",
+       "sw_word": "huleta",
+       "dav_word": "jadareda",
+       "root": "red"
+      },
+      {
        "pair_id": "train:19940",
        "sw_word": "huchora",
        "dav_word": "wadachora",
        "root": "chor"
-      },
-      {
-       "pair_id": "train:1637",
-       "sw_word": "hutengeneza",
-       "dav_word": "radaboisa",
-       "root": "bois"
-      }
-     ]
-    },
-    {
-     "template": "SM+a-da-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "a",
-      "tam": "da",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 84,
-     "share": {
-      "rate": 0.11052631578947368,
-      "ci95": [
-       0.09016313819442473,
-       0.13480706505190276
-      ],
-      "k": 84,
-      "n": 760,
-      "low_n": false
-     },
-     "tier": "active",
-     "examples": [
-      {
-       "pair_id": "train:16697",
-       "sw_word": "huleta",
-       "dav_word": "jadareda",
-       "root": "reda"
-      },
-      {
-       "pair_id": "train:8990",
-       "sw_word": "huuma",
-       "dav_word": "radaluma",
-       "root": "luma"
-      },
-      {
-       "pair_id": "train:4810",
-       "sw_word": "huleta",
-       "dav_word": "vadareda",
-       "root": "reda"
       }
      ]
     },
@@ -3455,19 +2867,25 @@
       "om": "-",
       "final": "a"
      },
-     "n": 62,
+     "n": 85,
      "share": {
-      "rate": 0.08157894736842106,
+      "rate": 0.10143198090692124,
       "ci95": [
-       0.06415785110613434,
-       0.10320878616525805
+       0.08277577025879734,
+       0.12372578537827264
       ],
-      "k": 62,
-      "n": 760,
+      "k": 85,
+      "n": 838,
       "low_n": false
      },
-     "tier": "tentative",
+     "tier": "active",
      "examples": [
+      {
+       "pair_id": "train:10188",
+       "sw_word": "huleta",
+       "dav_word": "ghareda",
+       "root": "red"
+      },
       {
        "pair_id": "train:12722",
        "sw_word": "hutazama",
@@ -3479,12 +2897,6 @@
        "sw_word": "hufanya",
        "dav_word": "wabonya",
        "root": "bony"
-      },
-      {
-       "pair_id": "train:14703",
-       "sw_word": "husaidia",
-       "dav_word": "yatesia",
-       "root": "tesi"
       }
      ]
     },
@@ -3497,19 +2909,25 @@
       "om": "OM",
       "final": "a"
      },
-     "n": 56,
+     "n": 78,
      "share": {
-      "rate": 0.07368421052631578,
+      "rate": 0.09307875894988067,
       "ci95": [
-       0.057176954756789106,
-       0.0944796190668937
+       0.07522116177794343,
+       0.11465018694134062
       ],
-      "k": 56,
-      "n": 760,
+      "k": 78,
+      "n": 838,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
+      {
+       "pair_id": "train:18319",
+       "sw_word": "huingia",
+       "dav_word": "ghadaingia",
+       "root": "ngi"
+      },
       {
        "pair_id": "train:20322",
        "sw_word": "hujiangalia",
@@ -3517,58 +2935,10 @@
        "root": "zighan"
       },
       {
-       "pair_id": "train:24441",
-       "sw_word": "hunishangaza",
-       "dav_word": "ghadanishinua",
-       "root": "shinu"
-      },
-      {
-       "pair_id": "train:676",
-       "sw_word": "huwaponda",
-       "dav_word": "wadawichana",
-       "root": "chan"
-      }
-     ]
-    },
-    {
-     "template": "SM+a-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "a",
-      "tam": "-",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 45,
-     "share": {
-      "rate": 0.05921052631578947,
-      "ci95": [
-       0.044543358922720586,
-       0.07831143191349467
-      ],
-      "k": 45,
-      "n": 760,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:10188",
-       "sw_word": "huleta",
-       "dav_word": "ghareda",
-       "root": "reda"
-      },
-      {
-       "pair_id": "train:20291",
-       "sw_word": "hula",
-       "dav_word": "wadaja",
-       "root": "daja"
-      },
-      {
-       "pair_id": "train:972",
-       "sw_word": "huficha",
-       "dav_word": "ravisa",
-       "root": "visa"
+       "pair_id": "train:23262",
+       "sw_word": "huniambia",
+       "dav_word": "wadanizera",
+       "root": "zer"
       }
      ]
     },
@@ -3581,36 +2951,36 @@
       "om": "-",
       "final": "a"
      },
-     "n": 34,
+     "n": 40,
      "share": {
-      "rate": 0.04473684210526316,
+      "rate": 0.0477326968973747,
       "ci95": [
-       0.03218828888465601,
-       0.061864718964091694
+       0.035247235210943646,
+       0.0643458473832166
       ],
-      "k": 34,
-      "n": 760,
+      "k": 40,
+      "n": 838,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:4914",
-       "sw_word": "hupenda",
-       "dav_word": "kuboilwa",
-       "root": "boilw"
+       "pair_id": "train:3578",
+       "sw_word": "huleta",
+       "dav_word": "kureda",
+       "root": "red"
       },
       {
-       "pair_id": "bible:NEN:GEN.49.27",
-       "sw_word": "hugawa",
-       "dav_word": "kuwagha",
-       "root": "wagh"
+       "pair_id": "train:3578",
+       "sw_word": "huleta",
+       "dav_word": "kureda",
+       "root": "red"
       },
       {
-       "pair_id": "bible:NEN:EXO.6.12",
-       "sw_word": "huzungumza",
-       "dav_word": "kudeda",
-       "root": "ded"
+       "pair_id": "train:10222",
+       "sw_word": "huendesha",
+       "dav_word": "kuenda",
+       "root": "end"
       }
      ]
     },
@@ -3623,15 +2993,15 @@
       "om": "-",
       "final": "agha"
      },
-     "n": 30,
+     "n": 36,
      "share": {
-      "rate": 0.039473684210526314,
+      "rate": 0.04295942720763723,
       "ci95": [
-       0.027787904748793966,
-       0.05579172746814735
+       0.031189868722407643,
+       0.058900238490160614
       ],
-      "k": 30,
-      "n": 760,
+      "k": 36,
+      "n": 838,
       "low_n": false
      },
      "tier": "tentative",
@@ -3643,108 +3013,66 @@
        "root": "shekeri"
       },
       {
-       "pair_id": "train:13730",
-       "sw_word": "huangusha",
-       "dav_word": "ipotuagha",
-       "root": "potu"
-      },
-      {
        "pair_id": "train:10065",
        "sw_word": "husababisha",
        "dav_word": "chishekeriagha",
        "root": "shekeri"
+      },
+      {
+       "pair_id": "train:13809",
+       "sw_word": "huchoma",
+       "dav_word": "ghukoragha",
+       "root": "kor"
       }
      ]
     },
     {
-     "template": "ROOT-a",
+     "template": "SM-OM-ROOT-a",
      "shape": {
       "neg": "-",
-      "series": "none",
+      "series": "bare",
       "tam": "-",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 29,
-     "share": {
-      "rate": 0.038157894736842106,
-      "ci95": [
-       0.026697305356945082,
-       0.05426398295204465
-      ],
-      "k": 29,
-      "n": 760,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:11034",
-       "sw_word": "hula",
-       "dav_word": "rajaa",
-       "root": "raja"
-      },
-      {
-       "pair_id": "train:14131",
-       "sw_word": "huenda",
-       "dav_word": "kewada",
-       "root": "kewad"
-      },
-      {
-       "pair_id": "train:4440",
-       "sw_word": "husoma",
-       "dav_word": "shoma",
-       "root": "shom"
-      }
-     ]
-    },
-    {
-     "template": "SM+a-da-OM-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "a",
-      "tam": "da",
       "om": "OM",
-      "final": "-"
+      "final": "a"
      },
      "n": 27,
      "share": {
-      "rate": 0.035526315789473684,
+      "rate": 0.032219570405727926,
       "ci95": [
-       0.024528798795371703,
-       0.05119580169771483
+       0.022236121948951332,
+       0.046472290655035
       ],
       "k": 27,
-      "n": 760,
+      "n": 838,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:18319",
-       "sw_word": "huingia",
-       "dav_word": "ghadaingia",
-       "root": "ngia"
+       "pair_id": "bible:NEN:PSA.10.9",
+       "sw_word": "huwakamata",
+       "dav_word": "kummbwada",
+       "root": "wad"
       },
       {
-       "pair_id": "train:23262",
-       "sw_word": "huniambia",
-       "dav_word": "wadanizera",
-       "root": "zera"
+       "pair_id": "bible:NEN:PSA.23.3",
+       "sw_word": "huniongoza",
+       "dav_word": "kunighenja",
+       "root": "ghenj"
       },
       {
-       "pair_id": "train:24632",
-       "sw_word": "huuma",
-       "dav_word": "chadamluma",
-       "root": "luma"
+       "pair_id": "bible:NEN:PSA.25.9",
+       "sw_word": "huwafundisha",
+       "dav_word": "kuwifundisha",
+       "root": "fundish"
       }
      ]
     }
    ]
   },
   "prohib": {
-   "n_aligned": 542,
-   "n_unparsed": 18,
+   "n_aligned": 577,
+   "n_unparsed": 22,
    "readings": [
     {
      "template": "SM-se-ROOT-e",
@@ -3755,24 +3083,24 @@
       "om": "-",
       "final": "e"
      },
-     "n": 118,
+     "n": 134,
      "share": {
-      "rate": 0.2177121771217712,
+      "rate": 0.2322357019064125,
       "ci95": [
-       0.18502032422424997,
-       0.2543774790945151
+       0.19962059614866345,
+       0.2683927141927447
       ],
-      "k": 118,
-      "n": 542,
+      "k": 134,
+      "n": 577,
       "low_n": false
      },
      "tier": "active",
      "examples": [
       {
-       "pair_id": "train:25518",
-       "sw_word": "msiachilie",
-       "dav_word": "mselekere",
-       "root": "leker"
+       "pair_id": "train:26433",
+       "sw_word": "wasimlimie",
+       "dav_word": "wiselime",
+       "root": "lim"
       },
       {
        "pair_id": "train:13762",
@@ -3781,52 +3109,52 @@
        "root": "nugh"
       },
       {
-       "pair_id": "train:6167",
-       "sw_word": "usingoje",
-       "dav_word": "kusewesere",
-       "root": "weser"
+       "pair_id": "train:21713",
+       "sw_word": "zisiingie",
+       "dav_word": "risengie",
+       "root": "ngi"
       }
      ]
     },
     {
-     "template": "SM-sake-ROOT",
+     "template": "SM-sake-ROOT-a",
      "shape": {
       "neg": "-",
       "series": "bare",
       "tam": "sake",
       "om": "-",
-      "final": "-"
+      "final": "a"
      },
-     "n": 69,
+     "n": 106,
      "share": {
-      "rate": 0.12730627306273062,
+      "rate": 0.18370883882149047,
       "ci95": [
-       0.10184384859414333,
-       0.15801468912082747
+       0.15423828674495504,
+       0.21736319634441048
       ],
-      "k": 69,
-      "n": 542,
+      "k": 106,
+      "n": 577,
       "low_n": false
      },
      "tier": "active",
      "examples": [
       {
+       "pair_id": "train:1856",
+       "sw_word": "usifanye",
+       "dav_word": "kusakebonya",
+       "root": "bony"
+      },
+      {
        "pair_id": "bible:NEN:GEN.15.1",
        "sw_word": "usiogope",
        "dav_word": "kusakeobua",
-       "root": "obua"
+       "root": "obu"
       },
       {
-       "pair_id": "bible:NEN:GEN.21.17",
-       "sw_word": "usiogope",
-       "dav_word": "kusakeobua",
-       "root": "obua"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.26.24",
-       "sw_word": "usiogope",
-       "dav_word": "kusakeobua",
-       "root": "obua"
+       "pair_id": "bible:NEN:GEN.19.7",
+       "sw_word": "msifanye",
+       "dav_word": "msakebonya",
+       "root": "bony"
       }
      ]
     },
@@ -3839,15 +3167,15 @@
       "om": "OM",
       "final": "a"
      },
-     "n": 57,
+     "n": 60,
      "share": {
-      "rate": 0.10516605166051661,
+      "rate": 0.10398613518197573,
       "ci95": [
-       0.08205983061263517,
-       0.13382990736263095
+       0.08164348948878813,
+       0.13156713454365032
       ],
-      "k": 57,
-      "n": 542,
+      "k": 60,
+      "n": 577,
       "low_n": false
      },
      "tier": "active",
@@ -3873,90 +3201,6 @@
      ]
     },
     {
-     "template": "SM-sake-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "sake",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 45,
-     "share": {
-      "rate": 0.08302583025830258,
-      "ci95": [
-       0.06262748160588807,
-       0.10929345662967332
-      ],
-      "k": 45,
-      "n": 542,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:1856",
-       "sw_word": "usifanye",
-       "dav_word": "kusakebonya",
-       "root": "bony"
-      },
-      {
-       "pair_id": "train:3571",
-       "sw_word": "usichoke",
-       "dav_word": "kusakesilwa",
-       "root": "silw"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.19.7",
-       "sw_word": "msifanye",
-       "dav_word": "msakebonya",
-       "root": "bony"
-      }
-     ]
-    },
-    {
-     "template": "SM-se-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "se",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 39,
-     "share": {
-      "rate": 0.07195571955719557,
-      "ci95": [
-       0.053080929889308126,
-       0.0968556084764009
-      ],
-      "k": 39,
-      "n": 542,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:16221",
-       "sw_word": "usioe",
-       "dav_word": "kuselowuo",
-       "root": "lowuo"
-      },
-      {
-       "pair_id": "train:26433",
-       "sw_word": "wasimlimie",
-       "dav_word": "wiselime",
-       "root": "lime"
-      },
-      {
-       "pair_id": "train:20007",
-       "sw_word": "usikose",
-       "dav_word": "kusesowe",
-       "root": "sowe"
-      }
-     ]
-    },
-    {
      "template": "SM-se-OM-ROOT-e",
      "shape": {
       "neg": "-",
@@ -3965,36 +3209,36 @@
       "om": "OM",
       "final": "e"
      },
-     "n": 34,
+     "n": 39,
      "share": {
-      "rate": 0.06273062730627306,
+      "rate": 0.06759098786828423,
       "ci95": [
-       0.04523457640968372,
-       0.08638162873114835
+       0.04983534731741712,
+       0.09106640627598941
       ],
-      "k": 34,
-      "n": 542,
+      "k": 39,
+      "n": 577,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:2959",
-       "sw_word": "usimpikie",
-       "dav_word": "kusemdekie",
-       "root": "deki"
-      },
-      {
-       "pair_id": "train:20596",
-       "sw_word": "msiwakosee",
-       "dav_word": "msewikosere",
-       "root": "koser"
-      },
-      {
        "pair_id": "train:21981",
        "sw_word": "asiniulize",
        "dav_word": "usenikotee",
        "root": "kote"
+      },
+      {
+       "pair_id": "train:14461",
+       "sw_word": "asiniulize",
+       "dav_word": "usenikotie",
+       "root": "koti"
+      },
+      {
+       "pair_id": "train:22978",
+       "sw_word": "usizitegemee",
+       "dav_word": "kuseghitegemee",
+       "root": "tegeme"
       }
      ]
     },
@@ -4007,86 +3251,44 @@
       "om": "-",
       "final": "-"
      },
-     "n": 23,
+     "n": 18,
      "share": {
-      "rate": 0.042435424354243544,
+      "rate": 0.03119584055459272,
       "ci95": [
-       0.028440781245988818,
-       0.06287069080011393
+       0.01982226084386709,
+       0.04877062231050753
       ],
-      "k": 23,
-      "n": 542,
+      "k": 18,
+      "n": 577,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
-      {
-       "pair_id": "train:1561",
-       "sw_word": "usimwage",
-       "dav_word": "kusedie",
-       "root": "sedie"
-      },
-      {
-       "pair_id": "train:8461",
-       "sw_word": "msije",
-       "dav_word": "mseche",
-       "root": "seche"
-      },
       {
        "pair_id": "train:26487",
        "sw_word": "usile",
        "dav_word": "kuseje",
        "root": "seje"
-      }
-     ]
-    },
-    {
-     "template": "SM-seke-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "seke",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 18,
-     "share": {
-      "rate": 0.033210332103321034,
-      "ci95": [
-       0.02110847236634047,
-       0.05188266645488532
-      ],
-      "k": 18,
-      "n": 542,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:13646",
-       "sw_word": "usiseme",
-       "dav_word": "kusekeghora",
-       "root": "ghor"
       },
       {
-       "pair_id": "train:19506",
-       "sw_word": "usiteme",
-       "dav_word": "kusekechuya",
-       "root": "chuy"
+       "pair_id": "train:24881",
+       "sw_word": "usile",
+       "dav_word": "kuseje",
+       "root": "seje"
       },
       {
-       "pair_id": "train:12980",
-       "sw_word": "wasigeuze",
-       "dav_word": "wisekeghalua",
-       "root": "ghalu"
+       "pair_id": "bible:NEN:GEN.2.17",
+       "sw_word": "usile",
+       "dav_word": "kuseje",
+       "root": "seje"
       }
      ]
     }
    ]
   },
   "neg:pres": {
-   "n_aligned": 645,
-   "n_unparsed": 296,
+   "n_aligned": 813,
+   "n_unparsed": 307,
    "readings": [
     {
      "template": "nde-SM-ROOT-agha",
@@ -4097,15 +3299,15 @@
       "om": "-",
       "final": "agha"
      },
-     "n": 84,
+     "n": 141,
      "share": {
-      "rate": 0.13023255813953488,
+      "rate": 0.17343173431734318,
       "ci95": [
-       0.106432549383454,
-       0.15841113511519708
+       0.1489570515666726,
+       0.20097811334167687
       ],
-      "k": 84,
-      "n": 645,
+      "k": 141,
+      "n": 813,
       "low_n": false
      },
      "tier": "active",
@@ -4123,9 +3325,51 @@
        "root": "dedany"
       },
       {
-       "pair_id": "train:3332",
+       "pair_id": "train:26356",
+       "sw_word": "hatoki",
+       "dav_word": "ndeufumagha",
+       "root": "fum"
+      }
+     ]
+    },
+    {
+     "template": "SM-se-ROOT-agha",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "se",
+      "om": "-",
+      "final": "agha"
+     },
+     "n": 57,
+     "share": {
+      "rate": 0.07011070110701106,
+      "ci95": [
+       0.054505781905994956,
+       0.08975915269087181
+      ],
+      "k": 57,
+      "n": 813,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "train:15449",
+       "sw_word": "huwezi",
+       "dav_word": "kusedimagha",
+       "root": "dim"
+      },
+      {
+       "pair_id": "train:23538",
+       "sw_word": "sipendi",
+       "dav_word": "nisekundagha",
+       "root": "kund"
+      },
+      {
+       "pair_id": "train:3987",
        "sw_word": "haiwezi",
-       "dav_word": "ndeidimagha",
+       "dav_word": "jisedimagha",
        "root": "dim"
       }
      ]
@@ -4141,13 +3385,13 @@
      },
      "n": 26,
      "share": {
-      "rate": 0.040310077519379844,
+      "rate": 0.03198031980319803,
       "ci95": [
-       0.027654799069053417,
-       0.0584087332322047
+       0.02191609286303968,
+       0.04644673292839896
       ],
       "k": 26,
-      "n": 645,
+      "n": 813,
       "low_n": false
      },
      "tier": "tentative",
@@ -4171,54 +3415,12 @@
        "root": "kund"
       }
      ]
-    },
-    {
-     "template": "SM-se-ROOT-agha",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "se",
-      "om": "-",
-      "final": "agha"
-     },
-     "n": 20,
-     "share": {
-      "rate": 0.031007751937984496,
-      "ci95": [
-       0.020160804271362805,
-       0.04740822952671673
-      ],
-      "k": 20,
-      "n": 645,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:23538",
-       "sw_word": "sipendi",
-       "dav_word": "nisekundagha",
-       "root": "kund"
-      },
-      {
-       "pair_id": "train:9460",
-       "sw_word": "hampatani",
-       "dav_word": "msesikiranagha",
-       "root": "sikiran"
-      },
-      {
-       "pair_id": "train:20919",
-       "sw_word": "husikii",
-       "dav_word": "kusesikiragha",
-       "root": "sikir"
-      }
-     ]
     }
    ]
   },
   "neg:ku": {
-   "n_aligned": 492,
-   "n_unparsed": 36,
+   "n_aligned": 580,
+   "n_unparsed": 67,
    "readings": [
     {
      "template": "ROOT-a",
@@ -4229,15 +3431,15 @@
       "om": "-",
       "final": "a"
      },
-     "n": 71,
+     "n": 74,
      "share": {
-      "rate": 0.1443089430894309,
+      "rate": 0.12758620689655173,
       "ci95": [
-       0.11601149095674568,
-       0.17811792456627618
+       0.10286319301655177,
+       0.15721008713340673
       ],
-      "k": 71,
-      "n": 492,
+      "k": 74,
+      "n": 580,
       "low_n": false
      },
      "tier": "active",
@@ -4271,19 +3473,25 @@
       "om": "-",
       "final": "a"
      },
-     "n": 32,
+     "n": 39,
      "share": {
-      "rate": 0.06504065040650407,
+      "rate": 0.06724137931034482,
       "ci95": [
-       0.04644483798088121,
-       0.09037627585869983
+       0.04957552858859983,
+       0.09060221825232413
       ],
-      "k": 32,
-      "n": 492,
+      "k": 39,
+      "n": 580,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
+      {
+       "pair_id": "train:630",
+       "sw_word": "hawakuingia",
+       "dav_word": "kungia",
+       "root": "ngi"
+      },
       {
        "pair_id": "bible:NEN:EXO.1.17",
        "sw_word": "hawakufanya",
@@ -4295,12 +3503,6 @@
        "sw_word": "hawakuondoka",
        "dav_word": "kufuma",
        "root": "fum"
-      },
-      {
-       "pair_id": "bible:NEN:DEU.22.27",
-       "sw_word": "hapakuwa",
-       "dav_word": "kukaia",
-       "root": "kai"
       }
      ]
     },
@@ -4313,15 +3515,15 @@
       "om": "-",
       "final": "ieghe"
      },
-     "n": 30,
+     "n": 31,
      "share": {
-      "rate": 0.06097560975609756,
+      "rate": 0.05344827586206897,
       "ci95": [
-       0.04304205286089115,
-       0.08571196858466727
+       0.03790629319666548,
+       0.0748667603164792
       ],
-      "k": 30,
-      "n": 492,
+      "k": 31,
+      "n": 580,
       "low_n": false
      },
      "tier": "tentative",
@@ -4357,13 +3559,13 @@
      },
      "n": 28,
      "share": {
-      "rate": 0.056910569105691054,
+      "rate": 0.04827586206896552,
       "ci95": [
-       0.03966463533336724,
-       0.08102229371816856
+       0.033608746127061995,
+       0.06888754738816542
       ],
       "k": 28,
-      "n": 492,
+      "n": 580,
       "low_n": false
      },
      "tier": "tentative",
@@ -4389,48 +3591,6 @@
      ]
     },
     {
-     "template": "SM-OM-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "-",
-      "om": "OM",
-      "final": "a"
-     },
-     "n": 25,
-     "share": {
-      "rate": 0.0508130081300813,
-      "ci95": [
-       0.034651660492057194,
-       0.07393462996844469
-      ],
-      "k": 25,
-      "n": 492,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "bible:NEN:GEN.27.23",
-       "sw_word": "hakumtambua",
-       "dav_word": "kumtambua",
-       "root": "tambu"
-      },
-      {
-       "pair_id": "bible:NEN:EXO.7.13",
-       "sw_word": "hakuwasikiliza",
-       "dav_word": "kuwisikira",
-       "root": "sikir"
-      },
-      {
-       "pair_id": "bible:NEN:EXO.21.36",
-       "sw_word": "hakumfunga",
-       "dav_word": "kuifunga",
-       "root": "fung"
-      }
-     ]
-    },
-    {
      "template": "nde-SM+e-re-OM-ROOT-eghe",
      "shape": {
       "neg": "nde",
@@ -4439,15 +3599,15 @@
       "om": "OM",
       "final": "eghe"
      },
-     "n": 20,
+     "n": 23,
      "share": {
-      "rate": 0.04065040650406504,
+      "rate": 0.039655172413793106,
       "ci95": [
-       0.026466464591476387,
-       0.06195209488396898
+       0.026567307355609585,
+       0.05880105282975577
       ],
-      "k": 20,
-      "n": 492,
+      "k": 23,
+      "n": 580,
       "low_n": false
      },
      "tier": "tentative",
@@ -4459,190 +3619,16 @@
        "root": "churi"
       },
       {
+       "pair_id": "bible:NEN:GEN.8.12",
+       "sw_word": "hakurudi",
+       "dav_word": "ndeeremmburieghe",
+       "root": "mburi"
+      },
+      {
        "pair_id": "bible:NEN:EXO.6.9",
        "sw_word": "hawakumsikiliza",
        "dav_word": "ndeweremsikireghe",
        "root": "sikir"
-      },
-      {
-       "pair_id": "bible:NEN:PSA.78.22",
-       "sw_word": "hawakumwamini",
-       "dav_word": "ndewererirumirieghe",
-       "root": "rumiri"
-      }
-     ]
-    },
-    {
-     "template": "nde-SM+e-OM-ROOT-eghe",
-     "shape": {
-      "neg": "nde",
-      "series": "e",
-      "tam": "-",
-      "om": "OM",
-      "final": "eghe"
-     },
-     "n": 15,
-     "share": {
-      "rate": 0.03048780487804878,
-      "ci95": [
-       0.018561381132018183,
-       0.04968944735837067
-      ],
-      "k": 15,
-      "n": 492,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "bible:NEN:EXO.7.22",
-       "sw_word": "hakuwasikiliza",
-       "dav_word": "nderewisikireghe",
-       "root": "sikir"
-      },
-      {
-       "pair_id": "bible:NEN:EXO.8.15",
-       "sw_word": "hakuwasikiliza",
-       "dav_word": "nderewisikireghe",
-       "root": "sikir"
-      },
-      {
-       "pair_id": "bible:NEN:EXO.9.12",
-       "sw_word": "hakuwasikiliza",
-       "dav_word": "nderewisikireghe",
-       "root": "sikir"
-      }
-     ]
-    }
-   ]
-  },
-  "neg:ta": {
-   "n_aligned": 340,
-   "n_unparsed": 118,
-   "readings": [
-    {
-     "template": "nde-SM-chaa-ROOT-a",
-     "shape": {
-      "neg": "nde",
-      "series": "bare",
-      "tam": "chaa",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 31,
-     "share": {
-      "rate": 0.09117647058823529,
-      "ci95": [
-       0.06497623436769683,
-       0.12651193925643708
-      ],
-      "k": 31,
-      "n": 340,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:13740",
-       "sw_word": "halitatendeka",
-       "dav_word": "ndejichaabonyeka",
-       "root": "bonyek"
-      },
-      {
-       "pair_id": "train:13723",
-       "sw_word": "hamtaelewa",
-       "dav_word": "ndemchaatambukilwa",
-       "root": "tambukilw"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.43.5",
-       "sw_word": "hatutaenda",
-       "dav_word": "ndedichaaghenda",
-       "root": "ghend"
-      }
-     ]
-    },
-    {
-     "template": "SM-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "-",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 31,
-     "share": {
-      "rate": 0.09117647058823529,
-      "ci95": [
-       0.06497623436769683,
-       0.12651193925643708
-      ],
-      "k": 31,
-      "n": 340,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:1023",
-       "sw_word": "sitacheka",
-       "dav_word": "kuseka",
-       "root": "sek"
-      },
-      {
-       "pair_id": "bible:NEN:LEV.7.18",
-       "sw_word": "haitahesabiwa",
-       "dav_word": "kutalwa",
-       "root": "talw"
-      },
-      {
-       "pair_id": "bible:NEN:LEV.23.29",
-       "sw_word": "hatafunga",
-       "dav_word": "kufunga",
-       "root": "fung"
-      }
-     ]
-    },
-    {
-     "template": "nde-SM-chaa-ROOT",
-     "shape": {
-      "neg": "nde",
-      "series": "bare",
-      "tam": "chaa",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 27,
-     "share": {
-      "rate": 0.07941176470588235,
-      "ci95": [
-       0.05514775915512557,
-       0.11307388709128555
-      ],
-      "k": 27,
-      "n": 340,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "bible:NEN:GEN.43.3",
-       "sw_word": "hamtauona",
-       "dav_word": "ndedichaawona",
-       "root": "wona"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.43.5",
-       "sw_word": "hamtauona",
-       "dav_word": "ndedichaawona",
-       "root": "wona"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.44.26",
-       "sw_word": "hatutaweza",
-       "dav_word": "ndedichaadima",
-       "root": "dima"
       }
      ]
     },
@@ -4657,13 +3643,271 @@
      },
      "n": 23,
      "share": {
-      "rate": 0.06764705882352941,
+      "rate": 0.039655172413793106,
       "ci95": [
-       0.045496099106811974,
-       0.09945901976187639
+       0.026567307355609585,
+       0.05880105282975577
       ],
       "k": 23,
-      "n": 340,
+      "n": 580,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "bible:NEN:GEN.13.6",
+       "sw_word": "haikuwatosha",
+       "dav_word": "kuwikata",
+       "root": "kat"
+      },
+      {
+       "pair_id": "bible:NEN:GEN.27.23",
+       "sw_word": "hakumtambua",
+       "dav_word": "kumtambua",
+       "root": "tambu"
+      },
+      {
+       "pair_id": "bible:NEN:EXO.7.13",
+       "sw_word": "hakuwasikiliza",
+       "dav_word": "kuwisikira",
+       "root": "sikir"
+      }
+     ]
+    },
+    {
+     "template": "nde-SM+e-ROOT-ieghe",
+     "shape": {
+      "neg": "nde",
+      "series": "e",
+      "tam": "-",
+      "om": "-",
+      "final": "ieghe"
+     },
+     "n": 18,
+     "share": {
+      "rate": 0.03103448275862069,
+      "ci95": [
+       0.01971927000567729,
+       0.048521156849826
+      ],
+      "k": 18,
+      "n": 580,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "bible:NEN:EXO.40.35",
+       "sw_word": "hakuweza",
+       "dav_word": "nderedimieghe",
+       "root": "dim"
+      },
+      {
+       "pair_id": "bible:NEN:NUM.14.44",
+       "sw_word": "hakutoka",
+       "dav_word": "nderefumieghe",
+       "root": "fum"
+      },
+      {
+       "pair_id": "bible:NEN:1SA.1.22",
+       "sw_word": "hakuenda",
+       "dav_word": "nderejokieghe",
+       "root": "jok"
+      }
+     ]
+    }
+   ]
+  },
+  "neg:ta": {
+   "n_aligned": 408,
+   "n_unparsed": 139,
+   "readings": [
+    {
+     "template": "nde-SM-chaa-ROOT-a",
+     "shape": {
+      "neg": "nde",
+      "series": "bare",
+      "tam": "chaa",
+      "om": "-",
+      "final": "a"
+     },
+     "n": 48,
+     "share": {
+      "rate": 0.11764705882352941,
+      "ci95": [
+       0.08989251472611451,
+       0.15253467087145503
+      ],
+      "k": 48,
+      "n": 408,
+      "low_n": false
+     },
+     "tier": "active",
+     "examples": [
+      {
+       "pair_id": "train:13723",
+       "sw_word": "hamtaelewa",
+       "dav_word": "ndemchaatambukilwa",
+       "root": "tambukilw"
+      },
+      {
+       "pair_id": "bible:NEN:GEN.42.15",
+       "sw_word": "hamtaondoka",
+       "dav_word": "ndemchaafuma",
+       "root": "fum"
+      },
+      {
+       "pair_id": "bible:NEN:GEN.43.3",
+       "sw_word": "hamtauona",
+       "dav_word": "ndedichaawona",
+       "root": "won"
+      }
+     ]
+    },
+    {
+     "template": "SM-ROOT-a",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "-",
+      "om": "-",
+      "final": "a"
+     },
+     "n": 32,
+     "share": {
+      "rate": 0.0784313725490196,
+      "ci95": [
+       0.05610194911121284,
+       0.10862546065020999
+      ],
+      "k": 32,
+      "n": 408,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "bible:NEN:LEV.7.18",
+       "sw_word": "haitahesabiwa",
+       "dav_word": "kutalwa",
+       "root": "talw"
+      },
+      {
+       "pair_id": "bible:NEN:LEV.23.29",
+       "sw_word": "hatafunga",
+       "dav_word": "kufunga",
+       "root": "fung"
+      },
+      {
+       "pair_id": "bible:NEN:LEV.26.18",
+       "sw_word": "hamtanisikiliza",
+       "dav_word": "kusikira",
+       "root": "sikir"
+      }
+     ]
+    },
+    {
+     "template": "nde-SM-chaa-OM-ROOT-a",
+     "shape": {
+      "neg": "nde",
+      "series": "bare",
+      "tam": "chaa",
+      "om": "OM",
+      "final": "a"
+     },
+     "n": 23,
+     "share": {
+      "rate": 0.056372549019607844,
+      "ci95": [
+       0.03785415839136788,
+       0.08316712746222242
+      ],
+      "k": 23,
+      "n": 408,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "bible:NEN:GEN.21.23",
+       "sw_word": "hutanitenda",
+       "dav_word": "ndekuchaanibonyera",
+       "root": "bonyer"
+      },
+      {
+       "pair_id": "bible:NEN:GEN.44.23",
+       "sw_word": "hamtauona",
+       "dav_word": "ndemchaaniwona",
+       "root": "won"
+      },
+      {
+       "pair_id": "bible:NEN:EXO.16.25",
+       "sw_word": "hamtapata",
+       "dav_word": "ndemchaaiwona",
+       "root": "won"
+      }
+     ]
+    },
+    {
+     "template": "nde-SM-ROOT-agha",
+     "shape": {
+      "neg": "nde",
+      "series": "bare",
+      "tam": "-",
+      "om": "-",
+      "final": "agha"
+     },
+     "n": 20,
+     "share": {
+      "rate": 0.049019607843137254,
+      "ci95": [
+       0.031953536500671995,
+       0.0744990413836408
+      ],
+      "k": 20,
+      "n": 408,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "train:13891",
+       "sw_word": "hawataweza",
+       "dav_word": "ndewidimagha",
+       "root": "dim"
+      },
+      {
+       "pair_id": "train:22335",
+       "sw_word": "hatutabeba",
+       "dav_word": "ndedidukagha",
+       "root": "duk"
+      },
+      {
+       "pair_id": "train:25273",
+       "sw_word": "hawatarudi",
+       "dav_word": "ndewiwuyagha",
+       "root": "wuy"
+      }
+     ]
+    },
+    {
+     "template": "SM-OM-ROOT-a",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "-",
+      "om": "OM",
+      "final": "a"
+     },
+     "n": 20,
+     "share": {
+      "rate": 0.049019607843137254,
+      "ci95": [
+       0.031953536500671995,
+       0.0744990413836408
+      ],
+      "k": 20,
+      "n": 408,
       "low_n": false
      },
      "tier": "tentative",
@@ -4687,54 +3931,12 @@
        "root": "sikir"
       }
      ]
-    },
-    {
-     "template": "nde-SM-chaa-OM-ROOT-a",
-     "shape": {
-      "neg": "nde",
-      "series": "bare",
-      "tam": "chaa",
-      "om": "OM",
-      "final": "a"
-     },
-     "n": 14,
-     "share": {
-      "rate": 0.041176470588235294,
-      "ci95": [
-       0.024683675198928924,
-       0.06792175706988321
-      ],
-      "k": 14,
-      "n": 340,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "bible:NEN:GEN.21.23",
-       "sw_word": "hutanitenda",
-       "dav_word": "ndekuchaanibonyera",
-       "root": "bonyer"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.44.23",
-       "sw_word": "hamtauona",
-       "dav_word": "ndemchaaniwona",
-       "root": "won"
-      },
-      {
-       "pair_id": "bible:NEN:PSA.32.6",
-       "sw_word": "hayatamfikia",
-       "dav_word": "ndeghuchaamvikia",
-       "root": "viki"
-      }
-     ]
     }
    ]
   },
   "neg:ja": {
-   "n_aligned": 183,
-   "n_unparsed": 19,
+   "n_aligned": 211,
+   "n_unparsed": 29,
    "readings": [
     {
      "template": "nde-SM-ROOT-e",
@@ -4747,16 +3949,16 @@
      },
      "n": 21,
      "share": {
-      "rate": 0.11475409836065574,
+      "rate": 0.0995260663507109,
       "ci95": [
-       0.07629168316449059,
-       0.16905838876809834
+       0.06602012811834543,
+       0.147353818082018
       ],
       "k": 21,
-      "n": 183,
+      "n": 211,
       "low_n": false
      },
-     "tier": "active",
+     "tier": "tentative",
      "examples": [
       {
        "pair_id": "train:18632",
@@ -4765,16 +3967,16 @@
        "root": "meri"
       },
       {
-       "pair_id": "train:17565",
-       "sw_word": "hatujaonana",
-       "dav_word": "ndediwonane",
-       "root": "wonan"
+       "pair_id": "train:2547",
+       "sw_word": "hatujaanza",
+       "dav_word": "ndewizoe",
+       "root": "zo"
       },
       {
-       "pair_id": "train:11377",
-       "sw_word": "hatujaongea",
-       "dav_word": "ndedidedanye",
-       "root": "dedany"
+       "pair_id": "train:21500",
+       "sw_word": "halijatua",
+       "dav_word": "ndejinengenere",
+       "root": "nengener"
       }
      ]
     },
@@ -4787,25 +3989,19 @@
       "om": "-",
       "final": "e"
      },
-     "n": 15,
+     "n": 18,
      "share": {
-      "rate": 0.08196721311475409,
+      "rate": 0.08530805687203792,
       "ci95": [
-       0.05030011834019803,
-       0.13082442779941972
+       0.05464097508525626,
+       0.13080541890920291
       ],
-      "k": 15,
-      "n": 183,
+      "k": 18,
+      "n": 211,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
-      {
-       "pair_id": "train:23054",
-       "sw_word": "hamjajenga",
-       "dav_word": "museaghie",
-       "root": "aghi"
-      },
       {
        "pair_id": "train:1675",
        "sw_word": "hujachana",
@@ -4813,52 +4009,16 @@
        "root": "shanu"
       },
       {
-       "pair_id": "train:19115",
-       "sw_word": "hujapalilia",
-       "dav_word": "kuselimie",
-       "root": "limi"
-      }
-     ]
-    },
-    {
-     "template": "nde-SM-ROOT",
-     "shape": {
-      "neg": "nde",
-      "series": "bare",
-      "tam": "-",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 10,
-     "share": {
-      "rate": 0.0546448087431694,
-      "ci95": [
-       0.029949173888395457,
-       0.09765410075707964
-      ],
-      "k": 10,
-      "n": 183,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:12377",
-       "sw_word": "halijafurahia",
-       "dav_word": "ndechiboilo",
-       "root": "boilo"
+       "pair_id": "train:24268",
+       "sw_word": "hawajafanya",
+       "dav_word": "wisebonyere",
+       "root": "bonyer"
       },
       {
-       "pair_id": "train:26630",
-       "sw_word": "hajaolewa",
-       "dav_word": "ndeulowolo",
-       "root": "lowolo"
-      },
-      {
-       "pair_id": "train:12839",
-       "sw_word": "hawajafurahia",
-       "dav_word": "ndewiboilo",
-       "root": "boilo"
+       "pair_id": "train:21560",
+       "sw_word": "sijafanya",
+       "dav_word": "nisebonyere",
+       "root": "bonyer"
       }
      ]
     },
@@ -4871,15 +4031,15 @@
       "om": "-",
       "final": "ie"
      },
-     "n": 10,
+     "n": 15,
      "share": {
-      "rate": 0.0546448087431694,
+      "rate": 0.07109004739336493,
       "ci95": [
-       0.029949173888395457,
-       0.09765410075707964
+       0.043551199484272496,
+       0.11396764230428241
       ],
-      "k": 10,
-      "n": 183,
+      "k": 15,
+      "n": 211,
       "low_n": false
      },
      "tier": "tentative",
@@ -4891,184 +4051,16 @@
        "root": "ghend"
       },
       {
+       "pair_id": "train:23054",
+       "sw_word": "hamjajenga",
+       "dav_word": "museaghie",
+       "root": "agh"
+      },
+      {
        "pair_id": "train:1816",
        "sw_word": "hujavuka",
        "dav_word": "kuseruwukie",
        "root": "ruwuk"
-      },
-      {
-       "pair_id": "train:1988",
-       "sw_word": "hajaenda",
-       "dav_word": "useghendie",
-       "root": "ghend"
-      }
-     ]
-    },
-    {
-     "template": "SM-se-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "se",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 9,
-     "share": {
-      "rate": 0.04918032786885246,
-      "ci95": [
-       0.02608639957706569,
-       0.09081262076958088
-      ],
-      "k": 9,
-      "n": 183,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:21684",
-       "sw_word": "hajakunywa",
-       "dav_word": "usenyue",
-       "root": "nyue"
-      },
-      {
-       "pair_id": "train:14076",
-       "sw_word": "sijazaliwa",
-       "dav_word": "nisevalo",
-       "root": "valo"
-      },
-      {
-       "pair_id": "train:26473",
-       "sw_word": "hawajazaliwa",
-       "dav_word": "visevalo",
-       "root": "valo"
-      }
-     ]
-    },
-    {
-     "template": "SM-ROOT-a",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "-",
-      "om": "-",
-      "final": "a"
-     },
-     "n": 8,
-     "share": {
-      "rate": 0.04371584699453552,
-      "ci95": [
-       0.02231508435218936,
-       0.08387968169562869
-      ],
-      "k": 8,
-      "n": 183,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "bible:NEN:NUM.23.21",
-       "sw_word": "haijaonekana",
-       "dav_word": "kuwona",
-       "root": "won"
-      },
-      {
-       "pair_id": "bible:NEN:2SA.17.22",
-       "sw_word": "hajavuka",
-       "dav_word": "kuruwuka",
-       "root": "ruwuk"
-      },
-      {
-       "pair_id": "bible:NEN:2SA.22.22",
-       "sw_word": "sijatenda",
-       "dav_word": "kubonya",
-       "root": "bony"
-      }
-     ]
-    },
-    {
-     "template": "SM-se-OM-ROOT-e",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "se",
-      "om": "OM",
-      "final": "e"
-     },
-     "n": 7,
-     "share": {
-      "rate": 0.03825136612021858,
-      "ci95": [
-       0.018650132009463204,
-       0.07684037973952632
-      ],
-      "k": 7,
-      "n": 183,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:22853",
-       "sw_word": "haujaniuliza",
-       "dav_word": "kusenikotere",
-       "root": "koter"
-      },
-      {
-       "pair_id": "train:22263",
-       "sw_word": "hajanijibu",
-       "dav_word": "usenitumbulie",
-       "root": "tumbuli"
-      },
-      {
-       "pair_id": "bible:NEN:ISA.66.19",
-       "sw_word": "havijasikia",
-       "dav_word": "wiseisikire",
-       "root": "sikir"
-      }
-     ]
-    },
-    {
-     "template": "SM-se-ROOT-ere",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "se",
-      "om": "-",
-      "final": "ere"
-     },
-     "n": 7,
-     "share": {
-      "rate": 0.03825136612021858,
-      "ci95": [
-       0.018650132009463204,
-       0.07684037973952632
-      ],
-      "k": 7,
-      "n": 183,
-      "low_n": false
-     },
-     "tier": "tentative",
-     "examples": [
-      {
-       "pair_id": "train:24268",
-       "sw_word": "hawajafanya",
-       "dav_word": "wisebonyere",
-       "root": "bony"
-      },
-      {
-       "pair_id": "train:22686",
-       "sw_word": "hujaosha",
-       "dav_word": "kuseoghoshere",
-       "root": "oghosh"
-      },
-      {
-       "pair_id": "train:21560",
-       "sw_word": "sijafanya",
-       "dav_word": "nisebonyere",
-       "root": "bony"
       }
      ]
     },
@@ -5081,19 +4073,25 @@
       "om": "-",
       "final": "ie"
      },
-     "n": 7,
+     "n": 15,
      "share": {
-      "rate": 0.03825136612021858,
+      "rate": 0.07109004739336493,
       "ci95": [
-       0.018650132009463204,
-       0.07684037973952632
+       0.043551199484272496,
+       0.11396764230428241
       ],
-      "k": 7,
-      "n": 183,
+      "k": 15,
+      "n": 211,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
+      {
+       "pair_id": "train:13661",
+       "sw_word": "hawajakosa",
+       "dav_word": "ndewisowie",
+       "root": "sow"
+      },
       {
        "pair_id": "train:25149",
        "sw_word": "halijapendeza",
@@ -5101,153 +4099,10 @@
        "root": "ghok"
       },
       {
-       "pair_id": "train:26403",
-       "sw_word": "hajashiba",
-       "dav_word": "ndeughudie",
-       "root": "ghud"
-      },
-      {
-       "pair_id": "bible:NEN:LEV.13.31",
-       "sw_word": "hakijaingia",
-       "dav_word": "ndechingirie",
-       "root": "ngir"
-      }
-     ]
-    }
-   ]
-  },
-  "neg:nge": {
-   "n_aligned": 9,
-   "n_unparsed": 4,
-   "readings": []
-  },
-  "subj": {
-   "n_aligned": 3424,
-   "n_unparsed": 690,
-   "readings": [
-    {
-     "template": "SM-ROOT-e",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "-",
-      "om": "-",
-      "final": "e"
-     },
-     "n": 631,
-     "share": {
-      "rate": 0.1842873831775701,
-      "ci95": [
-       0.17165675896935373,
-       0.1976256489458778
-      ],
-      "k": 631,
-      "n": 3424,
-      "low_n": false
-     },
-     "tier": "active",
-     "examples": [
-      {
-       "pair_id": "train:23604",
-       "sw_word": "mucheze",
-       "dav_word": "musarighe",
-       "root": "sarigh"
-      },
-      {
-       "pair_id": "train:24177",
-       "sw_word": "vifanye",
-       "dav_word": "vibonye",
-       "root": "bony"
-      },
-      {
-       "pair_id": "train:8424",
-       "sw_word": "niwache",
-       "dav_word": "nisighe",
-       "root": "sigh"
-      }
-     ]
-    },
-    {
-     "template": "SM-ROOT",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "-",
-      "om": "-",
-      "final": "-"
-     },
-     "n": 550,
-     "share": {
-      "rate": 0.16063084112149534,
-      "ci95": [
-       0.1487128918885472,
-       0.17330945593522623
-      ],
-      "k": 550,
-      "n": 3424,
-      "low_n": false
-     },
-     "tier": "active",
-     "examples": [
-      {
-       "pair_id": "train:23604",
-       "sw_word": "mutoke",
-       "dav_word": "mufume",
-       "root": "fume"
-      },
-      {
-       "pair_id": "train:1959",
-       "sw_word": "waende",
-       "dav_word": "wiende",
-       "root": "ende"
-      },
-      {
-       "pair_id": "train:22862",
-       "sw_word": "upatie",
-       "dav_word": "kuneke",
-       "root": "neke"
-      }
-     ]
-    },
-    {
-     "template": "SM-OM-ROOT-e",
-     "shape": {
-      "neg": "-",
-      "series": "bare",
-      "tam": "-",
-      "om": "OM",
-      "final": "e"
-     },
-     "n": 404,
-     "share": {
-      "rate": 0.11799065420560748,
-      "ci95": [
-       0.10761073069501181,
-       0.1292268174577383
-      ],
-      "k": 404,
-      "n": 3424,
-      "low_n": false
-     },
-     "tier": "active",
-     "examples": [
-      {
-       "pair_id": "train:21494",
-       "sw_word": "akusaidie",
-       "dav_word": "ukutesie",
-       "root": "tesi"
-      },
-      {
-       "pair_id": "train:4237",
-       "sw_word": "tupendane",
-       "dav_word": "dikundane",
-       "root": "ndan"
-      },
-      {
-       "pair_id": "train:21172",
-       "sw_word": "ujionyeshe",
-       "dav_word": "kukuwonyere",
-       "root": "wonyer"
+       "pair_id": "train:2646",
+       "sw_word": "hazijakauka",
+       "dav_word": "nderiomie",
+       "root": "om"
       }
      ]
     },
@@ -5260,24 +4115,246 @@
       "om": "-",
       "final": "a"
      },
-     "n": 150,
+     "n": 10,
      "share": {
-      "rate": 0.04380841121495327,
+      "rate": 0.04739336492890995,
       "ci95": [
-       0.03744894215989198,
-       0.05119039286655732
+       0.025943618361897392,
+       0.08502930308348376
       ],
-      "k": 150,
-      "n": 3424,
+      "k": 10,
+      "n": 211,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:3059",
-       "sw_word": "tuonane",
-       "dav_word": "diwonana",
-       "root": "wonan"
+       "pair_id": "train:24066",
+       "sw_word": "haujaenda",
+       "dav_word": "kuenda",
+       "root": "end"
+      },
+      {
+       "pair_id": "bible:NEN:1SA.14.24",
+       "sw_word": "sijalipiza",
+       "dav_word": "kulipa",
+       "root": "lip"
+      },
+      {
+       "pair_id": "bible:NEN:2SA.17.22",
+       "sw_word": "hajavuka",
+       "dav_word": "kuruwuka",
+       "root": "ruwuk"
+      }
+     ]
+    },
+    {
+     "template": "nde-SM-OM-ROOT-ie",
+     "shape": {
+      "neg": "nde",
+      "series": "bare",
+      "tam": "-",
+      "om": "OM",
+      "final": "ie"
+     },
+     "n": 8,
+     "share": {
+      "rate": 0.037914691943127965,
+      "ci95": [
+       0.01933474520919086,
+       0.0730198080989208
+      ],
+      "k": 8,
+      "n": 211,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "train:25853",
+       "sw_word": "hajajipaka",
+       "dav_word": "ndeukushingie",
+       "root": "shing"
+      },
+      {
+       "pair_id": "bible:NEN:EXO.5.23",
+       "sw_word": "hujawakomboa",
+       "dav_word": "ndekuwikirie",
+       "root": "kir"
+      },
+      {
+       "pair_id": "bible:NEN:PSA.9.10",
+       "sw_word": "hujawaacha",
+       "dav_word": "ndekuwisighie",
+       "root": "sigh"
+      }
+     ]
+    }
+   ]
+  },
+  "neg:nge": {
+   "n_aligned": 15,
+   "n_unparsed": 6,
+   "readings": [
+    {
+     "template": "nde-SM+e-ROOT-agha",
+     "shape": {
+      "neg": "nde",
+      "series": "e",
+      "tam": "-",
+      "om": "-",
+      "final": "agha"
+     },
+     "n": 3,
+     "share": {
+      "rate": 0.2,
+      "ci95": [
+       0.07047420643610414,
+       0.4518593533465045
+      ],
+      "k": 3,
+      "n": 15,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "bible:NEN:EST.2.14",
+       "sw_word": "hangeweza",
+       "dav_word": "nderedimagha",
+       "root": "dim"
+      },
+      {
+       "pair_id": "bible:NEN:JHN.11.21",
+       "sw_word": "hangekufa",
+       "dav_word": "nderefwagha",
+       "root": "fw"
+      },
+      {
+       "pair_id": "bible:NEN:JHN.11.32",
+       "sw_word": "hangekufa",
+       "dav_word": "nderefwagha",
+       "root": "fw"
+      }
+     ]
+    }
+   ]
+  },
+  "subj": {
+   "n_aligned": 3597,
+   "n_unparsed": 594,
+   "readings": [
+    {
+     "template": "SM-ROOT-e",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "-",
+      "om": "-",
+      "final": "e"
+     },
+     "n": 1048,
+     "share": {
+      "rate": 0.2913539060328051,
+      "ci95": [
+       0.2767332859625455,
+       0.30641971915714655
+      ],
+      "k": 1048,
+      "n": 3597,
+      "low_n": false
+     },
+     "tier": "active",
+     "examples": [
+      {
+       "pair_id": "train:21264",
+       "sw_word": "ukuje",
+       "dav_word": "kuche",
+       "root": "ch"
+      },
+      {
+       "pair_id": "train:23604",
+       "sw_word": "mucheze",
+       "dav_word": "musarighe",
+       "root": "sarigh"
+      },
+      {
+       "pair_id": "train:24177",
+       "sw_word": "vifanye",
+       "dav_word": "vibonye",
+       "root": "bony"
+      }
+     ]
+    },
+    {
+     "template": "SM-OM-ROOT-e",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "-",
+      "om": "OM",
+      "final": "e"
+     },
+     "n": 447,
+     "share": {
+      "rate": 0.12427022518765637,
+      "ci95": [
+       0.11388848972721607,
+       0.13545366406260903
+      ],
+      "k": 447,
+      "n": 3597,
+      "low_n": false
+     },
+     "tier": "active",
+     "examples": [
+      {
+       "pair_id": "train:909",
+       "sw_word": "unitafutie",
+       "dav_word": "kunilolie",
+       "root": "loli"
+      },
+      {
+       "pair_id": "train:21494",
+       "sw_word": "akusaidie",
+       "dav_word": "ukutesie",
+       "root": "tesi"
+      },
+      {
+       "pair_id": "train:21338",
+       "sw_word": "umwambie",
+       "dav_word": "kumzere",
+       "root": "zer"
+      }
+     ]
+    },
+    {
+     "template": "SM-ROOT-a",
+     "shape": {
+      "neg": "-",
+      "series": "bare",
+      "tam": "-",
+      "om": "-",
+      "final": "a"
+     },
+     "n": 160,
+     "share": {
+      "rate": 0.04448151237142063,
+      "ci95": [
+       0.038216125063665674,
+       0.05171885013768726
+      ],
+      "k": 160,
+      "n": 3597,
+      "low_n": false
+     },
+     "tier": "tentative",
+     "examples": [
+      {
+       "pair_id": "train:24345",
+       "sw_word": "waanze",
+       "dav_word": "kuzoya",
+       "root": "zoy"
       },
       {
        "pair_id": "train:2910",
@@ -5302,30 +4379,30 @@
       "om": "-",
       "final": "a"
      },
-     "n": 140,
+     "n": 150,
      "share": {
-      "rate": 0.04088785046728972,
+      "rate": 0.041701417848206836,
       "ci95": [
-       0.03475299229029222,
-       0.04805176741622398
+       0.03564257867847172,
+       0.04873813942920621
       ],
-      "k": 140,
-      "n": 3424,
+      "k": 150,
+      "n": 3597,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
+       "pair_id": "train:20010",
+       "sw_word": "uwe",
+       "dav_word": "kaia",
+       "root": "kai"
+      },
+      {
        "pair_id": "train:21102",
        "sw_word": "zifungue",
        "dav_word": "fungua",
        "root": "fungu"
-      },
-      {
-       "pair_id": "train:8505",
-       "sw_word": "waonyeshe",
-       "dav_word": "wonyera",
-       "root": "wonyer"
       },
       {
        "pair_id": "train:13709",
@@ -5344,33 +4421,33 @@
       "om": "-",
       "final": "e"
      },
-     "n": 111,
+     "n": 112,
      "share": {
-      "rate": 0.03241822429906542,
+      "rate": 0.03113705865999444,
       "ci95": [
-       0.02699009674753159,
-       0.03889439453117861
+       0.025942114086817424,
+       0.037332427064895556
       ],
-      "k": 111,
-      "n": 3424,
+      "k": 112,
+      "n": 3597,
       "low_n": false
      },
      "tier": "tentative",
      "examples": [
       {
-       "pair_id": "train:22103",
-       "sw_word": "uje",
-       "dav_word": "kuche",
-       "root": "kuch"
-      },
-      {
-       "pair_id": "train:6167",
-       "sw_word": "uje",
-       "dav_word": "kuche",
-       "root": "kuch"
+       "pair_id": "train:22833",
+       "sw_word": "nije",
+       "dav_word": "niche",
+       "root": "nich"
       },
       {
        "pair_id": "train:3151",
+       "sw_word": "mkate",
+       "dav_word": "mkate",
+       "root": "mkat"
+      },
+      {
+       "pair_id": "train:3232",
        "sw_word": "mkate",
        "dav_word": "mkate",
        "root": "mkat"
