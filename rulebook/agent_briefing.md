@@ -59,6 +59,14 @@ web. Held-out evaluation depends on this.
   `NEG.induced.*`) and round-1 rules (past passive -ilo/-iro-ghe, nga- 1sg, nde- with no
   3sg SM, -enyi plural imperative, -nyi locative, SM+ko copula). Check them too.
 
+- Rule book now also has extensions (`EXT.*`: applicative -i-/-ir-/-er-/-y-, passive
+  -w-/-lw-/-il-o, causative -ish-/-esh-, stative -ik-/-k-, reciprocal -an-/-n-, by root
+  shape), perfective finals (`FV.perfective.*`: -ie/-ire/-ere/-e) and -ghe (narrative past).
+  `nde-` is negation OR subjunctive 'may/let' (`TAM.subj.nde`).
+- **Scratch files**: if you write helper scripts, put them ONLY in
+  `~/languagemodels/rulebook_data/agents/round<R>/scratch_agent<N>/` (create it), and write only
+  to your own output file. In round 2 a shared helper made one agent write into another's file.
+
 ## Output
 
 Write JSON Lines to `~/languagemodels/rulebook_data/agents/round<R>/out_agent<N>.jsonl`,

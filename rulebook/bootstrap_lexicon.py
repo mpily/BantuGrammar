@@ -55,7 +55,7 @@ MAX_RESIDUAL = 4
 ORTHO_BONUS = 0.5  # added to votes when difflib ratio >= 0.75 (loans, names, shared Bantu roots)
 MIN_STEM = 1        # 3 stalled the loop (no function words -> residuals too large); Dice floors guard instead
 TOP_FUNCTION, FUNCTION_MIN_DICE = 150, 0.2
-AGENT_MIN_COOC = 2
+AGENT_MIN_COOC = 3
 MIN_DICE = {"accepted": 0.05, "tentative": 0.02}  # whole-sentence Dice floor (not the only criterion)
 
 DAV_NEG = ("nde", "si")
@@ -100,6 +100,10 @@ def dav_stems(w: str) -> frozenset:
     out = set()
     for x in _strip_prefixes(w, (DAV_NEG, DAV_SM, DAV_TAM, DAV_OM)) | _strip_prefixes(w, (DAV_NOUN,)):
         out |= _strip_final(x, DAV_FINAL)
+    # undo m + w/b -> mmb after an object or subject m- (ummbanga = u-m-wang-a; agent round 3)
+    for x in list(out):
+        if x.startswith("mb") and len(x) >= 4:
+            out |= {"w" + x[2:], "b" + x[2:]}
     # stems of 1-3 letters collected glosses of unrelated words (ka, da, ndo: agent round 1)
     # a stem that is only an ending (eghe, agha, ire: werelueghe -> eghe, agent round 2) is not a lemma
     return frozenset(s for s in out if (len(s) >= MIN_DAV_STEM and s not in DAV_FINAL) or s == w)
@@ -336,7 +340,8 @@ def run(agent_files: list[Path], max_iter: int = 60, hide: set[str] = frozenset(
         conf = info.get("confidence")
         if ls in csw or ld in cdv:
             continue
-        if conf != "low" and (c >= AGENT_MIN_COOC or (conf == "high" and c >= 1)):
+        # round 3: gated agent entries were still wrong 8/39 -> medium needs >= 3 shared pairs
+        if (conf == "high" and c >= 1) or (conf == "medium" and c >= AGENT_MIN_COOC):
             known[ls].setdefault(ld, {**info, "agent_cooc": c})
         else:
             unverified.append({"sw_lemma": ls, "dav_lemma": ld, **info, "agent_cooc": c})

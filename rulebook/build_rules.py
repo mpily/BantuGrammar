@@ -448,6 +448,22 @@ def section_round1():
     tam("COPULA.have", 7, "COPULA", "have", f"{alt(ALL_BARE + ALL_E)}(?:e?ka|oka|ko)",
         {"template": "SM(+e)-(e)ka / -ko + na 'have'"}, {"sw": "SM-na 'have'"},
         notes="agent rounds 1-2: neka na, oka na, deka na; check that 'na' follows")
+    # agent round 3
+    tam("TAM.fut.chaa", 3, "TAM", "tam:ta", f"{B}chaa{R}", {"template": "SM-chaa-ROOT-a (affirmative future)"},
+        {"sw_tam": "ta"}, notes="agent round 3: -chaa- is not only negative; negation is nde-/si-")
+    tam("OM.2pl.m", 1, "OM", "om:wa", f"(?:nde|si)?{alt(ALL_SM)}{TAMS_RE}mu?(?!mb)[a-z]{{3,}}",
+        {"form": "m- / mu-", "meaning": "2pl object (Swahili -wa- ... -eni)"}, {"sw_om": "wa", "obj": "2pl"},
+        notes="agent round 3; same surface as 3sg m-, so evidence also counts 3sg readings")
+    tam("NEG.have", 4, "NEG", "neg:have", f"nde{alt(ALL_BARE + ALL_E)}?n[ae]",
+        {"template": "nde-SM-na / nde-SM-ne 'not have'"}, {"sw": "SM-na negative (sina, hana, hakuna)"},
+        notes="agent rounds 2-3: ndeuna, ndeghuna, ndew'ine, ndekune")
+    tam("NEG.have_wadie", 4, "NEG", "neg:have", f"nde{alt(ALL_BARE + ALL_E)}?wadie",
+        {"template": "nde-SM-wadie 'not have' (main form)"}, {"sw": "SM-na negative (sina, hana, hakuna)"},
+        notes="round 3 check: ndekuwadie 180, ndewiwadie 22, ndediwadie 17 in neg-have pairs")
+    tam("NEG.have_dependent", 4, "NEG", "neg:have", f"{alt(ALL_BARE)}sen[ae]",
+        {"template": "SM-se-na (dependent clause)"}, {"sw": "SM-na negative"}, notes="agent round 3: usena, isena")
+    tam("NEG.lest", 4, "NEG", "lest", f"{B}seche{R}", {"template": "SM-se-che-ROOT-a 'lest / so that not'"},
+        {"sw": "-sije-"}, notes="agent round 3: disechetota")
     # concord variants named by agents
     for lab, f, kind in (("i", "iyo", "DEM.mid variant"), ("i_nasal", "iyo", "DEM.mid variant"),
                          ("ji", "jija", "DEM.far variant"), ("ku", "kose", "-ose 'all/everywhere'"),

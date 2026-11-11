@@ -10,22 +10,22 @@
    6,
    7
   ],
-  "git_sha": "7651114503041bacd937d7872dd77b64a5f10548",
+  "git_sha": "aaa57bccb96029175e3203fe3a81b31f085deecb",
   "config": {
    "min_evidence": 2,
    "min_lift": 1.5,
    "tentative_evidence": 1,
    "tentative_lift": 1.0,
-   "n_train_pairs": 39265,
+   "n_train_pairs": 37491,
    "n_examples": 3
   },
   "hashes_sha256_16": {
    "train.jsonl": "fd25256c6ddfc22b",
-   "attest.py": "03f473ea721b327d",
-   "build_rules.py": "9802300699e60d54",
-   "bootstrap_lexicon.json": "b36413971661e2af",
-   "induced_verb_rules.json": "1d09943507493366",
-   "induced_extension_rules.json": "218b5ed1ca2df624",
+   "attest.py": "dd5015998a3fe5a7",
+   "build_rules.py": "e91b066ec7c2046e",
+   "bootstrap_lexicon.json": "150adf37eaeef8c5",
+   "induced_verb_rules.json": "42524e727444b5d2",
+   "induced_extension_rules.json": "45dcf4a615645594",
    "word_align.py": "c1d01b4a7f92b929",
    "kitaita_verified_corrections.py": "d05695176e55a882",
    "kitaita_speaker_verified.json": "bae5b8ae8347725e",
@@ -41,7 +41,7 @@
   ],
   "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment"
  },
- "n_rules": 415,
+ "n_rules": 424,
  "rejected": [
   {
    "id": "QUANT.ose.ghu",
@@ -67,7 +67,7 @@
     "baseline_excludes": [
      "gh"
     ],
-    "n_noun_tokens": 4006,
+    "n_noun_tokens": 3947,
     "lift": null,
     "domains": {
      "davswa": 0,
@@ -114,7 +114,7 @@
      "i_nasal",
      "u"
     ],
-    "n_noun_tokens": 1485,
+    "n_noun_tokens": 1461,
     "lift": 0.69,
     "domains": {
      "davswa": 1,
@@ -148,7 +148,7 @@
     "dav_regex": "lwose",
     "sw_regex": null,
     "baseline_excludes": [],
-    "n_noun_tokens": 725,
+    "n_noun_tokens": 710,
     "lift": null,
     "domains": {
      "davswa": 0,
@@ -181,7 +181,7 @@
     "dav_regex": "kwose",
     "sw_regex": null,
     "baseline_excludes": [],
-    "n_noun_tokens": 1011,
+    "n_noun_tokens": 984,
     "lift": null,
     "domains": {
      "davswa": 0,
@@ -529,21 +529,21 @@
      "dav_word": "raduka"
     },
     {
-     "pair_id": "train:10551",
-     "sw_word": "walipaa",
-     "dav_word": "repuruka"
-    },
-    {
      "pair_id": "train:6994",
      "sw_word": "ulianza",
      "dav_word": "kudezoya"
+    },
+    {
+     "pair_id": "train:11219",
+     "sw_word": "alifunga",
+     "dav_word": "ofunga"
     }
    ],
    "evidence_count": 0,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|gho|ghe|de|mo|ve|lo|ne|ko|ye|we|re|je|e|o)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
-    "n_pairs_with_sw_feature": 7733,
+    "dav_regex": "(?:che|gho|ghe|mo|de|ne|je|re|ye|ve|lo|ko|we|e|o)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
+    "n_pairs_with_sw_feature": 7609,
     "share_of_feature_pairs": 0.0,
     "lift": null,
     "domains": {
@@ -557,16 +557,16 @@
    "reason": "evidence 0, lift None",
    "word_level": {
     "method": "aligned_verbs (bootstrap lexicon)",
-    "n_aligned": 3481,
+    "n_aligned": 4208,
     "k_match": 0,
     "rate": {
      "rate": 0.0,
      "ci95": [
       0.0,
-      0.0011023743518213279
+      0.0009120950797389912
      ],
      "k": 0,
-     "n": 3481,
+     "n": 4208,
      "low_n": false
     },
     "examples": [],
@@ -577,14 +577,14 @@
       "dav_word": "raduka"
      },
      {
-      "pair_id": "train:10551",
-      "sw_word": "walipaa",
-      "dav_word": "repuruka"
-     },
-     {
       "pair_id": "train:6994",
       "sw_word": "ulianza",
       "dav_word": "kudezoya"
+     },
+     {
+      "pair_id": "train:11219",
+      "sw_word": "alifunga",
+      "dav_word": "ofunga"
      }
     ]
    }
@@ -634,8 +634,8 @@
     "dav_regex": "iyo",
     "sw_regex": null,
     "baseline_excludes": [],
-    "n_noun_tokens": 4221,
-    "lift": 0.47,
+    "n_noun_tokens": 4164,
+    "lift": 0.48,
     "domains": {
      "davswa": 0,
      "bible": 14
@@ -644,7 +644,7 @@
    "source": "corpus_attested",
    "conflict": false,
    "notes": "agent round 1",
-   "reason": "evidence 125, lift 0.47"
+   "reason": "evidence 125, lift 0.48"
   },
   {
    "id": "CONCORD.variant.i_nasal.iyo",
@@ -691,7 +691,7 @@
     "dav_regex": "iyo",
     "sw_regex": null,
     "baseline_excludes": [],
-    "n_noun_tokens": 1563,
+    "n_noun_tokens": 1541,
     "lift": 0.48,
     "domains": {
      "davswa": 1,
@@ -736,7 +736,7 @@
     "dav_regex": "ghose",
     "sw_regex": null,
     "baseline_excludes": [],
-    "n_noun_tokens": 4006,
+    "n_noun_tokens": 3947,
     "lift": 0.26,
     "domains": {
      "davswa": 4,
@@ -770,7 +770,7 @@
     "baseline_excludes": [
      "i"
     ],
-    "n_noun_tokens": 1563,
+    "n_noun_tokens": 1541,
     "lift": 0.0,
     "domains": {
      "davswa": 0,

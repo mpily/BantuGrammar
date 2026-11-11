@@ -28943,3 +28943,32 @@ narrative / remote past. Version-B helpers on the same data, where an extension 
 `applicative_stem` 213/397 (54%), `kitaita_passive_form` 528/1,056 (50%; misses the perfective
 -il-o and l / lw). Rules: 415 (sections 1–7; section 8 gaps are flag_only entries).
 Next: agent round 3 (first with corpus-gated agent proposals; same 4-agent design).
+
+## 2026-11-11 (cont. 5) — loop round 3: audit flat; segmentation is the ceiling
+
+Round 3 (first with corpus-gated agent proposals; same 4-agent design, own scratch folders; all
+files checked: no foreign or duplicate lines, all items covered).
+
+| random audit (100) | correct | partly | wrong |
+|---|---|---|---|
+| round 1 | 53 [43, 62]% | 45 | 2 |
+| round 2 | 33 [25, 43]% | 54 | 13 |
+| round 3 | 35 [26, 45]% | 56 | 9 |
+
+By tier (round 3): accepted 8/15 correct, 0 wrong; tentative 13/46, 1 wrong; agent 14/39, **8 wrong**
+(gated at ≥ 2 shared pairs). Support-check blocks judged right: 21/50 (round 2: 4/50). "Partly" is
+almost all stem cutting (SM/TAM/OM left on verb roots, noun prefixes cut). Not converging on
+"fully correct": meanings are mostly right, roots are not.
+
+**Changes**: exact repeated (Swahili, Kidaw'ida) pairs counted once (1,774 of 39,265; agent round 3:
+repeats inflated support); m+w/b → mmb undone when finding roots (wichammbona → wona); agent
+proposals: high confidence needs ≥ 1 shared pair, medium ≥ 3, low never (1,502 kept unverified).
+Lexicon 5,582 entries (seed 1,743, accepted 579, tentative 1,801, agent 1,459); coverage 88% Swahili /
+91% Kidaw'ida tokens; held-out seeds accepted 38/49 (78% [64, 87]), tentative 21/29 (72% [54, 85]).
+
+**Rules** (424): sections 5–6 (cont. 4) plus round-3 candidates: 'not have' nde-SM-wadie (ndekuwadie
+180 in neg-have pairs) / nde-SM-na / SM-se-na; 'lest' SM-se-che- (lift 97, n 19); affirmative
+-chaa- future tentative (62/3,172 aligned -ta- verbs); 2pl object m- active but ambiguous with 3sg.
+Speaker questions accumulating (agents, all rounds): maza takes ri- in 3+ pairs (speaker: ghi);
+chia takes i-/ri- (speaker: chi); ngelo with i-; indu (eagle, listed ji) with i-; class-14 wu-
+nouns with ghu- 4/4 in one batch; human ki- nouns (kilongozi) with u-.

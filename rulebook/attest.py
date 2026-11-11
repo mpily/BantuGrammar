@@ -46,13 +46,24 @@ def toks(text: str) -> list[str]:
     return [t for t in (norm(w) for w in text.split()) if t]
 
 
+N_DUPLICATES_DROPPED = 0
+
+
 @lru_cache(maxsize=1)
 def pairs() -> list[dict]:
-    out = []
+    """Clean-train pairs; exact repeats of a (Swahili, Kidaw'ida) pair after normalisation are kept
+    once (agent round 3: repeated sentences inflated support counts)."""
+    global N_DUPLICATES_DROPPED
+    out, seen = [], set()
     for line in open(TRAIN, encoding="utf-8"):
         r = json.loads(line)
-        out.append({"id": r["id"], "src": r["src"], "swa": r["swa"], "dav": r["dav"],
-                    "sw": toks(r["swa"]), "dv": toks(r["dav"])})
+        sw, dv = toks(r["swa"]), toks(r["dav"])
+        key = (" ".join(sw), " ".join(dv))
+        if key in seen:
+            N_DUPLICATES_DROPPED += 1
+            continue
+        seen.add(key)
+        out.append({"id": r["id"], "src": r["src"], "swa": r["swa"], "dav": r["dav"], "sw": sw, "dv": dv})
     return out
 
 
@@ -63,6 +74,8 @@ def sw_parse(word: str):
 
 SW_DEM_WORDS = set(("huyu hawa huu hii hili haya hiki hivi hizi huku hapa humu yule wale ule ile lile yale kile vile "
                      "zile kule pale mle huyo hao huo hiyo hilo hayo hicho hivyo hizo huko hapo humo").split())
+SW_NEG_HAVE = {"sina", "huna", "hana", "hatuna", "hamna", "hawana", "hakuna", "hakina", "haina", "hazina",
+               "havina", "halina", "hapana"}
 SW_HAVE = {"nina", "una", "ana", "tuna", "mna", "wana", "kina", "ina", "zina", "vina", "lina"}
 SW_COPULA_LOC = {"niko", "uko", "yuko", "tuko", "mko", "iko", "kiko", "viko", "ziko", "liko", "kuna", "pana", "mna"}
 
@@ -75,6 +88,10 @@ def sw_features(word: str) -> set[str]:
         return {"copula:ko"}
     if word in SW_HAVE:
         return {"have"}
+    if word in SW_NEG_HAVE:
+        return {"neg:have"}
+    if "sije" in word and len(word) >= 6:
+        f.add("lest")
     if len(word) >= 5 and word.endswith("eni") and not sw_parse(word):
         f.add("imp:pl")
     if word in _SW_NEG_STOP or word in SW_DEM_WORDS:   # vile, kile are demonstratives, not subjunctives

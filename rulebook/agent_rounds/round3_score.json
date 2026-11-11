@@ -1,0 +1,299 @@
+{
+ "round": 3,
+ "lines_per_file": {
+  "out_agent1.jsonl": 357,
+  "out_agent2.jsonl": 337,
+  "out_agent3.jsonl": 377,
+  "out_agent4.jsonl": 354
+ },
+ "bad_lines": 0,
+ "audit": {
+  "n": 100,
+  "counts": {
+   "correct": 35,
+   "partly": 56,
+   "wrong": 9
+  },
+  "correct_or_partly": {
+   "rate": 0.91,
+   "ci95": [
+    0.8377362530335634,
+    0.9519280048361151
+   ],
+   "k": 91,
+   "n": 100,
+   "low_n": false
+  },
+  "correct": {
+   "rate": 0.35,
+   "ci95": [
+    0.2636410465347802,
+    0.4474573957080203
+   ],
+   "k": 35,
+   "n": 100,
+   "low_n": false
+  }
+ },
+ "audit_by_tier": {
+  "agent": {
+   "n": 39,
+   "counts": {
+    "correct": 14,
+    "partly": 17,
+    "wrong": 8
+   },
+   "correct_or_partly": {
+    "rate": 0.7948717948717948,
+    "ci95": [
+     0.6446572703687138,
+     0.8922040980208888
+    ],
+    "k": 31,
+    "n": 39,
+    "low_n": false
+   },
+   "correct": {
+    "rate": 0.358974358974359,
+    "ci95": [
+     0.22741884696491105,
+     0.515821368153105
+    ],
+    "k": 14,
+    "n": 39,
+    "low_n": false
+   }
+  },
+  "accepted": {
+   "n": 15,
+   "counts": {
+    "partly": 7,
+    "correct": 8
+   },
+   "correct_or_partly": {
+    "rate": 1.0,
+    "ci95": [
+     0.7961107336956521,
+     1.0
+    ],
+    "k": 15,
+    "n": 15,
+    "low_n": false
+   },
+   "correct": {
+    "rate": 0.5333333333333333,
+    "ci95": [
+     0.3011663015105079,
+     0.7519077474025355
+    ],
+    "k": 8,
+    "n": 15,
+    "low_n": false
+   }
+  },
+  "tentative": {
+   "n": 46,
+   "counts": {
+    "partly": 32,
+    "correct": 13,
+    "wrong": 1
+   },
+   "correct_or_partly": {
+    "rate": 0.9782608695652174,
+    "ci95": [
+     0.8866444550566697,
+     0.9961522448887572
+    ],
+    "k": 45,
+    "n": 46,
+    "low_n": false
+   },
+   "correct": {
+    "rate": 0.2826086956521739,
+    "ci95": [
+     0.1732404154491407,
+     0.42548835730293777
+    ],
+    "k": 13,
+    "n": 46,
+    "low_n": false
+   }
+  }
+ },
+ "blocked_check": {
+  "n": 50,
+  "counts": {
+   "partly": 20,
+   "wrong": 21,
+   "correct": 9
+  },
+  "correct_or_partly": {
+   "rate": 0.58,
+   "ci95": [
+    0.4423319668777783,
+    0.7062520276543307
+   ],
+   "k": 29,
+   "n": 50,
+   "low_n": false
+  },
+  "correct": {
+   "rate": 0.18,
+   "ci95": [
+    0.0977008273245379,
+    0.3079631945470261
+   ],
+   "k": 9,
+   "n": 50,
+   "low_n": false
+  }
+ },
+ "low_support_tentative": {
+  "n": 50,
+  "counts": {
+   "partly": 43,
+   "wrong": 1,
+   "correct": 6
+  },
+  "correct_or_partly": {
+   "rate": 0.98,
+   "ci95": [
+    0.8950431352816304,
+    0.9964608319110235
+   ],
+   "k": 49,
+   "n": 50,
+   "low_n": false
+  },
+  "correct": {
+   "rate": 0.12,
+   "ci95": [
+    0.05617523710624646,
+    0.23805078886623582
+   ],
+   "k": 6,
+   "n": 50,
+   "low_n": false
+  }
+ },
+ "proposals": {
+  "n": 1082,
+  "by_confidence": {
+   "medium": 475,
+   "low": 148,
+   "high": 459
+  },
+  "fixes_known": 195,
+  "null_counterpart": 133,
+  "multiword": 234
+ },
+ "rule_notes": {
+  "n": 143,
+  "by_rule": {
+   "TAM.pres.awuya": 5,
+   "TAM.rel.pres": 2,
+   "TAM.fut.ta / NEG.fut": 1,
+   "POSS.ri": 4,
+   "new: NUM.concord": 4,
+   "new: IDIOM.fwa_waya": 1,
+   "CLASS.ghu / CLASS.u conflict": 1,
+   "COPULA.have": 3,
+   "NOUN.conflict.maza": 5,
+   "TAM.fut.ta": 1,
+   "new: NEG.have / NEG.existential": 1,
+   "new: TAM.past_continuous re+agha": 1,
+   "TAM.rel.lipo": 3,
+   "NEG.past": 2,
+   "TAM.subj.nde": 3,
+   "NEG.pres": 2,
+   "TAM.cond.ki / TAM.induced.tam_ki.2": 1,
+   "COPULA.ko": 1,
+   "new: OM.2pl": 2,
+   "new: COPULA.oka": 1,
+   "SM.person.verified (1pl past de/da)": 1,
+   "TAM.narr.nga_1sg": 1,
+   "TAM.induced.tam_li.2": 1,
+   "new: IDIOM.fushwa_waya": 1,
+   "OM.3sg.mmb": 4,
+   "LOC.nyi": 1,
+   "TAM.pres.na_we": 1,
+   "TAM.subj.plain": 1,
+   "TAM.perf.passive_o": 1,
+   "new: ASSOC+ku contraction": 2,
+   "DEM.i": 2,
+   "new: REL.neg": 1,
+   "OM.reflexive.ku": 1,
+   "DEM.i_nasal": 1,
+   "POSS.ro.u": 1,
+   "POSS.i": 1,
+   "POSS.u / POSS.ri / POSS.ghi": 1,
+   "TAM.cond.nge": 1,
+   "new: CONCORD.eni 'own/itself'": 1,
+   "new: NEG.se past": 1,
+   "SM.1sg.a": 1,
+   "TAM.past.passive": 2,
+   "REL.neg": 1,
+   "new: CONCORD.oni/eni 'own, self'": 1,
+   "DEM.ri": 1,
+   "ADJ.i_nasal": 1,
+   "IMP.pl_enyi": 2,
+   "TAM.past.li": 2,
+   "SM.u.a": 1,
+   "OM.2pl (new)": 1,
+   "NOUN.conflict.chia": 3,
+   "TAM.fut.ta (relative)": 1,
+   "ADJ.ri (missing)": 1,
+   "CLASS.animate_override": 3,
+   "TAM.pres.na_stative_taka": 1,
+   "TAM.subj.plain (passive)": 1,
+   "NEG (relative/stative -se-)": 1,
+   "TAM.subj.nde (3sg)": 1,
+   "COPULA.have (negative)": 2,
+   "POSS.i (3sg variant)": 1,
+   "TAM.pres (na → SM+a ROOT-agha)": 1,
+   "CONCORD -eni 'self/same' (missing)": 1,
+   "CONCORD SM+ekeri 'alone' (missing)": 1,
+   "CONCORD -mu 'one/some' (missing)": 1,
+   "CLASS.ji (indu)": 1,
+   "COPULA.ko (2pl)": 1,
+   "NOUN.conflict.ngelo": 1,
+   "COPULA (SM+e-eka 'be')": 1,
+   "COPULA.ko (class ku)": 1,
+   "NOUN diminutive du- (missing)": 1,
+   "TAM -de- (new)": 1,
+   "PLURAL.number_invariant / CLASS (farasi)": 1,
+   "NEG (-se- non-imperative negative)": 1,
+   "NEG.past (locative ku)": 1,
+   "IMP.pl_enyi (passive/stative)": 1,
+   "CONCORD -eni (person forms)": 1,
+   "NEG.past_3sg": 1,
+   "TAM.pres.awuya (negative)": 1,
+   "CONCORD SM+eka/ekeri 'alone'": 1,
+   "NEG.pres_1sg (stative kunda)": 1,
+   "NEG.fut": 1,
+   "new: DEM.loc / CONCORD.loc": 1,
+   "new: COMITATIVE.na_pron": 1,
+   "CLASS.u / CLASS.ghu (class 14 split)": 3,
+   "new: TAM.prospective.endaa": 1,
+   "COPULA.have / new: ADJ.enye": 1,
+   "CLASS.ghu / ADJ.ghu": 1,
+   "new: NEG.rel.se": 1,
+   "new: POSS.kinship_enclitic": 1,
+   "ADJ.i": 1,
+   "new: TAM.sinda": 1,
+   "new: CLASS.loc (andu)": 1,
+   "ADJ (new: stative adjectives)": 1,
+   "new: NEG.purposive.seche": 1,
+   "CLASS.animate_override (cl.7 humans)": 1,
+   "new: CONCORD.ngi": 1,
+   "new: INF.rel_e (purpose infinitive after cl.9 nouns)": 1,
+   "new: TAM.sinda (update)": 1,
+   "new: PHON.a_i_coalescence": 1,
+   "new: COMITATIVE.na_pron (update)": 1,
+   "new: NEG.have": 1,
+   "new: TAM.sinda (identified)": 1,
+   "new: INF.rel_e (cl.7 attestation)": 1,
+   "NEG.ja / NEG.pres_3sg": 1
+  }
+ }
+}
