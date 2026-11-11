@@ -1,0 +1,154 @@
+{
+ "round": 4,
+ "lines_per_file": {
+  "out_agent1.jsonl": 56,
+  "out_agent2.jsonl": 53
+ },
+ "bad_lines": 0,
+ "audit": {
+  "n": 100,
+  "counts": {
+   "correct": 50,
+   "partly": 43,
+   "wrong": 7
+  },
+  "correct_or_partly": {
+   "rate": 0.93,
+   "ci95": [
+    0.8625032899347025,
+    0.965681175635936
+   ],
+   "k": 93,
+   "n": 100,
+   "low_n": false
+  },
+  "correct": {
+   "rate": 0.5,
+   "ci95": [
+    0.40382982859014716,
+    0.5961701714098528
+   ],
+   "k": 50,
+   "n": 100,
+   "low_n": false
+  }
+ },
+ "audit_by_tier": {
+  "accepted": {
+   "n": 19,
+   "counts": {
+    "correct": 12,
+    "partly": 7
+   },
+   "correct_or_partly": {
+    "rate": 1.0,
+    "ci95": [
+     0.8318156346315496,
+     1.0
+    ],
+    "k": 19,
+    "n": 19,
+    "low_n": false
+   },
+   "correct": {
+    "rate": 0.631578947368421,
+    "ci95": [
+     0.4103915749815672,
+     0.8085072762372616
+    ],
+    "k": 12,
+    "n": 19,
+    "low_n": false
+   }
+  },
+  "tentative": {
+   "n": 29,
+   "counts": {
+    "partly": 17,
+    "correct": 11,
+    "wrong": 1
+   },
+   "correct_or_partly": {
+    "rate": 0.9655172413793104,
+    "ci95": [
+     0.8282410893529976,
+     0.9938869433859677
+    ],
+    "k": 28,
+    "n": 29,
+    "low_n": false
+   },
+   "correct": {
+    "rate": 0.3793103448275862,
+    "ci95": [
+     0.22687795730867344,
+     0.5599777379071503
+    ],
+    "k": 11,
+    "n": 29,
+    "low_n": false
+   }
+  },
+  "agent": {
+   "n": 52,
+   "counts": {
+    "partly": 19,
+    "wrong": 6,
+    "correct": 27
+   },
+   "correct_or_partly": {
+    "rate": 0.8846153846153846,
+    "ci95": [
+     0.7702808110893793,
+     0.9460310424391727
+    ],
+    "k": 46,
+    "n": 52,
+    "low_n": false
+   },
+   "correct": {
+    "rate": 0.5192307692307693,
+    "ci95": [
+     0.3868545397052721,
+     0.6489610529711556
+    ],
+    "k": 27,
+    "n": 52,
+    "low_n": false
+   }
+  }
+ },
+ "blocked_check": {
+  "n": 0,
+  "counts": {},
+  "correct_or_partly": null,
+  "correct": null
+ },
+ "low_support_tentative": {
+  "n": 0,
+  "counts": {},
+  "correct_or_partly": null,
+  "correct": null
+ },
+ "proposals": {
+  "n": 0,
+  "by_confidence": {},
+  "fixes_known": 0,
+  "null_counterpart": 0,
+  "multiword": 0
+ },
+ "rule_notes": {
+  "n": 9,
+  "by_rule": {
+   "NEG.have": 1,
+   "new (numerals)": 1,
+   "new (locative -nyi on nouns)": 1,
+   "COPULA.have": 1,
+   "new (past of 'be')": 1,
+   "segmentation (loop)": 1,
+   "new (reflexive/emphatic -enyewe)": 1,
+   "new (segmentation: substring matches)": 1,
+   "segmentation (SM/TAM kept on sw verb lemmas)": 1
+  }
+ }
+}

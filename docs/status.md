@@ -28972,3 +28972,35 @@ Lexicon 5,582 entries (seed 1,743, accepted 579, tentative 1,801, agent 1,459); 
 Speaker questions accumulating (agents, all rounds): maza takes ri- in 3+ pairs (speaker: ghi);
 chia takes i-/ri- (speaker: chi); ngelo with i-; indu (eagle, listed ji) with i-; class-14 wu-
 nouns with ghu- 4/4 in one batch; human ki- nouns (kilongozi) with u-.
+
+## 2026-11-11 (cont. 6) — root-inventory segmentation pass; audit 35% → 50% fully correct
+
+User: do the cheap pass to improve the word cuts (all agents, rounds 1–3, named stem cutting as the
+main error). `rulebook/segment.py`: root inventory = agent-given roots (rounds 1–3, high/medium,
+root inside the word) + speaker-verified nouns/roots, cleaned (no mmb- roots, no -(e)nyi); every word
+re-cut as [NEG/SM/TAM/OM or noun prefix] ROOT [extensions][final][-ghe], score = root length +
+1.5·log2(1 + votes) − 0.75·extension letters − 0.1·prefix letters; m+w/b → mmb undone. One agent
+gave roots for the 700 most frequent words still without an analysis (450 Kidaw'ida, 250 Swahili;
+560 high confidence; differed from the loop's cut on 142, mostly class prefixes cut off or verbs
+not split); those exact words take its root.
+
+Effect: lemma types Kidaw'ida 14,042 → 11,046, Swahili 19,996 → 16,515 (inflected forms now grouped);
+token coverage 91 → 94% Kidaw'ida, 88 → 89% Swahili; lexicon 5,582 → 4,474 entries (merged
+stems); held-out seeds accepted 40/50 (80% [67, 89]), tentative 12/19 (63% [41, 81]). Aligned verbs
+with a visible extension: applicative 397 → 642, passive 1,056 → 1,399. Rules 408 (281 active).
+
+**Round-4 audit** (2 agents × 50 random entries, audit only, same verdict definitions):
+
+| round | fully correct | partly | wrong |
+|---|---|---|---|
+| 1 | 53 [43, 62]% | 45 | 2 |
+| 2 | 33 [25, 43]% | 54 | 13 |
+| 3 | 35 [26, 45]% | 56 | 9 |
+| 4 (after segmentation pass) | 50 [40, 60]% | 43 | 7 |
+
+By tier: accepted 12/19 correct (0 wrong), tentative 11/29 (1 wrong), agent 27/52 (6 wrong).
+Caveat: 2 auditors instead of 4 (auditor variance); CIs of rounds 3 and 4 overlap slightly.
+Remaining errors named by the auditors: Swahili verb lemmas still carrying SM/TAM (wanalia,
+wamelipwa), Swahili fragments (fu, po, ota, umb) colliding with other words, substring matches
+(tanda in kitanda), names/loans losing fake prefixes, concord / numeral words paired as vocabulary
+(wenyewe → SM-eni; thelathini → mirongo idadu), sense-limited pairs (ndege plane/bird).
