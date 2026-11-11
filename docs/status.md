@@ -28773,3 +28773,55 @@ lexicon use only speaker-verified material, Bible-only sources (page1, bible_cla
 and count files rebuilt from `rulebook_data/train.jsonl`. Round-1 agent outputs and
 everything derived from them (mined_lexicon_round1, verb_roots, noun_classes_round1,
 root_alignment tiers round1/infinitive) are not used. Next: step 2 (`rules.json` sections 1–4).
+
+## 2026-11-11 (cont.) — CLAUDE_rulebook.md step 2: `rules.json` sections 1–4
+
+Step 2 of 6 done: `rulebook/rules.json` (182 rules, sections 1–4), generated
+`rulebook/RULEBOOK.md` (`render.py`), rejected candidates + config + hashes in
+`rulebook/build_rules_results.json`. Built by `rulebook/build_rules.py` on top of
+`rulebook/attest.py`.
+
+**Method.** Candidates come from the speaker-verified tables, the existing code
+(`kitaita_verb.SERIES/TAMS/OMS`, `rulebook_correct._tense_target`) and exploring the
+clean train split; none from round-1 outputs (user decision above). Evidence is counted
+only on `rulebook_data/train.jsonl` (39,265 pairs; dev never read):
+- concord: the word right after (or before) a speaker-verified noun of the class; lift =
+  rate after this class / rate after nouns of other classes, leaving out classes that share
+  the same form (m-baa for u/ghu/i/ri);
+- verbs: sentence-pair co-occurrence of a Swahili feature (`swahili_verb.parse`) and a
+  Kidaw'ida word shape; lift = P(shape | feature) / P(shape | no feature). Not word
+  alignment (the existing eflomal links were trained on the contaminated pool).
+- A corpus rule is kept only with ≥ 2 pairs and lift ≥ 1.5; each form inside a rule is
+  marked attested / unattested. Rules with the same Swahili condition are ranked as
+  readings (speaker preference first, else most evidence).
+- Caveat: `swahili_verb.parse` picks readings using `kitaita_root_alignment.json` (a
+  left-out file); it is used only to analyse the Swahili side, not as rule content.
+- No corpus text in git: examples store pair IDs + matched words; `render.py` also writes a
+  review copy with the sentences to `~/languagemodels/rulebook_data/RULEBOOK_review.md`.
+
+**Counts** (slot, source, status): SM 48 corpus + 1 speaker; CONCORD 42 corpus + 15
+speaker (demonstratives, associative ghi/lu, verified adjectives); CLASS 23 speaker + 1
+flag (animacy override); OM 14; REL 8; TEMPLATE 1; TAM 15 corpus + 3 speaker + 3 flag
+(-nge-, -wia-, stative present); NEG 8. Rejected 13 (no or weak evidence): class gh
+(wukula, 4 tokens) SM/POSS/-ose/ADJ, -ose for ghu/lu/ku, ADJ ghu (lift 1.42) and ri,
+REL ghu (-wo-), past -de- (0).
+
+**What the clean data says** (n = pairs, lift):
+| Swahili | Kidaw'ida | n | lift |
+|---|---|---|---|
+| -li- past | SM+e-re-ROOT-ie(-ghe) (o-re-ambie-ghe); alt. SM+e ROOT-a | 3,681 / 1,901 | 5.9 / 1.8 |
+| -me- | SM+a ROOT-a; alt. SM+a ROOT-ie | 4,724 / 988 | 2.0 / 5.7 |
+| -na- | SM+a-we-ROOT-a (speaker preference) / SM+a ROOT-a (corpus-dominant) — conflict | 668 / 3,579 | 9.3 / 1.8 |
+| -ta- | SM-cha-ROOT-a | 4,156 | 21.0 |
+| hu- | SM+a-da-ROOT-a | 1,028 | 14.0 |
+| -lipo- | SM+e-nda-ROOT | 55 | 30.6 |
+| relative -na-/-li- | bare SM ROOT-agha / SM+e-re-ROOT-ie-ghe | 1,241 / 1,698 | 4.8 / 6.2 |
+| prohibitive | SM-se-ROOT-e / SM-sake- | 659 / 483 | 12.4 / 51 |
+| ha-...-i (neg. present) | nde-SM-ROOT-agha; 1sg si-ROOT-agha/-ire | 437 / 197 | 17.9 / 32 |
+| ha-...-ku- (neg. past) | nde-SM+e-re-ROOT-ie-ghe | 457 | 52.6 |
+| ha-...-ta- (neg. future) | nde-SM-chaa-ROOT; 1sg si-chaa- | 421 / 130 | 90 / 523 |
+Possessives = SM+a + po/ko/ke/wo, SM+e + du/nyu (wapo, ghwako, jedu, wenyu); associative =
+SM+a; -ose = SM+a + ose (a+o → o). Noun conflicts reproduce on clean data: chia (verified
+chi; votes ri 285 / i 181), maza (ghi; ri 275), boi (i; u 6), ngelo (ri; ri 154 / ya-class 116).
+
+Next: step 3 (`lexicon.json` merge, from speaker-verified + Bible-only sources + clean counts).

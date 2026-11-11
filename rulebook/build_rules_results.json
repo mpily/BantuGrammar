@@ -1,0 +1,587 @@
+{
+ "_meta": {
+  "built_by": "rulebook/build_rules.py",
+  "sections_done": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "git_sha": "e69e089c2af90e9f635fc27f52583ee4ff7ad94f",
+  "config": {
+   "min_evidence": 2,
+   "min_lift": 1.5,
+   "n_train_pairs": 39265,
+   "n_examples": 3
+  },
+  "hashes_sha256_16": {
+   "train.jsonl": "fd25256c6ddfc22b",
+   "attest.py": "00c8fecaed503c4e",
+   "build_rules.py": "1d1f8936a4c770b8",
+   "kitaita_verified_corrections.py": "d05695176e55a882",
+   "kitaita_speaker_verified.json": "bae5b8ae8347725e",
+   "kitaita_verb.py": "074c794ba5192d43",
+   "swahili_verb.py": "2f256b67d88fc640",
+   "kitaita_root_alignment.json (Swahili parser filter only)": "8039409abcaa2c2e"
+  },
+  "priority": [
+   "speaker_verified",
+   "corpus_attested",
+   "grammar_notes",
+   "mined_alignment"
+  ],
+  "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment"
+ },
+ "n_rules": 182,
+ "rejected": [
+  {
+   "id": "QUANT.ose.ghu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghu",
+    "kind": "all"
+   },
+   "then": {
+    "form": "ghwose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ghwose",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "gh"
+    ],
+    "n_noun_tokens": 4006,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "ADJ.ghu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghu",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "m",
+    "e.g.": "mbaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:11055",
+     "match": "mfuko mbaa"
+    },
+    {
+     "pair_id": "train:14146",
+     "match": "moda mbaa"
+    },
+    {
+     "pair_id": "bible:NEN:DAN.11.34",
+     "match": "wutesia mtini"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 11,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "m(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "i",
+     "i_nasal",
+     "ri",
+     "u"
+    ],
+    "n_noun_tokens": 4006,
+    "lift": 1.42,
+    "domains": {
+     "davswa": 2,
+     "bible": 9
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "reason": "evidence 11, lift 1.42"
+  },
+  {
+   "id": "ADJ.ri",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ri",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "m",
+    "e.g.": "mbaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:12415",
+     "match": "soko mbaa"
+    },
+    {
+     "pair_id": "bible:NEN:JHN.21.11",
+     "match": "samaki mbaa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 2,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "m(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "ghu",
+     "i",
+     "i_nasal",
+     "u"
+    ],
+    "n_noun_tokens": 1485,
+    "lift": 0.69,
+    "domains": {
+     "davswa": 1,
+     "bible": 1
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "reason": "evidence 2, lift 0.69"
+  },
+  {
+   "id": "QUANT.ose.lu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "lu",
+    "kind": "all"
+   },
+   "then": {
+    "form": "lwose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "lwose",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 725,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "QUANT.ose.ku",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ku",
+    "kind": "all"
+   },
+   "then": {
+    "form": "kwose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "kwose",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 1011,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "SM.gh.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "gh",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "ghu"
+    ]
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ghu": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "SM.gh.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "gh",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "gha",
+     "ghwa"
+    ]
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ghwa": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": true,
+   "readings": [
+    {
+     "form": "gha",
+     "source": "corpus (PRESENT_SM_VOWEL_CONFIRMED)",
+     "default": true
+    },
+    {
+     "form": "ghwa",
+     "source": "speaker answer",
+     "default": false
+    }
+   ],
+   "notes": "speaker used ghwa-; corpus had 0 ghwa+root vs 10 gha+root (2026-10-07). Kept both.",
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "SM.gh.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "gh",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "gho"
+    ]
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "gho": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "POSS.gh",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "gh",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "ghwapo",
+     "2sg": "ghwako",
+     "3sg": "ghwake",
+     "1pl": "ghodu",
+     "2pl": "ghonyu",
+     "3pl": "ghwawo"
+    }
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ghwapo": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "ghwako": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "ghwake": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "ghodu": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "ghonyu": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "ghwawo": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "QUANT.ose.gh",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "gh",
+    "kind": "all"
+   },
+   "then": {
+    "form": "ghwose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ghwose",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "ghu"
+    ],
+    "n_noun_tokens": 4,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "ADJ.gh",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "gh",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "wu",
+    "e.g.": "wubaa"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "wu(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 4,
+    "lift": 0.0,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "reason": "evidence 0, lift 0.0"
+  },
+  {
+   "id": "REL.ghu.from_sw_wo",
+   "section": 1,
+   "slot": "REL",
+   "if": {
+    "sw_rel": "wo",
+    "class": "ghu"
+   },
+   "then": {
+    "template": "bare SM, no relative morpheme; present ROOT-agha, past ROOT-ie-ghe",
+    "bare_sm": "ghu"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "ghu-...-agha": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "ghu-...-ie-ghe": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "TAM.past.li_de",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "li",
+    "rel": null
+   },
+   "then": {
+    "template": "SM+e-de-ROOT-ie(-ghe)"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:che|gho|ghe|ve|we|de|ne|ko|ye|lo|mo|re|je|o|e)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
+    "n_pairs_with_sw_feature": 7733,
+    "share_of_feature_pairs": 0.0,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "VERIFIED_PAST_TAM_BY_SM: {'ji': 'de'} (ji class uses -de-)",
+   "reason": "evidence 0, lift None"
+  }
+ ]
+}

@@ -1,0 +1,9277 @@
+{
+ "_meta": {
+  "built_by": "rulebook/build_rules.py",
+  "sections_done": [
+   1,
+   2,
+   3,
+   4
+  ],
+  "git_sha": "e69e089c2af90e9f635fc27f52583ee4ff7ad94f",
+  "config": {
+   "min_evidence": 2,
+   "min_lift": 1.5,
+   "n_train_pairs": 39265,
+   "n_examples": 3
+  },
+  "hashes_sha256_16": {
+   "train.jsonl": "fd25256c6ddfc22b",
+   "attest.py": "00c8fecaed503c4e",
+   "build_rules.py": "1d1f8936a4c770b8",
+   "kitaita_verified_corrections.py": "d05695176e55a882",
+   "kitaita_speaker_verified.json": "bae5b8ae8347725e",
+   "kitaita_verb.py": "074c794ba5192d43",
+   "swahili_verb.py": "2f256b67d88fc640",
+   "kitaita_root_alignment.json (Swahili parser filter only)": "8039409abcaa2c2e"
+  },
+  "priority": [
+   "speaker_verified",
+   "corpus_attested",
+   "grammar_notes",
+   "mined_alignment"
+  ],
+  "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment"
+ },
+ "rules": [
+  {
+   "id": "CLASS.u",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "u"
+   },
+   "then": {
+    "bantu": [
+     "1",
+     "14 (some wu- nouns)"
+    ],
+    "series_row": "3sg",
+    "verified_nouns": 29
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": true,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "mdumiki",
+      "mghenyi",
+      "mghosi",
+      "mkongo",
+      "mkristo",
+      "mlimi",
+      "mlindiri",
+      "mndwawomi"
+     ],
+     "n_nouns": 29
+    }
+   ],
+   "notes": "class 14 wu- nouns are split between u and ghu (and gh: wukula), per noun, by the speaker; round-1 concord notes gave ghu- for all of class 14",
+   "status": "active"
+  },
+  {
+   "id": "SM.u.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "u",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "u"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15709",
+     "match": "mwana usesikiragha"
+    },
+    {
+     "pair_id": "train:16922",
+     "match": "mwana usesikiragha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 588,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "u": {
+      "n": 588,
+      "lift": 4.37,
+      "domains": {
+       "davswa": 64,
+       "bible": 524
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.u.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "u",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "wa"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10005",
+     "match": "mwana wazamilwa"
+    },
+    {
+     "pair_id": "train:19057",
+     "match": "mwai walekerelwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 164,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "wa": {
+      "n": 164,
+      "lift": 2.52,
+      "domains": {
+       "davswa": 70,
+       "bible": 94
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "present SM+a confirmed against speaker answers (PRESENT_SM_VOWEL_CONFIRMED: wa)",
+   "status": "active"
+  },
+  {
+   "id": "SM.u.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "u",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "o"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15825",
+     "match": "mkongo ohoa"
+    },
+    {
+     "pair_id": "train:17038",
+     "match": "mkongo ohoa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 120,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "o": {
+      "n": 120,
+      "lift": 5.18,
+      "domains": {
+       "davswa": 34,
+       "bible": 86
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.u",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "u",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "wapo",
+     "2sg": "wako",
+     "3sg": "wake",
+     "1pl": "odu",
+     "2pl": "onyu",
+     "3pl": "wawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:9928",
+     "match": "mwana wapo"
+    },
+    {
+     "pair_id": "train:11103",
+     "match": "mwai wapo"
+    },
+    {
+     "pair_id": "train:23215",
+     "match": "mghenyi wako"
+    },
+    {
+     "pair_id": "train:23374",
+     "match": "mwai wako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 658,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "wapo": {
+      "n": 203,
+      "lift": 416.67,
+      "domains": {
+       "davswa": 52,
+       "bible": 151
+      },
+      "attested": true
+     },
+     "wako": {
+      "n": 187,
+      "lift": 244.83,
+      "domains": {
+       "davswa": 21,
+       "bible": 166
+      },
+      "attested": true
+     },
+     "wake": {
+      "n": 218,
+      "lift": 194.97,
+      "domains": {
+       "davswa": 21,
+       "bible": 197
+      },
+      "attested": true
+     },
+     "odu": {
+      "n": 16,
+      "lift": 36.21,
+      "domains": {
+       "davswa": 6,
+       "bible": 10
+      },
+      "attested": true
+     },
+     "onyu": {
+      "n": 17,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 17
+      },
+      "attested": true
+     },
+     "wawo": {
+      "n": 17,
+      "lift": 42.55,
+      "domains": {
+       "davswa": 6,
+       "bible": 11
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.u",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "u",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "wa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:561",
+     "match": "mwana wa"
+    },
+    {
+     "pair_id": "train:9706",
+     "match": "mwana wa"
+    },
+    {
+     "pair_id": "train:10757",
+     "match": "mwana wa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1599,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "wa",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [
+     "wi"
+    ],
+    "n_noun_tokens": 4828,
+    "lift": 117.39,
+    "domains": {
+     "davswa": 56,
+     "bible": 1543
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "QUANT.ose.u",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "u",
+    "kind": "all"
+   },
+   "then": {
+    "form": "wose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:2SA.13.30",
+     "match": "mzuri wose"
+    },
+    {
+     "pair_id": "bible:NEN:2SA.13.33",
+     "match": "mzuri wose"
+    },
+    {
+     "pair_id": "bible:NEN:GEN.17.27",
+     "match": "mghenyi wose"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 6,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "wose",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "wi"
+    ],
+    "n_noun_tokens": 5810,
+    "lift": 2.3,
+    "domains": {
+     "davswa": 0,
+     "bible": 6
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "DEM.u",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "u",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "uhu",
+    "mid": "uo",
+    "far": "uja"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15369",
+     "match": "mghenyi uhu"
+    },
+    {
+     "pair_id": "train:2255",
+     "match": "mghenyi uhu"
+    },
+    {
+     "pair_id": "train:24382",
+     "match": "mwana uo"
+    },
+    {
+     "pair_id": "bible:NEN:EST.6.7",
+     "match": "mzuri uo"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 358,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "uhu": {
+      "n": 68,
+      "lift": 8.86,
+      "domains": {
+       "davswa": 3,
+       "bible": 7
+      },
+      "attested": true
+     },
+     "uo": {
+      "n": 142,
+      "lift": 1.93,
+      "domains": {
+       "davswa": 1,
+       "bible": 11
+      },
+      "attested": true
+     },
+     "uja": {
+      "n": 148,
+      "lift": 3.04,
+      "domains": {
+       "davswa": 0,
+       "bible": 4
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "ADJ.u",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "u",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "m",
+    "e.g.": "mbaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:19502",
+     "match": "mwana mtini"
+    },
+    {
+     "pair_id": "train:23856",
+     "match": "mwana mtini"
+    },
+    {
+     "pair_id": "train:697",
+     "match": "mwana mtini"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 51,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "m(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "ghu",
+     "i",
+     "i_nasal",
+     "ri"
+    ],
+    "n_noun_tokens": 5810,
+    "lift": 4.53,
+    "domains": {
+     "davswa": 21,
+     "bible": 30
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "status": "active"
+  },
+  {
+   "id": "CLASS.wi",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "wi"
+   },
+   "then": {
+    "bantu": [
+     "2"
+    ],
+    "series_row": "c2",
+    "verified_nouns": 18
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "waandishi",
+      "wabori",
+      "wadumiki",
+      "waghenyi",
+      "wai",
+      "waka",
+      "wakatoliki",
+      "wakongo"
+     ],
+     "n_nouns": 18
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "SM.wi.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "wi",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "wi"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:6356",
+     "match": "walisha wikilindia"
+    },
+    {
+     "pair_id": "train:19715",
+     "match": "wana wisekesarighia"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 233,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "wi": {
+      "n": 233,
+      "lift": 5.42,
+      "domains": {
+       "davswa": 45,
+       "bible": 188
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.wi.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "wi",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "wa"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15828",
+     "match": "waghenyi wacha"
+    },
+    {
+     "pair_id": "train:17041",
+     "match": "waghenyi wacha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 301,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "wa": {
+      "n": 301,
+      "lift": 6.52,
+      "domains": {
+       "davswa": 146,
+       "bible": 155
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "present SM+a confirmed against speaker answers (PRESENT_SM_VOWEL_CONFIRMED: wa)",
+   "status": "active"
+  },
+  {
+   "id": "SM.wi.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "wi",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "we"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15874",
+     "match": "wana wenyu"
+    },
+    {
+     "pair_id": "train:17087",
+     "match": "wana wenyu"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 225,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "we": {
+      "n": 225,
+      "lift": 20.94,
+      "domains": {
+       "davswa": 49,
+       "bible": 176
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.wi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "wi",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "wapo",
+     "2sg": "wako",
+     "3sg": "wake",
+     "1pl": "wedu",
+     "2pl": "wenyu",
+     "3pl": "wawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:22361",
+     "match": "wana wapo"
+    },
+    {
+     "pair_id": "train:15376",
+     "match": "waghenyi wapo"
+    },
+    {
+     "pair_id": "train:18740",
+     "match": "wana wako"
+    },
+    {
+     "pair_id": "train:26499",
+     "match": "wana wako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 890,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "wapo": {
+      "n": 107,
+      "lift": 409.41,
+      "domains": {
+       "davswa": 23,
+       "bible": 84
+      },
+      "attested": true
+     },
+     "wako": {
+      "n": 159,
+      "lift": 326.58,
+      "domains": {
+       "davswa": 13,
+       "bible": 146
+      },
+      "attested": true
+     },
+     "wake": {
+      "n": 392,
+      "lift": 447.71,
+      "domains": {
+       "davswa": 29,
+       "bible": 363
+      },
+      "attested": true
+     },
+     "wedu": {
+      "n": 26,
+      "lift": 189.4,
+      "domains": {
+       "davswa": 1,
+       "bible": 25
+      },
+      "attested": true
+     },
+     "wenyu": {
+      "n": 74,
+      "lift": 429.56,
+      "domains": {
+       "davswa": 6,
+       "bible": 68
+      },
+      "attested": true
+     },
+     "wawo": {
+      "n": 132,
+      "lift": 248.0,
+      "domains": {
+       "davswa": 9,
+       "bible": 123
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.wi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "wi",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "wa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:578",
+     "match": "wana wa"
+    },
+    {
+     "pair_id": "train:12538",
+     "match": "waandishi wa"
+    },
+    {
+     "pair_id": "train:25409",
+     "match": "wai wa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 825,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "wa",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [
+     "u"
+    ],
+    "n_noun_tokens": 3186,
+    "lift": 91.78,
+    "domains": {
+     "davswa": 67,
+     "bible": 758
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "QUANT.ose.wi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "wi",
+    "kind": "all"
+   },
+   "then": {
+    "form": "wose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [
+    {
+     "pair_id": "train:15172",
+     "match": "waka wose"
+    },
+    {
+     "pair_id": "train:1719",
+     "match": "wai wose"
+    },
+    {
+     "pair_id": "train:24467",
+     "match": "wai wose"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 96,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "wose",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "u"
+    ],
+    "n_noun_tokens": 4117,
+    "lift": 51.99,
+    "domains": {
+     "davswa": 19,
+     "bible": 77
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "DEM.wi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "wi",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "awa",
+    "mid": "awo",
+    "far": "awaja"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:4465",
+     "match": "waghenyi awa"
+    },
+    {
+     "pair_id": "bible:NEN:GEN.4.21",
+     "match": "wabori awa"
+    },
+    {
+     "pair_id": "bible:NEN:1CH.2.54",
+     "match": "wazuri awo"
+    },
+    {
+     "pair_id": "bible:NEN:1CH.26.7",
+     "match": "wana awo"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 152,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "awa": {
+      "n": 38,
+      "lift": 9.49,
+      "domains": {
+       "davswa": 1,
+       "bible": 5
+      },
+      "attested": true
+     },
+     "awo": {
+      "n": 114,
+      "lift": 3.12,
+      "domains": {
+       "davswa": 0,
+       "bible": 15
+      },
+      "attested": true
+     },
+     "awaja": {
+      "n": 0,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "ADJ.wi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "wi",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "wa",
+    "e.g.": "wabaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10422",
+     "match": "wana watini"
+    },
+    {
+     "pair_id": "train:20024",
+     "match": "wana watini"
+    },
+    {
+     "pair_id": "train:5205",
+     "match": "wana watini"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 39,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "wa(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 4117,
+    "lift": 16.24,
+    "domains": {
+     "davswa": 28,
+     "bible": 11
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "status": "active"
+  },
+  {
+   "id": "CLASS.ghu",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "ghu"
+   },
+   "then": {
+    "bantu": [
+     "3",
+     "14 (some wu- nouns)"
+    ],
+    "series_row": "c3",
+    "verified_nouns": 23
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": true,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "loli",
+      "mchango",
+      "mfuko",
+      "mfunguo",
+      "mfwano",
+      "mkate",
+      "mkonu",
+      "mkopo"
+     ],
+     "n_nouns": 23
+    }
+   ],
+   "notes": "class 14 wu- nouns are split between u and ghu (and gh: wukula), per noun, by the speaker; round-1 concord notes gave ghu- for all of class 14",
+   "status": "active"
+  },
+  {
+   "id": "SM.ghu.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ghu",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "ghu"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:19710",
+     "match": "wulongozi ghusikire"
+    },
+    {
+     "pair_id": "train:20461",
+     "match": "mori ghukasia"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 116,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ghu": {
+      "n": 116,
+      "lift": 20.57,
+      "domains": {
+       "davswa": 26,
+       "bible": 90
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.ghu.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ghu",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "ghwa"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:16615",
+     "match": "mfunguo ghwadalaghaya"
+    },
+    {
+     "pair_id": "train:18919",
+     "match": "moda ghwaoma"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 35,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ghwa": {
+      "n": 35,
+      "lift": 21.96,
+      "domains": {
+       "davswa": 30,
+       "bible": 5
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "present SM+a confirmed against speaker answers (PRESENT_SM_VOWEL_CONFIRMED: gha)",
+   "status": "active"
+  },
+  {
+   "id": "SM.ghu.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ghu",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "gho"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:20525",
+     "match": "mumbi ghowoa"
+    },
+    {
+     "pair_id": "train:15956",
+     "match": "wundu ghonyu"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 153,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "gho": {
+      "n": 153,
+      "lift": 49.92,
+      "domains": {
+       "davswa": 27,
+       "bible": 126
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.ghu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghu",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "ghwapo",
+     "2sg": "ghwako",
+     "3sg": "ghwake",
+     "1pl": "ghodu",
+     "2pl": "ghonyu",
+     "3pl": "ghwawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:11291",
+     "match": "mfuko ghwapo"
+    },
+    {
+     "pair_id": "train:23292",
+     "match": "mfunguo ghwapo"
+    },
+    {
+     "pair_id": "train:395",
+     "match": "mkonu ghwako"
+    },
+    {
+     "pair_id": "train:10263",
+     "match": "wutesia ghwako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 468,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ghwapo": {
+      "n": 114,
+      "lift": 49.73,
+      "domains": {
+       "davswa": 3,
+       "bible": 111
+      },
+      "attested": true
+     },
+     "ghwako": {
+      "n": 76,
+      "lift": 30.37,
+      "domains": {
+       "davswa": 7,
+       "bible": 69
+      },
+      "attested": true
+     },
+     "ghwake": {
+      "n": 160,
+      "lift": 30.34,
+      "domains": {
+       "davswa": 3,
+       "bible": 157
+      },
+      "attested": true
+     },
+     "ghodu": {
+      "n": 25,
+      "lift": 25.58,
+      "domains": {
+       "davswa": 2,
+       "bible": 23
+      },
+      "attested": true
+     },
+     "ghonyu": {
+      "n": 62,
+      "lift": 124.71,
+      "domains": {
+       "davswa": 6,
+       "bible": 56
+      },
+      "attested": true
+     },
+     "ghwawo": {
+      "n": 31,
+      "lift": 132.57,
+      "domains": {
+       "davswa": 2,
+       "bible": 29
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.ghu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghu",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "ghwa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13387",
+     "match": "wulongozi ghwa"
+    },
+    {
+     "pair_id": "train:13389",
+     "match": "wulongozi ghwa"
+    },
+    {
+     "pair_id": "train:19473",
+     "match": "mori ghwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1494,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ghwa",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [
+     "gh"
+    ],
+    "n_noun_tokens": 3484,
+    "lift": 80.15,
+    "domains": {
+     "davswa": 97,
+     "bible": 1397
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "DEM.ghu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghu",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "ughu",
+    "mid": "ugho",
+    "far": "ghuja"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:LUK.15.3",
+     "match": "mfwano ughu"
+    },
+    {
+     "pair_id": "train:14908",
+     "match": "loli ughu"
+    },
+    {
+     "pair_id": "train:15899",
+     "match": "wundu ugho"
+    },
+    {
+     "pair_id": "train:17112",
+     "match": "wundu ugho"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 235,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ughu": {
+      "n": 74,
+      "lift": 122.36,
+      "domains": {
+       "davswa": 2,
+       "bible": 58
+      },
+      "attested": true
+     },
+     "ugho": {
+      "n": 150,
+      "lift": 436.41,
+      "domains": {
+       "davswa": 3,
+       "bible": 104
+      },
+      "attested": true
+     },
+     "ghuja": {
+      "n": 11,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 1
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "CLASS.i",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "i"
+   },
+   "then": {
+    "bantu": [
+     "9",
+     "4"
+    ],
+    "series_row": "c9",
+    "verified_nouns": 33
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "bara",
+      "barua",
+      "boi",
+      "elimu",
+      "hachi",
+      "ighuri",
+      "inge",
+      "kalamu"
+     ],
+     "n_nouns": 33
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "SM.i.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "i",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "i"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:5650",
+     "match": "koshi inya"
+    },
+    {
+     "pair_id": "train:7150",
+     "match": "koshi inya"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 367,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "i": {
+      "n": 367,
+      "lift": 4.46,
+      "domains": {
+       "davswa": 83,
+       "bible": 284
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.i.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "i",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "ya"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:1582",
+     "match": "mbeo yawekaba"
+    },
+    {
+     "pair_id": "train:18803",
+     "match": "mbuwa yauzwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 111,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ya": {
+      "n": 111,
+      "lift": 21.38,
+      "domains": {
+       "davswa": 76,
+       "bible": 35
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "present SM+a confirmed against speaker answers (PRESENT_SM_VOWEL_CONFIRMED: ya)",
+   "status": "active"
+  },
+  {
+   "id": "SM.i.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "i",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "e",
+     "ye"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13035",
+     "match": "kazi etindimishwa"
+    },
+    {
+     "pair_id": "train:16276",
+     "match": "koshi esinde"
+    },
+    {
+     "pair_id": "train:6754",
+     "match": "sere yekwaeni"
+    },
+    {
+     "pair_id": "train:8254",
+     "match": "sere yekwaeni"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 150,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "e": {
+      "n": 110,
+      "lift": 4.26,
+      "domains": {
+       "davswa": 21,
+       "bible": 89
+      },
+      "attested": true
+     },
+     "ye": {
+      "n": 40,
+      "lift": 7.32,
+      "domains": {
+       "davswa": 16,
+       "bible": 24
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.i",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "yapo",
+     "2sg": "yako",
+     "3sg": "yake",
+     "1pl": "edu",
+     "2pl": "enyu",
+     "3pl": "yawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:8767",
+     "match": "mbanga yapo"
+    },
+    {
+     "pair_id": "train:1819",
+     "match": "nguku yapo"
+    },
+    {
+     "pair_id": "train:18926",
+     "match": "nguwo yako"
+    },
+    {
+     "pair_id": "train:11388",
+     "match": "mikonu yako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 277,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "yapo": {
+      "n": 67,
+      "lift": 43.07,
+      "domains": {
+       "davswa": 19,
+       "bible": 48
+      },
+      "attested": true
+     },
+     "yako": {
+      "n": 50,
+      "lift": 28.01,
+      "domains": {
+       "davswa": 4,
+       "bible": 46
+      },
+      "attested": true
+     },
+     "yake": {
+      "n": 104,
+      "lift": 16.86,
+      "domains": {
+       "davswa": 9,
+       "bible": 95
+      },
+      "attested": true
+     },
+     "edu": {
+      "n": 4,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 4
+      },
+      "attested": true
+     },
+     "enyu": {
+      "n": 4,
+      "lift": 30.33,
+      "domains": {
+       "davswa": 0,
+       "bible": 4
+      },
+      "attested": true
+     },
+     "yawo": {
+      "n": 48,
+      "lift": 38.45,
+      "domains": {
+       "davswa": 9,
+       "bible": 39
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.i",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "ya"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:9618",
+     "match": "nguku ya"
+    },
+    {
+     "pair_id": "train:26588",
+     "match": "mbuwa ya"
+    },
+    {
+     "pair_id": "train:9527",
+     "match": "misarigho ya"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 331,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ya",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [
+     "i_nasal"
+    ],
+    "n_noun_tokens": 3140,
+    "lift": 4.24,
+    "domains": {
+     "davswa": 32,
+     "bible": 299
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "QUANT.ose.i",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i",
+    "kind": "all"
+   },
+   "then": {
+    "form": "yose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [
+    {
+     "pair_id": "train:5556",
+     "match": "mbuwa yose"
+    },
+    {
+     "pair_id": "train:9069",
+     "match": "mbuwa yose"
+    },
+    {
+     "pair_id": "train:18407",
+     "match": "mbuwa yose"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 34,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "yose",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "i_nasal"
+    ],
+    "n_noun_tokens": 4221,
+    "lift": 16.59,
+    "domains": {
+     "davswa": 9,
+     "bible": 25
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "DEM.i",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "ihi",
+    "mid": "io",
+    "far": "ija"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:14879",
+     "match": "kazi ihi"
+    },
+    {
+     "pair_id": "bible:NEN:ROM.16.22",
+     "match": "barua ihi"
+    },
+    {
+     "pair_id": "train:2620",
+     "match": "io nyama"
+    },
+    {
+     "pair_id": "bible:NEN:LUK.12.12",
+     "match": "saa ija"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 101,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ihi": {
+      "n": 33,
+      "lift": 2.07,
+      "domains": {
+       "davswa": 1,
+       "bible": 14
+      },
+      "attested": true
+     },
+     "io": {
+      "n": 1,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "ija": {
+      "n": 67,
+      "lift": 2.64,
+      "domains": {
+       "davswa": 0,
+       "bible": 8
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "ADJ.i",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "m",
+    "e.g.": "mbaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:DEU.11.7",
+     "match": "kazi mbaa"
+    },
+    {
+     "pair_id": "bible:NEN:JOB.8.2",
+     "match": "mbeo mbaa"
+    },
+    {
+     "pair_id": "bible:NEN:PSA.119.165",
+     "match": "sere mbaa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 20,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "m(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "ghu",
+     "i_nasal",
+     "ri",
+     "u"
+    ],
+    "n_noun_tokens": 4221,
+    "lift": 2.44,
+    "domains": {
+     "davswa": 1,
+     "bible": 19
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "status": "active"
+  },
+  {
+   "id": "CLASS.i_nasal",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "i_nasal"
+   },
+   "then": {
+    "bantu": [
+     "9 (nasal-initial)"
+    ],
+    "series_row": "c9",
+    "verified_nouns": 7
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "choka",
+      "fuwe",
+      "kwaru",
+      "ngolo",
+      "ngoma",
+      "nyumba",
+      "shimba"
+     ],
+     "n_nouns": 7
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "SM.i_nasal.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "i_nasal",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "i"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18204",
+     "match": "ngolo imweri"
+    },
+    {
+     "pair_id": "train:26203",
+     "match": "nyumba ikumi"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 112,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "i": {
+      "n": 112,
+      "lift": 3.68,
+      "domains": {
+       "davswa": 29,
+       "bible": 83
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.i_nasal.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "i_nasal",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "ya"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:2684",
+     "match": "nyumba yawuduka"
+    },
+    {
+     "pair_id": "train:3076",
+     "match": "nyumba yaweaghwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 40,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ya": {
+      "n": 40,
+      "lift": 20.81,
+      "domains": {
+       "davswa": 31,
+       "bible": 9
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.i_nasal.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "i_nasal",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "e",
+     "ye"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:11261",
+     "match": "choka elaghaya"
+    },
+    {
+     "pair_id": "train:20019",
+     "match": "nyumba ebarwa"
+    },
+    {
+     "pair_id": "train:1707",
+     "match": "fuwe yewada"
+    },
+    {
+     "pair_id": "train:1380",
+     "match": "nyumba yepoiswa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 47,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "e": {
+      "n": 44,
+      "lift": 4.6,
+      "domains": {
+       "davswa": 11,
+       "bible": 33
+      },
+      "attested": true
+     },
+     "ye": {
+      "n": 3,
+      "lift": 1.48,
+      "domains": {
+       "davswa": 3,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.i_nasal",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i_nasal",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "yapo",
+     "2sg": "yako",
+     "3sg": "yake",
+     "1pl": "edu",
+     "2pl": "enyu",
+     "3pl": "yawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:23135",
+     "match": "ngolo yapo"
+    },
+    {
+     "pair_id": "train:22522",
+     "match": "ngolo yapo"
+    },
+    {
+     "pair_id": "train:25285",
+     "match": "ngolo yako"
+    },
+    {
+     "pair_id": "train:20308",
+     "match": "nyumba yako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 205,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "yapo": {
+      "n": 60,
+      "lift": 80.14,
+      "domains": {
+       "davswa": 5,
+       "bible": 55
+      },
+      "attested": true
+     },
+     "yako": {
+      "n": 39,
+      "lift": 48.11,
+      "domains": {
+       "davswa": 9,
+       "bible": 30
+      },
+      "attested": true
+     },
+     "yake": {
+      "n": 98,
+      "lift": 42.85,
+      "domains": {
+       "davswa": 7,
+       "bible": 91
+      },
+      "attested": true
+     },
+     "edu": {
+      "n": 1,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 1
+      },
+      "attested": false
+     },
+     "enyu": {
+      "n": 1,
+      "lift": 18.32,
+      "domains": {
+       "davswa": 0,
+       "bible": 1
+      },
+      "attested": false
+     },
+     "yawo": {
+      "n": 6,
+      "lift": 9.18,
+      "domains": {
+       "davswa": 3,
+       "bible": 3
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.i_nasal",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i_nasal",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "ya"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:506",
+     "match": "nyumba ya"
+    },
+    {
+     "pair_id": "train:26079",
+     "match": "ngolo ya"
+    },
+    {
+     "pair_id": "train:10261",
+     "match": "nyumba ya"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 181,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ya",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [
+     "i"
+    ],
+    "n_noun_tokens": 1222,
+    "lift": 5.96,
+    "domains": {
+     "davswa": 9,
+     "bible": 172
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "QUANT.ose.i_nasal",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i_nasal",
+    "kind": "all"
+   },
+   "then": {
+    "form": "yose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [
+    {
+     "pair_id": "train:11833",
+     "match": "ngolo yose"
+    },
+    {
+     "pair_id": "bible:NEN:2CH.19.9",
+     "match": "ngolo yose"
+    },
+    {
+     "pair_id": "bible:NEN:ACT.2.2",
+     "match": "nyumba yose"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 13,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "yose",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "i"
+    ],
+    "n_noun_tokens": 1563,
+    "lift": 17.13,
+    "domains": {
+     "davswa": 1,
+     "bible": 12
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "DEM.i_nasal",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i_nasal",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "ihi",
+    "mid": "io",
+    "far": "ija"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:4354",
+     "match": "nyumba ihi"
+    },
+    {
+     "pair_id": "bible:NEN:LUK.10.5",
+     "match": "nyumba ihi"
+    },
+    {
+     "pair_id": "train:11684",
+     "match": "io choka"
+    },
+    {
+     "pair_id": "bible:NEN:LUK.10.6",
+     "match": "nyumba ija"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 30,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ihi": {
+      "n": 9,
+      "lift": 1.49,
+      "domains": {
+       "davswa": 1,
+       "bible": 3
+      },
+      "attested": false
+     },
+     "io": {
+      "n": 1,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "ija": {
+      "n": 20,
+      "lift": 1.78,
+      "domains": {
+       "davswa": 0,
+       "bible": 2
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "ADJ.i_nasal",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i_nasal",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "m",
+    "e.g.": "mbaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:24886",
+     "match": "nyumba mbaa"
+    },
+    {
+     "pair_id": "train:10428",
+     "match": "nyumba mbaa"
+    },
+    {
+     "pair_id": "train:13191",
+     "match": "ngolo mbaa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 19,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "m(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [
+     "ghu",
+     "i",
+     "ri",
+     "u"
+    ],
+    "n_noun_tokens": 1563,
+    "lift": 6.27,
+    "domains": {
+     "davswa": 3,
+     "bible": 16
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "status": "active"
+  },
+  {
+   "id": "CLASS.ji",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "ji"
+   },
+   "then": {
+    "bantu": [
+     "5"
+    ],
+    "series_row": "c5",
+    "verified_nouns": 16
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "igare",
+      "ighegho",
+      "ighi",
+      "igho",
+      "ikoto",
+      "ilagho",
+      "indi",
+      "indu"
+     ],
+     "n_nouns": 16
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "SM.ji.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ji",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "ji"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:515",
+     "match": "isanga jiomie"
+    },
+    {
+     "pair_id": "train:13316",
+     "match": "ilagho jingi"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 619,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ji": {
+      "n": 619,
+      "lift": 179.86,
+      "domains": {
+       "davswa": 75,
+       "bible": 544
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.ji.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ji",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "ja"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:11371",
+     "match": "igare jamanga"
+    },
+    {
+     "pair_id": "train:1617",
+     "match": "ighegho jawenija"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 70,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ja": {
+      "n": 70,
+      "lift": 36.32,
+      "domains": {
+       "davswa": 50,
+       "bible": 20
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "present SM+a confirmed against speaker answers (PRESENT_SM_VOWEL_CONFIRMED: ja)",
+   "status": "active"
+  },
+  {
+   "id": "SM.ji.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ji",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "je"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:20535",
+     "match": "ituku jekombolwa"
+    },
+    {
+     "pair_id": "train:21639",
+     "match": "ilagho jenizera"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 122,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "je": {
+      "n": 122,
+      "lift": 30.56,
+      "domains": {
+       "davswa": 24,
+       "bible": 98
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.ji",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ji",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "japo",
+     "2sg": "jako",
+     "3sg": "jake",
+     "1pl": "jedu",
+     "2pl": "jenyu",
+     "3pl": "jawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:8776",
+     "match": "irangi japo"
+    },
+    {
+     "pair_id": "train:13116",
+     "match": "igare japo"
+    },
+    {
+     "pair_id": "train:6650",
+     "match": "irangi jako"
+    },
+    {
+     "pair_id": "train:8150",
+     "match": "irangi jako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 333,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "japo": {
+      "n": 70,
+      "lift": null,
+      "domains": {
+       "davswa": 10,
+       "bible": 60
+      },
+      "attested": true
+     },
+     "jako": {
+      "n": 64,
+      "lift": null,
+      "domains": {
+       "davswa": 5,
+       "bible": 59
+      },
+      "attested": true
+     },
+     "jake": {
+      "n": 116,
+      "lift": 943.92,
+      "domains": {
+       "davswa": 4,
+       "bible": 112
+      },
+      "attested": true
+     },
+     "jedu": {
+      "n": 24,
+      "lift": null,
+      "domains": {
+       "davswa": 17,
+       "bible": 7
+      },
+      "attested": true
+     },
+     "jenyu": {
+      "n": 22,
+      "lift": null,
+      "domains": {
+       "davswa": 1,
+       "bible": 21
+      },
+      "attested": true
+     },
+     "jawo": {
+      "n": 37,
+      "lift": null,
+      "domains": {
+       "davswa": 3,
+       "bible": 34
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.ji",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ji",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "ja"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:17134",
+     "match": "ituku ja"
+    },
+    {
+     "pair_id": "train:332",
+     "match": "ilagho ja"
+    },
+    {
+     "pair_id": "train:489",
+     "match": "igho ja"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1160,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ja",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [],
+    "n_noun_tokens": 3703,
+    "lift": 1144.61,
+    "domains": {
+     "davswa": 57,
+     "bible": 1103
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "QUANT.ose.ji",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ji",
+    "kind": "all"
+   },
+   "then": {
+    "form": "jose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [
+    {
+     "pair_id": "train:1581",
+     "match": "isanga jose"
+    },
+    {
+     "pair_id": "train:12590",
+     "match": "ituku jose"
+    },
+    {
+     "pair_id": "bible:NEN:EXO.8.14",
+     "match": "isanga jose"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 91,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "jose",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 4439,
+    "lift": null,
+    "domains": {
+     "davswa": 3,
+     "bible": 88
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "DEM.ji",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ji",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "iji",
+    "mid": "ijo",
+    "far": "ija"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13740",
+     "match": "ilagho iji"
+    },
+    {
+     "pair_id": "train:1153",
+     "match": "isanga iji"
+    },
+    {
+     "pair_id": "train:593",
+     "match": "ilagho ijo"
+    },
+    {
+     "pair_id": "train:13956",
+     "match": "ilagho ijo"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 780,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "iji": {
+      "n": 226,
+      "lift": 38.14,
+      "domains": {
+       "davswa": 2,
+       "bible": 124
+      },
+      "attested": true
+     },
+     "ijo": {
+      "n": 550,
+      "lift": 117.78,
+      "domains": {
+       "davswa": 4,
+       "bible": 223
+      },
+      "attested": true
+     },
+     "ija": {
+      "n": 4,
+      "lift": 0.31,
+      "domains": {
+       "davswa": 0,
+       "bible": 1
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "ADJ.ji",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ji",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "i",
+    "e.g.": "ibaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:9603",
+     "match": "ituku ibaa"
+    },
+    {
+     "pair_id": "train:1061",
+     "match": "igho itini"
+    },
+    {
+     "pair_id": "train:3517",
+     "match": "ilagho itini"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 43,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "i(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 4439,
+    "lift": 312.35,
+    "domains": {
+     "davswa": 6,
+     "bible": 37
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "status": "active"
+  },
+  {
+   "id": "CLASS.ghi",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "ghi"
+   },
+   "then": {
+    "bantu": [
+     "6"
+    ],
+    "series_row": "c6",
+    "verified_nouns": 28
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "mabemba",
+      "machi",
+      "machu",
+      "machungwa",
+      "madirisha",
+      "madu",
+      "magare",
+      "maghegho"
+     ],
+     "n_nouns": 28
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "SM.ghi.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ghi",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "ghi"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:19158",
+     "match": "machi ghikuduka"
+    },
+    {
+     "pair_id": "train:6837",
+     "match": "machi ghikuduka"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 312,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ghi": {
+      "n": 312,
+      "lift": 98.31,
+      "domains": {
+       "davswa": 63,
+       "bible": 249
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.ghi.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ghi",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "gha"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15411",
+     "match": "mariwa ghaweishwa"
+    },
+    {
+     "pair_id": "train:1662",
+     "match": "malagho ghaghalukie"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 132,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "gha": {
+      "n": 132,
+      "lift": 141.41,
+      "domains": {
+       "davswa": 74,
+       "bible": 58
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "present SM+a confirmed against speaker answers (PRESENT_SM_VOWEL_CONFIRMED: gha)",
+   "status": "active"
+  },
+  {
+   "id": "SM.ghi.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ghi",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "ghe"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:25889",
+     "match": "malagho ghenyu"
+    },
+    {
+     "pair_id": "train:1536",
+     "match": "machi ghenywa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 176,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ghe": {
+      "n": 176,
+      "lift": 94.28,
+      "domains": {
+       "davswa": 38,
+       "bible": 138
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.ghi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghi",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "ghapo",
+     "2sg": "ghako",
+     "3sg": "ghake",
+     "1pl": "ghedu",
+     "2pl": "ghenyu",
+     "3pl": "ghawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:21091",
+     "match": "meso ghapo"
+    },
+    {
+     "pair_id": "train:21517",
+     "match": "madu ghapo"
+    },
+    {
+     "pair_id": "train:6391",
+     "match": "madu ghako"
+    },
+    {
+     "pair_id": "train:7891",
+     "match": "madu ghako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 568,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ghapo": {
+      "n": 160,
+      "lift": null,
+      "domains": {
+       "davswa": 25,
+       "bible": 135
+      },
+      "attested": true
+     },
+     "ghako": {
+      "n": 111,
+      "lift": null,
+      "domains": {
+       "davswa": 15,
+       "bible": 96
+      },
+      "attested": true
+     },
+     "ghake": {
+      "n": 164,
+      "lift": null,
+      "domains": {
+       "davswa": 20,
+       "bible": 144
+      },
+      "attested": true
+     },
+     "ghedu": {
+      "n": 24,
+      "lift": null,
+      "domains": {
+       "davswa": 6,
+       "bible": 18
+      },
+      "attested": true
+     },
+     "ghenyu": {
+      "n": 36,
+      "lift": null,
+      "domains": {
+       "davswa": 2,
+       "bible": 34
+      },
+      "attested": true
+     },
+     "ghawo": {
+      "n": 73,
+      "lift": null,
+      "domains": {
+       "davswa": 11,
+       "bible": 62
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.ghi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghi",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "gha"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15165",
+     "match": "mavuda gha"
+    },
+    {
+     "pair_id": "train:15365",
+     "match": "mavuda gha"
+    },
+    {
+     "pair_id": "train:2251",
+     "match": "mavuda gha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 695,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "gha",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [],
+    "n_noun_tokens": 4454,
+    "lift": 215.21,
+    "domains": {
+     "davswa": 110,
+     "bible": 585
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_ASSOCIATIVE_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "QUANT.ose.ghi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghi",
+    "kind": "all"
+   },
+   "then": {
+    "form": "ghose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [
+    {
+     "pair_id": "train:18290",
+     "match": "maringo ghose"
+    },
+    {
+     "pair_id": "train:24681",
+     "match": "mariwa ghose"
+    },
+    {
+     "pair_id": "train:24954",
+     "match": "maghi ghose"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 308,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ghose",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 5771,
+    "lift": 103.11,
+    "domains": {
+     "davswa": 43,
+     "bible": 265
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "DEM.ghi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghi",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "agha",
+    "mid": "agho",
+    "far": "aghaja"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:914",
+     "match": "malagho agha"
+    },
+    {
+     "pair_id": "train:18500",
+     "match": "matuku agha"
+    },
+    {
+     "pair_id": "train:15946",
+     "match": "malagho agho"
+    },
+    {
+     "pair_id": "train:17159",
+     "match": "malagho agho"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 545,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "agha": {
+      "n": 183,
+      "lift": 144.63,
+      "domains": {
+       "davswa": 4,
+       "bible": 50
+      },
+      "attested": true
+     },
+     "agho": {
+      "n": 362,
+      "lift": 32.14,
+      "domains": {
+       "davswa": 3,
+       "bible": 93
+      },
+      "attested": true
+     },
+     "aghaja": {
+      "n": 0,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "ADJ.ghi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghi",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "ma",
+    "e.g.": "mabaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:23772",
+     "match": "malagho mabaa"
+    },
+    {
+     "pair_id": "train:3354",
+     "match": "malagho matini"
+    },
+    {
+     "pair_id": "train:3600",
+     "match": "malagho matini"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 66,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ma(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 5771,
+    "lift": null,
+    "domains": {
+     "davswa": 9,
+     "bible": 57
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "status": "active"
+  },
+  {
+   "id": "CLASS.chi",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "chi"
+   },
+   "then": {
+    "bantu": [
+     "7"
+    ],
+    "series_row": "c7",
+    "verified_nouns": 17
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "chadu",
+      "charo",
+      "chia",
+      "chombo",
+      "choronyi",
+      "chughano",
+      "chumba",
+      "chuo"
+     ],
+     "n_nouns": 17
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "SM.chi.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "chi",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "chi"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:24602",
+     "match": "charo chipoie"
+    },
+    {
+     "pair_id": "train:10261",
+     "match": "chumba chimweri"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 29,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "chi": {
+      "n": 29,
+      "lift": 9.92,
+      "domains": {
+       "davswa": 4,
+       "bible": 25
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.chi.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "chi",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "cha"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:24917",
+     "match": "kifumbi chatenga"
+    },
+    {
+     "pair_id": "train:25947",
+     "match": "kitoi chawadwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 25,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "cha": {
+      "n": 25,
+      "lift": 23.52,
+      "domains": {
+       "davswa": 16,
+       "bible": 9
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "present SM+a confirmed against speaker answers (PRESENT_SM_VOWEL_CONFIRMED: cha)",
+   "status": "active"
+  },
+  {
+   "id": "SM.chi.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "chi",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "che"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:24682",
+     "match": "kitoi chedekorwa"
+    },
+    {
+     "pair_id": "train:15385",
+     "match": "kitoi chedejivisa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 40,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "che": {
+      "n": 40,
+      "lift": 250.91,
+      "domains": {
+       "davswa": 13,
+       "bible": 27
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.chi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "chi",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "chapo",
+     "2sg": "chako",
+     "3sg": "chake",
+     "1pl": "chedu",
+     "2pl": "chenyu",
+     "3pl": "chawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:20270",
+     "match": "chuo chapo"
+    },
+    {
+     "pair_id": "train:24034",
+     "match": "kifumbi chapo"
+    },
+    {
+     "pair_id": "train:18811",
+     "match": "chadu chako"
+    },
+    {
+     "pair_id": "train:9781",
+     "match": "chadu chako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 86,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "chapo": {
+      "n": 31,
+      "lift": null,
+      "domains": {
+       "davswa": 21,
+       "bible": 10
+      },
+      "attested": true
+     },
+     "chako": {
+      "n": 20,
+      "lift": null,
+      "domains": {
+       "davswa": 9,
+       "bible": 11
+      },
+      "attested": true
+     },
+     "chake": {
+      "n": 29,
+      "lift": null,
+      "domains": {
+       "davswa": 4,
+       "bible": 25
+      },
+      "attested": true
+     },
+     "chedu": {
+      "n": 4,
+      "lift": null,
+      "domains": {
+       "davswa": 1,
+       "bible": 3
+      },
+      "attested": true
+     },
+     "chenyu": {
+      "n": 0,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "chawo": {
+      "n": 2,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 2
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.chi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "chi",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "cha"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:410",
+     "match": "kilole cha"
+    },
+    {
+     "pair_id": "train:6688",
+     "match": "chuo cha"
+    },
+    {
+     "pair_id": "train:8188",
+     "match": "chuo cha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 218,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "cha",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [],
+    "n_noun_tokens": 1540,
+    "lift": 74.09,
+    "domains": {
+     "davswa": 20,
+     "bible": 198
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "QUANT.ose.chi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "chi",
+    "kind": "all"
+   },
+   "then": {
+    "form": "chose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:ACT.13.6",
+     "match": "kisiwa chose"
+    },
+    {
+     "pair_id": "bible:NEN:1KI.6.20",
+     "match": "chumba chose"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 2,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "chose",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 1851,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 2
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "DEM.chi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "chi",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "ichi",
+    "mid": "icho",
+    "far": "ichija"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:83",
+     "match": "chombo ichi"
+    },
+    {
+     "pair_id": "train:22652",
+     "match": "charo ichi"
+    },
+    {
+     "pair_id": "bible:NEN:1CO.11.28",
+     "match": "kikombe icho"
+    },
+    {
+     "pair_id": "bible:NEN:GEN.44.9",
+     "match": "kikombe icho"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 126,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ichi": {
+      "n": 36,
+      "lift": null,
+      "domains": {
+       "davswa": 3,
+       "bible": 15
+      },
+      "attested": true
+     },
+     "icho": {
+      "n": 89,
+      "lift": 5.79,
+      "domains": {
+       "davswa": 0,
+       "bible": 4
+      },
+      "attested": true
+     },
+     "ichija": {
+      "n": 1,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "ADJ.chi",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "chi",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "ki",
+    "e.g.": "kibaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10492",
+     "match": "chuo kibaa"
+    },
+    {
+     "pair_id": "train:12210",
+     "match": "charo kilacha"
+    },
+    {
+     "pair_id": "train:11883",
+     "match": "charo kilacha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 19,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ki(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 1851,
+    "lift": null,
+    "domains": {
+     "davswa": 5,
+     "bible": 14
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "status": "active"
+  },
+  {
+   "id": "CLASS.va",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "va"
+   },
+   "then": {
+    "bantu": [
+     "8"
+    ],
+    "series_row": "c8",
+    "verified_nouns": 17
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "vadu",
+      "via",
+      "vibelele",
+      "vifumbi",
+      "vikapu",
+      "vikomba",
+      "vikombe",
+      "vilambo"
+     ],
+     "n_nouns": 17
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "SM.va.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "va",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "vi"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:5649",
+     "match": "vilambo vidadu"
+    },
+    {
+     "pair_id": "train:5651",
+     "match": "vilambo visanu"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 280,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "vi": {
+      "n": 280,
+      "lift": 74.75,
+      "domains": {
+       "davswa": 106,
+       "bible": 174
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.va.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "va",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "va"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15187",
+     "match": "vindo vawelungua"
+    },
+    {
+     "pair_id": "train:16648",
+     "match": "vindo vawelungua"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 53,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "va": {
+      "n": 53,
+      "lift": 91.97,
+      "domains": {
+       "davswa": 45,
+       "bible": 8
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.va.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "va",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "ve"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:6606",
+     "match": "vindo vekaviwishi"
+    },
+    {
+     "pair_id": "train:8106",
+     "match": "vindo vekaviwishi"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 75,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ve": {
+      "n": 75,
+      "lift": 195.21,
+      "domains": {
+       "davswa": 14,
+       "bible": 61
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.va",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "va",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "vapo",
+     "2sg": "vako",
+     "3sg": "vake",
+     "1pl": "vedu",
+     "2pl": "venyu",
+     "3pl": "vawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:26189",
+     "match": "vadu vapo"
+    },
+    {
+     "pair_id": "train:21466",
+     "match": "vilambo vapo"
+    },
+    {
+     "pair_id": "train:21490",
+     "match": "vindo vako"
+    },
+    {
+     "pair_id": "train:125",
+     "match": "vindo vako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 178,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "vapo": {
+      "n": 35,
+      "lift": null,
+      "domains": {
+       "davswa": 25,
+       "bible": 10
+      },
+      "attested": true
+     },
+     "vako": {
+      "n": 32,
+      "lift": null,
+      "domains": {
+       "davswa": 13,
+       "bible": 19
+      },
+      "attested": true
+     },
+     "vake": {
+      "n": 42,
+      "lift": null,
+      "domains": {
+       "davswa": 14,
+       "bible": 28
+      },
+      "attested": true
+     },
+     "vedu": {
+      "n": 10,
+      "lift": null,
+      "domains": {
+       "davswa": 6,
+       "bible": 4
+      },
+      "attested": true
+     },
+     "venyu": {
+      "n": 17,
+      "lift": null,
+      "domains": {
+       "davswa": 3,
+       "bible": 14
+      },
+      "attested": true
+     },
+     "vawo": {
+      "n": 42,
+      "lift": null,
+      "domains": {
+       "davswa": 10,
+       "bible": 32
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.va",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "va",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "va"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18726",
+     "match": "vindo va"
+    },
+    {
+     "pair_id": "train:20639",
+     "match": "vilambo va"
+    },
+    {
+     "pair_id": "train:23349",
+     "match": "vindo va"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 200,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "va",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [],
+    "n_noun_tokens": 1201,
+    "lift": 779.32,
+    "domains": {
+     "davswa": 51,
+     "bible": 149
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "QUANT.ose.va",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "va",
+    "kind": "all"
+   },
+   "then": {
+    "form": "vose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [
+    {
+     "pair_id": "train:18891",
+     "match": "vilambo vose"
+    },
+    {
+     "pair_id": "train:22742",
+     "match": "vilambo vose"
+    },
+    {
+     "pair_id": "train:25420",
+     "match": "vindo vose"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 171,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "vose",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 1681,
+    "lift": 3560.69,
+    "domains": {
+     "davswa": 25,
+     "bible": 146
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "DEM.va",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "va",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "ivi",
+    "mid": "ivo",
+    "far": "vija"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:4368",
+     "match": "vadu ivi"
+    },
+    {
+     "pair_id": "train:1320",
+     "match": "vindo ivi"
+    },
+    {
+     "pair_id": "train:1352",
+     "match": "vindo ivo"
+    },
+    {
+     "pair_id": "train:1432",
+     "match": "vindo ivo"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 183,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ivi": {
+      "n": 34,
+      "lift": null,
+      "domains": {
+       "davswa": 3,
+       "bible": 15
+      },
+      "attested": true
+     },
+     "ivo": {
+      "n": 127,
+      "lift": 67.67,
+      "domains": {
+       "davswa": 3,
+       "bible": 23
+      },
+      "attested": true
+     },
+     "vija": {
+      "n": 22,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 4
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "ADJ.va",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "va",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "vi",
+    "e.g.": "vibaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:16243",
+     "match": "vindo vitini"
+    },
+    {
+     "pair_id": "train:21277",
+     "match": "vindo vitini"
+    },
+    {
+     "pair_id": "train:25554",
+     "match": "vindo vitini"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 10,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "vi(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 1681,
+    "lift": null,
+    "domains": {
+     "davswa": 5,
+     "bible": 5
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "status": "active"
+  },
+  {
+   "id": "CLASS.ri",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "ri"
+   },
+   "then": {
+    "bantu": [
+     "10"
+    ],
+    "series_row": "c10",
+    "verified_nouns": 7
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "chumbo",
+      "miri",
+      "ndagaa",
+      "ndiwa",
+      "ngelo",
+      "samaki",
+      "soko"
+     ],
+     "n_nouns": 7
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "SM.ri.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ri",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "ri"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:4781",
+     "match": "samaki ridima"
+    },
+    {
+     "pair_id": "train:14844",
+     "match": "ngelo riboie"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 42,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ri": {
+      "n": 42,
+      "lift": 4.03,
+      "domains": {
+       "davswa": 15,
+       "bible": 27
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.ri.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ri",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "ra"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:1801",
+     "match": "ngelo rasoghoda"
+    },
+    {
+     "pair_id": "train:3077",
+     "match": "chumbo raghokie"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 15,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ra": {
+      "n": 15,
+      "lift": 2.67,
+      "domains": {
+       "davswa": 13,
+       "bible": 2
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "present SM+a confirmed against speaker answers (PRESENT_SM_VOWEL_CONFIRMED: ra)",
+   "status": "active"
+  },
+  {
+   "id": "SM.ri.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ri",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "re"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:22684",
+     "match": "ngelo rekama"
+    },
+    {
+     "pair_id": "train:3260",
+     "match": "ngelo relaghasha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 12,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "re": {
+      "n": 12,
+      "lift": 1.62,
+      "domains": {
+       "davswa": 4,
+       "bible": 8
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.ri",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ri",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "rapo",
+     "2sg": "rako",
+     "3sg": "rake",
+     "1pl": "redu",
+     "2pl": "renyu",
+     "3pl": "rawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:3823",
+     "match": "chumbo rapo"
+    },
+    {
+     "pair_id": "train:14838",
+     "match": "ngelo rapo"
+    },
+    {
+     "pair_id": "train:26468",
+     "match": "ngelo rako"
+    },
+    {
+     "pair_id": "bible:NEN:EZK.29.4",
+     "match": "samaki rako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 17,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "rapo": {
+      "n": 2,
+      "lift": 1.32,
+      "domains": {
+       "davswa": 2,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "rako": {
+      "n": 2,
+      "lift": 0.87,
+      "domains": {
+       "davswa": 1,
+       "bible": 1
+      },
+      "attested": false
+     },
+     "rake": {
+      "n": 6,
+      "lift": 1.27,
+      "domains": {
+       "davswa": 3,
+       "bible": 3
+      },
+      "attested": false
+     },
+     "redu": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "renyu": {
+      "n": 4,
+      "lift": 1.36,
+      "domains": {
+       "davswa": 0,
+       "bible": 4
+      },
+      "attested": false
+     },
+     "rawo": {
+      "n": 3,
+      "lift": 0.4,
+      "domains": {
+       "davswa": 1,
+       "bible": 2
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.ri",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ri",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "ra"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:24953",
+     "match": "chumbo ra"
+    },
+    {
+     "pair_id": "train:16578",
+     "match": "chumbo ra"
+    },
+    {
+     "pair_id": "train:19447",
+     "match": "chumbo ra"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 61,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ra",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [],
+    "n_noun_tokens": 1215,
+    "lift": 3.01,
+    "domains": {
+     "davswa": 23,
+     "bible": 38
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "QUANT.ose.ri",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ri",
+    "kind": "all"
+   },
+   "then": {
+    "form": "rose"
+   },
+   "phonology": [
+    "a + o -> o"
+   ],
+   "examples": [
+    {
+     "pair_id": "train:6589",
+     "match": "ngelo rose"
+    },
+    {
+     "pair_id": "train:8089",
+     "match": "ngelo rose"
+    },
+    {
+     "pair_id": "train:16391",
+     "match": "ngelo rose"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 101,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "rose",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 1485,
+    "lift": 7.93,
+    "domains": {
+     "davswa": 11,
+     "bible": 90
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "DEM.ri",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ri",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "iri",
+    "mid": "iro",
+    "far": "irija"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:24722",
+     "match": "chumbo iri"
+    },
+    {
+     "pair_id": "bible:NEN:LUK.20.34",
+     "match": "ngelo iri"
+    },
+    {
+     "pair_id": "train:15968",
+     "match": "ngelo iro"
+    },
+    {
+     "pair_id": "train:17181",
+     "match": "ngelo iro"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 26,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "iri": {
+      "n": 13,
+      "lift": 1.11,
+      "domains": {
+       "davswa": 1,
+       "bible": 6
+      },
+      "attested": false
+     },
+     "iro": {
+      "n": 13,
+      "lift": 3.52,
+      "domains": {
+       "davswa": 2,
+       "bible": 9
+      },
+      "attested": true
+     },
+     "irija": {
+      "n": 0,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "CLASS.lu",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "lu"
+   },
+   "then": {
+    "bantu": [
+     "11"
+    ],
+    "series_row": "c11",
+    "verified_nouns": 4
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "lukundo",
+      "lumbo",
+      "lumi",
+      "lwaka"
+     ],
+     "n_nouns": 4
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "SM.lu.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "lu",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "lu"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:11391",
+     "match": "lumbo luwishi"
+    },
+    {
+     "pair_id": "train:24659",
+     "match": "lwaka lupoie"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 144,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "lu": {
+      "n": 144,
+      "lift": 246.28,
+      "domains": {
+       "davswa": 15,
+       "bible": 129
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.lu.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "lu",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "lwa"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:3173",
+     "match": "lumbo lwaweendelia"
+    },
+    {
+     "pair_id": "train:22638",
+     "match": "lukundo lwachua"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 10,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "lwa": {
+      "n": 10,
+      "lift": 82.66,
+      "domains": {
+       "davswa": 2,
+       "bible": 8
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.lu.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "lu",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "lo"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:19688",
+     "match": "lukundo lochua"
+    },
+    {
+     "pair_id": "train:4603",
+     "match": "lwaka loshunua"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 24,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "lo": {
+      "n": 24,
+      "lift": 1190.37,
+      "domains": {
+       "davswa": 4,
+       "bible": 20
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.lu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "lu",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "lwapo",
+     "2sg": "lwako",
+     "3sg": "lwake",
+     "1pl": "lodu",
+     "2pl": "lonyu",
+     "3pl": "lwawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:1029",
+     "match": "lumbo lwapo"
+    },
+    {
+     "pair_id": "train:14022",
+     "match": "lwaka lwapo"
+    },
+    {
+     "pair_id": "train:21370",
+     "match": "lukundo lwako"
+    },
+    {
+     "pair_id": "train:9623",
+     "match": "lwaka lwako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 185,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "lwapo": {
+      "n": 26,
+      "lift": null,
+      "domains": {
+       "davswa": 2,
+       "bible": 24
+      },
+      "attested": true
+     },
+     "lwako": {
+      "n": 64,
+      "lift": null,
+      "domains": {
+       "davswa": 2,
+       "bible": 62
+      },
+      "attested": true
+     },
+     "lwake": {
+      "n": 86,
+      "lift": null,
+      "domains": {
+       "davswa": 9,
+       "bible": 77
+      },
+      "attested": true
+     },
+     "lodu": {
+      "n": 1,
+      "lift": null,
+      "domains": {
+       "davswa": 1,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "lonyu": {
+      "n": 5,
+      "lift": null,
+      "domains": {
+       "davswa": 1,
+       "bible": 4
+      },
+      "attested": true
+     },
+     "lwawo": {
+      "n": 3,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 3
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.lu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "lu",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "lwa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:130",
+     "match": "lukundo lwa"
+    },
+    {
+     "pair_id": "train:16426",
+     "match": "lukundo lwa"
+    },
+    {
+     "pair_id": "train:21276",
+     "match": "lwaka lwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 162,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "lwa",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [],
+    "n_noun_tokens": 589,
+    "lift": 3945.62,
+    "domains": {
+     "davswa": 40,
+     "bible": 122
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_ASSOCIATIVE_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "DEM.lu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "lu",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "ulu",
+    "mid": "ulo",
+    "far": "uluja"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:NUM.21.17",
+     "match": "lumbo ulu"
+    },
+    {
+     "pair_id": "bible:NEN:ISA.38.9",
+     "match": "lumbo ulu"
+    },
+    {
+     "pair_id": "bible:NEN:COL.3.14",
+     "match": "lukundo ulo"
+    },
+    {
+     "pair_id": "bible:NEN:1TI.1.5",
+     "match": "lukundo ulo"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 33,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ulu": {
+      "n": 11,
+      "lift": 297.59,
+      "domains": {
+       "davswa": 0,
+       "bible": 6
+      },
+      "attested": true
+     },
+     "ulo": {
+      "n": 22,
+      "lift": 148.8,
+      "domains": {
+       "davswa": 0,
+       "bible": 3
+      },
+      "attested": true
+     },
+     "uluja": {
+      "n": 0,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "ADJ.lu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "lu",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "lu",
+    "e.g.": "lubaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:MRK.15.13",
+     "match": "lwaka lubaa"
+    },
+    {
+     "pair_id": "train:10160",
+     "match": "lukundo lubaa"
+    },
+    {
+     "pair_id": "bible:NEN:MRK.15.37",
+     "match": "lwaka lubaa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 75,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "lu(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 725,
+    "lift": 3719.9,
+    "domains": {
+     "davswa": 1,
+     "bible": 74
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "status": "active"
+  },
+  {
+   "id": "CLASS.ku",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "ku"
+   },
+   "then": {
+    "bantu": [
+     "15"
+    ],
+    "series_row": "c15",
+    "verified_nouns": 26
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "kuboilwa",
+      "kubora",
+      "kuchelewa",
+      "kudamba",
+      "kudeka",
+      "kudu",
+      "kughesha",
+      "kughoka"
+     ],
+     "n_nouns": 26
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "SM.ku.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ku",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "ku"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13295",
+     "match": "kuzoya kuguwa"
+    },
+    {
+     "pair_id": "train:13782",
+     "match": "kuboilwa kungi"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 127,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ku": {
+      "n": 127,
+      "lift": 9.6,
+      "domains": {
+       "davswa": 10,
+       "bible": 117
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.ku.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ku",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "kwa"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:3354",
+     "match": "kuboilwa kwadima"
+    },
+    {
+     "pair_id": "train:3600",
+     "match": "kuboilwa kwadima"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 21,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "kwa": {
+      "n": 21,
+      "lift": 8.23,
+      "domains": {
+       "davswa": 16,
+       "bible": 5
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "present SM+a confirmed against speaker answers (PRESENT_SM_VOWEL_CONFIRMED: kwa)",
+   "status": "active"
+  },
+  {
+   "id": "SM.ku.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_class": "ku",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "ko"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:JAS.1.2",
+     "match": "kuboilwa konyu"
+    },
+    {
+     "pair_id": "bible:NEN:MAT.24.20",
+     "match": "kukimbia konyu"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 13,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "ko": {
+      "n": 13,
+      "lift": 7.52,
+      "domains": {
+       "davswa": 0,
+       "bible": 13
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "POSS.ku",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ku",
+    "kind": "possessive"
+   },
+   "then": {
+    "template": "SM+a + po|ko|ke|wo ; SM+e + du|nyu",
+    "forms": {
+     "1sg": "kwapo",
+     "2sg": "kwako",
+     "3sg": "kwake",
+     "1pl": "kodu",
+     "2pl": "konyu",
+     "3pl": "kwawo"
+    }
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:20636",
+     "match": "kuboilwa kwapo"
+    },
+    {
+     "pair_id": "bible:NEN:PSA.30.11",
+     "match": "kulila kwapo"
+    },
+    {
+     "pair_id": "train:20200",
+     "match": "kudu kwako"
+    },
+    {
+     "pair_id": "bible:NEN:PRO.3.26",
+     "match": "kughu kwako"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 53,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "kwapo": {
+      "n": 9,
+      "lift": 58.06,
+      "domains": {
+       "davswa": 1,
+       "bible": 8
+      },
+      "attested": true
+     },
+     "kwako": {
+      "n": 17,
+      "lift": 188.3,
+      "domains": {
+       "davswa": 1,
+       "bible": 16
+      },
+      "attested": true
+     },
+     "kwake": {
+      "n": 13,
+      "lift": 88.79,
+      "domains": {
+       "davswa": 1,
+       "bible": 12
+      },
+      "attested": true
+     },
+     "kodu": {
+      "n": 4,
+      "lift": 102.67,
+      "domains": {
+       "davswa": 1,
+       "bible": 3
+      },
+      "attested": true
+     },
+     "konyu": {
+      "n": 6,
+      "lift": 54.46,
+      "domains": {
+       "davswa": 0,
+       "bible": 6
+      },
+      "attested": true
+     },
+     "kwawo": {
+      "n": 4,
+      "lift": 33.6,
+      "domains": {
+       "davswa": 1,
+       "bible": 3
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.ku",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ku",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "kwa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:14878",
+     "match": "kuzoya kwa"
+    },
+    {
+     "pair_id": "train:4879",
+     "match": "kughoka kwa"
+    },
+    {
+     "pair_id": "train:3574",
+     "match": "kuboilwa kwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 60,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "kwa",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [],
+    "n_noun_tokens": 715,
+    "lift": 4.43,
+    "domains": {
+     "davswa": 5,
+     "bible": 55
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "DEM.ku",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ku",
+    "kind": "demonstrative"
+   },
+   "then": {
+    "near": "uku",
+    "mid": "uko",
+    "far": "ukuja"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:1PE.1.11",
+     "match": "kuwona uko"
+    },
+    {
+     "pair_id": "bible:NEN:NEH.8.10",
+     "match": "kuboilwa uko"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 8,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "by_form": {
+     "uku": {
+      "n": 0,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     },
+     "uko": {
+      "n": 8,
+      "lift": 2.46,
+      "domains": {
+       "davswa": 0,
+       "bible": 3
+      },
+      "attested": true
+     },
+     "ukuja": {
+      "n": 0,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:KITAITA_DEM_{PROXIMAL,REFERENTIAL,DISTAL}_VERIFIED"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "ADJ.ku",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ku",
+    "kind": "adjective",
+    "stem_type": "nominal"
+   },
+   "then": {
+    "prefix": "ku",
+    "e.g.": "kubaa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:ACT.8.8",
+     "match": "kuboilwa kubaa"
+    },
+    {
+     "pair_id": "train:13888",
+     "match": "kuboilwa kubaa"
+    },
+    {
+     "pair_id": "bible:NEN:LUK.24.52",
+     "match": "kuboilwa kubaa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 24,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ku(?:baa|tini|lacha|ghenyi)",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 1011,
+    "lift": 423.42,
+    "domains": {
+     "davswa": 1,
+     "bible": 23
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "nominal stems only (-baa, -tini, -lacha, -ghenyi); stative adjectives take the SM (baya mtu -> u-zamie, speaker-verified)",
+   "status": "active"
+  },
+  {
+   "id": "CLASS.gh",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_class": "gh"
+   },
+   "then": {
+    "bantu": [
+     "14 (wukula)"
+    ],
+    "series_row": "c3",
+    "verified_nouns": 1
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": true,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_SUBJECT_MARKERS",
+     "nouns": [
+      "wukula"
+     ],
+     "n_nouns": 1
+    }
+   ],
+   "notes": "class 14 wu- nouns are split between u and ghu (and gh: wukula), per noun, by the speaker; round-1 concord notes gave ghu- for all of class 14",
+   "status": "active"
+  },
+  {
+   "id": "ASSOC.gh",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "gh",
+    "kind": "associative"
+   },
+   "then": {
+    "form": "ghwa"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:LUK.22.41",
+     "match": "wukula ghwa"
+    },
+    {
+     "pair_id": "bible:NEN:GEN.21.16",
+     "match": "wukula ghwa"
+    },
+    {
+     "pair_id": "bible:NEN:NUM.11.31",
+     "match": "wukula ghwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 3,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ghwa",
+    "sw_regex": "(?:wa|ya|la|cha|vya|za|kwa|cha|pa|mwa)",
+    "baseline_excludes": [
+     "ghu"
+    ],
+    "n_noun_tokens": 3,
+    "lift": 186.91,
+    "domains": {
+     "davswa": 0,
+     "bible": 3
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "ADJ.verified_forms",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "kind": "adjective"
+   },
+   "then": {
+    "forms": {
+     "kubwa mungu": "mbaa",
+     "kubwa mti": "mbaa",
+     "kubwa nchi": "ibaa",
+     "kubwa nyumba": "mbaa",
+     "kubwa siku": "ibaa",
+     "baya mtu": "uzamie",
+     "kubwa kikombe": "kibaa",
+     "kubwa kiti": "kibaa",
+     "kubwa kitabu": "kibaa"
+    }
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_ADJECTIVES"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "SM.1sg.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "1sg",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "ni"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13298",
+     "match": "nibonyagha"
+    },
+    {
+     "pair_id": "train:11934",
+     "match": "nidimagha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 2046,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "ni": {
+      "n": 2046,
+      "lift": 7.53,
+      "domains": {
+       "davswa": 329,
+       "bible": 1717
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.1sg.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "1sg",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "na"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18666",
+     "match": "nakusera"
+    },
+    {
+     "pair_id": "train:6138",
+     "match": "nawawashorodoka"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1848,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "na": {
+      "n": 1848,
+      "lift": 5.59,
+      "domains": {
+       "davswa": 565,
+       "bible": 1283
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.1sg.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "1sg",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "ne"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:9874",
+     "match": "nechi"
+    },
+    {
+     "pair_id": "train:1505",
+     "match": "nevailwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 778,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "ne": {
+      "n": 778,
+      "lift": 8.51,
+      "domains": {
+       "davswa": 178,
+       "bible": 600
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.2sg.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "2sg",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "ku"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18658",
+     "match": "kuchawishunua"
+    },
+    {
+     "pair_id": "train:15638",
+     "match": "kuniredia"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 2908,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "ku": {
+      "n": 2908,
+      "lift": 1.52,
+      "domains": {
+       "davswa": 526,
+       "bible": 2382
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.2sg.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "2sg",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "kwa"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15106",
+     "match": "kwahoresha"
+    },
+    {
+     "pair_id": "train:18687",
+     "match": "kwajireda"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1414,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "kwa": {
+      "n": 1414,
+      "lift": 15.81,
+      "domains": {
+       "davswa": 684,
+       "bible": 730
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.2sg.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "2sg",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "ko"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:8537",
+     "match": "kosighena"
+    },
+    {
+     "pair_id": "train:10010",
+     "match": "kofwanwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 418,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "ko": {
+      "n": 418,
+      "lift": 2.98,
+      "domains": {
+       "davswa": 71,
+       "bible": 347
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.1pl.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "1pl",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "di"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:6402",
+     "match": "dimdumikie"
+    },
+    {
+     "pair_id": "train:7902",
+     "match": "dimdumikie"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 611,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "di": {
+      "n": 611,
+      "lift": 19.45,
+      "domains": {
+       "davswa": 165,
+       "bible": 446
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.1pl.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "1pl",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "da"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:8528",
+     "match": "dadawangwa"
+    },
+    {
+     "pair_id": "train:12314",
+     "match": "dawiazighana"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 514,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "da": {
+      "n": 514,
+      "lift": 15.47,
+      "domains": {
+       "davswa": 200,
+       "bible": 314
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.1pl.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "1pl",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "de"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15806",
+     "match": "dewona"
+    },
+    {
+     "pair_id": "train:17019",
+     "match": "dewona"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 199,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "de": {
+      "n": 199,
+      "lift": 32.19,
+      "domains": {
+       "davswa": 93,
+       "bible": 106
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.2pl.bare",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "2pl",
+    "series": "bare"
+   },
+   "then": {
+    "forms": [
+     "mu",
+     "m"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15901",
+     "match": "muighaluagha"
+    },
+    {
+     "pair_id": "train:18103",
+     "match": "muighaluagha"
+    },
+    {
+     "pair_id": "train:15893",
+     "match": "mchadwalwa"
+    },
+    {
+     "pair_id": "train:15901",
+     "match": "muighaluagha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1854,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "mu": {
+      "n": 298,
+      "lift": 2.51,
+      "domains": {
+       "davswa": 11,
+       "bible": 287
+      },
+      "attested": true
+     },
+     "m": {
+      "n": 1556,
+      "lift": 1.4,
+      "domains": {
+       "davswa": 124,
+       "bible": 1432
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.2pl.a",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "2pl",
+    "series": "a"
+   },
+   "then": {
+    "forms": [
+     "mwa"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15959",
+     "match": "mwameria"
+    },
+    {
+     "pair_id": "train:16232",
+     "match": "mwanyama"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 457,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "mwa": {
+      "n": 457,
+      "lift": 10.94,
+      "domains": {
+       "davswa": 51,
+       "bible": 406
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.2pl.e",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "2pl",
+    "series": "e"
+   },
+   "then": {
+    "forms": [
+     "mo"
+    ]
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:19075",
+     "match": "monilegha"
+    },
+    {
+     "pair_id": "train:6853",
+     "match": "movalwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 174,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "mo": {
+      "n": 174,
+      "lift": 8.85,
+      "domains": {
+       "davswa": 15,
+       "bible": 159
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "SM.person.verified",
+   "section": 1,
+   "slot": "SM",
+   "if": {
+    "subj_person": "1sg|2sg|1pl|2pl"
+   },
+   "then": {
+    "forms_by_person_tense": {
+     "1sg/future": "ni",
+     "2sg/future": "ku",
+     "1pl/future": "di",
+     "2pl/future": "m",
+     "1sg/present": "na",
+     "2sg/present": "kwa",
+     "1sg/past": "ne"
+    }
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": true,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:PERSON_SUBJECT_MARKERS_BY_TAM (s73-s84)"
+    }
+   ],
+   "readings": [
+    {
+     "1pl/past": "de",
+     "source": "corpus n=1"
+    },
+    {
+     "1pl/past": "da",
+     "source": "corpus n=2"
+    }
+   ],
+   "notes": "1pl past de/da unresolved, not asked; 2sg narrative u- not asked",
+   "status": "active"
+  },
+  {
+   "id": "OM.1sg.from_sw_ni",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "ni",
+    "obj": "1sg"
+   },
+   "then": {
+    "form": "ni",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:5842",
+     "match": "kwawenimanya"
+    },
+    {
+     "pair_id": "train:6293",
+     "match": "kwanigoria"
+    },
+    {
+     "pair_id": "train:6295",
+     "match": "kwanikalia"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1517,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ni[a-z]{3,}",
+    "n_pairs_with_sw_feature": 1848,
+    "share_of_feature_pairs": 0.8209,
+    "lift": 30.68,
+    "domains": {
+     "davswa": 379,
+     "bible": 1138
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.2sg.from_sw_ku",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "ku",
+    "obj": "2sg"
+   },
+   "then": {
+    "form": "ku",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:6771",
+     "match": "nakuwona"
+    },
+    {
+     "pair_id": "train:8271",
+     "match": "nakuwona"
+    },
+    {
+     "pair_id": "train:1782",
+     "match": "chakushunua"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1347,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ku[a-z]{3,}",
+    "n_pairs_with_sw_feature": 6236,
+    "share_of_feature_pairs": 0.216,
+    "lift": 1.8,
+    "domains": {
+     "davswa": 169,
+     "bible": 1178
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.3sg.from_sw_m",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "m",
+    "obj": "3sg"
+   },
+   "then": {
+    "form": "m",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:6402",
+     "match": "dimdumikie"
+    },
+    {
+     "pair_id": "train:7902",
+     "match": "dimdumikie"
+    },
+    {
+     "pair_id": "train:11632",
+     "match": "weremwonia"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 3324,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?m[a-z]{3,}",
+    "n_pairs_with_sw_feature": 4181,
+    "share_of_feature_pairs": 0.795,
+    "lift": 3.13,
+    "domains": {
+     "davswa": 270,
+     "bible": 3054
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.3sg.from_sw_mw",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "mw",
+    "obj": "3sg"
+   },
+   "then": {
+    "form": "m",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:1788",
+     "match": "nikamuwona"
+    },
+    {
+     "pair_id": "bible:NEN:EXO.13.1",
+     "match": "ukamzera"
+    },
+    {
+     "pair_id": "bible:NEN:EXO.16.11",
+     "match": "ukamzera"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1953,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?m[a-z]{3,}",
+    "n_pairs_with_sw_feature": 2321,
+    "share_of_feature_pairs": 0.8414,
+    "lift": 3.03,
+    "domains": {
+     "davswa": 50,
+     "bible": 1903
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.1pl.from_sw_tu",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "tu",
+    "obj": "1pl"
+   },
+   "then": {
+    "form": "di",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:8675",
+     "match": "kwadiredia"
+    },
+    {
+     "pair_id": "train:13243",
+     "match": "kudidederia"
+    },
+    {
+     "pair_id": "train:18668",
+     "match": "kudighenje"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 421,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?di[a-z]{3,}",
+    "n_pairs_with_sw_feature": 659,
+    "share_of_feature_pairs": 0.6388,
+    "lift": 22.61,
+    "domains": {
+     "davswa": 90,
+     "bible": 331
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.c7.from_sw_ki",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "ki",
+    "obj": "c7"
+   },
+   "then": {
+    "form": "chi",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:14963",
+     "match": "kwachiwona"
+    },
+    {
+     "pair_id": "train:3292",
+     "match": "nachisowa"
+    },
+    {
+     "pair_id": "train:11166",
+     "match": "uchikunde"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 31,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?chi[a-z]{3,}",
+    "n_pairs_with_sw_feature": 134,
+    "share_of_feature_pairs": 0.2313,
+    "lift": 21.87,
+    "domains": {
+     "davswa": 6,
+     "bible": 25
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.c8.from_sw_vi",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "vi",
+    "obj": "c8"
+   },
+   "then": {
+    "form": "vi",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:20645",
+     "match": "ukavirasimia"
+    },
+    {
+     "pair_id": "train:19386",
+     "match": "kuvilindie"
+    },
+    {
+     "pair_id": "train:20639",
+     "match": "msakevikunda"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 92,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?vi[a-z]{3,}",
+    "n_pairs_with_sw_feature": 223,
+    "share_of_feature_pairs": 0.4126,
+    "lift": 32.67,
+    "domains": {
+     "davswa": 8,
+     "bible": 84
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.c5.from_sw_li",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "li",
+    "obj": "c5"
+   },
+   "then": {
+    "form": "ji",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13617",
+     "match": "wajighwagha"
+    },
+    {
+     "pair_id": "train:15183",
+     "match": "yajighwa"
+    },
+    {
+     "pair_id": "train:16137",
+     "match": "radajighwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 97,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ji[a-z]{3,}",
+    "n_pairs_with_sw_feature": 352,
+    "share_of_feature_pairs": 0.2756,
+    "lift": 12.8,
+    "domains": {
+     "davswa": 18,
+     "bible": 79
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.c5.from_sw_ji",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "ji",
+    "obj": "c5"
+   },
+   "then": {
+    "form": "ji",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18687",
+     "match": "kwajireda"
+    },
+    {
+     "pair_id": "train:5187",
+     "match": "ukajielesha"
+    },
+    {
+     "pair_id": "train:11742",
+     "match": "ojibonya"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 73,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ji[a-z]{3,}",
+    "n_pairs_with_sw_feature": 964,
+    "share_of_feature_pairs": 0.0757,
+    "lift": 3.36,
+    "domains": {
+     "davswa": 42,
+     "bible": 31
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.c6.from_sw_ya",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "ya",
+    "obj": "c6"
+   },
+   "then": {
+    "form": "ghi",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:879",
+     "match": "nichaghieresha"
+    },
+    {
+     "pair_id": "train:13864",
+     "match": "nighibonyere"
+    },
+    {
+     "pair_id": "train:14278",
+     "match": "nighibonyere"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 179,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ghi[a-z]{3,}",
+    "n_pairs_with_sw_feature": 700,
+    "share_of_feature_pairs": 0.2557,
+    "lift": 17.74,
+    "domains": {
+     "davswa": 20,
+     "bible": 159
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.c10.from_sw_zi",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "zi",
+    "obj": "c10"
+   },
+   "then": {
+    "form": "ri",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:5172",
+     "match": "darilegha"
+    },
+    {
+     "pair_id": "train:25230",
+     "match": "nerirura"
+    },
+    {
+     "pair_id": "train:14321",
+     "match": "iridia"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 133,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ri[a-z]{3,}",
+    "n_pairs_with_sw_feature": 503,
+    "share_of_feature_pairs": 0.2644,
+    "lift": 10.41,
+    "domains": {
+     "davswa": 12,
+     "bible": 121
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.c9.from_sw_i",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "i",
+    "obj": "c9"
+   },
+   "then": {
+    "form": "i",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:6551",
+     "match": "dainona"
+    },
+    {
+     "pair_id": "train:8051",
+     "match": "dainona"
+    },
+    {
+     "pair_id": "train:18229",
+     "match": "koineka"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 709,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?i[a-z]{3,}",
+    "n_pairs_with_sw_feature": 1450,
+    "share_of_feature_pairs": 0.489,
+    "lift": 3.34,
+    "domains": {
+     "davswa": 20,
+     "bible": 689
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.c3.from_sw_u",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "u",
+    "obj": "c3"
+   },
+   "then": {
+    "form": "ghu",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:11997",
+     "match": "dighuode"
+    },
+    {
+     "pair_id": "train:3342",
+     "match": "kughukongoda"
+    },
+    {
+     "pair_id": "train:330",
+     "match": "dighuwonie"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 280,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ghu[a-z]{3,}",
+    "n_pairs_with_sw_feature": 816,
+    "share_of_feature_pairs": 0.3431,
+    "lift": 24.99,
+    "domains": {
+     "davswa": 9,
+     "bible": 271
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "OM.c2.from_sw_wa",
+   "section": 1,
+   "slot": "OM",
+   "if": {
+    "sw_om": "wa",
+    "obj": "c2"
+   },
+   "then": {
+    "form": "wi",
+    "position": "after TAM, before root"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18658",
+     "match": "kuchawishunua"
+    },
+    {
+     "pair_id": "train:18113",
+     "match": "nikawireda"
+    },
+    {
+     "pair_id": "train:18542",
+     "match": "dichawighoria"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 2802,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:nde|si)?(?:ghwa|gho|ghu|che|ghe|chi|ghi|gha|cha|kwa|lwa|mwa|ve|vi|ne|lu|da|ja|re|ku|ji|mo|ni|we|de|va|na|lo|je|di|ya|ra|wi|ko|mu|ye|wa|ri|m|o|u|i|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?wi[a-z]{3,}",
+    "n_pairs_with_sw_feature": 5027,
+    "share_of_feature_pairs": 0.5574,
+    "lift": 9.8,
+    "domains": {
+     "davswa": 101,
+     "bible": 2701
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "REL.u.from_sw_ye",
+   "section": 1,
+   "slot": "REL",
+   "if": {
+    "sw_rel": "ye",
+    "class": "u"
+   },
+   "then": {
+    "template": "bare SM, no relative morpheme; present ROOT-agha, past ROOT-ie-ghe",
+    "bare_sm": "u"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:22064",
+     "match": "unitesiagha"
+    },
+    {
+     "pair_id": "train:15952",
+     "match": "ungiagha"
+    },
+    {
+     "pair_id": "bible:NEN:JOB.15.19",
+     "match": "usereidieghe"
+    },
+    {
+     "pair_id": "bible:NEN:ISA.14.17",
+     "match": "userewilekerieghe"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 299,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "u-...-agha": {
+      "n": 290,
+      "lift": 6.41,
+      "domains": {
+       "davswa": 14,
+       "bible": 276
+      },
+      "attested": true
+     },
+     "u-...-ie-ghe": {
+      "n": 9,
+      "lift": 6.62,
+      "domains": {
+       "davswa": 0,
+       "bible": 9
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "REL.wi.from_sw_o",
+   "section": 1,
+   "slot": "REL",
+   "if": {
+    "sw_rel": "o",
+    "class": "wi"
+   },
+   "then": {
+    "template": "bare SM, no relative morpheme; present ROOT-agha, past ROOT-ie-ghe",
+    "bare_sm": "wi"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:12607",
+     "match": "winekwagha"
+    },
+    {
+     "pair_id": "train:510",
+     "match": "widedagha"
+    },
+    {
+     "pair_id": "bible:NEN:EXO.9.21",
+     "match": "wiseretalieghe"
+    },
+    {
+     "pair_id": "bible:NEN:PSA.65.4",
+     "match": "wikaieghe"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 422,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "wi-...-agha": {
+      "n": 413,
+      "lift": 9.62,
+      "domains": {
+       "davswa": 20,
+       "bible": 393
+      },
+      "attested": true
+     },
+     "wi-...-ie-ghe": {
+      "n": 9,
+      "lift": 4.64,
+      "domains": {
+       "davswa": 0,
+       "bible": 9
+      },
+      "attested": true
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "REL.i.from_sw_yo",
+   "section": 1,
+   "slot": "REL",
+   "if": {
+    "sw_rel": "yo",
+    "class": "i"
+   },
+   "then": {
+    "template": "bare SM, no relative morpheme; present ROOT-agha, past ROOT-ie-ghe",
+    "bare_sm": "i"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:4014",
+     "match": "idimagha"
+    },
+    {
+     "pair_id": "train:4127",
+     "match": "iranagha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 68,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "i-...-agha": {
+      "n": 68,
+      "lift": 4.69,
+      "domains": {
+       "davswa": 6,
+       "bible": 62
+      },
+      "attested": true
+     },
+     "i-...-ie-ghe": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "REL.ji.from_sw_lo",
+   "section": 1,
+   "slot": "REL",
+   "if": {
+    "sw_rel": "lo",
+    "class": "ji"
+   },
+   "then": {
+    "template": "bare SM, no relative morpheme; present ROOT-agha, past ROOT-ie-ghe",
+    "bare_sm": "ji"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13158",
+     "match": "jiwiboiagha"
+    },
+    {
+     "pair_id": "train:3844",
+     "match": "jidimagha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 15,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "ji-...-agha": {
+      "n": 15,
+      "lift": 9.85,
+      "domains": {
+       "davswa": 4,
+       "bible": 11
+      },
+      "attested": true
+     },
+     "ji-...-ie-ghe": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "REL.chi.from_sw_cho",
+   "section": 1,
+   "slot": "REL",
+   "if": {
+    "sw_rel": "cho",
+    "class": "chi"
+   },
+   "then": {
+    "template": "bare SM, no relative morpheme; present ROOT-agha, past ROOT-ie-ghe",
+    "bare_sm": "chi"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:4133",
+     "match": "chidimagha"
+    },
+    {
+     "pair_id": "bible:NEN:ZEC.5.1",
+     "match": "chiburukagha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 26,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "chi-...-agha": {
+      "n": 26,
+      "lift": 14.95,
+      "domains": {
+       "davswa": 3,
+       "bible": 23
+      },
+      "attested": true
+     },
+     "chi-...-ie-ghe": {
+      "n": 0,
+      "lift": null,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "REL.va.from_sw_vyo",
+   "section": 1,
+   "slot": "REL",
+   "if": {
+    "sw_rel": "vyo",
+    "class": "va"
+   },
+   "then": {
+    "template": "bare SM, no relative morpheme; present ROOT-agha, past ROOT-ie-ghe",
+    "bare_sm": "vi"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:14185",
+     "match": "vizoghorwagha"
+    },
+    {
+     "pair_id": "train:10149",
+     "match": "vikundikagha"
+    },
+    {
+     "pair_id": "train:19630",
+     "match": "vilagharieghe"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 19,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "vi-...-agha": {
+      "n": 18,
+      "lift": 7.44,
+      "domains": {
+       "davswa": 2,
+       "bible": 16
+      },
+      "attested": true
+     },
+     "vi-...-ie-ghe": {
+      "n": 1,
+      "lift": 35.97,
+      "domains": {
+       "davswa": 1,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "REL.ri.from_sw_zo",
+   "section": 1,
+   "slot": "REL",
+   "if": {
+    "sw_rel": "zo",
+    "class": "ri"
+   },
+   "then": {
+    "template": "bare SM, no relative morpheme; present ROOT-agha, past ROOT-ie-ghe",
+    "bare_sm": "ri"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:14891",
+     "match": "rikudimishagha"
+    },
+    {
+     "pair_id": "train:13587",
+     "match": "rirwalwagha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 11,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "ri-...-agha": {
+      "n": 11,
+      "lift": 6.68,
+      "domains": {
+       "davswa": 4,
+       "bible": 7
+      },
+      "attested": true
+     },
+     "ri-...-ie-ghe": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "REL.ku.from_sw_ko",
+   "section": 1,
+   "slot": "REL",
+   "if": {
+    "sw_rel": "ko",
+    "class": "ku"
+   },
+   "then": {
+    "template": "bare SM, no relative morpheme; present ROOT-agha, past ROOT-ie-ghe",
+    "bare_sm": "ku"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:JHN.14.5",
+     "match": "kughendagha"
+    },
+    {
+     "pair_id": "bible:NEN:PSA.26.8",
+     "match": "kukaiagha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 5,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "by_form": {
+     "ku-...-agha": {
+      "n": 5,
+      "lift": 4.09,
+      "domains": {
+       "davswa": 0,
+       "bible": 5
+      },
+      "attested": true
+     },
+     "ku-...-ie-ghe": {
+      "n": 0,
+      "lift": 0.0,
+      "domains": {
+       "davswa": 0,
+       "bible": 0
+      },
+      "attested": false
+     }
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "PLURAL.u_wi.wa",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "sg_class": "u",
+    "prefix": "^mw?u?"
+   },
+   "then": {
+    "pl_class": "wi",
+    "rewrite": "^mw?u? -> wa"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 8,
+   "evidence": {
+    "method": "verified singular/plural nouns",
+    "pairs": [
+     "mdumiki/wadumiki",
+     "mghenyi/waghenyi",
+     "mkongo/wakongo",
+     "mlimi/walimi",
+     "mlindiri/walindiri",
+     "mnughi/wanughi",
+     "msawi/wasawi",
+     "mzuri/wazuri"
+    ]
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "PLURAL.ghu_i.mi",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "sg_class": "ghu",
+    "prefix": "^mu?"
+   },
+   "then": {
+    "pl_class": "i",
+    "rewrite": "^mu? -> mi"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 5,
+   "evidence": {
+    "method": "verified singular/plural nouns",
+    "pairs": [
+     "mkate/mikate",
+     "mkonu/mikonu",
+     "msarigho/misarigho",
+     "msidu/misidu",
+     "mumbi/mimbi"
+    ]
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "PLURAL.ji_ghi.ma",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "sg_class": "ji",
+    "prefix": "^i?"
+   },
+   "then": {
+    "pl_class": "ghi",
+    "rewrite": "^i? -> ma"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 10,
+   "evidence": {
+    "method": "verified singular/plural nouns",
+    "pairs": [
+     "igare/magare",
+     "ighegho/maghegho",
+     "ighi/maghi",
+     "igho/magho",
+     "ikoto/makoto",
+     "ilagho/malagho",
+     "ionge/maonge",
+     "ituku/matuku",
+     "itunda/matunda",
+     "sanduku/masanduku"
+    ]
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "PLURAL.chi_va.vi",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "sg_class": "chi",
+    "prefix": "^ki"
+   },
+   "then": {
+    "pl_class": "va",
+    "rewrite": "^ki -> vi"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 6,
+   "evidence": {
+    "method": "verified singular/plural nouns",
+    "pairs": [
+     "kifumbi/vifumbi",
+     "kikapu/vikapu",
+     "kikombe/vikombe",
+     "kisiwa/visiwa",
+     "kitambaa/vitambaa",
+     "kitoi/vitoi"
+    ]
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "PLURAL.chi_va.vy",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "sg_class": "chi",
+    "prefix": "^ch"
+   },
+   "then": {
+    "pl_class": "va",
+    "rewrite": "^ch -> vy"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 1,
+   "evidence": {
+    "method": "verified singular/plural nouns",
+    "pairs": [
+     "choronyi/vyoronyi"
+    ]
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "PLURAL.number_invariant",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "nouns": [
+     "barua",
+     "inge",
+     "koshi",
+     "mbuwa",
+     "ngelo",
+     "ngokoro",
+     "nguku",
+     "nyonyi",
+     "samaki",
+     "sere",
+     "supu"
+    ]
+   },
+   "then": {
+    "sg_sm": {
+     "default": "i",
+     "copula": "e"
+    },
+    "pl_sm": {
+     "default": "ri",
+     "present": "ra",
+     "copula": "re"
+    },
+    "how": "same noun form; the Swahili verb's number picks i- (sg) or ri- (pl)"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:NUMBER_INVARIANT_NOUNS"
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "CLASS.animate_override",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "sw_noun_animate": true,
+    "sw_shape_class": "9/10/7"
+   },
+   "then": {
+    "status": "flag",
+    "kitaita": "animals keep their own class concord (i / i_nasal / ri), not class 1",
+    "flag_nouns_sw": [
+     "kipepeo",
+     "paka",
+     "nyoka",
+     "chama"
+    ]
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 6,
+   "evidence": {
+    "method": "verified animal nouns",
+    "nouns": [
+     "nguku",
+     "nyonyi",
+     "choka",
+     "shimba",
+     "ng'ombe",
+     "samaki"
+    ]
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "notes": "CLAUDE.md §8: Swahili gives class-1 concord to animates; a Swahili SM a-/wa- with an animal subject must not be copied. Tools return status flag for these nouns.",
+   "status": "flag_only"
+  },
+  {
+   "id": "NOUN.conflict.chia",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_noun": "chia"
+   },
+   "then": {
+    "default_class": "chi"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:1626"
+    },
+    {
+     "pair_id": "train:16281"
+    },
+    {
+     "pair_id": "train:16544"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 679,
+   "evidence": {
+    "method": "concord word after noun",
+    "corpus_votes": {
+     "ri": 285.0,
+     "i_nasal": 181.0,
+     "i": 181.0,
+     "chi": 24.0,
+     "ku": 6.0,
+     "va": 1.0,
+     "lu": 1.0
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": true,
+   "readings": [
+    {
+     "class": "chi",
+     "source": "speaker_verified",
+     "default": true
+    },
+    {
+     "class_votes": {
+      "ri": 285.0,
+      "i_nasal": 181.0,
+      "i": 181.0,
+      "chi": 24.0,
+      "ku": 6.0,
+      "va": 1.0,
+      "lu": 1.0
+     },
+     "source": "corpus_attested",
+     "default": false
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "NOUN.conflict.maza",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_noun": "maza"
+   },
+   "then": {
+    "default_class": "ghi"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:20567"
+    },
+    {
+     "pair_id": "train:24674"
+    },
+    {
+     "pair_id": "train:25358"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 275,
+   "evidence": {
+    "method": "concord word after noun",
+    "corpus_votes": {
+     "ri": 275.0
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": true,
+   "readings": [
+    {
+     "class": "ghi",
+     "source": "speaker_verified",
+     "default": true
+    },
+    {
+     "class_votes": {
+      "ri": 275.0
+     },
+     "source": "corpus_attested",
+     "default": false
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "NOUN.conflict.boi",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_noun": "boi"
+   },
+   "then": {
+    "default_class": "i"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:25261"
+    },
+    {
+     "pair_id": "train:1690"
+    },
+    {
+     "pair_id": "train:1689"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 9,
+   "evidence": {
+    "method": "concord word after noun",
+    "corpus_votes": {
+     "u": 6.0,
+     "wi": 3.0
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": true,
+   "readings": [
+    {
+     "class": "i",
+     "source": "speaker_verified",
+     "default": true
+    },
+    {
+     "class_votes": {
+      "u": 6.0,
+      "wi": 3.0
+     },
+     "source": "corpus_attested",
+     "default": false
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "NOUN.conflict.ngelo",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_noun": "ngelo"
+   },
+   "then": {
+    "default_class": "ri"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:407"
+    },
+    {
+     "pair_id": "train:4563"
+    },
+    {
+     "pair_id": "train:6589"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 424,
+   "evidence": {
+    "method": "concord word after noun",
+    "corpus_votes": {
+     "ri": 154.0,
+     "i_nasal": 115.5,
+     "i": 115.5,
+     "chi": 31.0,
+     "ku": 5.0,
+     "ghi": 3.0
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": true,
+   "readings": [
+    {
+     "class": "ri",
+     "source": "speaker_verified",
+     "default": true
+    },
+    {
+     "class_votes": {
+      "ri": 154.0,
+      "i_nasal": 115.5,
+      "i": 115.5,
+      "chi": 31.0,
+      "ku": 5.0,
+      "ghi": 3.0
+     },
+     "source": "corpus_attested",
+     "default": false
+    }
+   ],
+   "status": "active"
+  },
+  {
+   "id": "VERB.template",
+   "section": 2,
+   "slot": "TEMPLATE",
+   "if": {},
+   "then": {
+    "order": [
+     "NEG (nde-|si-)",
+     "SM",
+     "TAM",
+     "OM",
+     "ROOT",
+     "EXT",
+     "FV (-a|-e|-ie|-agha)",
+     "post-final -ghe"
+    ],
+    "note": "no separate relative morpheme: relatives use the bare SM series"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:14085",
+     "match": "ndewerenichurieghe"
+    },
+    {
+     "pair_id": "train:14118",
+     "match": "ndemorenimenyereghe"
+    },
+    {
+     "pair_id": "bible:NEN:LUK.14.6",
+     "match": "ndeweredimieghe"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 185,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "nde(?:che|gho|ghe|ve|we|de|ne|ko|ye|lo|mo|re|je|o|e)re(?:ni|ku|m|di|wi|ghi|ri|chi|vi|ji|ghu|lu|i)[a-z]{2,}(?:ie|ire|ere|e)ghe",
+    "n_pairs_with_sw_feature": 39265,
+    "share_of_feature_pairs": 0.0047,
+    "lift": null,
+    "domains": {
+     "davswa": 6,
+     "bible": 179
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "evidence: words showing NEG-SM-TAM-OM-ROOT-FV-ghe in one form, e.g. nde-we-re-ni-sikir-e-ghe",
+   "status": "active"
+  },
+  {
+   "id": "TAM.perf.me",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "me"
+   },
+   "then": {
+    "template": "SM+a ROOT-a"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15106",
+     "match": "kwahoresha"
+    },
+    {
+     "pair_id": "train:16235",
+     "match": "wadamwa"
+    },
+    {
+     "pair_id": "train:18666",
+     "match": "nakusera"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 4724,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghwa|gha|kwa|cha|lwa|mwa|ya|ja|ra|va|na|da|wa)[a-z]{2,}a",
+    "n_pairs_with_sw_feature": 7329,
+    "share_of_feature_pairs": 0.6446,
+    "lift": 1.96,
+    "domains": {
+     "davswa": 2123,
+     "bible": 2601
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": [
+    "TAM.perf.me_ie"
+   ]
+  },
+  {
+   "id": "TAM.perf.me_ie",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "me"
+   },
+   "then": {
+    "template": "SM+a ROOT-ie"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:1662",
+     "match": "ghaghalukie"
+    },
+    {
+     "pair_id": "train:22453",
+     "match": "kwabonyere"
+    },
+    {
+     "pair_id": "train:12552",
+     "match": "waboisire"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 988,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghwa|gha|kwa|cha|lwa|mwa|ya|ja|ra|va|na|da|wa)[a-z]{2,}(?:ie|ire|ere)",
+    "n_pairs_with_sw_feature": 7329,
+    "share_of_feature_pairs": 0.1348,
+    "lift": 5.66,
+    "domains": {
+     "davswa": 140,
+     "bible": 848
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "second reading of -me-: perfective final -ie (wa-mer-ie)",
+   "status": "active",
+   "rank": 2,
+   "default": false,
+   "alternatives": [
+    "TAM.perf.me"
+   ]
+  },
+  {
+   "id": "TAM.perf.sha",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "sha"
+   },
+   "then": {
+    "template": "SM+a ROOT-a"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15171",
+     "match": "ghwazoya"
+    },
+    {
+     "pair_id": "train:15959",
+     "match": "mwameria"
+    },
+    {
+     "pair_id": "train:17172",
+     "match": "mwameria"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 26,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghwa|gha|kwa|cha|lwa|mwa|ya|ja|ra|va|na|da|wa)[a-z]{2,}a",
+    "n_pairs_with_sw_feature": 43,
+    "share_of_feature_pairs": 0.6047,
+    "lift": 1.56,
+    "domains": {
+     "davswa": 17,
+     "bible": 9
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "TAM.past.li",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "li",
+    "rel": null
+   },
+   "then": {
+    "template": "SM+e-re-ROOT-ie(-ghe)",
+    "kuwa": "SM+e-re-kogh-e (ne-re-kogh-e, speaker-verified)"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:6357",
+     "match": "oreambieghe"
+    },
+    {
+     "pair_id": "train:8547",
+     "match": "oreumbieghe"
+    },
+    {
+     "pair_id": "train:451",
+     "match": "neremkemieghe"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 3681,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:che|gho|ghe|ve|we|de|ne|ko|ye|lo|mo|re|je|o|e)re[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
+    "n_pairs_with_sw_feature": 7733,
+    "share_of_feature_pairs": 0.476,
+    "lift": 5.93,
+    "domains": {
+     "davswa": 125,
+     "bible": 3556
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:PERSON_SUBJECT_MARKERS_BY_TAM 1sg/past (s84)",
+     "dav": "nerekoghe"
+    }
+   ],
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": [
+    "TAM.past.li_e_only"
+   ]
+  },
+  {
+   "id": "TAM.past.li_e_only",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "li",
+    "rel": null
+   },
+   "then": {
+    "template": "SM+e ROOT-a (rulebook_correct _tense_target '-li- past -> SM+e')"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:12627",
+     "match": "ofungwa"
+    },
+    {
+     "pair_id": "train:8537",
+     "match": "kosighena"
+    },
+    {
+     "pair_id": "train:11253",
+     "match": "okimbiria"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1901,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:che|gho|ghe|ve|we|de|ne|ko|ye|lo|mo|re|je|o|e)(?!re|de)[a-z]{2,}a",
+    "n_pairs_with_sw_feature": 7733,
+    "share_of_feature_pairs": 0.2458,
+    "lift": 1.82,
+    "domains": {
+     "davswa": 934,
+     "bible": 967
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 2,
+   "default": false,
+   "alternatives": [
+    "TAM.past.li"
+   ]
+  },
+  {
+   "id": "TAM.fut.ta",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "ta"
+   },
+   "then": {
+    "template": "SM-cha-ROOT-a"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18658",
+     "match": "kuchawishunua"
+    },
+    {
+     "pair_id": "train:15491",
+     "match": "nichagha"
+    },
+    {
+     "pair_id": "train:15893",
+     "match": "mchadwalwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 4156,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghu|chi|ghi|ku|vi|wi|ji|lu|mu|ni|ri|di|i|u|m)cha[a-z]{2,}a",
+    "n_pairs_with_sw_feature": 6254,
+    "share_of_feature_pairs": 0.6645,
+    "lift": 21.03,
+    "domains": {
+     "davswa": 109,
+     "bible": 4047
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:PERSON_SUBJECT_MARKERS_BY_TAM future (s73-s79)"
+    }
+   ],
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "TAM.pres.na_zero",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "na"
+   },
+   "then": {
+    "template": "SM+a ROOT-a"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:6138",
+     "match": "nawawashorodoka"
+    },
+    {
+     "pair_id": "train:6187",
+     "match": "wawatighina"
+    },
+    {
+     "pair_id": "train:8528",
+     "match": "dadawangwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 3579,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghwa|gha|kwa|cha|lwa|mwa|ya|ja|ra|va|na|da|wa)(?!we)[a-z]{2,}a",
+    "n_pairs_with_sw_feature": 6279,
+    "share_of_feature_pairs": 0.57,
+    "lift": 1.77,
+    "domains": {
+     "davswa": 1267,
+     "bible": 2312
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": true,
+   "status": "active",
+   "readings": [
+    {
+     "form": "SM+a-we-ROOT-a",
+     "default": true,
+     "why": "speaker's stated preference"
+    },
+    {
+     "form": "SM+a ROOT-a",
+     "default": false,
+     "why": "also grammatical; corpus-dominant"
+    }
+   ],
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:PRESENT_TAM_DEFAULT (2026-10-07 cont. 15)"
+    }
+   ],
+   "rank": 2,
+   "default": false,
+   "alternatives": [
+    "TAM.pres.na_we"
+   ]
+  },
+  {
+   "id": "TAM.pres.na_we",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "na"
+   },
+   "then": {
+    "template": "SM+a-we-ROOT-a"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18931",
+     "match": "wawekulola"
+    },
+    {
+     "pair_id": "train:5842",
+     "match": "kwawenimanya"
+    },
+    {
+     "pair_id": "train:7342",
+     "match": "kwawenimanya"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 668,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghwa|gha|kwa|cha|lwa|mwa|ya|ja|ra|va|na|da|wa)we[a-z]{2,}a",
+    "n_pairs_with_sw_feature": 6279,
+    "share_of_feature_pairs": 0.1064,
+    "lift": 9.33,
+    "domains": {
+     "davswa": 664,
+     "bible": 4
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": true,
+   "status": "active",
+   "readings": [
+    {
+     "form": "SM+a-we-ROOT-a",
+     "default": true,
+     "why": "speaker's stated preference"
+    },
+    {
+     "form": "SM+a ROOT-a",
+     "default": false,
+     "why": "also grammatical; corpus-dominant"
+    }
+   ],
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:PRESENT_TAM_DEFAULT (2026-10-07 cont. 15)"
+    }
+   ],
+   "rank": 1,
+   "default": true,
+   "alternatives": [
+    "TAM.pres.na_zero"
+   ]
+  },
+  {
+   "id": "TAM.pres.na_stative_taka",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "na",
+    "sw_root": "tak"
+   },
+   "then": {
+    "template": "SM+e kunda (no -na- equivalent: past-looking form for the present)"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:12693"
+    },
+    {
+     "pair_id": "train:13033"
+    },
+    {
+     "pair_id": "train:13065"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 44,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "n_pairs_with_sw_feature": 184,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "lexical: stative-like 'want' (wanataka -> w'ekunda). Other stative verbs: see flag TAM.stative_present",
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "TAM.rel.past",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "li",
+    "rel": "any"
+   },
+   "then": {
+    "template": "SM+e-re-ROOT-ie-ghe"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:11773",
+     "match": "oredoghorieghe"
+    },
+    {
+     "pair_id": "train:13364",
+     "match": "werekabieghe"
+    },
+    {
+     "pair_id": "bible:NEN:LUK.20.7",
+     "match": "erefumieghe"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1698,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:che|gho|ghe|ve|we|de|ne|ko|ye|lo|mo|re|je|o|e)re[a-z]{2,}(?:ie|ire|ere|e)ghe",
+    "n_pairs_with_sw_feature": 5072,
+    "share_of_feature_pairs": 0.3348,
+    "lift": 6.21,
+    "domains": {
+     "davswa": 12,
+     "bible": 1686
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "TAM.rel.past_cleft",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "context": "after ndio/niwo (cleft), Swahili -li-"
+   },
+   "then": {
+    "template": "bare SM ROOT-ie-ghe",
+    "e.g.": "wi-lu-ie-ghe"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:23652",
+     "match": "nimdumieghe"
+    },
+    {
+     "pair_id": "train:21298",
+     "match": "kunidumieghe"
+    },
+    {
+     "pair_id": "train:22988",
+     "match": "kunidumieghe"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 98,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghu|chi|ghi|ku|vi|wi|ji|lu|mu|ni|ri|di|i|u|m)(?!re|de|ka|ki|cha)[a-z]{2,}(?:ie|ire|ere)ghe",
+    "n_pairs_with_sw_feature": 7733,
+    "share_of_feature_pairs": 0.0127,
+    "lift": 2.66,
+    "domains": {
+     "davswa": 4,
+     "bible": 94
+    }
+   },
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "sw": "Hawa wazee ndio walipigania uhuru wetu",
+     "dav": "Awa waghosi niwo wiluieghe wuhuru ghodu",
+     "ref": "kitaita_speaker_verified.json"
+    }
+   ],
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "TAM.rel.pres",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "na",
+    "rel": "any"
+   },
+   "then": {
+    "template": "bare SM ROOT-agha"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:510",
+     "match": "widedagha"
+    },
+    {
+     "pair_id": "train:14891",
+     "match": "rikudimishagha"
+    },
+    {
+     "pair_id": "train:12785",
+     "match": "didimagha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1241,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghu|chi|ghi|ku|vi|wi|ji|lu|mu|ni|ri|di|i|u|m)[a-z]{2,}agha",
+    "n_pairs_with_sw_feature": 2458,
+    "share_of_feature_pairs": 0.5049,
+    "lift": 4.83,
+    "domains": {
+     "davswa": 70,
+     "bible": 1171
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "TAM.rel.lipo",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "li",
+    "rel": "po"
+   },
+   "then": {
+    "template": "SM+e-nda-ROOT-a"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:8531",
+     "match": "kondacho"
+    },
+    {
+     "pair_id": "train:12761",
+     "match": "wendavamilwa"
+    },
+    {
+     "pair_id": "train:11822",
+     "match": "ondawuka"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 55,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:che|gho|ghe|ve|we|de|ne|ko|ye|lo|mo|re|je|o|e)nda[a-z]{2,}",
+    "n_pairs_with_sw_feature": 1918,
+    "share_of_feature_pairs": 0.0287,
+    "lift": 30.6,
+    "domains": {
+     "davswa": 53,
+     "bible": 2
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "TAM.hab.hu",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw": "hu-ROOT-a"
+   },
+   "then": {
+    "template": "SM+a-da-ROOT-a(gha)"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:16589",
+     "match": "radaoma"
+    },
+    {
+     "pair_id": "train:18250",
+     "match": "yadafunya"
+    },
+    {
+     "pair_id": "train:18470",
+     "match": "yadaaghwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1028,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghwa|gha|kwa|cha|lwa|mwa|ya|ja|ra|va|na|da|wa)da[a-z]{2,}",
+    "n_pairs_with_sw_feature": 1867,
+    "share_of_feature_pairs": 0.5506,
+    "lift": 13.99,
+    "domains": {
+     "davswa": 386,
+     "bible": 642
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "TAM.narr.ka",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "ka"
+   },
+   "then": {
+    "template": "SM-ka-ROOT-a"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:5187",
+     "match": "ukajielesha"
+    },
+    {
+     "pair_id": "train:8557",
+     "match": "ukabonya"
+    },
+    {
+     "pair_id": "bible:NEN:JOB.3.2",
+     "match": "ukaghamba"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 8085,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghu|chi|ghi|ku|vi|wi|ji|lu|mu|ni|ri|di|i|u|m)ka[a-z]{2,}",
+    "n_pairs_with_sw_feature": 9559,
+    "share_of_feature_pairs": 0.8458,
+    "lift": 4.24,
+    "domains": {
+     "davswa": 251,
+     "bible": 7834
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "TAM.cond.ki",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "ki"
+   },
+   "then": {
+    "template": "SM-ki-ROOT-a"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15776",
+     "match": "ukilomba"
+    },
+    {
+     "pair_id": "train:16989",
+     "match": "ukilomba"
+    },
+    {
+     "pair_id": "train:17978",
+     "match": "ukilomba"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1185,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghu|chi|ghi|ku|vi|wi|ji|lu|mu|ni|ri|di|i|u|m)ki[a-z]{2,}",
+    "n_pairs_with_sw_feature": 3610,
+    "share_of_feature_pairs": 0.3283,
+    "lift": 5.53,
+    "domains": {
+     "davswa": 142,
+     "bible": 1043
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "TAM.prohib.se",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw": "SM-si-ROOT-e"
+   },
+   "then": {
+    "template": "SM-se-ROOT-e"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15360",
+     "match": "kuseniredie"
+    },
+    {
+     "pair_id": "train:1580",
+     "match": "mseleke"
+    },
+    {
+     "pair_id": "train:20002",
+     "match": "kusebwaghe"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 659,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghu|chi|ghi|ku|vi|wi|ji|lu|mu|ni|ri|di|i|u|m)se[a-z]{2,}e",
+    "n_pairs_with_sw_feature": 1443,
+    "share_of_feature_pairs": 0.4567,
+    "lift": 12.41,
+    "domains": {
+     "davswa": 181,
+     "bible": 478
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": [
+    "TAM.prohib.sake"
+   ]
+  },
+  {
+   "id": "TAM.prohib.sake",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw": "SM-si-ROOT-e"
+   },
+   "then": {
+    "template": "SM-sake-ROOT-e"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:6333",
+     "match": "kusekelegha"
+    },
+    {
+     "pair_id": "train:6338",
+     "match": "kusekeinjika"
+    },
+    {
+     "pair_id": "train:1592",
+     "match": "msekekora"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 483,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghu|chi|ghi|ku|vi|wi|ji|lu|mu|ni|ri|di|i|u|m)(?:sake|seke)[a-z]{2,}",
+    "n_pairs_with_sw_feature": 1443,
+    "share_of_feature_pairs": 0.3347,
+    "lift": 51.05,
+    "domains": {
+     "davswa": 96,
+     "bible": 387
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "second prohibitive reading (m-sake-, ku-sake-)",
+   "status": "active",
+   "rank": 2,
+   "default": false,
+   "alternatives": [
+    "TAM.prohib.se"
+   ]
+  },
+  {
+   "id": "TAM.cond.nge",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "nge|ngali"
+   },
+   "then": {
+    "status": "flag"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "grammar_notes",
+   "conflict": false,
+   "notes": "no consistent Kidaw'ida form in clean train (known gap: docs/status.md 2026-11-03 cont. 5; section 8 of the brief)",
+   "status": "flag_only"
+  },
+  {
+   "id": "TAM.progressive.wia",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "dav_tam": "wia"
+   },
+   "then": {
+    "status": "flag"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "grammar_notes",
+   "conflict": false,
+   "notes": "-wia- progressive: in kitaita_verb.TAMS, no Swahili condition known (known gap: docs/status.md 2026-11-03 cont. 5; section 8 of the brief)",
+   "status": "flag_only"
+  },
+  {
+   "id": "TAM.stative_present",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "na",
+    "stative": true
+   },
+   "then": {
+    "status": "flag"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "grammar_notes",
+   "conflict": false,
+   "notes": "stative present (ghe-singa) missing from the notes (known gap: docs/status.md 2026-11-03 cont. 5; section 8 of the brief)",
+   "status": "flag_only"
+  },
+  {
+   "id": "NEG.pres",
+   "section": 4,
+   "slot": "NEG",
+   "if": {
+    "sw": "ha-SM-ROOT-i"
+   },
+   "then": {
+    "template": "nde-SM-ROOT-agha"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:21189",
+     "match": "ndeoghagha"
+    },
+    {
+     "pair_id": "train:1065",
+     "match": "ndeunagha"
+    },
+    {
+     "pair_id": "train:1066",
+     "match": "ndekuduagha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 437,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "nde(?:ghu|chi|ghi|ku|vi|wi|ji|lu|mu|ni|ri|di|i|u|m)?[a-z]{2,}agha",
+    "n_pairs_with_sw_feature": 2693,
+    "share_of_feature_pairs": 0.1623,
+    "lift": 17.88,
+    "domains": {
+     "davswa": 84,
+     "bible": 353
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "NEG.pres_1sg",
+   "section": 4,
+   "slot": "NEG",
+   "if": {
+    "sw": "si-ROOT-i (1sg)"
+   },
+   "then": {
+    "template": "si-ROOT-agha / si-ROOT-ire"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:1658",
+     "match": "sidimagha"
+    },
+    {
+     "pair_id": "train:19099",
+     "match": "sikunde"
+    },
+    {
+     "pair_id": "train:23361",
+     "match": "sidimagha"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 197,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "si(?!cha)[a-z]{2,}(?:agha|ire|ie|e)",
+    "n_pairs_with_sw_feature": 889,
+    "share_of_feature_pairs": 0.2216,
+    "lift": 32.09,
+    "domains": {
+     "davswa": 111,
+     "bible": 86
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "NEG.past",
+   "section": 4,
+   "slot": "NEG",
+   "if": {
+    "sw": "ha-SM-ku-ROOT-a"
+   },
+   "then": {
+    "template": "nde-SM+e-re-ROOT-ie-ghe"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:14085",
+     "match": "ndewerenichurieghe"
+    },
+    {
+     "pair_id": "train:11506",
+     "match": "ndewererasmiloghe"
+    },
+    {
+     "pair_id": "train:10864",
+     "match": "ndegherekoghe"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 457,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "nde(?:che|gho|ghe|ve|we|de|ne|ko|ye|lo|mo|re|je|o|e)?re[a-z]{2,}ghe",
+    "n_pairs_with_sw_feature": 1330,
+    "share_of_feature_pairs": 0.3436,
+    "lift": 52.56,
+    "domains": {
+     "davswa": 15,
+     "bible": 442
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": [
+    "NEG.past_ie"
+   ]
+  },
+  {
+   "id": "NEG.past_ie",
+   "section": 4,
+   "slot": "NEG",
+   "if": {
+    "sw": "ha-SM-ku-ROOT-a"
+   },
+   "then": {
+    "template": "nde-SM-ROOT-ie (rulebook_correct past negative)"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:12662",
+     "match": "ndewimanyikie"
+    },
+    {
+     "pair_id": "train:12551",
+     "match": "ndewiendie"
+    },
+    {
+     "pair_id": "train:11577",
+     "match": "ndeibukie"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 108,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "nde(?:ghu|chi|ghi|ku|vi|wi|ji|lu|mu|ni|ri|di|i|u|m)[a-z]{2,}(?:ie|ire|ere)",
+    "n_pairs_with_sw_feature": 1330,
+    "share_of_feature_pairs": 0.0812,
+    "lift": 4.49,
+    "domains": {
+     "davswa": 10,
+     "bible": 98
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 2,
+   "default": false,
+   "alternatives": [
+    "NEG.past"
+   ]
+  },
+  {
+   "id": "NEG.fut",
+   "section": 4,
+   "slot": "NEG",
+   "if": {
+    "sw": "ha-SM-ta-ROOT-a"
+   },
+   "then": {
+    "template": "nde-SM-chaa-ROOT-a"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13723",
+     "match": "ndemchaatambukilwa"
+    },
+    {
+     "pair_id": "train:13740",
+     "match": "ndejichaabonyeka"
+    },
+    {
+     "pair_id": "bible:NEN:GEN.3.4",
+     "match": "ndemchaafwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 421,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "nde(?:ghu|chi|ghi|ku|vi|wi|ji|lu|mu|ni|ri|di|i|u|m)?chaa[a-z]{2,}",
+    "n_pairs_with_sw_feature": 992,
+    "share_of_feature_pairs": 0.4244,
+    "lift": 90.24,
+    "domains": {
+     "davswa": 4,
+     "bible": 417
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "NEG.fut_1sg",
+   "section": 4,
+   "slot": "NEG",
+   "if": {
+    "sw": "si-ta-ROOT-a"
+   },
+   "then": {
+    "template": "si-chaa-ROOT-a"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:JHN.14.18",
+     "match": "sichaamsigha"
+    },
+    {
+     "pair_id": "bible:NEN:PSA.132.3",
+     "match": "sichaangia"
+    },
+    {
+     "pair_id": "bible:NEN:PSA.119.16",
+     "match": "sichaaliwa"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 130,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "sichaa[a-z]{2,}",
+    "n_pairs_with_sw_feature": 285,
+    "share_of_feature_pairs": 0.4561,
+    "lift": 522.95,
+    "domains": {
+     "davswa": 0,
+     "bible": 130
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "NEG.ja",
+   "section": 4,
+   "slot": "NEG",
+   "if": {
+    "sw": "ha-SM-ja-ROOT-a"
+   },
+   "then": {
+    "template": "si-/nde-SM-ROOT-ie"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:19104",
+     "match": "sikuwonie"
+    },
+    {
+     "pair_id": "train:2646",
+     "match": "nderiomie"
+    },
+    {
+     "pair_id": "train:6602",
+     "match": "sikuwonie"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 168,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:si|nde(?:ghu|chi|ghi|ku|vi|wi|ji|lu|mu|ni|ri|di|i|u|m)?)[a-z]{2,}(?:ie|ire|ere)",
+    "n_pairs_with_sw_feature": 565,
+    "share_of_feature_pairs": 0.2973,
+    "lift": 12.8,
+    "domains": {
+     "davswa": 61,
+     "bible": 107
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
+   "id": "NEG.word.hachi",
+   "section": 4,
+   "slot": "NEG",
+   "if": {
+    "sw": "negative present"
+   },
+   "then": {
+    "form": "hachi",
+    "use": "negator word"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:15901",
+     "match": "hachi"
+    },
+    {
+     "pair_id": "train:18103",
+     "match": "hachi"
+    },
+    {
+     "pair_id": "train:2480",
+     "match": "hachi"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 467,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "hachi",
+    "n_pairs_with_sw_feature": 2693,
+    "share_of_feature_pairs": 0.1734,
+    "lift": 53.29,
+    "domains": {
+     "davswa": 42,
+     "bible": 425
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  }
+ ]
+}
