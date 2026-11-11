@@ -28727,3 +28727,43 @@ Removed: its row in the table, its submission count, and the three concord-slot 
 Unchanged: the Translator tab's Research section and its feedback form; feedback/ records
 are still saved, just not shown. `kitaita_eval_metrics.py` is kept (no longer imported
 by app.py).
+
+## 2026-11-11 — CLAUDE_rulebook.md step 1: input inventory + train-only check
+
+Started the rule-book job (`CLAUDE_rulebook.md`). Step 1 of 6 done; nothing in
+`rules.json` yet.
+
+**Clean split built** (`rulebook/build_train_filter.py` → `rulebook/split_manifest.json`,
+IDs only; text in `~/languagemodels/rulebook_data/{train,dev}.jsonl`, not in git).
+Excluded: the whole cleaned dav_swa test split (5,307; contains test_novel/2/3) +
+arm A's 500-pair validation carve-out (seed 20261028) = 5,807 IDs. Dropped from
+the mining pool (mine + holdout = 20,638 dav_swa + 27,003 Bible):
+
+| reason | n |
+|---|---|
+| row is arm-A val (490 of 500 found in the pool) | 490 |
+| exact normalized swa or dav match with an excluded row | 3,077 |
+| near-duplicate, Swahili (char 3-5 TF-IDF top-3, word ratio ≥ 0.8; cont. 12 method) | 426 |
+| near-duplicate, Kidaw'ida (char cosine ≥ 0.95) | 20 |
+| **total** | **4,013** (dav_swa 4,010 = 19.4%; Bible 3) |
+
+Kept 43,628 → dev 10% per corpus (seed 20261111): dev 1,663 dav_swa + 2,700 Bible;
+train 14,965 dav_swa + 24,300 Bible. Dev is also held out from rules, lexicon
+evidence and the retrieval index, so §6 numbers are not in-sample.
+Spot check of 8 near-dup drops: short repeated sentences ("Uko wapi?", "Nakuombea
+safari njema") — as intended.
+
+**Every corpus-built §2 input is contaminated by this definition.** All builders
+read mine + holdout, which contains the arm-A val rows and the 3,567 train rows
+that duplicate test sentences (the dav_swa test split itself was never in the pool):
+
+| input | built from | status |
+|---|---|---|
+| kitaita_speaker_verified.json, VERIFIED_* | speaker | clean |
+| page1_vocabulary.json (pipeline root Dice tier) | earlier Bible-only mining | clean (Bible lost 3 rows) |
+| kitaita_demonstrative_concord.json | 2026-10-15, no corpus hash | grammar_notes, provenance unclear |
+| subject_markers, subject_classes, agreement_data, training_vocab | counts over mine+holdout | contaminated — count scripts, cheap to rebuild |
+| bible_class_decisions | Bible rows only | clean in practice |
+| round-1 agent outputs (nouns, verb_morphology, roots, concord md/json) → mined_lexicon_round1, verb_roots, noun_classes_round1, root_alignment tiers round1/infinitive | agents over mine.jsonl | contaminated — cannot rebuild without re-running agents |
+
+Next: decide how to treat the contaminated inputs (question to the user), then step 2.
