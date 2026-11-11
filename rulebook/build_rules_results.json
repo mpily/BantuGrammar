@@ -5,9 +5,12 @@
    1,
    2,
    3,
-   4
+   4,
+   5,
+   6,
+   7
   ],
-  "git_sha": "2dee7339393eb453ec68129e9fe01235246a6f6e",
+  "git_sha": "7651114503041bacd937d7872dd77b64a5f10548",
   "config": {
    "min_evidence": 2,
    "min_lift": 1.5,
@@ -19,9 +22,10 @@
   "hashes_sha256_16": {
    "train.jsonl": "fd25256c6ddfc22b",
    "attest.py": "03f473ea721b327d",
-   "build_rules.py": "5fb9ff159811b0fc",
+   "build_rules.py": "9802300699e60d54",
    "bootstrap_lexicon.json": "b36413971661e2af",
    "induced_verb_rules.json": "1d09943507493366",
+   "induced_extension_rules.json": "218b5ed1ca2df624",
    "word_align.py": "c1d01b4a7f92b929",
    "kitaita_verified_corrections.py": "d05695176e55a882",
    "kitaita_speaker_verified.json": "bae5b8ae8347725e",
@@ -37,7 +41,7 @@
   ],
   "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment"
  },
- "n_rules": 342,
+ "n_rules": 415,
  "rejected": [
   {
    "id": "QUANT.ose.ghu",
@@ -538,7 +542,7 @@
    "evidence_count": 0,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|gho|ghe|ye|mo|ve|ne|de|ko|je|lo|we|re|o|e)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
+    "dav_regex": "(?:che|gho|ghe|de|mo|ve|lo|ne|ko|ye|we|re|je|e|o)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
     "n_pairs_with_sw_feature": 7733,
     "share_of_feature_pairs": 0.0,
     "lift": null,

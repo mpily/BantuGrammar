@@ -28919,3 +28919,27 @@ SM-(e)ka/-ko na, far demonstratives jija / waja / ghaja / chija / rija. Subjunct
 as negation. Rejected: ghose for class ghu (lift 0.26: it is the ghi form).
 Agent notes still open (need a speaker): maza takes ri- concord in several pairs (speaker: ghi);
 punda with wa-; one coordination case (two class-9 nouns → class-8 ve-).
+
+## 2026-11-11 (cont. 4) — rule book sections 5–6: extensions, perfective, -ghe (from aligned verbs)
+
+`rulebook/induce_extensions.py`: for a Swahili verb with base + extension (parser decompositions),
+the lexicon's translation of the base marks the Kidaw'ida root in the aligned verb; the rest splits
+into extension + final. Conditioned on the Kidaw'ida root shape (final segment palatal / vowel /
+other; last vowel e/o vs a/i/u). About half of all cases show no visible extension (lexical
+applicatives like pia / pitia, or a different Kidaw'ida verb).
+
+| extension | Kidaw'ida (share in condition) |
+|---|---|
+| applicative | palatal+a/i/u -ir- 29/47; palatal+e/o -er- 29/110; other -i- 99/383; vowel-final -y- 19/589 (tentative) |
+| passive | consonant -w- (252/846 other, 99/220 palatal); vowel-final -l- / -lw-; perfective passive -il-o / -ir-o / -er-o |
+| causative | -ish- 17/53; after e/o -esh- 8/38; -y- (kwanya) tentative |
+| stative | -ik- 50/93; vowel-final -k- 9/67 |
+| reciprocal | vowel-final -n- 30/97, -an- 21/97; -any- / -ony- tentative |
+
+Perfective final by root shape: palatal+a/i/u -ire 113/121; palatal+e/o -ere 488/501; other+a/i/u -ie
+481/723; other+e/o -e 1,272/1,525 (mostly kogh-e); vowel-final -e 490/490. Post-final -ghe: -li-
+past 1,537/3,481 (44%), relative past 37%, negative past 29%, -me- 6%, present / future ~1% →
+narrative / remote past. Version-B helpers on the same data, where an extension is visible:
+`applicative_stem` 213/397 (54%), `kitaita_passive_form` 528/1,056 (50%; misses the perfective
+-il-o and l / lw). Rules: 415 (sections 1–7; section 8 gaps are flag_only entries).
+Next: agent round 3 (first with corpus-gated agent proposals; same 4-agent design).

@@ -487,6 +487,58 @@ def section4():
         {"sw": "negative present"})
 
 
+def extensions():
+    """Sections 5-6 from induce_extensions.py: extension surface per Swahili extension and Kidaw'ida
+    root shape; perfective final per root shape; post-final -ghe per Swahili tense; and the
+    version-B helpers' accuracy on the same aligned verbs."""
+    path = HERE / "induced_extension_rules.json"
+    if not path.exists():
+        return
+    d = json.loads(path.read_text(encoding="utf-8"))
+    for et, v in d["extensions"].items():
+        for sh, t in v["by_root_shape"].items():
+            n = t["n"]
+            for surf, k, share in t["top"]:
+                if surf == "(none)":
+                    continue
+                tier = "active" if k >= 5 and share >= 0.10 else "tentative" if k >= 2 and share >= 0.03 else None
+                if not tier:
+                    continue
+                ex = next((r["examples"] for r in v["surfaces"] if r["surface"] == surf), [])
+                lift = next((r["lift_vs_no_ext"] for r in v["surfaces"] if r["surface"] == surf), None)
+                add(f"EXT.{et}.{sh.replace('/', '_')}.{surf}", 5, "EXT",
+                    {"sw_ext": et, "dav_root_shape": sh},
+                    {"suffix": f"-{surf}-", "share_in_condition": f"{k}/{n}"},
+                    {"evidence_count": k, "examples": ex, "method": "aligned verbs, base root from lexicon",
+                     "n_condition": n, "lift": lift}, status=tier,
+                    notes="root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel")
+    for name, h in d["helpers"].items():
+        add(f"EXT.helper.{name}", 5, "EXT", {"helper": name},
+            {"code": "hf_space (version B)", "accuracy_where_extension_visible":
+             f"{h['k_visible']}/{h['n_with_visible_extension']}"},
+            {"evidence_count": h["k_visible"], "examples": [], "method": "helper prediction found in aligned verb",
+             "misses": h["misses"], "rate_visible": h["rate_visible"]},
+            status="active" if h["rate_visible"] and h["rate_visible"]["rate"] >= 0.5 else "tentative",
+            notes="canonical helper scored on clean-train aligned verbs (wrap, don't fork)")
+    for sh, v in d["perfective"].items():
+        n = v["n"]
+        for f, k in v["finals"].items():
+            share = k / n
+            tier = "active" if k >= 5 and share >= 0.10 else "tentative" if k >= 2 and share >= 0.03 else None
+            if tier:
+                add(f"FV.perfective.{sh.replace('/', '_')}.{f}", 6, "FV", {"dav_root_shape": sh, "tense": "perfective"},
+                    {"final": f"-{f}", "share_in_condition": f"{k}/{n}"},
+                    {"evidence_count": k, "examples": v["examples"].get(f, []), "method": "aligned verbs",
+                     "n_condition": n, "lift": None}, status=tier)
+    for t, v in d["post_final_ghe"].items():
+        rate = v["rate"]["rate"]
+        add(f"FV.ghe.{t.replace(':', '_')}", 6, "FV", {"sw_feature": t},
+            {"post_final": "-ghe", "rate": f"{v['ghe']}/{v['n']}"},
+            {"evidence_count": v["ghe"], "examples": [], "method": "aligned verbs", "rate": v["rate"], "lift": None},
+            status="active" if rate >= 0.2 else "tentative" if v["ghe"] >= 2 else None or "tentative",
+            notes="-ghe marks narrative / remote past; rare with -me- and present / future")
+
+
 FEATURE_SECTION = {"neg:pres": 4, "neg:ku": 4, "neg:ta": 4, "neg:ja": 4, "neg:nge": 4}
 
 
@@ -533,9 +585,11 @@ def main():
     section4()
     section_round1()
     induced()
+    extensions()
     rank_readings()
     hashes_extra = {"bootstrap_lexicon.json": A.sha16(HERE / "bootstrap_lexicon.json"),
                     "induced_verb_rules.json": A.sha16(HERE / "induced_verb_rules.json"),
+                    "induced_extension_rules.json": A.sha16(HERE / "induced_extension_rules.json"),
                     "word_align.py": A.sha16(HERE / "word_align.py")}
     hashes = {"train.jsonl": A.sha16(A.TRAIN), "attest.py": A.sha16(HERE / "attest.py"),
               "build_rules.py": A.sha16(Path(__file__)), **hashes_extra,
@@ -545,7 +599,7 @@ def main():
               "swahili_verb.py": A.sha16(ROOT / "hf_space/swahili_verb.py"),
               "kitaita_root_alignment.json (Swahili parser filter only)":
                   A.sha16(ROOT / "hf_space/kitaita_root_alignment.json")}
-    meta = {"built_by": "rulebook/build_rules.py", "sections_done": [1, 2, 3, 4],
+    meta = {"built_by": "rulebook/build_rules.py", "sections_done": [1, 2, 3, 4, 5, 6, 7],
             "git_sha": subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True,
                                       text=True).stdout.strip(),
             "config": {"min_evidence": MIN_EVIDENCE, "min_lift": MIN_LIFT, "tentative_evidence": TENTATIVE_EVIDENCE,

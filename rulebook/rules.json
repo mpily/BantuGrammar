@@ -5,9 +5,12 @@
    1,
    2,
    3,
-   4
+   4,
+   5,
+   6,
+   7
   ],
-  "git_sha": "2dee7339393eb453ec68129e9fe01235246a6f6e",
+  "git_sha": "7651114503041bacd937d7872dd77b64a5f10548",
   "config": {
    "min_evidence": 2,
    "min_lift": 1.5,
@@ -19,9 +22,10 @@
   "hashes_sha256_16": {
    "train.jsonl": "fd25256c6ddfc22b",
    "attest.py": "03f473ea721b327d",
-   "build_rules.py": "5fb9ff159811b0fc",
+   "build_rules.py": "9802300699e60d54",
    "bootstrap_lexicon.json": "b36413971661e2af",
    "induced_verb_rules.json": "1d09943507493366",
+   "induced_extension_rules.json": "218b5ed1ca2df624",
    "word_align.py": "c1d01b4a7f92b929",
    "kitaita_verified_corrections.py": "d05695176e55a882",
    "kitaita_speaker_verified.json": "bae5b8ae8347725e",
@@ -6498,7 +6502,7 @@
    "evidence_count": 1517,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ni[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ni[a-z]{3,}",
     "n_pairs_with_sw_feature": 1848,
     "share_of_feature_pairs": 0.8209,
     "lift": 30.68,
@@ -6542,7 +6546,7 @@
    "evidence_count": 1347,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ku[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ku[a-z]{3,}",
     "n_pairs_with_sw_feature": 6236,
     "share_of_feature_pairs": 0.216,
     "lift": 1.8,
@@ -6586,7 +6590,7 @@
    "evidence_count": 3324,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?m[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?m[a-z]{3,}",
     "n_pairs_with_sw_feature": 4181,
     "share_of_feature_pairs": 0.795,
     "lift": 3.13,
@@ -6630,7 +6634,7 @@
    "evidence_count": 1953,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?m[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?m[a-z]{3,}",
     "n_pairs_with_sw_feature": 2321,
     "share_of_feature_pairs": 0.8414,
     "lift": 3.03,
@@ -6674,7 +6678,7 @@
    "evidence_count": 421,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?di[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?di[a-z]{3,}",
     "n_pairs_with_sw_feature": 659,
     "share_of_feature_pairs": 0.6388,
     "lift": 22.61,
@@ -6718,7 +6722,7 @@
    "evidence_count": 31,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?chi[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?chi[a-z]{3,}",
     "n_pairs_with_sw_feature": 134,
     "share_of_feature_pairs": 0.2313,
     "lift": 21.87,
@@ -6762,7 +6766,7 @@
    "evidence_count": 92,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?vi[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?vi[a-z]{3,}",
     "n_pairs_with_sw_feature": 223,
     "share_of_feature_pairs": 0.4126,
     "lift": 32.67,
@@ -6806,7 +6810,7 @@
    "evidence_count": 97,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ji[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ji[a-z]{3,}",
     "n_pairs_with_sw_feature": 352,
     "share_of_feature_pairs": 0.2756,
     "lift": 12.8,
@@ -6850,7 +6854,7 @@
    "evidence_count": 73,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ji[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ji[a-z]{3,}",
     "n_pairs_with_sw_feature": 964,
     "share_of_feature_pairs": 0.0757,
     "lift": 3.36,
@@ -6894,7 +6898,7 @@
    "evidence_count": 179,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ghi[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ghi[a-z]{3,}",
     "n_pairs_with_sw_feature": 700,
     "share_of_feature_pairs": 0.2557,
     "lift": 17.74,
@@ -6938,7 +6942,7 @@
    "evidence_count": 133,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ri[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ri[a-z]{3,}",
     "n_pairs_with_sw_feature": 503,
     "share_of_feature_pairs": 0.2644,
     "lift": 10.41,
@@ -6982,7 +6986,7 @@
    "evidence_count": 709,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?i[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?i[a-z]{3,}",
     "n_pairs_with_sw_feature": 1439,
     "share_of_feature_pairs": 0.4927,
     "lift": 3.37,
@@ -7026,7 +7030,7 @@
    "evidence_count": 280,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ghu[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ghu[a-z]{3,}",
     "n_pairs_with_sw_feature": 816,
     "share_of_feature_pairs": 0.3431,
     "lift": 24.99,
@@ -7070,7 +7074,7 @@
    "evidence_count": 2802,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?wi[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?wi[a-z]{3,}",
     "n_pairs_with_sw_feature": 5027,
     "share_of_feature_pairs": 0.5574,
     "lift": 9.8,
@@ -7785,8 +7789,8 @@
     "method": "concord word after noun",
     "corpus_votes": {
      "ri": 285.0,
-     "i": 181.0,
      "i_nasal": 181.0,
+     "i": 181.0,
      "chi": 24.0,
      "ku": 6.0,
      "va": 1.0,
@@ -7804,8 +7808,8 @@
     {
      "class_votes": {
       "ri": 285.0,
-      "i": 181.0,
       "i_nasal": 181.0,
+      "i": 181.0,
       "chi": 24.0,
       "ku": 6.0,
       "va": 1.0,
@@ -7943,8 +7947,8 @@
     "method": "concord word after noun",
     "corpus_votes": {
      "ri": 154.0,
-     "i": 115.5,
      "i_nasal": 115.5,
+     "i": 115.5,
      "chi": 31.0,
      "ku": 5.0,
      "ghi": 3.0
@@ -7961,8 +7965,8 @@
     {
      "class_votes": {
       "ri": 154.0,
-      "i": 115.5,
       "i_nasal": 115.5,
+      "i": 115.5,
       "chi": 31.0,
       "ku": 5.0,
       "ghi": 3.0
@@ -8010,7 +8014,7 @@
    "evidence_count": 185,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:che|gho|ghe|ye|mo|ve|ne|de|ko|je|lo|we|re|o|e)re(?:ni|ku|m|di|wi|ghi|ri|chi|vi|ji|ghu|lu|i)[a-z]{2,}(?:ie|ire|ere|e)ghe",
+    "dav_regex": "nde(?:che|gho|ghe|de|mo|ve|lo|ne|ko|ye|we|re|je|e|o)re(?:ni|ku|m|di|wi|ghi|ri|chi|vi|ji|ghu|lu|i)[a-z]{2,}(?:ie|ire|ere|e)ghe",
     "n_pairs_with_sw_feature": 39265,
     "share_of_feature_pairs": 0.0047,
     "lift": null,
@@ -8069,7 +8073,7 @@
    "evidence_count": 4724,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|lwa|gha|cha|kwa|mwa|wa|ya|da|va|na|ja|ra)[a-z]{2,}a",
+    "dav_regex": "(?:ghwa|cha|gha|kwa|lwa|mwa|ra|ya|wa|da|na|va|ja)[a-z]{2,}a",
     "n_pairs_with_sw_feature": 7329,
     "share_of_feature_pairs": 0.6446,
     "lift": 1.96,
@@ -8181,7 +8185,7 @@
    "evidence_count": 988,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|lwa|gha|cha|kwa|mwa|wa|ya|da|va|na|ja|ra)[a-z]{2,}(?:ie|ire|ere)",
+    "dav_regex": "(?:ghwa|cha|gha|kwa|lwa|mwa|ra|ya|wa|da|na|va|ja)[a-z]{2,}(?:ie|ire|ere)",
     "n_pairs_with_sw_feature": 7329,
     "share_of_feature_pairs": 0.1348,
     "lift": 5.66,
@@ -8294,7 +8298,7 @@
    "evidence_count": 26,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|lwa|gha|cha|kwa|mwa|wa|ya|da|va|na|ja|ra)[a-z]{2,}a",
+    "dav_regex": "(?:ghwa|cha|gha|kwa|lwa|mwa|ra|ya|wa|da|na|va|ja)[a-z]{2,}a",
     "n_pairs_with_sw_feature": 43,
     "share_of_feature_pairs": 0.6047,
     "lift": 1.56,
@@ -8406,7 +8410,7 @@
    "evidence_count": 3681,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|gho|ghe|ye|mo|ve|ne|de|ko|je|lo|we|re|o|e)re[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
+    "dav_regex": "(?:che|gho|ghe|de|mo|ve|lo|ne|ko|ye|we|re|je|e|o)re[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
     "n_pairs_with_sw_feature": 7733,
     "share_of_feature_pairs": 0.476,
     "lift": 5.93,
@@ -8525,7 +8529,7 @@
    "evidence_count": 1901,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|gho|ghe|ye|mo|ve|ne|de|ko|je|lo|we|re|o|e)(?!re|de)[a-z]{2,}a",
+    "dav_regex": "(?:che|gho|ghe|de|mo|ve|lo|ne|ko|ye|we|re|je|e|o)(?!re|de)[a-z]{2,}a",
     "n_pairs_with_sw_feature": 7733,
     "share_of_feature_pairs": 0.2458,
     "lift": 1.82,
@@ -8637,7 +8641,7 @@
    "evidence_count": 4156,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)cha[a-z]{2,}a",
+    "dav_regex": "(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)cha[a-z]{2,}a",
     "n_pairs_with_sw_feature": 6254,
     "share_of_feature_pairs": 0.6645,
     "lift": 21.03,
@@ -8752,7 +8756,7 @@
    "evidence_count": 3579,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|lwa|gha|cha|kwa|mwa|wa|ya|da|va|na|ja|ra)(?!we)[a-z]{2,}a",
+    "dav_regex": "(?:ghwa|cha|gha|kwa|lwa|mwa|ra|ya|wa|da|na|va|ja)(?!we)[a-z]{2,}a",
     "n_pairs_with_sw_feature": 6279,
     "share_of_feature_pairs": 0.57,
     "lift": 1.77,
@@ -8882,7 +8886,7 @@
    "evidence_count": 668,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|lwa|gha|cha|kwa|mwa|wa|ya|da|va|na|ja|ra)we[a-z]{2,}a",
+    "dav_regex": "(?:ghwa|cha|gha|kwa|lwa|mwa|ra|ya|wa|da|na|va|ja)we[a-z]{2,}a",
     "n_pairs_with_sw_feature": 6279,
     "share_of_feature_pairs": 0.1064,
     "lift": 9.33,
@@ -9051,7 +9055,7 @@
    "evidence_count": 1698,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|gho|ghe|ye|mo|ve|ne|de|ko|je|lo|we|re|o|e)re[a-z]{2,}(?:ie|ire|ere|e)ghe",
+    "dav_regex": "(?:che|gho|ghe|de|mo|ve|lo|ne|ko|ye|we|re|je|e|o)re[a-z]{2,}(?:ie|ire|ere|e)ghe",
     "n_pairs_with_sw_feature": 5072,
     "share_of_feature_pairs": 0.3348,
     "lift": 6.21,
@@ -9146,7 +9150,7 @@
    "evidence_count": 98,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)(?!re|de|ka|ki|cha)[a-z]{2,}(?:ie|ire|ere)ghe",
+    "dav_regex": "(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)(?!re|de|ka|ki|cha)[a-z]{2,}(?:ie|ire|ere)ghe",
     "n_pairs_with_sw_feature": 7733,
     "share_of_feature_pairs": 0.0127,
     "lift": 2.66,
@@ -9215,7 +9219,7 @@
    "evidence_count": 1241,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)[a-z]{2,}agha",
+    "dav_regex": "(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)[a-z]{2,}agha",
     "n_pairs_with_sw_feature": 2458,
     "share_of_feature_pairs": 0.5049,
     "lift": 4.83,
@@ -9326,7 +9330,7 @@
    "evidence_count": 55,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|gho|ghe|ye|mo|ve|ne|de|ko|je|lo|we|re|o|e)nda[a-z]{2,}",
+    "dav_regex": "(?:che|gho|ghe|de|mo|ve|lo|ne|ko|ye|we|re|je|e|o)nda[a-z]{2,}",
     "n_pairs_with_sw_feature": 1918,
     "share_of_feature_pairs": 0.0287,
     "lift": 30.6,
@@ -9436,7 +9440,7 @@
    "evidence_count": 1028,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|lwa|gha|cha|kwa|mwa|wa|ya|da|va|na|ja|ra)da[a-z]{2,}",
+    "dav_regex": "(?:ghwa|cha|gha|kwa|lwa|mwa|ra|ya|wa|da|na|va|ja)da[a-z]{2,}",
     "n_pairs_with_sw_feature": 1867,
     "share_of_feature_pairs": 0.5506,
     "lift": 13.99,
@@ -9546,7 +9550,7 @@
    "evidence_count": 8085,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)ka[a-z]{2,}",
+    "dav_regex": "(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)ka[a-z]{2,}",
     "n_pairs_with_sw_feature": 9559,
     "share_of_feature_pairs": 0.8458,
     "lift": 4.24,
@@ -9656,7 +9660,7 @@
    "evidence_count": 1185,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)ki[a-z]{2,}",
+    "dav_regex": "(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)ki[a-z]{2,}",
     "n_pairs_with_sw_feature": 3610,
     "share_of_feature_pairs": 0.3283,
     "lift": 5.53,
@@ -9766,7 +9770,7 @@
    "evidence_count": 659,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)se[a-z]{2,}e",
+    "dav_regex": "(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)se[a-z]{2,}e",
     "n_pairs_with_sw_feature": 1443,
     "share_of_feature_pairs": 0.4567,
     "lift": 12.41,
@@ -9878,7 +9882,7 @@
    "evidence_count": 483,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)(?:sake|seke)[a-z]{2,}",
+    "dav_regex": "(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)(?:sake|seke)[a-z]{2,}",
     "n_pairs_with_sw_feature": 1443,
     "share_of_feature_pairs": 0.3347,
     "lift": 51.05,
@@ -10052,7 +10056,7 @@
    "evidence_count": 413,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)?[a-z]{2,}agha",
+    "dav_regex": "nde(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)?[a-z]{2,}agha",
     "n_pairs_with_sw_feature": 1691,
     "share_of_feature_pairs": 0.2442,
     "lift": 25.78,
@@ -10272,7 +10276,7 @@
    "evidence_count": 457,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:che|gho|ghe|ye|mo|ve|ne|de|ko|je|lo|we|re|o|e)?re[a-z]{2,}ghe",
+    "dav_regex": "nde(?:che|gho|ghe|de|mo|ve|lo|ne|ko|ye|we|re|je|e|o)?re[a-z]{2,}ghe",
     "n_pairs_with_sw_feature": 1319,
     "share_of_feature_pairs": 0.3465,
     "lift": 53.01,
@@ -10384,7 +10388,7 @@
    "evidence_count": 108,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)[a-z]{2,}(?:ie|ire|ere)",
+    "dav_regex": "nde(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)[a-z]{2,}(?:ie|ire|ere)",
     "n_pairs_with_sw_feature": 1319,
     "share_of_feature_pairs": 0.0819,
     "lift": 4.53,
@@ -10496,7 +10500,7 @@
    "evidence_count": 421,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)?chaa[a-z]{2,}",
+    "dav_regex": "nde(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)?chaa[a-z]{2,}",
     "n_pairs_with_sw_feature": 992,
     "share_of_feature_pairs": 0.4244,
     "lift": 90.24,
@@ -10716,7 +10720,7 @@
    "evidence_count": 168,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:si|nde(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)?)[a-z]{2,}(?:ie|ire|ere)",
+    "dav_regex": "(?:si|nde(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)?)[a-z]{2,}(?:ie|ire|ere)",
     "n_pairs_with_sw_feature": 565,
     "share_of_feature_pairs": 0.2973,
     "lift": 12.8,
@@ -10907,7 +10911,7 @@
    "evidence_count": 344,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|gho|ghe|ye|mo|ve|ne|de|ko|je|lo|we|re|o|e)re[a-z]{2,}(?:il|el|ir|er)o(?:ghe)?",
+    "dav_regex": "(?:che|gho|ghe|de|mo|ve|lo|ne|ko|ye|we|re|je|e|o)re[a-z]{2,}(?:il|el|ir|er)o(?:ghe)?",
     "n_pairs_with_sw_feature": 3491,
     "share_of_feature_pairs": 0.0985,
     "lift": 7.56,
@@ -10978,7 +10982,7 @@
    "evidence_count": 118,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|lwa|gha|cha|kwa|mwa|wa|ya|da|va|na|ja|ra)[a-z]{2,}(?:il|el|ir|er|l|w)o",
+    "dav_regex": "(?:ghwa|cha|gha|kwa|lwa|mwa|ra|ya|wa|da|na|va|ja)[a-z]{2,}(?:il|el|ir|er|l|w)o",
     "n_pairs_with_sw_feature": 3865,
     "share_of_feature_pairs": 0.0305,
     "lift": 5.94,
@@ -11312,7 +11316,7 @@
    "evidence_count": 548,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|lwa|gha|cha|kwa|mwa|wa|ya|da|va|na|ja|ra)a?wuya[a-z]{2,}",
+    "dav_regex": "(?:ghwa|cha|gha|kwa|lwa|mwa|ra|ya|wa|da|na|va|ja)a?wuya[a-z]{2,}",
     "n_pairs_with_sw_feature": 6279,
     "share_of_feature_pairs": 0.0873,
     "lift": 5.17,
@@ -11410,7 +11414,7 @@
    "evidence_count": 116,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)ki[a-z]{2,}",
+    "dav_regex": "(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)ki[a-z]{2,}",
     "n_pairs_with_sw_feature": 177,
     "share_of_feature_pairs": 0.6554,
     "lift": 8.04,
@@ -12030,7 +12034,7 @@
    "evidence_count": 460,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|chi|ghu|ghi|gho|ghe|ri|mo|ne|de|ku|lo|re|ji|ye|je|we|vi|ve|di|ni|lu|ko|wi|mu|o|i|u|e|m)ko",
+    "dav_regex": "(?:che|chi|ghu|ghi|ghe|gho|de|mo|ve|ko|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|we|je|wi|ni|o|u|e|m|i)ko",
     "n_pairs_with_sw_feature": 972,
     "share_of_feature_pairs": 0.4733,
     "lift": 4.3,
@@ -12138,7 +12142,7 @@
    "evidence_count": 658,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)?[a-z]{2,}(?:e|o)",
+    "dav_regex": "nde(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)?[a-z]{2,}(?:e|o)",
     "n_pairs_with_sw_feature": 6877,
     "share_of_feature_pairs": 0.0957,
     "lift": 1.77,
@@ -12251,7 +12255,7 @@
    "evidence_count": 4997,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghi|chi|ghu|vi|ji|ni|ri|lu|di|ku|wi|mu|i|u|m)(?!nde)[a-z]{2,}e",
+    "dav_regex": "(?:chi|ghi|ghu|di|ku|mu|wi|ni|ji|vi|ri|lu|u|m|i)(?!nde)[a-z]{2,}e",
     "n_pairs_with_sw_feature": 6877,
     "share_of_feature_pairs": 0.7266,
     "lift": 2.5,
@@ -12365,7 +12369,7 @@
    "evidence_count": 531,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ku[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ku[a-z]{3,}",
     "n_pairs_with_sw_feature": 964,
     "share_of_feature_pairs": 0.5508,
     "lift": 4.42,
@@ -12475,7 +12479,7 @@
    "evidence_count": 629,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|che|kwa|mwa|lwa|chi|cha|ghu|ghi|gho|ghe|ri|mo|wa|ya|da|ne|de|ku|na|lo|ra|re|ji|ye|je|ja|we|vi|ve|va|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?mmb[a-z]{2,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|che|chi|ghu|ghi|ghe|gha|kwa|lwa|gho|cha|mwa|de|mo|ya|ve|da|ko|va|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|ja|we|je|na|ra|wa|wi|ni|o|u|e|m|i)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?mmb[a-z]{2,}",
     "n_pairs_with_sw_feature": 5913,
     "share_of_feature_pairs": 0.1064,
     "lift": 17.83,
@@ -12583,7 +12587,7 @@
    "evidence_count": 557,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|chi|ghu|ghi|gho|ghe|ri|mo|ne|de|ku|lo|re|ji|ye|je|we|vi|ve|di|ni|lu|ko|wi|mu|o|i|u|e|m)(?:e?ka|oka|ko)",
+    "dav_regex": "(?:che|chi|ghu|ghi|ghe|gho|de|mo|ve|ko|vi|lu|mu|re|di|ku|lo|ne|ye|ji|ri|we|je|wi|ni|o|u|e|m|i)(?:e?ka|oka|ko)",
     "n_pairs_with_sw_feature": 1241,
     "share_of_feature_pairs": 0.4488,
     "lift": 3.12,
@@ -22169,6 +22173,3146 @@
     "TAM.induced.subj.4",
     "TAM.induced.subj.5"
    ]
+  },
+  {
+   "id": "EXT.applicative.other_aiu.i",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "applicative",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-i-",
+    "share_in_condition": "99/383"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10197",
+     "sw_word": "nitakutumia",
+     "dav_word": "nikudumia",
+     "dav_root": "kudum"
+    },
+    {
+     "pair_id": "train:25439",
+     "sw_word": "akakatalia",
+     "dav_word": "ukaleghia",
+     "dav_root": "legh"
+    },
+    {
+     "pair_id": "train:11658",
+     "sw_word": "alimngojea",
+     "dav_word": "ombeseria",
+     "dav_root": "mbeser"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 99,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 383,
+    "lift": 12.1
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.applicative.other_aiu.ir",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "applicative",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-ir-",
+    "share_in_condition": "15/383"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:23209",
+     "sw_word": "niangalilie",
+     "dav_word": "nizighanire",
+     "dav_root": "zighan"
+    },
+    {
+     "pair_id": "train:8431",
+     "sw_word": "niangalilie",
+     "dav_word": "kunizighanire",
+     "dav_root": "zighan"
+    },
+    {
+     "pair_id": "train:6931",
+     "sw_word": "niangalilie",
+     "dav_word": "kunizighanire",
+     "dav_root": "zighan"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 15,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 383,
+    "lift": 4.06
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.applicative.other_eo.i",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "applicative",
+    "dav_root_shape": "other/eo"
+   },
+   "then": {
+    "suffix": "-i-",
+    "share_in_condition": "22/325"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10197",
+     "sw_word": "nitakutumia",
+     "dav_word": "nikudumia",
+     "dav_root": "kudum"
+    },
+    {
+     "pair_id": "train:25439",
+     "sw_word": "akakatalia",
+     "dav_word": "ukaleghia",
+     "dav_root": "legh"
+    },
+    {
+     "pair_id": "train:11658",
+     "sw_word": "alimngojea",
+     "dav_word": "ombeseria",
+     "dav_root": "mbeser"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 22,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 325,
+    "lift": 12.1
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.applicative.other_eo.w",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "applicative",
+    "dav_root_shape": "other/eo"
+   },
+   "then": {
+    "suffix": "-w-",
+    "share_in_condition": "11/325"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18895",
+     "sw_word": "pia",
+     "dav_word": "nanekwa",
+     "dav_root": "nek"
+    },
+    {
+     "pair_id": "train:20036",
+     "sw_word": "pia",
+     "dav_word": "nidanekwa",
+     "dav_root": "nek"
+    },
+    {
+     "pair_id": "bible:NEN:JOS.16.9",
+     "sw_word": "pia",
+     "dav_word": "ikanekwa",
+     "dav_root": "nek"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 11,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 325,
+    "lift": 2.17
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.applicative.palatal_aiu.ir",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "applicative",
+    "dav_root_shape": "palatal/aiu"
+   },
+   "then": {
+    "suffix": "-ir-",
+    "share_in_condition": "29/47"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:23209",
+     "sw_word": "niangalilie",
+     "dav_word": "nizighanire",
+     "dav_root": "zighan"
+    },
+    {
+     "pair_id": "train:8431",
+     "sw_word": "niangalilie",
+     "dav_word": "kunizighanire",
+     "dav_root": "zighan"
+    },
+    {
+     "pair_id": "train:6931",
+     "sw_word": "niangalilie",
+     "dav_word": "kunizighanire",
+     "dav_root": "zighan"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 29,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 47,
+    "lift": 4.06
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.applicative.palatal_aiu.w",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "applicative",
+    "dav_root_shape": "palatal/aiu"
+   },
+   "then": {
+    "suffix": "-w-",
+    "share_in_condition": "2/47"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18895",
+     "sw_word": "pia",
+     "dav_word": "nanekwa",
+     "dav_root": "nek"
+    },
+    {
+     "pair_id": "train:20036",
+     "sw_word": "pia",
+     "dav_word": "nidanekwa",
+     "dav_root": "nek"
+    },
+    {
+     "pair_id": "bible:NEN:JOS.16.9",
+     "sw_word": "pia",
+     "dav_word": "ikanekwa",
+     "dav_root": "nek"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 2,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 47,
+    "lift": 2.17
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.applicative.palatal_aiu.iri",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "applicative",
+    "dav_root_shape": "palatal/aiu"
+   },
+   "then": {
+    "suffix": "-iri-",
+    "share_in_condition": "2/47"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 2,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 47,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.applicative.palatal_eo.er",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "applicative",
+    "dav_root_shape": "palatal/eo"
+   },
+   "then": {
+    "suffix": "-er-",
+    "share_in_condition": "29/110"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:GEN.24.20",
+     "sw_word": "kunyweshea",
+     "dav_word": "konyoshera",
+     "dav_root": "nyosh"
+    },
+    {
+     "pair_id": "bible:NEN:GEN.27.10",
+     "sw_word": "umpelekee",
+     "dav_word": "kuchamghenjera",
+     "dav_root": "ghenj"
+    },
+    {
+     "pair_id": "bible:NEN:GEN.37.3",
+     "sw_word": "akamshonea",
+     "dav_word": "ukambonyera",
+     "dav_root": "bony"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 29,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 110,
+    "lift": 6.5
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.applicative.vowel_eo.r",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "applicative",
+    "dav_root_shape": "vowel/eo"
+   },
+   "then": {
+    "suffix": "-r-",
+    "share_in_condition": "5/43"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:21038",
+     "sw_word": "nimempelekea",
+     "dav_word": "namwenjera",
+     "dav_root": "enje"
+    },
+    {
+     "pair_id": "train:22476",
+     "sw_word": "nilimpelekea",
+     "dav_word": "namwenjera",
+     "dav_root": "enje"
+    },
+    {
+     "pair_id": "train:11621",
+     "sw_word": "kumpelekea",
+     "dav_word": "kumenjera",
+     "dav_root": "enje"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 5,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 43,
+    "lift": 3.16
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.applicative.vowel_eo.ri",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "applicative",
+    "dav_root_shape": "vowel/eo"
+   },
+   "then": {
+    "suffix": "-ri-",
+    "share_in_condition": "2/43"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:22973",
+     "sw_word": "ataniongelea",
+     "dav_word": "unidederia",
+     "dav_root": "dede"
+    },
+    {
+     "pair_id": "train:18860",
+     "sw_word": "ameniwekelea",
+     "dav_word": "waniwikiria",
+     "dav_root": "wiki"
+    },
+    {
+     "pair_id": "train:18868",
+     "sw_word": "nimewekelea",
+     "dav_word": "nawikiria",
+     "dav_root": "wiki"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 2,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 43,
+    "lift": 5.06
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.applicative.vowel_eo.nyi",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "applicative",
+    "dav_root_shape": "vowel/eo"
+   },
+   "then": {
+    "suffix": "-nyi-",
+    "share_in_condition": "2/43"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 2,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 43,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.passive.other_aiu.w",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-w-",
+    "share_in_condition": "252/846"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10054",
+     "sw_word": "amechoshwa",
+     "dav_word": "osirishwa",
+     "dav_root": "sirish"
+    },
+    {
+     "pair_id": "train:14307",
+     "sw_word": "panapoitwa",
+     "dav_word": "kuwangwagha",
+     "dav_root": "wang"
+    },
+    {
+     "pair_id": "train:25919",
+     "sw_word": "anazikwa",
+     "dav_word": "rikwa",
+     "dav_root": "rik"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 252,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 846,
+    "lift": 35.56
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.passive.other_aiu.il",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-il-",
+    "share_in_condition": "73/846"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13558",
+     "sw_word": "sijawachwa",
+     "dav_word": "sisighilo",
+     "dav_root": "sigh"
+    },
+    {
+     "pair_id": "train:22526",
+     "sw_word": "zimefungwa",
+     "dav_word": "rifungilo",
+     "dav_root": "fung"
+    },
+    {
+     "pair_id": "train:11884",
+     "sw_word": "hawajakamatwa",
+     "dav_word": "visewadilo",
+     "dav_root": "wad"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 73,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 846,
+    "lift": 12.38
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.passive.other_aiu.ilogh",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-ilogh-",
+    "share_in_condition": "37/846"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:12454",
+     "sw_word": "alipendwa",
+     "dav_word": "okundiloghe",
+     "dav_root": "kund"
+    },
+    {
+     "pair_id": "train:14817",
+     "sw_word": "walikamatwa",
+     "dav_word": "werewadiloghe",
+     "dav_root": "wad"
+    },
+    {
+     "pair_id": "train:10539",
+     "sw_word": "alifungwa",
+     "dav_word": "orefungiloghe",
+     "dav_root": "fung"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 37,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 846,
+    "lift": 15.01
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.passive.other_eo.w",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "other/eo"
+   },
+   "then": {
+    "suffix": "-w-",
+    "share_in_condition": "51/166"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10054",
+     "sw_word": "amechoshwa",
+     "dav_word": "osirishwa",
+     "dav_root": "sirish"
+    },
+    {
+     "pair_id": "train:14307",
+     "sw_word": "panapoitwa",
+     "dav_word": "kuwangwagha",
+     "dav_root": "wang"
+    },
+    {
+     "pair_id": "train:25919",
+     "sw_word": "anazikwa",
+     "dav_word": "rikwa",
+     "dav_root": "rik"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 51,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 166,
+    "lift": 35.56
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.passive.other_eo.el",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "other/eo"
+   },
+   "then": {
+    "suffix": "-el-",
+    "share_in_condition": "18/166"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 18,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 166,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.passive.other_eo.ogh",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "other/eo"
+   },
+   "then": {
+    "suffix": "-ogh-",
+    "share_in_condition": "8/166"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 8,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 166,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.passive.palatal_aiu.w",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "palatal/aiu"
+   },
+   "then": {
+    "suffix": "-w-",
+    "share_in_condition": "99/220"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10054",
+     "sw_word": "amechoshwa",
+     "dav_word": "osirishwa",
+     "dav_root": "sirish"
+    },
+    {
+     "pair_id": "train:14307",
+     "sw_word": "panapoitwa",
+     "dav_word": "kuwangwagha",
+     "dav_root": "wang"
+    },
+    {
+     "pair_id": "train:25919",
+     "sw_word": "anazikwa",
+     "dav_word": "rikwa",
+     "dav_root": "rik"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 99,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 220,
+    "lift": 35.56
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.passive.palatal_aiu.ir",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "palatal/aiu"
+   },
+   "then": {
+    "suffix": "-ir-",
+    "share_in_condition": "53/220"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13504",
+     "sw_word": "iliyochanganywa",
+     "dav_word": "iranganyiro",
+     "dav_root": "rangany"
+    },
+    {
+     "pair_id": "train:14392",
+     "sw_word": "kubatizwa",
+     "dav_word": "ndeubatiziro",
+     "dav_root": "batiz"
+    },
+    {
+     "pair_id": "train:3502",
+     "sw_word": "alichinjwa",
+     "dav_word": "sichiro",
+     "dav_root": "sich"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 53,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 220,
+    "lift": 3.91
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.passive.palatal_aiu.irogh",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "palatal/aiu"
+   },
+   "then": {
+    "suffix": "-irogh-",
+    "share_in_condition": "19/220"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:12979",
+     "sw_word": "alikaribishwa",
+     "dav_word": "orekaribishiroghe",
+     "dav_root": "karibish"
+    },
+    {
+     "pair_id": "bible:NEN:GEN.18.8",
+     "sw_word": "iliyoandaliwa",
+     "dav_word": "ereboisiroghe",
+     "dav_root": "bois"
+    },
+    {
+     "pair_id": "bible:NEN:EXO.12.39",
+     "sw_word": "wameondolewa",
+     "dav_word": "werefunyiroghe",
+     "dav_root": "funy"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 19,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 220,
+    "lift": 32.47
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.passive.palatal_eo.w",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "palatal/eo"
+   },
+   "then": {
+    "suffix": "-w-",
+    "share_in_condition": "32/131"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10054",
+     "sw_word": "amechoshwa",
+     "dav_word": "osirishwa",
+     "dav_root": "sirish"
+    },
+    {
+     "pair_id": "train:14307",
+     "sw_word": "panapoitwa",
+     "dav_word": "kuwangwagha",
+     "dav_root": "wang"
+    },
+    {
+     "pair_id": "train:25919",
+     "sw_word": "anazikwa",
+     "dav_word": "rikwa",
+     "dav_root": "rik"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 32,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 131,
+    "lift": 35.56
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.passive.palatal_eo.er",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "palatal/eo"
+   },
+   "then": {
+    "suffix": "-er-",
+    "share_in_condition": "30/131"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:12351",
+     "sw_word": "wanadhaniwa",
+     "dav_word": "wagheshero",
+     "dav_root": "ghesh"
+    },
+    {
+     "pair_id": "train:13055",
+     "sw_word": "limeelezewa",
+     "dav_word": "jaelezero",
+     "dav_root": "elez"
+    },
+    {
+     "pair_id": "bible:NEN:PSA.50.5",
+     "sw_word": "waliowekwa",
+     "dav_word": "wibonyere",
+     "dav_root": "bony"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 30,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 131,
+    "lift": 5.09
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.passive.palatal_eo.erogh",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "palatal/eo"
+   },
+   "then": {
+    "suffix": "-erogh-",
+    "share_in_condition": "7/131"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 7,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 131,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.passive.vowel_aiu.lw",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "vowel/aiu"
+   },
+   "then": {
+    "suffix": "-lw-",
+    "share_in_condition": "49/552"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13938",
+     "sw_word": "amejawa",
+     "dav_word": "wachulwa",
+     "dav_root": "chu"
+    },
+    {
+     "pair_id": "train:5510",
+     "sw_word": "wanawashwa",
+     "dav_word": "wawenyeghelwa",
+     "dav_root": "nyeghe"
+    },
+    {
+     "pair_id": "train:4020",
+     "sw_word": "kugunduliwa",
+     "dav_word": "kutambulwa",
+     "dav_root": "tambu"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 49,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 552,
+    "lift": 21.35
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.passive.vowel_aiu.l",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "vowel/aiu"
+   },
+   "then": {
+    "suffix": "-l-",
+    "share_in_condition": "42/552"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:14269",
+     "sw_word": "apikiwe",
+     "dav_word": "udekelo",
+     "dav_root": "deke"
+    },
+    {
+     "pair_id": "train:12432",
+     "sw_word": "ilijengwa",
+     "dav_word": "chaaghilo",
+     "dav_root": "aghi"
+    },
+    {
+     "pair_id": "train:10224",
+     "sw_word": "lilijengwa",
+     "dav_word": "yaaghilo",
+     "dav_root": "aghi"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 42,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 552,
+    "lift": 24.78
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.passive.vowel_eo.l",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "vowel/eo"
+   },
+   "then": {
+    "suffix": "-l-",
+    "share_in_condition": "16/70"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:14269",
+     "sw_word": "apikiwe",
+     "dav_word": "udekelo",
+     "dav_root": "deke"
+    },
+    {
+     "pair_id": "train:12432",
+     "sw_word": "ilijengwa",
+     "dav_word": "chaaghilo",
+     "dav_root": "aghi"
+    },
+    {
+     "pair_id": "train:10224",
+     "sw_word": "lilijengwa",
+     "dav_word": "yaaghilo",
+     "dav_root": "aghi"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 16,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 70,
+    "lift": 24.78
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.passive.vowel_eo.lw",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "vowel/eo"
+   },
+   "then": {
+    "suffix": "-lw-",
+    "share_in_condition": "9/70"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:13938",
+     "sw_word": "amejawa",
+     "dav_word": "wachulwa",
+     "dav_root": "chu"
+    },
+    {
+     "pair_id": "train:5510",
+     "sw_word": "wanawashwa",
+     "dav_word": "wawenyeghelwa",
+     "dav_root": "nyeghe"
+    },
+    {
+     "pair_id": "train:4020",
+     "sw_word": "kugunduliwa",
+     "dav_word": "kutambulwa",
+     "dav_root": "tambu"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 9,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 70,
+    "lift": 21.35
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.passive.vowel_eo.nyi",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "passive",
+    "dav_root_shape": "vowel/eo"
+   },
+   "then": {
+    "suffix": "-nyi-",
+    "share_in_condition": "7/70"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 7,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 70,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.causative.other_aiu.ish",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "causative",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-ish-",
+    "share_in_condition": "17/53"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:12171",
+     "sw_word": "kusimamisha",
+     "dav_word": "wimangishe",
+     "dav_root": "mang"
+    },
+    {
+     "pair_id": "train:14891",
+     "sw_word": "kukuwezesha",
+     "dav_word": "rikudimishagha",
+     "dav_root": "dim"
+    },
+    {
+     "pair_id": "train:14508",
+     "sw_word": "kuwapatanisha",
+     "dav_word": "kuwipatanisha",
+     "dav_root": "patan"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 17,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 53,
+    "lift": 401.72
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.causative.other_aiu.y",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "causative",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-y-",
+    "share_in_condition": "5/53"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:NUM.21.23",
+     "sw_word": "alilikutanisha",
+     "dav_word": "ukakwanya",
+     "dav_root": "kwan"
+    },
+    {
+     "pair_id": "bible:NEN:2CH.15.9",
+     "sw_word": "akakutanisha",
+     "dav_word": "ukawikwanya",
+     "dav_root": "kwan"
+    },
+    {
+     "pair_id": "bible:NEN:2CH.29.4",
+     "sw_word": "kuwakutanisha",
+     "dav_word": "ukawikwanya",
+     "dav_root": "kwan"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 5,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 53,
+    "lift": 68.16
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.causative.other_aiu.ishir",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "causative",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-ishir-",
+    "share_in_condition": "3/53"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:26284",
+     "sw_word": "pigisha",
+     "dav_word": "kabishira",
+     "dav_root": "kab"
+    },
+    {
+     "pair_id": "bible:NEN:2CO.5.18",
+     "sw_word": "ametupatanisha",
+     "dav_word": "udipatanishire",
+     "dav_root": "patan"
+    },
+    {
+     "pair_id": "bible:NEN:COL.1.22",
+     "sw_word": "amewapatanisha",
+     "dav_word": "wampatanishire",
+     "dav_root": "patan"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 3,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 53,
+    "lift": 1063.37
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.causative.other_eo.esh",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "causative",
+    "dav_root_shape": "other/eo"
+   },
+   "then": {
+    "suffix": "-esh-",
+    "share_in_condition": "8/38"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:11668",
+     "sw_word": "kuendesha",
+     "dav_word": "kuendesha",
+     "dav_root": "end"
+    },
+    {
+     "pair_id": "train:11165",
+     "sw_word": "huendesha",
+     "dav_word": "waendesha",
+     "dav_root": "end"
+    },
+    {
+     "pair_id": "train:14774",
+     "sw_word": "nikiendesha",
+     "dav_word": "niendesha",
+     "dav_root": "end"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 8,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 38,
+    "lift": 227.86
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.causative.other_eo.i",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "causative",
+    "dav_root_shape": "other/eo"
+   },
+   "then": {
+    "suffix": "-i-",
+    "share_in_condition": "4/38"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:PSA.4.6",
+     "sw_word": "kutuonesha",
+     "dav_word": "diwonia",
+     "dav_root": "won"
+    },
+    {
+     "pair_id": "bible:NEN:PSA.102.13",
+     "sw_word": "kumwonesha",
+     "dav_word": "kuwonia",
+     "dav_root": "won"
+    },
+    {
+     "pair_id": "bible:NEN:JOS.2.17",
+     "sw_word": "ulichotuapisha",
+     "dav_word": "ighemi",
+     "dav_root": "ghem"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 4,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 38,
+    "lift": 4.38
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.causative.other_eo.ek",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "causative",
+    "dav_root_shape": "other/eo"
+   },
+   "then": {
+    "suffix": "-ek-",
+    "share_in_condition": "3/38"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:24545",
+     "sw_word": "kujionesha",
+     "dav_word": "wiwoneke",
+     "dav_root": "won"
+    },
+    {
+     "pair_id": "bible:NEN:LUK.1.80",
+     "sw_word": "alipojionesha",
+     "dav_word": "ucheewoneka",
+     "dav_root": "won"
+    },
+    {
+     "pair_id": "bible:NEN:1JN.4.9",
+     "sw_word": "alivyoonesha",
+     "dav_word": "lorewonekieghe",
+     "dav_root": "won"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 3,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 38,
+    "lift": 27.27
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.causative.vowel_aiu.sh",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "causative",
+    "dav_root_shape": "vowel/aiu"
+   },
+   "then": {
+    "suffix": "-sh-",
+    "share_in_condition": "2/21"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:18593",
+     "sw_word": "nimefikisha",
+     "dav_word": "nadavikisha",
+     "dav_root": "viki"
+    },
+    {
+     "pair_id": "train:18330",
+     "sw_word": "nimefikisha",
+     "dav_word": "nadavikisha",
+     "dav_root": "viki"
+    },
+    {
+     "pair_id": "train:18503",
+     "sw_word": "tunaimbisha",
+     "dav_word": "daweboresha",
+     "dav_root": "bore"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 2,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 21,
+    "lift": 132.92
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.causative.vowel_aiu.r",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "causative",
+    "dav_root_shape": "vowel/aiu"
+   },
+   "then": {
+    "suffix": "-r-",
+    "share_in_condition": "2/21"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:14570",
+     "sw_word": "halijapitisha",
+     "dav_word": "ndeisire",
+     "dav_root": "si"
+    },
+    {
+     "pair_id": "bible:NEN:NUM.31.23",
+     "sw_word": "mkipitishe",
+     "dav_word": "kuchiisira",
+     "dav_root": "si"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 2,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 21,
+    "lift": 8.86
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.causative.vowel_aiu.shir",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "causative",
+    "dav_root_shape": "vowel/aiu"
+   },
+   "then": {
+    "suffix": "-shir-",
+    "share_in_condition": "2/21"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 2,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 21,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.causative.vowel_eo.gh",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "causative",
+    "dav_root_shape": "vowel/eo"
+   },
+   "then": {
+    "suffix": "-gh-",
+    "share_in_condition": "2/12"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:JER.6.9",
+     "sw_word": "pitisha",
+     "dav_word": "ukuwidagha",
+     "dav_root": "ida"
+    },
+    {
+     "pair_id": "bible:NEN:JER.15.17",
+     "sw_word": "sikujifurahisha",
+     "dav_word": "sereboiloghe",
+     "dav_root": "boilo"
+    },
+    {
+     "pair_id": "bible:NEN:3JN.1.3",
+     "sw_word": "ilinifurahisha",
+     "dav_word": "nereboiloghe",
+     "dav_root": "boilo"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 2,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 12,
+    "lift": 2.3
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.stative.other_aiu.ik",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "stative",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-ik-",
+    "share_in_condition": "50/93"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:1959",
+     "sw_word": "wanatakikana",
+     "dav_word": "wekundika",
+     "dav_root": "kund"
+    },
+    {
+     "pair_id": "train:12828",
+     "sw_word": "hatakikani",
+     "dav_word": "ndoukundikie",
+     "dav_root": "kund"
+    },
+    {
+     "pair_id": "train:1892",
+     "sw_word": "inatakikana",
+     "dav_word": "yakundika",
+     "dav_root": "kund"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 50,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 93,
+    "lift": 256.61
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.stative.other_aiu.w",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "stative",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-w-",
+    "share_in_condition": "3/93"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10383",
+     "sw_word": "ulifanyika",
+     "dav_word": "ghobonywa",
+     "dav_root": "bony"
+    },
+    {
+     "pair_id": "train:3186",
+     "sw_word": "itika",
+     "dav_word": "kukawangwa",
+     "dav_root": "wang"
+    },
+    {
+     "pair_id": "train:11492",
+     "sw_word": "inasemekana",
+     "dav_word": "wazerwa",
+     "dav_root": "zer"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 3,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 93,
+    "lift": 14.54
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.stative.other_eo.w",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "stative",
+    "dav_root_shape": "other/eo"
+   },
+   "then": {
+    "suffix": "-w-",
+    "share_in_condition": "10/59"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10383",
+     "sw_word": "ulifanyika",
+     "dav_word": "ghobonywa",
+     "dav_root": "bony"
+    },
+    {
+     "pair_id": "train:3186",
+     "sw_word": "itika",
+     "dav_word": "kukawangwa",
+     "dav_root": "wang"
+    },
+    {
+     "pair_id": "train:11492",
+     "sw_word": "inasemekana",
+     "dav_word": "wazerwa",
+     "dav_root": "zer"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 10,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 59,
+    "lift": 14.54
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.stative.other_eo.yer",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "stative",
+    "dav_root_shape": "other/eo"
+   },
+   "then": {
+    "suffix": "-yer-",
+    "share_in_condition": "4/59"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:PSA.90.16",
+     "sw_word": "yaonekane",
+     "dav_word": "kudiwonyere",
+     "dav_root": "won"
+    },
+    {
+     "pair_id": "bible:NEN:NUM.14.17",
+     "sw_word": "zionekane",
+     "dav_word": "kuwonyere",
+     "dav_root": "won"
+    },
+    {
+     "pair_id": "bible:NEN:PRO.12.15",
+     "sw_word": "huonekana",
+     "dav_word": "mawonyero",
+     "dav_root": "won"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 4,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 59,
+    "lift": 44.94
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.stative.other_eo.ogh",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "stative",
+    "dav_root_shape": "other/eo"
+   },
+   "then": {
+    "suffix": "-ogh-",
+    "share_in_condition": "3/59"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:1KI.15.30",
+     "sw_word": "yalitendeka",
+     "dav_word": "rerebonyeroghe",
+     "dav_root": "bonyer"
+    },
+    {
+     "pair_id": "bible:NEN:2CH.9.19",
+     "sw_word": "kimefanyika",
+     "dav_word": "cherebonyeroghe",
+     "dav_root": "bonyer"
+    },
+    {
+     "pair_id": "bible:NEN:2CH.35.18",
+     "sw_word": "hakujafanyika",
+     "dav_word": "erebonyeroghe",
+     "dav_root": "bonyer"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 3,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 59,
+    "lift": 24.2
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.stative.palatal_aiu.ik",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "stative",
+    "dav_root_shape": "palatal/aiu"
+   },
+   "then": {
+    "suffix": "-ik-",
+    "share_in_condition": "12/44"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:1959",
+     "sw_word": "wanatakikana",
+     "dav_word": "wekundika",
+     "dav_root": "kund"
+    },
+    {
+     "pair_id": "train:12828",
+     "sw_word": "hatakikani",
+     "dav_word": "ndoukundikie",
+     "dav_root": "kund"
+    },
+    {
+     "pair_id": "train:1892",
+     "sw_word": "inatakikana",
+     "dav_word": "yakundika",
+     "dav_root": "kund"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 12,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 44,
+    "lift": 256.61
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.stative.palatal_aiu.ir",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "stative",
+    "dav_root_shape": "palatal/aiu"
+   },
+   "then": {
+    "suffix": "-ir-",
+    "share_in_condition": "6/44"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:655",
+     "sw_word": "iliyofichika",
+     "dav_word": "ivisiro",
+     "dav_root": "vis"
+    },
+    {
+     "pair_id": "bible:NEN:PSA.60.2",
+     "sw_word": "inatetemeka",
+     "dav_word": "kwasughusire",
+     "dav_root": "sughus"
+    },
+    {
+     "pair_id": "bible:NEN:PRO.20.17",
+     "sw_word": "kilichopatikana",
+     "dav_word": "vipatiro",
+     "dav_root": "pat"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 6,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 44,
+    "lift": 3.67
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.stative.palatal_aiu.w",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "stative",
+    "dav_root_shape": "palatal/aiu"
+   },
+   "then": {
+    "suffix": "-w-",
+    "share_in_condition": "6/44"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10383",
+     "sw_word": "ulifanyika",
+     "dav_word": "ghobonywa",
+     "dav_root": "bony"
+    },
+    {
+     "pair_id": "train:3186",
+     "sw_word": "itika",
+     "dav_word": "kukawangwa",
+     "dav_root": "wang"
+    },
+    {
+     "pair_id": "train:11492",
+     "sw_word": "inasemekana",
+     "dav_word": "wazerwa",
+     "dav_root": "zer"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 6,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 44,
+    "lift": 14.54
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.stative.palatal_eo.w",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "stative",
+    "dav_root_shape": "palatal/eo"
+   },
+   "then": {
+    "suffix": "-w-",
+    "share_in_condition": "8/35"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10383",
+     "sw_word": "ulifanyika",
+     "dav_word": "ghobonywa",
+     "dav_root": "bony"
+    },
+    {
+     "pair_id": "train:3186",
+     "sw_word": "itika",
+     "dav_word": "kukawangwa",
+     "dav_root": "wang"
+    },
+    {
+     "pair_id": "train:11492",
+     "sw_word": "inasemekana",
+     "dav_word": "wazerwa",
+     "dav_root": "zer"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 8,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 35,
+    "lift": 14.54
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.stative.vowel_aiu.k",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "stative",
+    "dav_root_shape": "vowel/aiu"
+   },
+   "then": {
+    "suffix": "-k-",
+    "share_in_condition": "9/67"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:25072",
+     "sw_word": "imekatika",
+     "dav_word": "jadumbuka",
+     "dav_root": "dumbu"
+    },
+    {
+     "pair_id": "train:21601",
+     "sw_word": "kimekatika",
+     "dav_word": "chedumbuka",
+     "dav_root": "dumbu"
+    },
+    {
+     "pair_id": "train:1698",
+     "sw_word": "zimekatika",
+     "dav_word": "radumbuka",
+     "dav_root": "dumbu"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 9,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 67,
+    "lift": 19.66
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.stative.vowel_aiu.lw",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "stative",
+    "dav_root_shape": "vowel/aiu"
+   },
+   "then": {
+    "suffix": "-lw-",
+    "share_in_condition": "3/67"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:12888",
+     "sw_word": "kumalizika",
+     "dav_word": "kumerelwa",
+     "dav_root": "mere"
+    },
+    {
+     "pair_id": "bible:NEN:1CO.6.9",
+     "sw_word": "msidanganyike",
+     "dav_word": "msakekalilwa",
+     "dav_root": "kali"
+    },
+    {
+     "pair_id": "bible:NEN:1CO.15.33",
+     "sw_word": "msidanganyike",
+     "dav_word": "msakekalilwa",
+     "dav_root": "kali"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 3,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 67,
+    "lift": 9.68
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.reciprocal.other_aiu.an",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "reciprocal",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-an-",
+    "share_in_condition": "9/101"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:8489",
+     "sw_word": "umemalizana",
+     "dav_word": "kwameriana",
+     "dav_root": "meri"
+    },
+    {
+     "pair_id": "train:23746",
+     "sw_word": "usichukiane",
+     "dav_word": "kusekezamiana",
+     "dav_root": "zami"
+    },
+    {
+     "pair_id": "train:13337",
+     "sw_word": "hawasaidiani",
+     "dav_word": "ndewitesianagha",
+     "dav_root": "tesi"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 9,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 101,
+    "lift": 110.97
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.reciprocal.other_aiu.any",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "reciprocal",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-any-",
+    "share_in_condition": "9/101"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:GEN.10.32",
+     "sw_word": "kutokana",
+     "dav_word": "kufumanya",
+     "dav_root": "fum"
+    },
+    {
+     "pair_id": "bible:NEN:GEN.31.1",
+     "sw_word": "kutokana",
+     "dav_word": "koofumanya",
+     "dav_root": "fum"
+    },
+    {
+     "pair_id": "bible:NEN:LEV.16.19",
+     "sw_word": "kutokana",
+     "dav_word": "kufumanya",
+     "dav_root": "fum"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 9,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 101,
+    "lift": 15.98
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.reciprocal.other_aiu.ony",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "reciprocal",
+    "dav_root_shape": "other/aiu"
+   },
+   "then": {
+    "suffix": "-ony-",
+    "share_in_condition": "9/101"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:GEN.14.2",
+     "sw_word": "kupigana",
+     "dav_word": "wikabonya",
+     "dav_root": "kab"
+    },
+    {
+     "pair_id": "bible:NEN:EXO.17.10",
+     "sw_word": "akapigana",
+     "dav_word": "ukabonya",
+     "dav_root": "kab"
+    },
+    {
+     "pair_id": "bible:NEN:JDG.5.20",
+     "sw_word": "zilipigana",
+     "dav_word": "rikabonya",
+     "dav_root": "kab"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 9,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 101,
+    "lift": 83.23
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.reciprocal.vowel_aiu.n",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "reciprocal",
+    "dav_root_shape": "vowel/aiu"
+   },
+   "then": {
+    "suffix": "-n-",
+    "share_in_condition": "30/97"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:23745",
+     "sw_word": "wanapigana",
+     "dav_word": "wadakabana",
+     "dav_root": "kaba"
+    },
+    {
+     "pair_id": "train:2532",
+     "sw_word": "wakipigana",
+     "dav_word": "wikikabana",
+     "dav_root": "kaba"
+    },
+    {
+     "pair_id": "train:24038",
+     "sw_word": "tupitane",
+     "dav_word": "diidane",
+     "dav_root": "ida"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 30,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 97,
+    "lift": 73.98
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.reciprocal.vowel_aiu.an",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "reciprocal",
+    "dav_root_shape": "vowel/aiu"
+   },
+   "then": {
+    "suffix": "-an-",
+    "share_in_condition": "21/97"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:8489",
+     "sw_word": "umemalizana",
+     "dav_word": "kwameriana",
+     "dav_root": "meri"
+    },
+    {
+     "pair_id": "train:23746",
+     "sw_word": "usichukiane",
+     "dav_word": "kusekezamiana",
+     "dav_root": "zami"
+    },
+    {
+     "pair_id": "train:13337",
+     "sw_word": "hawasaidiani",
+     "dav_word": "ndewitesianagha",
+     "dav_root": "tesi"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 21,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 97,
+    "lift": 110.97
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "active"
+  },
+  {
+   "id": "EXT.reciprocal.vowel_aiu.gh",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "sw_ext": "reciprocal",
+    "dav_root_shape": "vowel/aiu"
+   },
+   "then": {
+    "suffix": "-gh-",
+    "share_in_condition": "3/97"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "bible:NEN:EXO.2.13",
+     "sw_word": "wakipigana",
+     "dav_word": "kumkabagha",
+     "dav_root": "kaba"
+    },
+    {
+     "pair_id": "bible:NEN:1SA.15.12",
+     "sw_word": "kukutana",
+     "dav_word": "kuagha",
+     "dav_root": "kua"
+    },
+    {
+     "pair_id": "bible:NEN:1CO.9.26",
+     "sw_word": "sipigani",
+     "dav_word": "ukabagha",
+     "dav_root": "kaba"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 3,
+   "evidence": {
+    "method": "aligned verbs, base root from lexicon",
+    "n_condition": 97,
+    "lift": 1.44
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "root shape = final segment (palatal ny/nj/sh/ch/s/z/j, vowel, other) / last vowel",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.helper.applicative_stem",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "helper": "applicative_stem"
+   },
+   "then": {
+    "code": "hf_space (version B)",
+    "accuracy_where_extension_visible": "213/397"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 213,
+   "evidence": {
+    "method": "helper prediction found in aligned verb",
+    "misses": [
+     {
+      "pair_id": "train:2076",
+      "sw_word": "pia",
+      "dav_word": "ndeghiwewoneka",
+      "dav_root": "nek",
+      "predicted": "neki"
+     },
+     {
+      "pair_id": "train:2076",
+      "sw_word": "kupitea",
+      "dav_word": "kwawetesia",
+      "dav_root": "si",
+      "predicted": "sii"
+     },
+     {
+      "pair_id": "train:26433",
+      "sw_word": "wasimlimie",
+      "dav_word": "wiselime",
+      "dav_root": "lime",
+      "predicted": "limei"
+     },
+     {
+      "pair_id": "train:4236",
+      "sw_word": "hufungulia",
+      "dav_word": "yadarughuya",
+      "dav_root": "rughu",
+      "predicted": "rughui"
+     },
+     {
+      "pair_id": "train:17553",
+      "sw_word": "utaniletea",
+      "dav_word": "kuniredia",
+      "dav_root": "redi",
+      "predicted": "redii"
+     }
+    ],
+    "rate_visible": {
+     "rate": 0.5365239294710328,
+     "ci95": [
+      0.48735487111602543,
+      0.5849929091542859
+     ],
+     "k": 213,
+     "n": 397,
+     "low_n": false
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "canonical helper scored on clean-train aligned verbs (wrap, don't fork)",
+   "status": "active"
+  },
+  {
+   "id": "EXT.helper.applicative_perfective+ie",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "helper": "applicative_perfective+ie"
+   },
+   "then": {
+    "code": "hf_space (version B)",
+    "accuracy_where_extension_visible": "1/397"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 1,
+   "evidence": {
+    "method": "helper prediction found in aligned verb",
+    "misses": [
+     {
+      "pair_id": "train:2076",
+      "sw_word": "pia",
+      "dav_word": "ndeghiwewoneka",
+      "dav_root": "nek",
+      "predicted": "nekie"
+     },
+     {
+      "pair_id": "train:2076",
+      "sw_word": "kupitea",
+      "dav_word": "kwawetesia",
+      "dav_root": "si",
+      "predicted": "siie"
+     },
+     {
+      "pair_id": "train:26433",
+      "sw_word": "wasimlimie",
+      "dav_word": "wiselime",
+      "dav_root": "lime",
+      "predicted": "limeie"
+     },
+     {
+      "pair_id": "train:10197",
+      "sw_word": "nitakutumia",
+      "dav_word": "nikudumia",
+      "dav_root": "kudum",
+      "predicted": "kudumie"
+     },
+     {
+      "pair_id": "train:25439",
+      "sw_word": "akakatalia",
+      "dav_word": "ukaleghia",
+      "dav_root": "legh",
+      "predicted": "leghie"
+     }
+    ],
+    "rate_visible": {
+     "rate": 0.0025188916876574307,
+     "ci95": [
+      0.00044477326022158634,
+      0.014128564437262904
+     ],
+     "k": 1,
+     "n": 397,
+     "low_n": false
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "canonical helper scored on clean-train aligned verbs (wrap, don't fork)",
+   "status": "tentative"
+  },
+  {
+   "id": "EXT.helper.kitaita_passive_form",
+   "section": 5,
+   "slot": "EXT",
+   "if": {
+    "helper": "kitaita_passive_form"
+   },
+   "then": {
+    "code": "hf_space (version B)",
+    "accuracy_where_extension_visible": "528/1056"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 528,
+   "evidence": {
+    "method": "helper prediction found in aligned verb",
+    "misses": [
+     {
+      "pair_id": "train:13418",
+      "sw_word": "huwindwa",
+      "dav_word": "radiwagha",
+      "dav_root": "diwa",
+      "predicted": "diwalw"
+     },
+     {
+      "pair_id": "train:14269",
+      "sw_word": "apikiwe",
+      "dav_word": "udekelo",
+      "dav_root": "deke",
+      "predicted": "dekelw"
+     },
+     {
+      "pair_id": "train:2270",
+      "sw_word": "limefungwa",
+      "dav_word": "jharughwa",
+      "dav_root": "rughw",
+      "predicted": "rughww"
+     },
+     {
+      "pair_id": "train:12432",
+      "sw_word": "ilijengwa",
+      "dav_word": "chaaghilo",
+      "dav_root": "aghi",
+      "predicted": "aghilw"
+     },
+     {
+      "pair_id": "train:20173",
+      "sw_word": "wanafurahishwa",
+      "dav_word": "wadapoilwa",
+      "dav_root": "poilw",
+      "predicted": "poilww"
+     }
+    ],
+    "rate_visible": {
+     "rate": 0.5,
+     "ci95": [
+      0.4698972900074895,
+      0.5301027099925105
+     ],
+     "k": 528,
+     "n": 1056,
+     "low_n": false
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "canonical helper scored on clean-train aligned verbs (wrap, don't fork)",
+   "status": "active"
+  },
+  {
+   "id": "FV.perfective.other_aiu.ie",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_shape": "other/aiu",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-ie",
+    "share_in_condition": "481/723"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:11902",
+     "sw_word": "nimeshiba",
+     "dav_word": "nighudie",
+     "dav_root": "ghud"
+    },
+    {
+     "pair_id": "train:10939",
+     "sw_word": "nimeshangaa",
+     "dav_word": "nashinikie",
+     "dav_root": "shinik"
+    },
+    {
+     "pair_id": "train:11720",
+     "sw_word": "vilivyovunjika",
+     "dav_word": "vibarikie",
+     "dav_root": "barik"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 481,
+   "evidence": {
+    "method": "aligned verbs",
+    "n_condition": 723,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "FV.perfective.other_aiu.e",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_shape": "other/aiu",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-e",
+    "share_in_condition": "226/723"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:26196",
+     "sw_word": "nimekutana",
+     "dav_word": "sikwane",
+     "dav_root": "kwan"
+    },
+    {
+     "pair_id": "train:20400",
+     "sw_word": "mumefanana",
+     "dav_word": "mwafwanane",
+     "dav_root": "fwanan"
+    },
+    {
+     "pair_id": "train:14305",
+     "sw_word": "aliupenda",
+     "dav_word": "oreghukundeghe",
+     "dav_root": "kund"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 226,
+   "evidence": {
+    "method": "aligned verbs",
+    "n_condition": 723,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "FV.perfective.palatal_eo.ere",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_shape": "palatal/eo",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-ere",
+    "share_in_condition": "488/501"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:2551",
+     "sw_word": "wamefanya",
+     "dav_word": "wabonyere",
+     "dav_root": "bony"
+    },
+    {
+     "pair_id": "train:14364",
+     "sw_word": "amefanya",
+     "dav_word": "wabonyere",
+     "dav_root": "bony"
+    },
+    {
+     "pair_id": "train:23565",
+     "sw_word": "nilifanya",
+     "dav_word": "nibonyere",
+     "dav_root": "bony"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 488,
+   "evidence": {
+    "method": "aligned verbs",
+    "n_condition": 501,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "FV.perfective.palatal_aiu.ire",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_shape": "palatal/aiu",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-ire",
+    "share_in_condition": "113/121"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:11598",
+     "sw_word": "aliandaa",
+     "dav_word": "waboisire",
+     "dav_root": "bois"
+    },
+    {
+     "pair_id": "train:12765",
+     "sw_word": "walikusanya",
+     "dav_word": "watumbanyire",
+     "dav_root": "tumbany"
+    },
+    {
+     "pair_id": "train:12336",
+     "sw_word": "nilijiandikisha",
+     "dav_word": "nereandikishireghe",
+     "dav_root": "andikish"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 113,
+   "evidence": {
+    "method": "aligned verbs",
+    "n_condition": 121,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "FV.perfective.palatal_aiu.e",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_shape": "palatal/aiu",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-e",
+    "share_in_condition": "8/121"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:1903",
+     "sw_word": "ulikuja",
+     "dav_word": "kwache",
+     "dav_root": "kwach"
+    },
+    {
+     "pair_id": "train:11982",
+     "sw_word": "niliongea",
+     "dav_word": "nadedanye",
+     "dav_root": "dedany"
+    },
+    {
+     "pair_id": "train:10493",
+     "sw_word": "tulizungumza",
+     "dav_word": "dadedanye",
+     "dav_root": "dedany"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 8,
+   "evidence": {
+    "method": "aligned verbs",
+    "n_condition": 121,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "tentative"
+  },
+  {
+   "id": "FV.perfective.other_eo.e",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_shape": "other/eo",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-e",
+    "share_in_condition": "1272/1525"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:24259",
+     "sw_word": "alikuwa",
+     "dav_word": "ukoghe",
+     "dav_root": "kogh"
+    },
+    {
+     "pair_id": "train:6043",
+     "sw_word": "mlikuwa",
+     "dav_word": "mokoghe",
+     "dav_root": "kogh"
+    },
+    {
+     "pair_id": "train:14868",
+     "sw_word": "alikuwa",
+     "dav_word": "orekoghe",
+     "dav_root": "kogh"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 1272,
+   "evidence": {
+    "method": "aligned verbs",
+    "n_condition": 1525,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "FV.perfective.other_eo.ie",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_shape": "other/eo",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-ie",
+    "share_in_condition": "253/1525"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:12417",
+     "sw_word": "haukufanyika",
+     "dav_word": "ndejibonyekie",
+     "dav_root": "bonyek"
+    },
+    {
+     "pair_id": "train:11459",
+     "sw_word": "uliomba",
+     "dav_word": "kwalombieghe",
+     "dav_root": "lomb"
+    },
+    {
+     "pair_id": "train:14314",
+     "sw_word": "nilisema",
+     "dav_word": "nereghorieghe",
+     "dav_root": "ghor"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 253,
+   "evidence": {
+    "method": "aligned verbs",
+    "n_condition": 1525,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "FV.perfective.vowel_aiu.e",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_shape": "vowel/aiu",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-e",
+    "share_in_condition": "490/490"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:17204",
+     "sw_word": "tulimuona",
+     "dav_word": "dawonie",
+     "dav_root": "woni"
+    },
+    {
+     "pair_id": "train:22599",
+     "sw_word": "niliyokutumia",
+     "dav_word": "nikudumie",
+     "dav_root": "dumi"
+    },
+    {
+     "pair_id": "train:22618",
+     "sw_word": "nilikutumia",
+     "dav_word": "nakudumie",
+     "dav_root": "dumi"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 490,
+   "evidence": {
+    "method": "aligned verbs",
+    "n_condition": 490,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "FV.perfective.vowel_eo.e",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_shape": "vowel/eo",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-e",
+    "share_in_condition": "2/2"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:21226",
+     "sw_word": "nilisoma",
+     "dav_word": "nashomee",
+     "dav_root": "shome"
+    },
+    {
+     "pair_id": "train:14658",
+     "sw_word": "zilizoendelea",
+     "dav_word": "ghiendelee",
+     "dav_root": "endele"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 2,
+   "evidence": {
+    "method": "aligned verbs",
+    "n_condition": 2,
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "tentative"
+  },
+  {
+   "id": "FV.ghe.tam_me",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "sw_feature": "tam:me"
+   },
+   "then": {
+    "post_final": "-ghe",
+    "rate": "228/3640"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 228,
+   "evidence": {
+    "method": "aligned verbs",
+    "rate": {
+     "rate": 0.06263736263736264,
+     "ci95": [
+      0.05521727818451108,
+      0.07097964541392415
+     ],
+     "k": 228,
+     "n": 3640,
+     "low_n": false
+    },
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "-ghe marks narrative / remote past; rare with -me- and present / future",
+   "status": "tentative"
+  },
+  {
+   "id": "FV.ghe.tam_li",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "sw_feature": "tam:li"
+   },
+   "then": {
+    "post_final": "-ghe",
+    "rate": "1537/3481"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 1537,
+   "evidence": {
+    "method": "aligned verbs",
+    "rate": {
+     "rate": 0.4415397874174088,
+     "ci95": [
+      0.4251169564399519,
+      0.45809150847277186
+     ],
+     "k": 1537,
+     "n": 3481,
+     "low_n": false
+    },
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "-ghe marks narrative / remote past; rare with -me- and present / future",
+   "status": "active"
+  },
+  {
+   "id": "FV.ghe.tam_na",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "sw_feature": "tam:na"
+   },
+   "then": {
+    "post_final": "-ghe",
+    "rate": "29/2969"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 29,
+   "evidence": {
+    "method": "aligned verbs",
+    "rate": {
+     "rate": 0.009767598518019536,
+     "ci95": [
+      0.006809431482926727,
+      0.013992753201248844
+     ],
+     "k": 29,
+     "n": 2969,
+     "low_n": false
+    },
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "-ghe marks narrative / remote past; rare with -me- and present / future",
+   "status": "tentative"
+  },
+  {
+   "id": "FV.ghe.tam_ta",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "sw_feature": "tam:ta"
+   },
+   "then": {
+    "post_final": "-ghe",
+    "rate": "25/3107"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 25,
+   "evidence": {
+    "method": "aligned verbs",
+    "rate": {
+     "rate": 0.00804634695848085,
+     "ci95": [
+      0.005456112487207019,
+      0.011851615427965515
+     ],
+     "k": 25,
+     "n": 3107,
+     "low_n": false
+    },
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "-ghe marks narrative / remote past; rare with -me- and present / future",
+   "status": "tentative"
+  },
+  {
+   "id": "FV.ghe.neg_ku",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "sw_feature": "neg:ku"
+   },
+   "then": {
+    "post_final": "-ghe",
+    "rate": "136/470"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 136,
+   "evidence": {
+    "method": "aligned verbs",
+    "rate": {
+     "rate": 0.28936170212765955,
+     "ci95": [
+      0.250203260623395,
+      0.3319355807109244
+     ],
+     "k": 136,
+     "n": 470,
+     "low_n": false
+    },
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "-ghe marks narrative / remote past; rare with -me- and present / future",
+   "status": "active"
+  },
+  {
+   "id": "FV.ghe.reltam_li",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "sw_feature": "reltam:li"
+   },
+   "then": {
+    "post_final": "-ghe",
+    "rate": "587/1592"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 587,
+   "evidence": {
+    "method": "aligned verbs",
+    "rate": {
+     "rate": 0.3687185929648241,
+     "ci95": [
+      0.345361315631799,
+      0.3927079263280547
+     ],
+     "k": 587,
+     "n": 1592,
+     "low_n": false
+    },
+    "lift": null
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "-ghe marks narrative / remote past; rare with -me- and present / future",
+   "status": "active"
   }
  ]
 }
