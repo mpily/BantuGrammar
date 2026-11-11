@@ -31,6 +31,7 @@ ROOT = HERE.parent
 sys.path.insert(0, str(HERE))
 sys.path.insert(0, str(ROOT / "hf_space"))
 import attest as A  # noqa: E402
+import word_align as W  # noqa: E402
 import kitaita_verified_corrections as V  # noqa: E402
 from kitaita_verb import SERIES, EXTRA_FORMS  # noqa: E402
 from rulebook_flagger import norm  # noqa: E402
@@ -38,6 +39,9 @@ from rulebook_flagger import norm  # noqa: E402
 OUT = HERE / "rules.json"
 RESULTS = HERE / "build_rules_results.json"
 MIN_EVIDENCE, MIN_LIFT = 2, 1.5
+# lowered bar (user, 2026-11-11): a candidate below the bar but with >= 1 pair and lift >= 1.0
+# is kept as status "tentative" instead of being rejected
+TENTATIVE_EVIDENCE, TENTATIVE_LIFT = 1, 1.0
 VREF = "hf_space/kitaita_verified_corrections.py"
 
 CLASSES = {  # label -> Bantu aliases, SERIES row
@@ -127,10 +131,11 @@ def add(rid, section, slot, cond, then, ev=None, source="corpus_attested", verif
     else:
         lift = ev.get("lift")
         ok = r["evidence_count"] >= MIN_EVIDENCE and (lift is None or lift >= MIN_LIFT)
-        if not ok:
+        weak = r["evidence_count"] >= TENTATIVE_EVIDENCE and (lift is None or lift >= TENTATIVE_LIFT)
+        if not ok and not weak:
             rejected.append({**r, "reason": f"evidence {r['evidence_count']}, lift {lift}"})
             return None
-        r["status"] = "active"
+        r["status"] = "active" if ok else "tentative"
     rules.append(r)
     return r
 
@@ -321,7 +326,13 @@ def section2():
 # ------------------------------------------------------------- section 3 + 4
 def tam(rid, section, slot, feature, dav_re, then, cond, **kw):
     ev = A.cooc(feature, dav_re, exclude=STOP)
-    return add(rid, section, slot, cond, then, ev, **kw)
+    r = add(rid, section, slot, cond, then, ev, **kw)
+    wl = W.word_level(feature, dav_re)
+    target = r if r else (rejected[-1] if rejected and rejected[-1]["id"] == rid else None)
+    if target is not None:
+        target["word_level"] = wl
+        target["counterexamples"] = wl["counterexamples"]
+    return r
 
 
 def section3():
@@ -407,17 +418,39 @@ def section4():
         {"sw": "negative present"})
 
 
+FEATURE_SECTION = {"neg:pres": 4, "neg:ku": 4, "neg:ta": 4, "neg:ja": 4, "neg:nge": 4}
+
+
+def induced():
+    """Verb readings induced from aligned verbs (induce_verb_rules.py): one rule per
+    (Swahili feature, Kidaw'ida shape), word-level evidence, active / tentative."""
+    path = HERE / "induced_verb_rules.json"
+    if not path.exists():
+        return
+    d = json.loads(path.read_text(encoding="utf-8"))
+    for f, v in d["features"].items():
+        for k, r in enumerate(v["readings"], 1):
+            sec = FEATURE_SECTION.get(f, 3)
+            ev = {"evidence_count": r["n"], "examples": r["examples"], "method": "aligned_verbs (induced)",
+                  "n_aligned": v["n_aligned"], "share": r["share"], "shape": r["shape"]}
+            add(f"{'NEG' if sec == 4 else 'TAM'}.induced.{f.replace(':', '_')}.{k}", sec,
+                "NEG" if sec == 4 else "TAM", {"sw_feature": f}, {"template": r["template"]}, ev,
+                status=r["tier"], notes="induced from aligned verbs; segmentation by kitaita_verb.parse_prefix")
+
+
 def rank_readings():
     """Rules with the same slot + condition are alternative readings: the default is a
     speaker-preferred reading if one is marked, else the one with most evidence."""
     groups = {}
     for r in rules:
-        if r["status"] == "active" and r["slot"] in ("TAM", "NEG"):
+        if r["status"] in ("active", "tentative") and r["slot"] in ("TAM", "NEG"):
             groups.setdefault((r["slot"], json.dumps(r["if"], sort_keys=True)), []).append(r)
     for g in groups.values():
+        g = [r for r in g]
         pref = [r for r in g if any(x.get("default") and x.get("form") == r["then"].get("template")
                                     for x in r.get("readings", []))]
-        order = pref + sorted([r for r in g if r not in pref], key=lambda r: -r["evidence_count"])
+        order = pref + sorted([r for r in g if r not in pref],
+                              key=lambda r: (r["status"] != "active", -r["evidence_count"]))
         for i, r in enumerate(order):
             r["rank"] = i + 1
             r["default"] = i == 0
@@ -429,9 +462,13 @@ def main():
     section2()
     section3()
     section4()
+    induced()
     rank_readings()
+    hashes_extra = {"bootstrap_lexicon.json": A.sha16(HERE / "bootstrap_lexicon.json"),
+                    "induced_verb_rules.json": A.sha16(HERE / "induced_verb_rules.json"),
+                    "word_align.py": A.sha16(HERE / "word_align.py")}
     hashes = {"train.jsonl": A.sha16(A.TRAIN), "attest.py": A.sha16(HERE / "attest.py"),
-              "build_rules.py": A.sha16(Path(__file__)),
+              "build_rules.py": A.sha16(Path(__file__)), **hashes_extra,
               "kitaita_verified_corrections.py": A.sha16(ROOT / "hf_space/kitaita_verified_corrections.py"),
               "kitaita_speaker_verified.json": A.sha16(ROOT / "hf_space/kitaita_speaker_verified.json"),
               "kitaita_verb.py": A.sha16(ROOT / "hf_space/kitaita_verb.py"),
@@ -441,7 +478,8 @@ def main():
     meta = {"built_by": "rulebook/build_rules.py", "sections_done": [1, 2, 3, 4],
             "git_sha": subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True,
                                       text=True).stdout.strip(),
-            "config": {"min_evidence": MIN_EVIDENCE, "min_lift": MIN_LIFT, "n_train_pairs": len(A.pairs()),
+            "config": {"min_evidence": MIN_EVIDENCE, "min_lift": MIN_LIFT, "tentative_evidence": TENTATIVE_EVIDENCE,
+                       "tentative_lift": TENTATIVE_LIFT, "n_train_pairs": len(A.pairs()),
                        "n_examples": A.N_EXAMPLES},
             "hashes_sha256_16": hashes,
             "priority": ["speaker_verified", "corpus_attested", "grammar_notes", "mined_alignment"],
