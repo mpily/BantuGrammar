@@ -67,6 +67,9 @@ DAV_OM = tuple(sorted(OMS, key=len, reverse=True))
 DAV_FINAL = ("iloghe", "eloghe", "iroghe", "eroghe", "ieghe", "ireghe", "ereghe", "eghe", "agha", "enyi", "nyi",
              "ilo", "elo", "iro", "ero", "ire", "ere", "ie", "a", "e")
 DAV_NOUN = ("mw", "mu", "wa", "wu", "ki", "ch", "vi", "vy", "ma", "mi", "lu", "ku", "m", "i", "w")
+SW_VERB_PREFIX = re.compile(r"(?:ha|si|hu)?(?:ni|u|a|tu|m|mu|wa|i|li|ki|vi|zi|ya|ku|pa)"
+                            r"(?:li|na|me|ta|ka|ki|sha|nge|ngali)(?:ye|o|cho|vyo|lo|yo|zo|po|ko|mo)?"
+                            r"(?:ni|ku|m|mw|tu|wa|ki|vi|li|ya|zi|i|u|ji)?(?P<stem>[a-z]+?)(?:a|e|i)")
 SW_NOUN = ("mw", "wa", "ki", "ch", "vi", "vy", "ma", "mi", "ji", "ku", "m", "u")
 SW_FINAL = ("a", "e", "i")
 
@@ -118,6 +121,11 @@ def sw_stems(w: str) -> frozenset:
     p = A.sw_parse(w)
     if p and len(p["root"]) >= 3:
         return frozenset({p["root"], w})
+    # parser failed (root not in its table): strip an SM + TAM (+ OM) prefix chain (wanalia, wamelipwa:
+    # agent round 4); the stem is kept only if other word types share it (choose_lemmas support)
+    m = SW_VERB_PREFIX.fullmatch(w)
+    if m and len(m.group("stem")) >= 3:
+        return frozenset({m.group("stem"), w})
     return frozenset({w})
 
 
@@ -163,8 +171,12 @@ AGENT_BOOST = 10   # agent-given roots count as this many supporting word types
 
 
 def _cut(lemma: str) -> str:
-    """Agent lemmas carry the final vowel (kunda); the stripper removes it (kund)."""
+    """Agent lemmas carry the final vowel (kunda); the stripper removes it (kund). Lemmas with '/'
+    keep the first alternative; a verb lemma keeping ku- loses it (agent round 4)."""
+    lemma = str(lemma).split("/")[0].strip("-")
     lemma = norm(lemma)
+    if lemma.startswith("ku") and len(lemma) >= 6:
+        lemma = lemma[2:]
     return lemma[:-1] if len(lemma) >= 4 and lemma[-1] in "ae" else lemma
 
 
@@ -223,6 +235,18 @@ def lemmatizers():
         for w, r in wr[side].items():
             if w in table:
                 table[w] = r
+    # agent round 4: Swahili lemmas < 3 letters only from the verb parser (fu, po, ota fragments);
+    # strings identical on both sides of >= 2 pairs (names, loans) stay whole
+    for w in sw:
+        p = A.sw_parse(w)
+        if len(sw[w]) < 3 < len(w) and not (p and p["root"] == sw[w]):
+            sw[w] = w
+    same = collections.Counter()
+    for r in ps:
+        same.update(set(r["sw"]) & set(r["dv"]))
+    for w, c in same.items():
+        if c >= 2 and len(w) >= 3:
+            sw[w] = dv[w] = w
     lemmatizers.recut = {"dav_words_recut": n_dv, "sw_words_recut": n_sw,
                          "root_list_words": {k: len(v) for k, v in wr.items()}}
     for n in names():
@@ -287,6 +311,7 @@ def read_agent_files(agent_files) -> tuple[list[dict], set[tuple[str, str]]]:
 
 
 SW_AGR = ("w", "y", "l", "ch", "vy", "z", "kw", "p", "mw")
+SW_TENS = ("ishirini", "thelathini", "arobaini", "hamsini", "sitini", "sabini", "themanini", "tisini")
 SW_DEM = ("huyu hawa huu hii hili haya hiki hivi hizi huku hapa humu yule wale ule ile lile yale kile vile "
           "zile kule pale mle huyo hao huo hiyo hilo hayo hicho hivyo hizo huko hapo humo").split()
 
@@ -296,15 +321,18 @@ def concord_words() -> tuple[frozenset, frozenset]:
     """Concord words (possessives, -ote, demonstratives, associative): their form comes from the
     rule book's class tables, so the dictionary loop does not pair them as vocabulary (agent round 1:
     zako = wako, vile = seji). They count as explained and are left out of the residuals."""
-    sw = set(SW_DEM)
+    sw = set(SW_DEM) | set(SW_TENS)
     for a in SW_AGR:
-        sw |= {a + x for x in ("angu", "ako", "ake", "etu", "enu", "ao", "ote", "a")}
+        sw |= {a + x for x in ("angu", "ako", "ake", "etu", "enu", "ao", "ote", "a", "enyewe")}
+    sw |= {"mwenyewe", "wenyewe", "yenyewe", "lenyewe", "chenyewe", "vyenyewe", "zenyewe", "kwenyewe"}
     import build_rules as R  # rules' own concord forms (POSS / ASSOC / -ose / DEM tables)
     dv = set(R.STOP)
     for row in R.SERIES:
         for f in R.forms(row, 0) + R.forms(row, 2):
             dv.add(f + "ko")          # existential / copula SM+ko (weko, neko, gheko): agent round 1
         dv.add(R.forms(row, 1)[0] + "ro")  # non-human 'its' SM+a-ro (varo, charo): agent round 1
+        dv.add(R.merge_a(R.forms(row, 1)[0], "eni"))  # 'self / same' SM+a-eni (weni, gheni, cheni): round 3-4
+    dv |= {"moni", "koni", "doni", "mwoni", "mirongo"}
     return frozenset(sw), frozenset(dv)
 
 

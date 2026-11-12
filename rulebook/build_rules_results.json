@@ -10,7 +10,7 @@
    6,
    7
   ],
-  "git_sha": "cc5eb96579517541ed964e37dd7c7846e0e3b724",
+  "git_sha": "6522d7d57f835ad704d5c6656d63bf32e4b71b05",
   "config": {
    "min_evidence": 2,
    "min_lift": 1.5,
@@ -22,10 +22,10 @@
   "hashes_sha256_16": {
    "train.jsonl": "fd25256c6ddfc22b",
    "attest.py": "dd5015998a3fe5a7",
-   "build_rules.py": "e91b066ec7c2046e",
-   "bootstrap_lexicon.json": "4144a44ae3ebe27e",
-   "induced_verb_rules.json": "8c171b2f0dc46a0e",
-   "induced_extension_rules.json": "f5887f7554044b1c",
+   "build_rules.py": "d978cc926e12c3c1",
+   "bootstrap_lexicon.json": "6cc835cd09a19e02",
+   "induced_verb_rules.json": "2317e1c96c4aabe0",
+   "induced_extension_rules.json": "2d8020e0a9eb2daa",
    "word_align.py": "c1d01b4a7f92b929",
    "kitaita_verified_corrections.py": "d05695176e55a882",
    "kitaita_speaker_verified.json": "bae5b8ae8347725e",
@@ -41,7 +41,7 @@
   ],
   "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment"
  },
- "n_rules": 408,
+ "n_rules": 410,
  "rejected": [
   {
    "id": "QUANT.ose.ghu",
@@ -542,7 +542,7 @@
    "evidence_count": 0,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|gho|ghe|re|de|ko|ye|ne|je|mo|we|ve|lo|o|e)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
+    "dav_regex": "(?:che|gho|ghe|mo|ve|je|lo|ne|ye|ko|de|we|re|e|o)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
     "n_pairs_with_sw_feature": 7609,
     "share_of_feature_pairs": 0.0,
     "lift": null,
@@ -557,16 +557,16 @@
    "reason": "evidence 0, lift None",
    "word_level": {
     "method": "aligned_verbs (bootstrap lexicon)",
-    "n_aligned": 4557,
+    "n_aligned": 4614,
     "k_match": 0,
     "rate": {
      "rate": 0.0,
      "ci95": [
       0.0,
-      0.0008423006841544332
+      0.0008319038054488485
      ],
      "k": 0,
-     "n": 4557,
+     "n": 4614,
      "low_n": false
     },
     "examples": [],
@@ -588,6 +588,262 @@
      }
     ]
    }
+  },
+  {
+   "id": "CONCORD.self.u",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "u",
+    "kind": "'self / same' (Swahili -enyewe)"
+   },
+   "then": {
+    "form": "weni"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "weni",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 5753,
+    "lift": 0.0,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent rounds 3-4: weni, gheni, cheni",
+   "reason": "evidence 0, lift 0.0"
+  },
+  {
+   "id": "CONCORD.self.ghu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ghu",
+    "kind": "'self / same' (Swahili -enyewe)"
+   },
+   "then": {
+    "form": "ghweni"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ghweni",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 3947,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent rounds 3-4: weni, gheni, cheni",
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "CONCORD.self.i",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i",
+    "kind": "'self / same' (Swahili -enyewe)"
+   },
+   "then": {
+    "form": "yeni"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "yeni",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 4164,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent rounds 3-4: weni, gheni, cheni",
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "CONCORD.self.i_nasal",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "i_nasal",
+    "kind": "'self / same' (Swahili -enyewe)"
+   },
+   "then": {
+    "form": "yeni"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "yeni",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 1541,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent rounds 3-4: weni, gheni, cheni",
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "CONCORD.self.ri",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ri",
+    "kind": "'self / same' (Swahili -enyewe)"
+   },
+   "then": {
+    "form": "reni"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "reni",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 1461,
+    "lift": 0.0,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent rounds 3-4: weni, gheni, cheni",
+   "reason": "evidence 0, lift 0.0"
+  },
+  {
+   "id": "CONCORD.self.lu",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "lu",
+    "kind": "'self / same' (Swahili -enyewe)"
+   },
+   "then": {
+    "form": "lweni"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "lweni",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 710,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent rounds 3-4: weni, gheni, cheni",
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "CONCORD.self.ku",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "ku",
+    "kind": "'self / same' (Swahili -enyewe)"
+   },
+   "then": {
+    "form": "kweni"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "kweni",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 984,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent rounds 3-4: weni, gheni, cheni",
+   "reason": "evidence 0, lift None"
+  },
+  {
+   "id": "CONCORD.self.gh",
+   "section": 1,
+   "slot": "CONCORD",
+   "if": {
+    "noun_class": "gh",
+    "kind": "'self / same' (Swahili -enyewe)"
+   },
+   "then": {
+    "form": "ghweni"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "after_verified_nouns",
+    "dav_regex": "ghweni",
+    "sw_regex": null,
+    "baseline_excludes": [],
+    "n_noun_tokens": 4,
+    "lift": null,
+    "domains": {
+     "davswa": 0,
+     "bible": 0
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "agent rounds 3-4: weni, gheni, cheni",
+   "reason": "evidence 0, lift None"
   },
   {
    "id": "CONCORD.variant.i.iyo",

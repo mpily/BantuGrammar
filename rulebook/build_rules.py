@@ -448,6 +448,18 @@ def section_round1():
     tam("COPULA.have", 7, "COPULA", "have", f"{alt(ALL_BARE + ALL_E)}(?:e?ka|oka|ko)",
         {"template": "SM(+e)-(e)ka / -ko + na 'have'"}, {"sw": "SM-na 'have'"},
         notes="agent rounds 1-2: neka na, oka na, deka na; check that 'na' follows")
+    # agent round 4: tens = mirongo + unit numeral; 'self' = SM+a-eni
+    ids = [i for i, r in enumerate(A.pairs()) if any(w in r["sw"] for w in ("ishirini", "thelathini", "arobaini",
+           "hamsini", "sitini", "sabini", "themanini", "tisini")) and "mirongo" in r["dv"]]
+    base = sum(any(w in r["sw"] for w in ("ishirini", "thelathini", "arobaini", "hamsini", "sitini", "sabini",
+               "themanini", "tisini")) for r in A.pairs())
+    add("NUM.tens", 7, "CONCORD", {"sw": "ishirini ... tisini"}, {"template": "mirongo + unit numeral (mirongo idadu = 30)"},
+        {"evidence_count": len(ids), "examples": A._examples(ids), "method": "pair_cooccurrence",
+         "n_pairs_with_sw_feature": base, "lift": None}, notes="agent round 4")
+    for lab, (_, row) in CLASSES.items():
+        f = merge_a(forms(row, 1)[0], "eni")
+        add(f"CONCORD.self.{lab}", 1, "CONCORD", {"noun_class": lab, "kind": "'self / same' (Swahili -enyewe)"},
+            {"form": f}, A.after_nouns(NOUNS, lab, f), notes="agent rounds 3-4: weni, gheni, cheni")
     # agent round 3
     tam("TAM.fut.chaa", 3, "TAM", "tam:ta", f"{B}chaa{R}", {"template": "SM-chaa-ROOT-a (affirmative future)"},
         {"sw_tam": "ta"}, notes="agent round 3: -chaa- is not only negative; negation is nde-/si-")

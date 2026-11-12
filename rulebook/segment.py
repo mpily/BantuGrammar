@@ -37,8 +37,11 @@ SW_TAIL = re.compile(rf"({SW_EXT}{{0,3}})(?:a|e|i|u|o)?(?:ni)?")
 
 
 def cut(lemma: str) -> str:
-    """Inventory roots without the final vowel (kunda -> kund), like the loop's stems."""
-    lemma = norm(lemma)
+    """Inventory roots without the final vowel (kunda -> kund), like the loop's stems; '/' alternatives
+    and a leftover verb ku- are dropped (agent round 4)."""
+    lemma = norm(str(lemma).split("/")[0].strip("-"))
+    if lemma.startswith("ku") and len(lemma) >= 6:
+        lemma = lemma[2:]
     return lemma[:-1] if len(lemma) >= 4 and lemma[-1] in "ae" else lemma
 
 
@@ -149,14 +152,14 @@ def sw_root(word: str) -> str | None:
     inv = inventory()["sw"]
     if len(word) < 4:
         return None
-    starts = B._strip_prefixes(word, (tuple(NEG_SM) + ("ku",), SM, TAM, REL, OM)) | \
-        B._strip_prefixes(word, (B.SW_NOUN,))
+    # verb prefixes only: Swahili noun-prefix stripping merges words (kiota / ota, chumba / umba)
+    starts = B._strip_prefixes(word, (tuple(NEG_SM) + ("ku",), SM, TAM, REL, OM))
     best = None
     for x in starts:
         for k in range(len(x), 1, -1):
             r = x[:k]
             m = SW_TAIL.fullmatch(x[k:])
-            if r in inv and m:
+            if r in inv and m and len(r) >= 4:   # short roots come from the parser, not this fallback
                 cand = (score(r, inv[r], len(m.group(1)), len(word) - len(x)), r)
                 if best is None or cand > best:
                     best = cand
