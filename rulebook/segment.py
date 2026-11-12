@@ -139,6 +139,10 @@ def dav_root(word: str) -> str | None:
         for k in range(len(x), 1, -1):
             r = x[:k]
             m = DAV_TAIL.fullmatch(x[k:])
+            # a short root may only take a verb ending: chuo / chui / vichuku must not merge into chu
+            # a short root needs a verb final (-a / -e / -ghe): chuo, chui, vichuku must not become chu / uo
+            if m and len(r) <= 3 and not x[k:].endswith(("a", "e", "ghe")):
+                m = None
             if r in inv and m:
                 cand = (score(r, inv[r], len(m.group(1)), len(word) - len(x)), r)
                 if best is None or cand > best:

@@ -10,7 +10,7 @@
    6,
    7
   ],
-  "git_sha": "6522d7d57f835ad704d5c6656d63bf32e4b71b05",
+  "git_sha": "1241a666d2a520473e434540a3058c056db3b6c7",
   "config": {
    "min_evidence": 2,
    "min_lift": 1.5,
@@ -23,9 +23,9 @@
    "train.jsonl": "fd25256c6ddfc22b",
    "attest.py": "dd5015998a3fe5a7",
    "build_rules.py": "d978cc926e12c3c1",
-   "bootstrap_lexicon.json": "6cc835cd09a19e02",
-   "induced_verb_rules.json": "2317e1c96c4aabe0",
-   "induced_extension_rules.json": "2d8020e0a9eb2daa",
+   "bootstrap_lexicon.json": "817e0ea6a4c0a3d7",
+   "induced_verb_rules.json": "2f949ce15b5dd8e5",
+   "induced_extension_rules.json": "50140cd9c896f7b5",
    "word_align.py": "c1d01b4a7f92b929",
    "kitaita_verified_corrections.py": "d05695176e55a882",
    "kitaita_speaker_verified.json": "bae5b8ae8347725e",
@@ -41,7 +41,7 @@
   ],
   "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment"
  },
- "n_rules": 410,
+ "n_rules": 416,
  "rejected": [
   {
    "id": "QUANT.ose.ghu",
@@ -542,7 +542,7 @@
    "evidence_count": 0,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:che|gho|ghe|mo|ve|je|lo|ne|ye|ko|de|we|re|e|o)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
+    "dav_regex": "(?:ghe|che|gho|je|ne|lo|de|re|ye|ko|ve|mo|we|o|e)de[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
     "n_pairs_with_sw_feature": 7609,
     "share_of_feature_pairs": 0.0,
     "lift": null,
@@ -557,16 +557,16 @@
    "reason": "evidence 0, lift None",
    "word_level": {
     "method": "aligned_verbs (bootstrap lexicon)",
-    "n_aligned": 4614,
+    "n_aligned": 4657,
     "k_match": 0,
     "rate": {
      "rate": 0.0,
      "ci95": [
       0.0,
-      0.0008319038054488485
+      0.0008242288259699708
      ],
      "k": 0,
-     "n": 4614,
+     "n": 4657,
      "low_n": false
     },
     "examples": [],

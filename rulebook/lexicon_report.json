@@ -1,0 +1,108 @@
+{
+ "built_by": "rulebook/build_lexicon.py",
+ "script_sha16": "11c302c691ea5773",
+ "bootstrap_lexicon_sha16": "817e0ea6a4c0a3d7",
+ "rules_sha16": "d22a8110e0ec62c7",
+ "train_sha16": "fd25256c6ddfc22b",
+ "priority": [
+  "speaker_verified",
+  "corpus_attested",
+  "mined_alignment",
+  "agent_interpretation"
+ ],
+ "n_entries": 4054,
+ "n_candidates": 5251,
+ "by_source": {
+  "corpus_attested": 2212,
+  "mined_alignment": 918,
+  "agent_interpretation": 794,
+  "speaker_verified": 130
+ },
+ "by_pos": {
+  "N": 3016,
+  "NAME": 47,
+  "V": 955,
+  "FUNC": 12,
+  "ADV": 14,
+  "ADJ": 10
+ },
+ "nouns_with_class": 812,
+ "class_sources": {
+  "corpus_concord_votes": 488,
+  "speaker_verified": 222,
+  "agent_root_list": 102
+ },
+ "close_alternatives": 401,
+ "dev_coverage_swahili_tokens": {
+  "V": {
+   "covered": 11489,
+   "n": 14084,
+   "rate": {
+    "rate": 0.8157483669412099,
+    "ci95": [
+     0.8092596580995429,
+     0.822064873544822
+    ],
+    "k": 11489,
+    "n": 14084,
+    "low_n": false
+   }
+  },
+  "N/other": {
+   "covered": 23133,
+   "n": 26733,
+   "rate": {
+    "rate": 0.8653349792391426,
+    "ci95": [
+     0.8611902925678031,
+     0.8693746818680702
+    ],
+    "k": 23133,
+    "n": 26733,
+    "low_n": false
+   }
+  },
+  "FUNC": {
+   "covered": 5176,
+   "n": 5291,
+   "rate": {
+    "rate": 0.9782649782649783,
+    "ci95": [
+     0.9739749852588493,
+     0.981860974026505
+    ],
+    "k": 5176,
+    "n": 5291,
+    "low_n": false
+   }
+  },
+  "CONCORD": {
+   "covered": 11321,
+   "n": 11321,
+   "rate": {
+    "rate": 1.0,
+    "ci95": [
+     0.9996607811273933,
+     0.9999999999999999
+    ],
+    "k": 11321,
+    "n": 11321,
+    "low_n": false
+   }
+  },
+  "all": {
+   "covered": 51119,
+   "n": 57429,
+   "rate": {
+    "rate": 0.8901251980706611,
+    "ci95": [
+     0.887541264651021,
+     0.892656941665833
+    ],
+    "k": 51119,
+    "n": 57429,
+    "low_n": false
+   }
+  }
+ }
+}

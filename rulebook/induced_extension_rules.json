@@ -2,36 +2,36 @@
  "_meta": {
   "built_by": "rulebook/induce_extensions.py",
   "script_sha16": "41794ef100db2d3f",
-  "bootstrap_lexicon_sha16": "6cc835cd09a19e02",
+  "bootstrap_lexicon_sha16": "817e0ea6a4c0a3d7",
   "train_sha16": "fd25256c6ddfc22b",
-  "n_observations": 4869,
-  "n_plain_controls": 45365
+  "n_observations": 4839,
+  "n_plain_controls": 45521
  },
  "extensions": {
   "applicative": {
-   "n": 1709,
+   "n": 1739,
    "surfaces": [
     {
      "surface": "(none)",
-     "n": 1083,
+     "n": 1124,
      "share": {
-      "rate": 0.633703920421299,
+      "rate": 0.6463484761357102,
       "ci95": [
-       0.610585167165327,
-       0.6562229253051034
+       0.6235770946693666,
+       0.6684746901858951
       ],
-      "k": 1083,
-      "n": 1709,
+      "k": 1124,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 0.75,
+     "lift_vs_no_ext": 0.76,
      "by_root_shape": {
-      "other/eo": 463,
-      "other/aiu": 345,
-      "vowel/aiu": 183,
+      "other/eo": 455,
+      "other/aiu": 323,
+      "vowel/aiu": 225,
+      "palatal/aiu": 58,
       "palatal/eo": 52,
-      "palatal/aiu": 33,
-      "vowel/eo": 7
+      "vowel/eo": 11
      },
      "examples": [
       {
@@ -56,31 +56,25 @@
     },
     {
      "surface": "i",
-     "n": 260,
+     "n": 227,
      "share": {
-      "rate": 0.1521357519016969,
+      "rate": 0.1305347901092582,
       "ci95": [
-       0.13588916348697305,
-       0.1699427359717977
+       0.11551150217376308,
+       0.14718684057867062
       ],
-      "k": 260,
-      "n": 1709,
+      "k": 227,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 5.19,
+     "lift_vs_no_ext": 4.87,
      "by_root_shape": {
-      "other/aiu": 148,
-      "other/eo": 106,
-      "vowel/aiu": 3,
-      "palatal/aiu": 3
+      "other/aiu": 120,
+      "other/eo": 97,
+      "palatal/aiu": 7,
+      "vowel/aiu": 3
      },
      "examples": [
-      {
-       "pair_id": "train:22845",
-       "sw_word": "amenitumia",
-       "dav_word": "wanidumia",
-       "dav_root": "dum"
-      },
       {
        "pair_id": "train:25439",
        "sw_word": "akakatalia",
@@ -92,25 +86,31 @@
        "sw_word": "alimngojea",
        "dav_word": "ombeseria",
        "dav_root": "mbeser"
+      },
+      {
+       "pair_id": "train:17553",
+       "sw_word": "utaniletea",
+       "dav_word": "kuniredia",
+       "dav_root": "red"
       }
      ]
     },
     {
      "surface": "ir",
-     "n": 31,
+     "n": 35,
      "share": {
-      "rate": 0.018139262726740785,
+      "rate": 0.020126509488211614,
       "ci95": [
-       0.012808036377892958,
-       0.02563194546280965
+       0.014506745202666312,
+       0.027861763788626984
       ],
-      "k": 31,
-      "n": 1709,
+      "k": 35,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 2.09,
+     "lift_vs_no_ext": 2.27,
      "by_root_shape": {
-      "palatal/aiu": 18,
+      "palatal/aiu": 22,
       "other/aiu": 13
      },
      "examples": [
@@ -136,21 +136,21 @@
     },
     {
      "surface": "w",
-     "n": 30,
+     "n": 33,
      "share": {
-      "rate": 0.017554125219426564,
+      "rate": 0.01897642323174238,
       "ci95": [
-       0.012323441933388093,
-       0.024948889612039102
+       0.01354373876810339,
+       0.026529667788178033
       ],
-      "k": 30,
-      "n": 1709,
+      "k": 33,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 1.15,
+     "lift_vs_no_ext": 1.21,
      "by_root_shape": {
-      "other/eo": 20,
-      "other/aiu": 7,
+      "other/eo": 22,
+      "other/aiu": 8,
       "palatal/aiu": 2,
       "palatal/eo": 1
      },
@@ -177,20 +177,20 @@
     },
     {
      "surface": "y",
-     "n": 26,
+     "n": 28,
      "share": {
-      "rate": 0.015213575190169689,
+      "rate": 0.016101207590569294,
       "ci95": [
-       0.010403031396093877,
-       0.022198698968231696
+       0.011163095594846604,
+       0.023172554873905123
       ],
-      "k": 26,
-      "n": 1709,
+      "k": 28,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 25.56,
+     "lift_vs_no_ext": 15.93,
      "by_root_shape": {
-      "vowel/aiu": 26
+      "vowel/aiu": 28
      },
      "examples": [
       {
@@ -217,16 +217,16 @@
      "surface": "er",
      "n": 24,
      "share": {
-      "rate": 0.014043300175541252,
+      "rate": 0.013801035077630822,
       "ci95": [
-       0.009454990723175025,
-       0.020811439050599734
+       0.009291580605100158,
+       0.020453864993627804
       ],
       "k": 24,
-      "n": 1709,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 3.93,
+     "lift_vs_no_ext": 3.61,
      "by_root_shape": {
       "palatal/eo": 15,
       "other/eo": 9
@@ -256,16 +256,16 @@
      "surface": "eli",
      "n": 19,
      "share": {
-      "rate": 0.011117612638970159,
+      "rate": 0.010925819436457734,
       "ci95": [
-       0.0071288282147665746,
-       0.017299350082631157
+       0.007005656718997065,
+       0.017002032792201197
       ],
       "k": 19,
-      "n": 1709,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 252.18,
+     "lift_vs_no_ext": null,
      "by_root_shape": {
       "other/eo": 19
      },
@@ -291,60 +291,60 @@
      ]
     },
     {
-     "surface": "n",
-     "n": 12,
+     "surface": "an",
+     "n": 17,
      "share": {
-      "rate": 0.007021650087770626,
+      "rate": 0.0097757331799885,
       "ci95": [
-       0.004021192356753265,
-       0.012233433873716615
+       0.006112371529120302,
+       0.015600215547066084
       ],
-      "k": 12,
-      "n": 1709,
+      "k": 17,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 15.93,
+     "lift_vs_no_ext": 5.36,
      "by_root_shape": {
-      "vowel/aiu": 11,
-      "vowel/eo": 1
+      "other/aiu": 16,
+      "other/eo": 1
      },
      "examples": [
       {
-       "pair_id": "bible:NEN:2KI.10.10",
-       "sw_word": "kupitia",
-       "dav_word": "idana",
-       "dav_root": "ida"
+       "pair_id": "train:25511",
+       "sw_word": "nionekanie",
+       "dav_word": "niwonekanie",
+       "dav_root": "wonek"
       },
       {
-       "pair_id": "bible:NEN:LAM.2.19",
-       "sw_word": "wanazimia",
-       "dav_word": "sena",
-       "dav_root": "se"
+       "pair_id": "train:13434",
+       "sw_word": "kufuatia",
+       "dav_word": "kunughana",
+       "dav_root": "nugh"
       },
       {
-       "pair_id": "bible:NEN:ROM.5.1",
-       "sw_word": "kupitia",
-       "dav_word": "idana",
-       "dav_root": "ida"
+       "pair_id": "bible:NEN:GEN.25.13",
+       "sw_word": "akafuatia",
+       "dav_word": "kunughana",
+       "dav_root": "nugh"
       }
      ]
     },
     {
      "surface": "kir",
-     "n": 11,
+     "n": 13,
      "share": {
-      "rate": 0.006436512580456407,
+      "rate": 0.007475560667050029,
       "ci95": [
-       0.0035978025095103356,
-       0.011489173425684137
+       0.004373928720462378,
+       0.012748453485700246
       ],
-      "k": 11,
-      "n": 1709,
+      "k": 13,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 41.71,
+     "lift_vs_no_ext": 12.15,
      "by_root_shape": {
-      "vowel/aiu": 11
+      "vowel/aiu": 13
      },
      "examples": [
       {
@@ -369,21 +369,21 @@
     },
     {
      "surface": "e",
-     "n": 7,
+     "n": 10,
      "share": {
-      "rate": 0.004095962551199532,
+      "rate": 0.005750431282346176,
       "ci95": [
-       0.0019854658305553663,
-       0.008430908923537482
+       0.0031264869422187305,
+       0.010553241611426074
       ],
-      "k": 7,
-      "n": 1709,
+      "k": 10,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 3.44,
+     "lift_vs_no_ext": 4.36,
      "by_root_shape": {
-      "other/eo": 4,
-      "palatal/aiu": 3
+      "palatal/aiu": 6,
+      "other/eo": 4
      },
      "examples": [
       {
@@ -410,16 +410,16 @@
      "surface": "lw",
      "n": 7,
      "share": {
-      "rate": 0.004095962551199532,
+      "rate": 0.0040253018976423235,
       "ci95": [
-       0.0019854658305553663,
-       0.008430908923537482
+       0.001951190720936065,
+       0.008285884180190923
       ],
       "k": 7,
-      "n": 1709,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 0.74,
+     "lift_vs_no_ext": 0.73,
      "by_root_shape": {
       "vowel/aiu": 7
      },
@@ -448,16 +448,16 @@
      "surface": "enyi",
      "n": 6,
      "share": {
-      "rate": 0.003510825043885313,
+      "rate": 0.0034502587694077054,
       "ci95": [
-       0.0016099836315343497,
-       0.007638740827283091
+       0.0015821929828396617,
+       0.007507330700781384
       ],
       "k": 6,
-      "n": 1709,
+      "n": 1739,
       "low_n": false
      },
-     "lift_vs_no_ext": 0.37,
+     "lift_vs_no_ext": 0.38,
      "by_root_shape": {
       "other/eo": 3,
       "palatal/aiu": 2,
@@ -487,46 +487,46 @@
    ],
    "by_root_shape": {
     "other/aiu": {
-     "n": 596,
+     "n": 542,
      "top": [
       [
        "(none)",
-       345,
-       0.58
+       323,
+       0.6
       ],
       [
        "i",
-       148,
-       0.25
+       120,
+       0.22
+      ],
+      [
+       "an",
+       16,
+       0.03
       ],
       [
        "ir",
        13,
        0.02
-      ],
-      [
-       "w",
-       7,
-       0.01
       ]
      ]
     },
     "other/eo": {
-     "n": 661,
+     "n": 647,
      "top": [
       [
        "(none)",
-       463,
+       455,
        0.7
       ],
       [
        "i",
-       106,
-       0.16
+       97,
+       0.15
       ],
       [
        "w",
-       20,
+       22,
        0.03
       ],
       [
@@ -537,27 +537,27 @@
      ]
     },
     "palatal/aiu": {
-     "n": 73,
+     "n": 133,
      "top": [
       [
        "(none)",
-       33,
-       0.45
+       58,
+       0.44
       ],
       [
        "ir",
-       18,
-       0.25
+       22,
+       0.17
       ],
       [
        "i",
-       3,
-       0.04
+       7,
+       0.05
       ],
       [
        "e",
-       3,
-       0.04
+       6,
+       0.05
       ]
      ]
     },
@@ -587,47 +587,47 @@
      ]
     },
     "vowel/aiu": {
-     "n": 287,
+     "n": 326,
      "top": [
       [
        "(none)",
-       183,
-       0.64
+       225,
+       0.69
       ],
       [
        "y",
-       26,
+       28,
        0.09
       ],
       [
        "kir",
-       11,
+       13,
        0.04
       ],
       [
-       "n",
-       11,
-       0.04
+       "lw",
+       7,
+       0.02
       ]
      ]
     },
     "vowel/eo": {
-     "n": 23,
+     "n": 22,
      "top": [
       [
        "(none)",
-       7,
-       0.3
+       11,
+       0.5
       ],
       [
        "r",
        4,
-       0.17
+       0.18
       ],
       [
        "ngon",
        4,
-       0.17
+       0.18
       ],
       [
        "ghori",
@@ -638,80 +638,37 @@
     }
    },
    "finals": {
-    "a": 1030,
-    "e": 193,
-    "ie": 156,
-    "": 134,
-    "o": 53,
-    "agha": 48,
-    "ieghe": 47,
-    "eghe": 43
+    "a": 1081,
+    "e": 231,
+    "": 116,
+    "ie": 116,
+    "o": 55,
+    "agha": 49,
+    "eghe": 47,
+    "ieghe": 39
    }
   },
   "passive": {
-   "n": 1919,
+   "n": 1918,
    "surfaces": [
     {
-     "surface": "(none)",
-     "n": 624,
-     "share": {
-      "rate": 0.3251693590411673,
-      "ci95": [
-       0.30457767192485374,
-       0.346459626207244
-      ],
-      "k": 624,
-      "n": 1919,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 0.38,
-     "by_root_shape": {
-      "other/aiu": 288,
-      "vowel/aiu": 129,
-      "other/eo": 119,
-      "palatal/eo": 45,
-      "palatal/aiu": 40,
-      "vowel/eo": 3
-     },
-     "examples": [
-      {
-       "pair_id": "train:2270",
-       "sw_word": "limefungwa",
-       "dav_word": "jharughwa",
-       "dav_root": "rughw"
-      },
-      {
-       "pair_id": "train:18716",
-       "sw_word": "nikaolewewa",
-       "dav_word": "nikalowolwa",
-       "dav_root": "lowolw"
-      },
-      {
-       "pair_id": "train:16657",
-       "sw_word": "akipatwa",
-       "dav_word": "wapata",
-       "dav_root": "pat"
-      }
-     ]
-    },
-    {
      "surface": "w",
-     "n": 618,
+     "n": 625,
      "share": {
-      "rate": 0.32204273058884836,
+      "rate": 0.32586027111574556,
       "ci95": [
-       0.3015098686496794,
-       0.3432866658126496
+       0.305250457399163,
+       0.34716626622675917
       ],
-      "k": 618,
-      "n": 1919,
+      "k": 625,
+      "n": 1918,
       "low_n": false
      },
-     "lift_vs_no_ext": 21.11,
+     "lift_vs_no_ext": 20.8,
      "by_root_shape": {
-      "other/aiu": 426,
-      "palatal/aiu": 85,
-      "other/eo": 76,
+      "other/aiu": 401,
+      "other/eo": 109,
+      "palatal/aiu": 84,
       "palatal/eo": 31
      },
      "examples": [
@@ -728,30 +685,73 @@
        "dav_root": "dung"
       },
       {
-       "pair_id": "train:7437",
-       "sw_word": "alishindwa",
-       "dav_word": "odesimwa",
-       "dav_root": "sim"
+       "pair_id": "train:14443",
+       "sw_word": "ilikamatwa",
+       "dav_word": "orewadwa",
+       "dav_root": "wad"
+      }
+     ]
+    },
+    {
+     "surface": "(none)",
+     "n": 605,
+     "share": {
+      "rate": 0.3154327424400417,
+      "ci95": [
+       0.29502255509555525,
+       0.3365807986876079
+      ],
+      "k": 605,
+      "n": 1918,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 0.37,
+     "by_root_shape": {
+      "other/aiu": 274,
+      "other/eo": 139,
+      "vowel/aiu": 97,
+      "palatal/eo": 52,
+      "palatal/aiu": 40,
+      "vowel/eo": 3
+     },
+     "examples": [
+      {
+       "pair_id": "train:2270",
+       "sw_word": "limefungwa",
+       "dav_word": "jharughwa",
+       "dav_root": "rughw"
+      },
+      {
+       "pair_id": "train:11497",
+       "sw_word": "huchotwa",
+       "dav_word": "ghadalwa",
+       "dav_root": "dalwa"
+      },
+      {
+       "pair_id": "train:18716",
+       "sw_word": "nikaolewewa",
+       "dav_word": "nikalowolwa",
+       "dav_root": "lowolw"
       }
      ]
     },
     {
      "surface": "lw",
-     "n": 103,
+     "n": 107,
      "share": {
-      "rate": 0.053673788431474724,
+      "rate": 0.05578727841501564,
       "ci95": [
-       0.04445247656010204,
-       0.06467850958040999
+       0.04637563678850463,
+       0.06697480790995546
       ],
-      "k": 103,
-      "n": 1919,
+      "k": 107,
+      "n": 1918,
       "low_n": false
      },
-     "lift_vs_no_ext": 9.66,
+     "lift_vs_no_ext": 10.08,
      "by_root_shape": {
-      "vowel/aiu": 73,
-      "vowel/eo": 30
+      "vowel/aiu": 72,
+      "vowel/eo": 35
      },
      "examples": [
       {
@@ -776,20 +776,20 @@
     },
     {
      "surface": "il",
-     "n": 79,
+     "n": 87,
      "share": {
-      "rate": 0.04116727462219906,
+      "rate": 0.04535974973931178,
       "ci95": [
-       0.03315639260169803,
-       0.05101153885973904
+       0.036920626279554634,
+       0.055616448576146275
       ],
-      "k": 79,
-      "n": 1919,
+      "k": 87,
+      "n": 1918,
       "low_n": false
      },
-     "lift_vs_no_ext": 10.8,
+     "lift_vs_no_ext": 13.77,
      "by_root_shape": {
-      "other/aiu": 78,
+      "other/aiu": 86,
       "vowel/aiu": 1
      },
      "examples": [
@@ -815,20 +815,20 @@
     },
     {
      "surface": "ilogh",
-     "n": 50,
+     "n": 51,
      "share": {
-      "rate": 0.026055237102657634,
+      "rate": 0.026590198123044837,
       "ci95": [
-       0.01981912473906303,
-       0.03418511565182512
+       0.02028159185130943,
+       0.034791417287425006
       ],
-      "k": 50,
-      "n": 1919,
+      "k": 51,
+      "n": 1918,
       "low_n": false
      },
-     "lift_vs_no_ext": 14.96,
+     "lift_vs_no_ext": 17.29,
      "by_root_shape": {
-      "other/aiu": 50
+      "other/aiu": 51
      },
      "examples": [
       {
@@ -852,59 +852,21 @@
      ]
     },
     {
-     "surface": "ilw",
-     "n": 33,
-     "share": {
-      "rate": 0.017196456487754037,
-      "ci95": [
-       0.012270706781267208,
-       0.0240513698786095
-      ],
-      "k": 33,
-      "n": 1919,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 26.0,
-     "by_root_shape": {
-      "other/aiu": 33
-     },
-     "examples": [
-      {
-       "pair_id": "train:13145",
-       "sw_word": "italipiwa",
-       "dav_word": "chalipilwa",
-       "dav_root": "lip"
-      },
-      {
-       "pair_id": "train:10255",
-       "sw_word": "ilijengwa",
-       "dav_word": "reaghilwa",
-       "dav_root": "agh"
-      },
-      {
-       "pair_id": "train:20432",
-       "sw_word": "yamevamiwa",
-       "dav_word": "ghengirilwa",
-       "dav_root": "ngir"
-      }
-     ]
-    },
-    {
      "surface": "l",
-     "n": 33,
+     "n": 36,
      "share": {
-      "rate": 0.017196456487754037,
+      "rate": 0.018769551616266946,
       "ci95": [
-       0.012270706781267208,
-       0.0240513698786095
+       0.01358821205779945,
+       0.025874769698865624
       ],
-      "k": 33,
-      "n": 1919,
+      "k": 36,
+      "n": 1918,
       "low_n": false
      },
-     "lift_vs_no_ext": 7.72,
+     "lift_vs_no_ext": 10.95,
      "by_root_shape": {
-      "vowel/aiu": 24,
+      "vowel/aiu": 27,
       "vowel/eo": 9
      },
      "examples": [
@@ -932,16 +894,16 @@
      "surface": "el",
      "n": 32,
      "share": {
-      "rate": 0.016675351745700884,
+      "rate": 0.016684045881126174,
       "ci95": [
-       0.011836478465682273,
-       0.023445470915899644
+       0.011842662304228122,
+       0.023457645483885115
       ],
       "k": 32,
-      "n": 1919,
+      "n": 1918,
       "low_n": false
      },
-     "lift_vs_no_ext": 12.4,
+     "lift_vs_no_ext": 12.87,
      "by_root_shape": {
       "other/eo": 32
      },
@@ -968,20 +930,20 @@
     },
     {
      "surface": "ir",
-     "n": 32,
+     "n": 30,
      "share": {
-      "rate": 0.016675351745700884,
+      "rate": 0.01564129301355579,
       "ci95": [
-       0.011836478465682273,
-       0.023445470915899644
+       0.010977967570643246,
+       0.022241003233194077
       ],
-      "k": 32,
-      "n": 1919,
+      "k": 30,
+      "n": 1918,
       "low_n": false
      },
-     "lift_vs_no_ext": 1.92,
+     "lift_vs_no_ext": 1.77,
      "by_root_shape": {
-      "palatal/aiu": 29,
+      "palatal/aiu": 27,
       "other/aiu": 3
      },
      "examples": [
@@ -1006,59 +968,19 @@
      ]
     },
     {
-     "surface": "i",
-     "n": 31,
-     "share": {
-      "rate": 0.01615424700364773,
-      "ci95": [
-       0.011403633358387833,
-       0.022838188744899294
-      ],
-      "k": 31,
-      "n": 1919,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 0.55,
-     "by_root_shape": {
-      "other/aiu": 16,
-      "other/eo": 12,
-      "palatal/eo": 3
-     },
-     "examples": [
-      {
-       "pair_id": "bible:NEN:GEN.4.24",
-       "sw_word": "atalipizwa",
-       "dav_word": "kulipia",
-       "dav_root": "lip"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.24.32",
-       "sw_word": "yakaletwa",
-       "dav_word": "ukamredia",
-       "dav_root": "red"
-      },
-      {
-       "pair_id": "bible:NEN:GEN.33.11",
-       "sw_word": "iliyoletwa",
-       "dav_word": "nakuredia",
-       "dav_root": "red"
-      }
-     ]
-    },
-    {
      "surface": "waghw",
      "n": 30,
      "share": {
-      "rate": 0.015633142261594582,
+      "rate": 0.01564129301355579,
       "ci95": [
-       0.010972235759808954,
-       0.022229459065183386
+       0.010977967570643246,
+       0.022241003233194077
       ],
       "k": 30,
-      "n": 1919,
+      "n": 1918,
       "low_n": false
      },
-     "lift_vs_no_ext": 236.4,
+     "lift_vs_no_ext": 237.34,
      "by_root_shape": {
       "other/aiu": 28,
       "palatal/eo": 1,
@@ -1086,21 +1008,99 @@
      ]
     },
     {
-     "surface": "er",
-     "n": 24,
+     "surface": "i",
+     "n": 30,
      "share": {
-      "rate": 0.012506513809275664,
+      "rate": 0.01564129301355579,
       "ci95": [
-       0.008418592588648192,
-       0.018542338566575407
+       0.010977967570643246,
+       0.022241003233194077
       ],
-      "k": 24,
-      "n": 1919,
+      "k": 30,
+      "n": 1918,
       "low_n": false
      },
-     "lift_vs_no_ext": 3.5,
+     "lift_vs_no_ext": 0.58,
      "by_root_shape": {
-      "palatal/eo": 24
+      "other/aiu": 16,
+      "other/eo": 11,
+      "palatal/eo": 3
+     },
+     "examples": [
+      {
+       "pair_id": "bible:NEN:GEN.4.24",
+       "sw_word": "atalipizwa",
+       "dav_word": "kulipia",
+       "dav_root": "lip"
+      },
+      {
+       "pair_id": "bible:NEN:GEN.24.32",
+       "sw_word": "yakaletwa",
+       "dav_word": "ukamredia",
+       "dav_root": "red"
+      },
+      {
+       "pair_id": "bible:NEN:EXO.19.13",
+       "sw_word": "atapigwa",
+       "dav_word": "mndungi",
+       "dav_root": "dung"
+      }
+     ]
+    },
+    {
+     "surface": "ilw",
+     "n": 27,
+     "share": {
+      "rate": 0.014077163712200209,
+      "ci95": [
+       0.00969251304359198,
+       0.02040445228383147
+      ],
+      "k": 27,
+      "n": 1918,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 22.89,
+     "by_root_shape": {
+      "other/aiu": 27
+     },
+     "examples": [
+      {
+       "pair_id": "train:13145",
+       "sw_word": "italipiwa",
+       "dav_word": "chalipilwa",
+       "dav_root": "lip"
+      },
+      {
+       "pair_id": "train:10255",
+       "sw_word": "ilijengwa",
+       "dav_word": "reaghilwa",
+       "dav_root": "agh"
+      },
+      {
+       "pair_id": "train:20432",
+       "sw_word": "yamevamiwa",
+       "dav_word": "ghengirilwa",
+       "dav_root": "ngir"
+      }
+     ]
+    },
+    {
+     "surface": "er",
+     "n": 26,
+     "share": {
+      "rate": 0.013555787278415016,
+      "ci95": [
+       0.009267440551106955,
+       0.019788856284178535
+      ],
+      "k": 26,
+      "n": 1918,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 3.55,
+     "by_root_shape": {
+      "palatal/eo": 26
      },
      "examples": [
       {
@@ -1116,9 +1116,9 @@
        "dav_root": "elez"
       },
       {
-       "pair_id": "bible:NEN:LEV.8.26",
+       "pair_id": "bible:NEN:LEV.2.8",
        "sw_word": "iliyotengenezwa",
-       "dav_word": "ghubonyero",
+       "dav_word": "jibonyero",
        "dav_root": "bony"
       }
      ]
@@ -1126,61 +1126,61 @@
    ],
    "by_root_shape": {
     "other/aiu": {
-     "n": 1037,
+     "n": 997,
      "top": [
       [
        "w",
-       426,
-       0.41
+       401,
+       0.4
       ],
       [
        "(none)",
-       288,
-       0.28
+       274,
+       0.27
       ],
       [
        "il",
-       78,
-       0.08
+       86,
+       0.09
       ],
       [
        "ilogh",
-       50,
+       51,
        0.05
       ]
      ]
     },
     "other/eo": {
-     "n": 279,
+     "n": 333,
      "top": [
       [
        "(none)",
-       119,
-       0.43
+       139,
+       0.42
       ],
       [
        "w",
-       76,
-       0.27
+       109,
+       0.33
       ],
       [
        "el",
        32,
-       0.11
+       0.1
       ],
       [
        "i",
-       12,
-       0.04
+       11,
+       0.03
       ]
      ]
     },
     "palatal/aiu": {
-     "n": 186,
+     "n": 182,
      "top": [
       [
        "w",
-       85,
+       84,
        0.46
       ],
       [
@@ -1190,58 +1190,58 @@
       ],
       [
        "ir",
-       29,
-       0.16
+       27,
+       0.15
       ],
       [
        "irogh",
-       20,
-       0.11
+       17,
+       0.09
       ]
      ]
     },
     "palatal/eo": {
-     "n": 111,
+     "n": 122,
      "top": [
       [
        "(none)",
-       45,
-       0.41
+       52,
+       0.43
       ],
       [
        "w",
        31,
-       0.28
+       0.25
       ],
       [
        "er",
-       24,
-       0.22
+       26,
+       0.21
       ],
       [
        "erogh",
-       4,
-       0.04
+       6,
+       0.05
       ]
      ]
     },
     "vowel/aiu": {
-     "n": 253,
+     "n": 223,
      "top": [
       [
        "(none)",
-       129,
-       0.51
+       97,
+       0.43
       ],
       [
        "lw",
-       73,
-       0.29
+       72,
+       0.32
       ],
       [
        "l",
-       24,
-       0.09
+       27,
+       0.12
       ],
       [
        "logh",
@@ -1251,65 +1251,66 @@
      ]
     },
     "vowel/eo": {
-     "n": 53,
+     "n": 61,
      "top": [
       [
        "lw",
-       30,
+       35,
        0.57
       ],
       [
        "l",
        9,
-       0.17
+       0.15
       ],
       [
        "logh",
        7,
-       0.13
+       0.11
       ],
       [
        "(none)",
        3,
-       0.06
+       0.05
       ]
      ]
     }
    },
    "finals": {
-    "a": 1033,
-    "o": 324,
-    "e": 235,
+    "a": 1054,
+    "o": 329,
+    "e": 237,
     "agha": 134,
-    "": 130,
+    "": 100,
+    "eghe": 23,
     "ieghe": 23,
-    "eghe": 20,
-    "ie": 19
+    "ie": 17
    }
   },
   "causative": {
-   "n": 132,
+   "n": 117,
    "surfaces": [
     {
      "surface": "(none)",
-     "n": 59,
+     "n": 53,
      "share": {
-      "rate": 0.44696969696969696,
+      "rate": 0.452991452991453,
       "ci95": [
-       0.3648469153839581,
-       0.5320918721450462
+       0.36571889088636605,
+       0.5432528539432291
       ],
-      "k": 59,
-      "n": 132,
+      "k": 53,
+      "n": 117,
       "low_n": false
      },
      "lift_vs_no_ext": 0.53,
      "by_root_shape": {
-      "vowel/aiu": 21,
-      "other/aiu": 19,
-      "other/eo": 10,
-      "palatal/eo": 8,
-      "vowel/eo": 1
+      "other/aiu": 28,
+      "other/eo": 12,
+      "vowel/aiu": 7,
+      "palatal/eo": 4,
+      "vowel/eo": 1,
+      "palatal/aiu": 1
      },
      "examples": [
       {
@@ -1319,16 +1320,16 @@
        "dav_root": "vik"
       },
       {
-       "pair_id": "train:13579",
-       "sw_word": "ilioogopesha",
-       "dav_word": "eobosha",
-       "dav_root": "obosh"
+       "pair_id": "train:11130",
+       "sw_word": "wameinamisha",
+       "dav_word": "wighomekie",
+       "dav_root": "ghomek"
       },
       {
-       "pair_id": "train:1497",
-       "sw_word": "kujifurahisha",
-       "dav_word": "kujiboia",
-       "dav_root": "boi"
+       "pair_id": "train:13240",
+       "sw_word": "amefikisha",
+       "dav_word": "wavikie",
+       "dav_root": "viki"
       }
      ]
     },
@@ -1336,26 +1337,20 @@
      "surface": "ish",
      "n": 18,
      "share": {
-      "rate": 0.13636363636363635,
+      "rate": 0.15384615384615385,
       "ci95": [
-       0.08802774720747256,
-       0.20526679584855737
+       0.09958576028690376,
+       0.23011526982193298
       ],
       "k": 18,
-      "n": 132,
+      "n": 117,
       "low_n": false
      },
-     "lift_vs_no_ext": 206.2,
+     "lift_vs_no_ext": 225.91,
      "by_root_shape": {
       "other/aiu": 18
      },
      "examples": [
-      {
-       "pair_id": "train:1457",
-       "sw_word": "linawakilisha",
-       "dav_word": "jawewashikilisha",
-       "dav_root": "kil"
-      },
       {
        "pair_id": "train:12171",
        "sw_word": "kusimamisha",
@@ -1367,6 +1362,12 @@
        "sw_word": "kukuwezesha",
        "dav_word": "rikudimishagha",
        "dav_root": "dim"
+      },
+      {
+       "pair_id": "train:1341",
+       "sw_word": "ametuwezesha",
+       "dav_word": "wadidimisha",
+       "dav_root": "dim"
       }
      ]
     },
@@ -1374,16 +1375,16 @@
      "surface": "esh",
      "n": 14,
      "share": {
-      "rate": 0.10606060606060606,
+      "rate": 0.11965811965811966,
       "ci95": [
-       0.06423528628432873,
-       0.1701671353597037
+       0.07263082821640884,
+       0.1908678344957698
       ],
       "k": 14,
-      "n": 132,
+      "n": 117,
       "low_n": false
      },
-     "lift_vs_no_ext": 267.3,
+     "lift_vs_no_ext": 320.41,
      "by_root_shape": {
       "other/eo": 13,
       "palatal/eo": 1
@@ -1410,116 +1411,79 @@
      ]
     },
     {
-     "surface": "l",
-     "n": 6,
-     "share": {
-      "rate": 0.045454545454545456,
-      "ci95": [
-       0.020996036056019796,
-       0.09562214276401765
-      ],
-      "k": 6,
-      "n": 132,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 20.42,
-     "by_root_shape": {
-      "vowel/aiu": 6
-     },
-     "examples": [
-      {
-       "pair_id": "bible:NEN:PSA.104.15",
-       "sw_word": "kuufurahisha",
-       "dav_word": "uboilo",
-       "dav_root": "boi"
-      },
-      {
-       "pair_id": "bible:NEN:JDG.19.9",
-       "sw_word": "ukajifurahishe",
-       "dav_word": "mboilo",
-       "dav_root": "boi"
-      },
-      {
-       "pair_id": "bible:NEN:PRO.2.10",
-       "sw_word": "yataifurahisha",
-       "dav_word": "maboilo",
-       "dav_root": "boi"
-      }
-     ]
-    },
-    {
-     "surface": "ishir",
+     "surface": "shir",
      "n": 3,
      "share": {
-      "rate": 0.022727272727272728,
+      "rate": 0.02564102564102564,
       "ci95": [
-       0.00775884364242789,
-       0.06469024411861142
+       0.008757897045422923,
+       0.07268425532594588
       ],
       "k": 3,
-      "n": 132,
+      "n": 117,
       "low_n": false
      },
-     "lift_vs_no_ext": 39.65,
-     "by_root_shape": {
-      "other/aiu": 3
-     },
-     "examples": [
-      {
-       "pair_id": "train:19404",
-       "sw_word": "kujiandikisha",
-       "dav_word": "kujiandikishira",
-       "dav_root": "andik"
-      },
-      {
-       "pair_id": "train:12336",
-       "sw_word": "nilijiandikisha",
-       "dav_word": "nereandikishireghe",
-       "dav_root": "andik"
-      },
-      {
-       "pair_id": "train:26284",
-       "sw_word": "pigisha",
-       "dav_word": "kabishira",
-       "dav_root": "kab"
-      }
-     ]
-    },
-    {
-     "surface": "m",
-     "n": 3,
-     "share": {
-      "rate": 0.022727272727272728,
-      "ci95": [
-       0.00775884364242789,
-       0.06469024411861142
-      ],
-      "k": 3,
-      "n": 132,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 41.24,
+     "lift_vs_no_ext": 233.44,
      "by_root_shape": {
       "vowel/aiu": 3
      },
      "examples": [
       {
-       "pair_id": "train:13627",
-       "sw_word": "kupitisha",
-       "dav_word": "nderidimagha",
-       "dav_root": "idi"
+       "pair_id": "train:26284",
+       "sw_word": "pigisha",
+       "dav_word": "kabishira",
+       "dav_root": "kabi"
       },
       {
-       "pair_id": "bible:NEN:NUM.31.23",
-       "sw_word": "mkipitishe",
-       "dav_word": "chidimagha",
-       "dav_root": "idi"
+       "pair_id": "bible:NEN:PSA.66.11",
+       "sw_word": "umetubebesha",
+       "dav_word": "kukadidukishira",
+       "dav_root": "duki"
       },
       {
-       "pair_id": "bible:NEN:DAN.11.18",
-       "sw_word": "atakomesha",
-       "dav_word": "uchamsima",
-       "dav_root": "si"
+       "pair_id": "bible:NEN:LUK.23.26",
+       "sw_word": "wakambebesha",
+       "dav_word": "wikamdukishira",
+       "dav_root": "duki"
+      }
+     ]
+    },
+    {
+     "surface": "i",
+     "n": 3,
+     "share": {
+      "rate": 0.02564102564102564,
+      "ci95": [
+       0.008757897045422923,
+       0.07268425532594588
+      ],
+      "k": 3,
+      "n": 117,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 0.96,
+     "by_root_shape": {
+      "other/eo": 2,
+      "palatal/aiu": 1
+     },
+     "examples": [
+      {
+       "pair_id": "bible:NEN:PSA.107.4",
+       "sw_word": "kuwafikisha",
+       "dav_word": "chia",
+       "dav_root": "ch"
+      },
+      {
+       "pair_id": "bible:NEN:JOS.2.17",
+       "sw_word": "ulichotuapisha",
+       "dav_word": "ighemi",
+       "dav_root": "ghem"
+      },
+      {
+       "pair_id": "bible:NEN:EZR.10.5",
+       "sw_word": "kuwaapisha",
+       "dav_word": "ighemi",
+       "dav_root": "ghem"
       }
      ]
     },
@@ -1527,16 +1491,16 @@
      "surface": "w",
      "n": 3,
      "share": {
-      "rate": 0.022727272727272728,
+      "rate": 0.02564102564102564,
       "ci95": [
-       0.00775884364242789,
-       0.06469024411861142
+       0.008757897045422923,
+       0.07268425532594588
       ],
       "k": 3,
-      "n": 132,
+      "n": 117,
       "low_n": false
      },
-     "lift_vs_no_ext": 1.49,
+     "lift_vs_no_ext": 1.64,
      "by_root_shape": {
       "other/aiu": 2,
       "palatal/aiu": 1
@@ -1563,19 +1527,51 @@
      ]
     },
     {
+     "surface": "ishir",
+     "n": 2,
+     "share": {
+      "rate": 0.017094017094017096,
+      "ci95": [
+       0.004700284108284717,
+       0.06019127641391957
+      ],
+      "k": 2,
+      "n": 117,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 38.91,
+     "by_root_shape": {
+      "other/aiu": 2
+     },
+     "examples": [
+      {
+       "pair_id": "train:19404",
+       "sw_word": "kujiandikisha",
+       "dav_word": "kujiandikishira",
+       "dav_root": "andik"
+      },
+      {
+       "pair_id": "train:12336",
+       "sw_word": "nilijiandikisha",
+       "dav_word": "nereandikishireghe",
+       "dav_root": "andik"
+      }
+     ]
+    },
+    {
      "surface": "esher",
      "n": 2,
      "share": {
-      "rate": 0.015151515151515152,
+      "rate": 0.017094017094017096,
       "ci95": [
-       0.00416488690145933,
-       0.05356117050658061
+       0.004700284108284717,
+       0.06019127641391957
       ],
       "k": 2,
-      "n": 132,
+      "n": 117,
       "low_n": false
      },
-     "lift_vs_no_ext": 687.35,
+     "lift_vs_no_ext": 778.14,
      "by_root_shape": {
       "other/eo": 2
      },
@@ -1595,19 +1591,51 @@
      ]
     },
     {
+     "surface": "m",
+     "n": 2,
+     "share": {
+      "rate": 0.017094017094017096,
+      "ci95": [
+       0.004700284108284717,
+       0.06019127641391957
+      ],
+      "k": 2,
+      "n": 117,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 16.56,
+     "by_root_shape": {
+      "vowel/aiu": 2
+     },
+     "examples": [
+      {
+       "pair_id": "train:13627",
+       "sw_word": "kupitisha",
+       "dav_word": "nderidimagha",
+       "dav_root": "idi"
+      },
+      {
+       "pair_id": "bible:NEN:DAN.11.18",
+       "sw_word": "atakomesha",
+       "dav_word": "uchamsima",
+       "dav_root": "si"
+      }
+     ]
+    },
+    {
      "surface": "sh",
      "n": 2,
      "share": {
-      "rate": 0.015151515151515152,
+      "rate": 0.017094017094017096,
       "ci95": [
-       0.00416488690145933,
-       0.05356117050658061
+       0.004700284108284717,
+       0.06019127641391957
       ],
       "k": 2,
-      "n": 132,
+      "n": 117,
       "low_n": false
      },
-     "lift_vs_no_ext": 68.73,
+     "lift_vs_no_ext": 129.69,
      "by_root_shape": {
       "vowel/aiu": 2
      },
@@ -1627,83 +1655,19 @@
      ]
     },
     {
-     "surface": "gh",
-     "n": 2,
-     "share": {
-      "rate": 0.015151515151515152,
-      "ci95": [
-       0.00416488690145933,
-       0.05356117050658061
-      ],
-      "k": 2,
-      "n": 132,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 7.24,
-     "by_root_shape": {
-      "vowel/aiu": 2
-     },
-     "examples": [
-      {
-       "pair_id": "bible:NEN:PSA.46.9",
-       "sw_word": "anakomesha",
-       "dav_word": "wisighe",
-       "dav_root": "si"
-      },
-      {
-       "pair_id": "bible:NEN:JER.6.9",
-       "sw_word": "pitisha",
-       "dav_word": "ukuwidagha",
-       "dav_root": "ida"
-      }
-     ]
-    },
-    {
-     "surface": "shir",
-     "n": 2,
-     "share": {
-      "rate": 0.015151515151515152,
-      "ci95": [
-       0.00416488690145933,
-       0.05356117050658061
-      ],
-      "k": 2,
-      "n": 132,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 137.47,
-     "by_root_shape": {
-      "vowel/aiu": 2
-     },
-     "examples": [
-      {
-       "pair_id": "bible:NEN:PSA.66.11",
-       "sw_word": "umetubebesha",
-       "dav_word": "kukadidukishira",
-       "dav_root": "duki"
-      },
-      {
-       "pair_id": "bible:NEN:LUK.23.26",
-       "sw_word": "wakambebesha",
-       "dav_word": "wikamdukishira",
-       "dav_root": "duki"
-      }
-     ]
-    },
-    {
      "surface": "any",
      "n": 2,
      "share": {
-      "rate": 0.015151515151515152,
+      "rate": 0.017094017094017096,
       "ci95": [
-       0.00416488690145933,
-       0.05356117050658061
+       0.004700284108284717,
+       0.06019127641391957
       ],
       "k": 2,
-      "n": 132,
+      "n": 117,
       "low_n": false
      },
-     "lift_vs_no_ext": 3.32,
+     "lift_vs_no_ext": 3.67,
      "by_root_shape": {
       "other/aiu": 2
      },
@@ -1721,26 +1685,58 @@
        "dav_root": "boilw"
       }
      ]
+    },
+    {
+     "surface": "ogh",
+     "n": 2,
+     "share": {
+      "rate": 0.017094017094017096,
+      "ci95": [
+       0.004700284108284717,
+       0.06019127641391957
+      ],
+      "k": 2,
+      "n": 117,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 23.58,
+     "by_root_shape": {
+      "other/aiu": 2
+     },
+     "examples": [
+      {
+       "pair_id": "bible:NEN:JER.15.17",
+       "sw_word": "sikujifurahisha",
+       "dav_word": "sereboiloghe",
+       "dav_root": "boil"
+      },
+      {
+       "pair_id": "bible:NEN:3JN.1.3",
+       "sw_word": "ilinifurahisha",
+       "dav_word": "nereboiloghe",
+       "dav_root": "boil"
+      }
+     ]
     }
    ],
    "by_root_shape": {
     "other/aiu": {
-     "n": 50,
+     "n": 57,
      "top": [
       [
        "(none)",
-       19,
-       0.38
+       28,
+       0.49
       ],
       [
        "ish",
        18,
-       0.36
+       0.32
       ],
       [
        "ishir",
-       3,
-       0.06
+       2,
+       0.04
       ],
       [
        "any",
@@ -1750,17 +1746,17 @@
      ]
     },
     "other/eo": {
-     "n": 27,
+     "n": 29,
      "top": [
       [
        "esh",
        13,
-       0.48
+       0.45
       ],
       [
        "(none)",
-       10,
-       0.37
+       12,
+       0.41
       ],
       [
        "esher",
@@ -1775,52 +1771,62 @@
      ]
     },
     "palatal/aiu": {
-     "n": 1,
+     "n": 3,
      "top": [
+      [
+       "i",
+       1,
+       0.33
+      ],
       [
        "w",
        1,
-       1.0
+       0.33
+      ],
+      [
+       "(none)",
+       1,
+       0.33
       ]
      ]
     },
     "palatal/eo": {
-     "n": 9,
+     "n": 5,
      "top": [
       [
        "(none)",
-       8,
-       0.89
+       4,
+       0.8
       ],
       [
        "esh",
        1,
-       0.11
+       0.2
       ]
      ]
     },
     "vowel/aiu": {
-     "n": 43,
+     "n": 21,
      "top": [
       [
        "(none)",
-       21,
-       0.49
+       7,
+       0.33
       ],
       [
-       "l",
-       6,
+       "shir",
+       3,
        0.14
       ],
       [
        "m",
-       3,
-       0.07
+       2,
+       0.1
       ],
       [
        "sh",
        2,
-       0.05
+       0.1
       ]
      ]
     },
@@ -1841,33 +1847,34 @@
     }
    },
    "finals": {
-    "a": 88,
-    "e": 18,
-    "": 10,
-    "agha": 7,
-    "o": 7,
-    "eghe": 2
+    "a": 80,
+    "e": 13,
+    "o": 8,
+    "": 7,
+    "agha": 5,
+    "eghe": 2,
+    "ie": 2
    }
   },
   "stative": {
-   "n": 660,
+   "n": 645,
    "surfaces": [
     {
      "surface": "(none)",
-     "n": 207,
+     "n": 203,
      "share": {
-      "rate": 0.31363636363636366,
+      "rate": 0.3147286821705426,
       "ci95": [
-       0.2794032820512424,
-       0.350026389123327
+       0.28007441365646074,
+       0.3515768244885656
       ],
-      "k": 207,
-      "n": 660,
+      "k": 203,
+      "n": 645,
       "low_n": false
      },
      "lift_vs_no_ext": 0.37,
      "by_root_shape": {
-      "other/aiu": 110,
+      "other/aiu": 106,
       "vowel/aiu": 31,
       "other/eo": 29,
       "palatal/eo": 28,
@@ -1895,19 +1902,58 @@
      ]
     },
     {
+     "surface": "ik",
+     "n": 70,
+     "share": {
+      "rate": 0.10852713178294573,
+      "ci95": [
+       0.0867992526784944,
+       0.1348906019794067
+      ],
+      "k": 70,
+      "n": 645,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 53.7,
+     "by_root_shape": {
+      "other/aiu": 57,
+      "palatal/aiu": 13
+     },
+     "examples": [
+      {
+       "pair_id": "train:1959",
+       "sw_word": "wanatakikana",
+       "dav_word": "wekundika",
+       "dav_root": "kund"
+      },
+      {
+       "pair_id": "train:12828",
+       "sw_word": "hatakikani",
+       "dav_word": "ndoukundikie",
+       "dav_root": "kund"
+      },
+      {
+       "pair_id": "train:3783",
+       "sw_word": "inapatikana",
+       "dav_word": "kwadapatika",
+       "dav_root": "pat"
+      }
+     ]
+    },
+    {
      "surface": "ek",
      "n": 63,
      "share": {
-      "rate": 0.09545454545454546,
+      "rate": 0.09767441860465116,
       "ci95": [
-       0.07532028236352416,
-       0.12027095506419956
+       0.0770893113154015,
+       0.12302362842212455
       ],
       "k": 63,
-      "n": 660,
+      "n": 645,
       "low_n": false
      },
-     "lift_vs_no_ext": 54.13,
+     "lift_vs_no_ext": 54.22,
      "by_root_shape": {
       "palatal/eo": 38,
       "other/eo": 25
@@ -1934,60 +1980,21 @@
      ]
     },
     {
-     "surface": "ik",
-     "n": 62,
-     "share": {
-      "rate": 0.09393939393939393,
-      "ci95": [
-       0.07397165412280693,
-       0.118606816403897
-      ],
-      "k": 62,
-      "n": 660,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 49.55,
-     "by_root_shape": {
-      "other/aiu": 49,
-      "palatal/aiu": 13
-     },
-     "examples": [
-      {
-       "pair_id": "train:1959",
-       "sw_word": "wanatakikana",
-       "dav_word": "wekundika",
-       "dav_root": "kund"
-      },
-      {
-       "pair_id": "train:12828",
-       "sw_word": "hatakikani",
-       "dav_word": "ndoukundikie",
-       "dav_root": "kund"
-      },
-      {
-       "pair_id": "train:3783",
-       "sw_word": "inapatikana",
-       "dav_word": "kwadapatika",
-       "dav_root": "pat"
-      }
-     ]
-    },
-    {
      "surface": "w",
-     "n": 46,
+     "n": 42,
      "share": {
-      "rate": 0.0696969696969697,
+      "rate": 0.06511627906976744,
       "ci95": [
-       0.05265710322782091,
-       0.09171709688256688
+       0.04853230214773717,
+       0.08684989282866383
       ],
-      "k": 46,
-      "n": 660,
+      "k": 42,
+      "n": 645,
       "low_n": false
      },
-     "lift_vs_no_ext": 4.57,
+     "lift_vs_no_ext": 4.16,
      "by_root_shape": {
-      "other/aiu": 18,
+      "other/aiu": 14,
       "other/eo": 11,
       "palatal/aiu": 9,
       "palatal/eo": 8
@@ -2000,16 +2007,16 @@
        "dav_root": "bony"
       },
       {
-       "pair_id": "train:13840",
-       "sw_word": "ukipatikana",
-       "dav_word": "kukawadwa",
-       "dav_root": "wad"
-      },
-      {
        "pair_id": "train:11986",
        "sw_word": "hawatosheki",
        "dav_word": "wisekatwaa",
        "dav_root": "kat"
+      },
+      {
+       "pair_id": "train:11492",
+       "sw_word": "inasemekana",
+       "dav_word": "wazerwa",
+       "dav_root": "zer"
       }
      ]
     },
@@ -2017,16 +2024,16 @@
      "surface": "ish",
      "n": 32,
      "share": {
-      "rate": 0.048484848484848485,
+      "rate": 0.04961240310077519,
       "ci95": [
-       0.03455078513127786,
-       0.06764467836483326
+       0.03535926131431748,
+       0.06919876949011923
       ],
       "k": 32,
-      "n": 660,
+      "n": 645,
       "low_n": false
      },
-     "lift_vs_no_ext": 73.32,
+     "lift_vs_no_ext": 72.85,
      "by_root_shape": {
       "other/aiu": 32
      },
@@ -2055,16 +2062,16 @@
      "surface": "umbuli",
      "n": 27,
      "share": {
-      "rate": 0.04090909090909091,
+      "rate": 0.04186046511627907,
       "ci95": [
-       0.02826512171401198,
-       0.058866507277000324
+       0.02892604664166173,
+       0.060219902076792814
       ],
       "k": 27,
-      "n": 660,
+      "n": 645,
       "low_n": false
      },
-     "lift_vs_no_ext": 265.12,
+     "lift_vs_no_ext": 272.22,
      "by_root_shape": {
       "other/aiu": 27
      },
@@ -2093,16 +2100,16 @@
      "surface": "k",
      "n": 18,
      "share": {
-      "rate": 0.02727272727272727,
+      "rate": 0.027906976744186046,
       "ci95": [
-       0.017319606758252344,
-       0.042697120123582115
+       0.017724016472182202,
+       0.04368018449150446
       ],
       "k": 18,
-      "n": 660,
+      "n": 645,
       "low_n": false
      },
-     "lift_vs_no_ext": 32.56,
+     "lift_vs_no_ext": 36.3,
      "by_root_shape": {
       "vowel/aiu": 18
      },
@@ -2131,16 +2138,16 @@
      "surface": "ogh",
      "n": 9,
      "share": {
-      "rate": 0.013636363636363636,
+      "rate": 0.013953488372093023,
       "ci95": [
-       0.007190340817571122,
-       0.02571148395508548
+       0.007357942503799474,
+       0.026304510705119306
       ],
       "k": 9,
-      "n": 660,
+      "n": 645,
       "low_n": false
      },
-     "lift_vs_no_ext": 14.39,
+     "lift_vs_no_ext": 19.25,
      "by_root_shape": {
       "other/aiu": 5,
       "other/eo": 4
@@ -2170,13 +2177,13 @@
      "surface": "ikan",
      "n": 8,
      "share": {
-      "rate": 0.012121212121212121,
+      "rate": 0.012403100775193798,
       "ci95": [
-       0.006154455079621051,
-       0.023734602792015794
+       0.006297878676563182,
+       0.024282158115159172
       ],
       "k": 8,
-      "n": 660,
+      "n": 645,
       "low_n": false
      },
      "lift_vs_no_ext": null,
@@ -2205,57 +2212,19 @@
      ]
     },
     {
-     "surface": "i",
-     "n": 8,
-     "share": {
-      "rate": 0.012121212121212121,
-      "ci95": [
-       0.006154455079621051,
-       0.023734602792015794
-      ],
-      "k": 8,
-      "n": 660,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 0.41,
-     "by_root_shape": {
-      "other/aiu": 8
-     },
-     "examples": [
-      {
-       "pair_id": "bible:NEN:1KI.13.32",
-       "sw_word": "katika",
-       "dav_word": "ghichakatia",
-       "dav_root": "kat"
-      },
-      {
-       "pair_id": "bible:NEN:2KI.8.9",
-       "sw_word": "kilichopatikana",
-       "dav_word": "zawadi",
-       "dav_root": "wad"
-      },
-      {
-       "pair_id": "bible:NEN:2CH.36.22",
-       "sw_word": "katika",
-       "dav_word": "kukatia",
-       "dav_root": "kat"
-      }
-     ]
-    },
-    {
      "surface": "ir",
      "n": 7,
      "share": {
-      "rate": 0.010606060606060607,
+      "rate": 0.010852713178294573,
       "ci95": [
-       0.005146812969976829,
-       0.02172947800064026
+       0.005266726297455079,
+       0.022230894077070844
       ],
       "k": 7,
-      "n": 660,
+      "n": 645,
       "low_n": false
      },
-     "lift_vs_no_ext": 1.22,
+     "lift_vs_no_ext": 1.23,
      "by_root_shape": {
       "palatal/aiu": 5,
       "other/aiu": 2
@@ -2285,16 +2254,16 @@
      "surface": "ini",
      "n": 7,
      "share": {
-      "rate": 0.010606060606060607,
+      "rate": 0.010852713178294573,
       "ci95": [
-       0.005146812969976829,
-       0.02172947800064026
+       0.005266726297455079,
+       0.022230894077070844
       ],
       "k": 7,
-      "n": 660,
+      "n": 645,
       "low_n": false
      },
-     "lift_vs_no_ext": 481.14,
+     "lift_vs_no_ext": 494.03,
      "by_root_shape": {
       "other/aiu": 7
      },
@@ -2318,21 +2287,59 @@
        "dav_root": "kat"
       }
      ]
+    },
+    {
+     "surface": "i",
+     "n": 7,
+     "share": {
+      "rate": 0.010852713178294573,
+      "ci95": [
+       0.005266726297455079,
+       0.022230894077070844
+      ],
+      "k": 7,
+      "n": 645,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 0.41,
+     "by_root_shape": {
+      "other/aiu": 7
+     },
+     "examples": [
+      {
+       "pair_id": "bible:NEN:1KI.13.32",
+       "sw_word": "katika",
+       "dav_word": "ghichakatia",
+       "dav_root": "kat"
+      },
+      {
+       "pair_id": "bible:NEN:2CH.36.22",
+       "sw_word": "katika",
+       "dav_word": "kukatia",
+       "dav_root": "kat"
+      },
+      {
+       "pair_id": "bible:NEN:2CH.36.22",
+       "sw_word": "katika",
+       "dav_word": "kukatia",
+       "dav_root": "kat"
+      }
+     ]
     }
    ],
    "by_root_shape": {
     "other/aiu": {
-     "n": 332,
+     "n": 317,
      "top": [
       [
        "(none)",
-       110,
+       106,
        0.33
       ],
       [
        "ik",
-       49,
-       0.15
+       57,
+       0.18
       ],
       [
        "ish",
@@ -2342,7 +2349,7 @@
       [
        "umbuli",
        27,
-       0.08
+       0.09
       ]
      ]
     },
@@ -2448,78 +2455,35 @@
     }
    },
    "finals": {
-    "a": 365,
+    "a": 350,
     "e": 107,
-    "ie": 61,
-    "agha": 47,
-    "": 31,
-    "o": 30,
+    "ie": 60,
+    "agha": 52,
+    "o": 31,
+    "": 26,
     "ieghe": 9,
     "eghe": 7
    }
   },
   "reciprocal": {
-   "n": 305,
+   "n": 285,
    "surfaces": [
     {
-     "surface": "(none)",
-     "n": 125,
-     "share": {
-      "rate": 0.4098360655737705,
-      "ci95": [
-       0.35609575235601393,
-       0.4658194300546457
-      ],
-      "k": 125,
-      "n": 305,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 0.48,
-     "by_root_shape": {
-      "other/aiu": 104,
-      "other/eo": 10,
-      "vowel/aiu": 8,
-      "vowel/eo": 1,
-      "palatal/eo": 1,
-      "palatal/aiu": 1
-     },
-     "examples": [
-      {
-       "pair_id": "train:22402",
-       "sw_word": "nimeumwana",
-       "dav_word": "nalumwa",
-       "dav_root": "lumw"
-      },
-      {
-       "pair_id": "train:26025",
-       "sw_word": "hawezani",
-       "dav_word": "ndeudima",
-       "dav_root": "dim"
-      },
-      {
-       "pair_id": "train:9682",
-       "sw_word": "hawawezani",
-       "dav_word": "wisedimaa",
-       "dav_root": "dim"
-      }
-     ]
-    },
-    {
      "surface": "an",
-     "n": 116,
+     "n": 115,
      "share": {
-      "rate": 0.380327868852459,
+      "rate": 0.40350877192982454,
       "ci95": [
-       0.32765224296876583,
-       0.43598063550356425
+       0.3481986260762464,
+       0.46138558893987314
       ],
-      "k": 116,
-      "n": 305,
+      "k": 115,
+      "n": 285,
       "low_n": false
      },
-     "lift_vs_no_ext": 250.05,
+     "lift_vs_no_ext": 221.3,
      "by_root_shape": {
-      "other/aiu": 70,
+      "other/aiu": 69,
       "other/eo": 24,
       "vowel/aiu": 18,
       "palatal/eo": 3,
@@ -2547,21 +2511,64 @@
      ]
     },
     {
-     "surface": "i",
-     "n": 10,
+     "surface": "(none)",
+     "n": 115,
      "share": {
-      "rate": 0.03278688524590164,
+      "rate": 0.40350877192982454,
       "ci95": [
-       0.01790470520294786,
-       0.059292149106834224
+       0.3481986260762464,
+       0.46138558893987314
       ],
-      "k": 10,
-      "n": 305,
+      "k": 115,
+      "n": 285,
       "low_n": false
      },
-     "lift_vs_no_ext": 1.12,
+     "lift_vs_no_ext": 0.47,
      "by_root_shape": {
-      "other/aiu": 9,
+      "other/aiu": 95,
+      "other/eo": 10,
+      "vowel/aiu": 7,
+      "vowel/eo": 1,
+      "palatal/eo": 1,
+      "palatal/aiu": 1
+     },
+     "examples": [
+      {
+       "pair_id": "train:22402",
+       "sw_word": "nimeumwana",
+       "dav_word": "nalumwa",
+       "dav_root": "lumw"
+      },
+      {
+       "pair_id": "train:26025",
+       "sw_word": "hawezani",
+       "dav_word": "ndeudima",
+       "dav_root": "dim"
+      },
+      {
+       "pair_id": "train:9682",
+       "sw_word": "hawawezani",
+       "dav_word": "wisedimaa",
+       "dav_root": "dim"
+      }
+     ]
+    },
+    {
+     "surface": "i",
+     "n": 9,
+     "share": {
+      "rate": 0.031578947368421054,
+      "ci95": [
+       0.016700888970785036,
+       0.05891702756201357
+      ],
+      "k": 9,
+      "n": 285,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 1.18,
+     "by_root_shape": {
+      "other/aiu": 8,
       "other/eo": 1
      },
      "examples": [
@@ -2589,16 +2596,16 @@
      "surface": "any",
      "n": 9,
      "share": {
-      "rate": 0.029508196721311476,
+      "rate": 0.031578947368421054,
       "ci95": [
-       0.01560036886817662,
-       0.05512067389290219
+       0.016700888970785036,
+       0.05891702756201357
       ],
       "k": 9,
-      "n": 305,
+      "n": 285,
       "low_n": false
      },
-     "lift_vs_no_ext": 6.47,
+     "lift_vs_no_ext": 6.78,
      "by_root_shape": {
       "other/aiu": 9
      },
@@ -2624,57 +2631,19 @@
      ]
     },
     {
-     "surface": "n",
-     "n": 8,
-     "share": {
-      "rate": 0.02622950819672131,
-      "ci95": [
-       0.013349415958968412,
-       0.05089581525340711
-      ],
-      "k": 8,
-      "n": 305,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 59.5,
-     "by_root_shape": {
-      "vowel/aiu": 8
-     },
-     "examples": [
-      {
-       "pair_id": "train:24038",
-       "sw_word": "tupitane",
-       "dav_word": "diidane",
-       "dav_root": "ida"
-      },
-      {
-       "pair_id": "train:6865",
-       "sw_word": "wachana",
-       "dav_word": "lekan",
-       "dav_root": "leka"
-      },
-      {
-       "pair_id": "train:25689",
-       "sw_word": "vimepitana",
-       "dav_word": "veidana",
-       "dav_root": "ida"
-      }
-     ]
-    },
-    {
      "surface": "w",
      "n": 7,
      "share": {
-      "rate": 0.022950819672131147,
+      "rate": 0.02456140350877193,
       "ci95": [
-       0.011160762154416918,
-       0.04660865750925533
+       0.011947258191650496,
+       0.049822237615047706
       ],
       "k": 7,
-      "n": 305,
+      "n": 285,
       "low_n": false
      },
-     "lift_vs_no_ext": 1.5,
+     "lift_vs_no_ext": 1.57,
      "by_root_shape": {
       "other/aiu": 5,
       "other/eo": 2
@@ -2702,20 +2671,20 @@
     },
     {
      "surface": "ony",
-     "n": 6,
+     "n": 5,
      "share": {
-      "rate": 0.019672131147540985,
+      "rate": 0.017543859649122806,
       "ci95": [
-       0.00904621623221612,
-       0.04224739188275284
+       0.007516270385932087,
+       0.040404804694665716
       ],
-      "k": 6,
-      "n": 305,
+      "k": 5,
+      "n": 285,
       "low_n": false
      },
-     "lift_vs_no_ext": 37.18,
+     "lift_vs_no_ext": 33.28,
      "by_root_shape": {
-      "other/aiu": 6
+      "other/aiu": 5
      },
      "examples": [
       {
@@ -2742,16 +2711,16 @@
      "surface": "umiki",
      "n": 5,
      "share": {
-      "rate": 0.01639344262295082,
+      "rate": 0.017543859649122806,
       "ci95": [
-       0.007022000947671735,
-       0.03779579561859395
+       0.007516270385932087,
+       0.040404804694665716
       ],
       "k": 5,
-      "n": 305,
+      "n": 285,
       "low_n": false
      },
-     "lift_vs_no_ext": 25.64,
+     "lift_vs_no_ext": 36.3,
      "by_root_shape": {
       "other/aiu": 5
      },
@@ -2780,16 +2749,16 @@
      "surface": "enyi",
      "n": 5,
      "share": {
-      "rate": 0.01639344262295082,
+      "rate": 0.017543859649122806,
       "ci95": [
-       0.007022000947671735,
-       0.03779579561859395
+       0.007516270385932087,
+       0.040404804694665716
       ],
       "k": 5,
-      "n": 305,
+      "n": 285,
       "low_n": false
      },
-     "lift_vs_no_ext": 1.73,
+     "lift_vs_no_ext": 1.92,
      "by_root_shape": {
       "other/aiu": 5
      },
@@ -2815,19 +2784,57 @@
      ]
     },
     {
+     "surface": "n",
+     "n": 4,
+     "share": {
+      "rate": 0.014035087719298246,
+      "ci95": [
+       0.005471059684129111,
+       0.0355258050334185
+      ],
+      "k": 4,
+      "n": 285,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 53.24,
+     "by_root_shape": {
+      "vowel/aiu": 4
+     },
+     "examples": [
+      {
+       "pair_id": "train:6865",
+       "sw_word": "wachana",
+       "dav_word": "lekan",
+       "dav_root": "leka"
+      },
+      {
+       "pair_id": "train:19056",
+       "sw_word": "wachana",
+       "dav_word": "lekana",
+       "dav_root": "leka"
+      },
+      {
+       "pair_id": "train:19186",
+       "sw_word": "wachana",
+       "dav_word": "lekana",
+       "dav_root": "leka"
+      }
+     ]
+    },
+    {
      "surface": "ian",
      "n": 3,
      "share": {
-      "rate": 0.009836065573770493,
+      "rate": 0.010526315789473684,
       "ci95": [
-       0.0033506190777170385,
-       0.02851555439114207
+       0.0035861670897648426,
+       0.03048648726473257
       ],
       "k": 3,
-      "n": 305,
+      "n": 285,
       "low_n": false
      },
-     "lift_vs_no_ext": 63.74,
+     "lift_vs_no_ext": 79.86,
      "by_root_shape": {
       "other/eo": 3
      },
@@ -2853,51 +2860,19 @@
      ]
     },
     {
-     "surface": "umi",
-     "n": 2,
-     "share": {
-      "rate": 0.006557377049180328,
-      "ci95": [
-       0.0018000773999991473,
-       0.023590284520156685
-      ],
-      "k": 2,
-      "n": 305,
-      "low_n": false
-     },
-     "lift_vs_no_ext": 37.18,
-     "by_root_shape": {
-      "other/aiu": 2
-     },
-     "examples": [
-      {
-       "pair_id": "train:13419",
-       "sw_word": "hupigana",
-       "dav_word": "kudungumia",
-       "dav_root": "dung"
-      },
-      {
-       "pair_id": "bible:NEN:LUK.24.10",
-       "sw_word": "waliofuatana",
-       "dav_word": "wadumi",
-       "dav_root": "wad"
-      }
-     ]
-    },
-    {
      "surface": "ani",
      "n": 2,
      "share": {
-      "rate": 0.006557377049180328,
+      "rate": 0.007017543859649123,
       "ci95": [
-       0.0018000773999991473,
-       0.023590284520156685
+       0.0019265375531811822,
+       0.02522190643826603
       ],
       "k": 2,
-      "n": 305,
+      "n": 285,
       "low_n": false
      },
-     "lift_vs_no_ext": 297.48,
+     "lift_vs_no_ext": 106.48,
      "by_root_shape": {
       "other/aiu": 2
      },
@@ -2915,21 +2890,47 @@
        "dav_root": "kat"
       }
      ]
+    },
+    {
+     "surface": "ik",
+     "n": 1,
+     "share": {
+      "rate": 0.0035087719298245615,
+      "ci95": [
+       0.0006196372126949703,
+       0.019604596415702044
+      ],
+      "k": 1,
+      "n": 285,
+      "low_n": false
+     },
+     "lift_vs_no_ext": 1.74,
+     "by_root_shape": {
+      "other/aiu": 1
+     },
+     "examples": [
+      {
+       "pair_id": "train:4237",
+       "sw_word": "tupendane",
+       "dav_word": "yakundikie",
+       "dav_root": "kund"
+      }
+     ]
     }
    ],
    "by_root_shape": {
     "other/aiu": {
-     "n": 222,
+     "n": 208,
      "top": [
       [
        "(none)",
-       104,
-       0.47
+       95,
+       0.46
       ],
       [
        "an",
-       70,
-       0.32
+       69,
+       0.33
       ],
       [
        "any",
@@ -2938,7 +2939,7 @@
       ],
       [
        "i",
-       9,
+       8,
        0.04
       ]
      ]
@@ -2999,25 +3000,25 @@
      ]
     },
     "vowel/aiu": {
-     "n": 36,
+     "n": 30,
      "top": [
       [
        "an",
        18,
-       0.5
-      ],
-      [
-       "n",
-       8,
-       0.22
+       0.6
       ],
       [
        "(none)",
-       8,
-       0.22
+       7,
+       0.23
       ],
       [
-       "ghesh",
+       "n",
+       4,
+       0.13
+      ],
+      [
+       "kund",
        1,
        0.03
       ]
@@ -3035,11 +3036,11 @@
     }
    },
    "finals": {
-    "a": 193,
-    "e": 47,
-    "": 27,
+    "a": 179,
+    "e": 45,
+    "": 24,
     "agha": 20,
-    "ie": 9,
+    "ie": 8,
     "o": 3,
     "aa": 2,
     "eghe": 2
@@ -3048,28 +3049,28 @@
  },
  "helpers": {
   "applicative_stem": {
-   "n": 1709,
-   "k": 514,
+   "n": 1739,
+   "k": 434,
    "rate": {
-    "rate": 0.30076067875950846,
+    "rate": 0.24956871765382405,
     "ci95": [
-     0.27948488600859367,
-     0.32293018845013033
+     0.22979537982241482,
+     0.27044606495374846
     ],
-    "k": 514,
-    "n": 1709,
+    "k": 434,
+    "n": 1739,
     "low_n": false
    },
-   "n_with_visible_extension": 626,
-   "k_visible": 335,
+   "n_with_visible_extension": 615,
+   "k_visible": 293,
    "rate_visible": {
-    "rate": 0.5351437699680511,
+    "rate": 0.4764227642276423,
     "ci95": [
-     0.4959763606628944,
-     0.5738824736852972
+     0.43721810877630696,
+     0.5159201417873269
     ],
-    "k": 335,
-    "n": 626,
+    "k": 293,
+    "n": 615,
     "low_n": false
    },
    "misses": [
@@ -3102,37 +3103,37 @@
      "predicted": "limi"
     },
     {
-     "pair_id": "train:4236",
-     "sw_word": "hufungulia",
-     "dav_word": "yadarughuya",
-     "dav_root": "rughu",
-     "predicted": "rughui"
+     "pair_id": "train:22845",
+     "sw_word": "amenitumia",
+     "dav_word": "wanidumia",
+     "dav_root": "dumi",
+     "predicted": "dumii"
     }
    ]
   },
   "applicative_perfective+ie": {
-   "n": 1709,
-   "k": 182,
+   "n": 1739,
+   "k": 146,
    "rate": {
-    "rate": 0.10649502633118783,
+    "rate": 0.08395629672225417,
     "ci95": [
-     0.09274228510949245,
-     0.12201289131779658
+     0.07182106549015235,
+     0.09792562864430027
     ],
-    "k": 182,
-    "n": 1709,
+    "k": 146,
+    "n": 1739,
     "low_n": false
    },
-   "n_with_visible_extension": 626,
-   "k_visible": 3,
+   "n_with_visible_extension": 615,
+   "k_visible": 5,
    "rate_visible": {
-    "rate": 0.004792332268370607,
+    "rate": 0.008130081300813009,
     "ci95": [
-     0.0016311062368940896,
-     0.013994409765859616
+     0.0034774892887342685,
+     0.01888946212500392
     ],
-    "k": 3,
-    "n": 626,
+    "k": 5,
+    "n": 615,
     "low_n": false
    },
    "misses": [
@@ -3168,34 +3169,34 @@
      "pair_id": "train:22845",
      "sw_word": "amenitumia",
      "dav_word": "wanidumia",
-     "dav_root": "dum",
-     "predicted": "dumie"
+     "dav_root": "dumi",
+     "predicted": "dumiie"
     }
    ]
   },
   "kitaita_passive_form": {
-   "n": 1919,
-   "k": 760,
+   "n": 1918,
+   "k": 770,
    "rate": {
-    "rate": 0.39603960396039606,
+    "rate": 0.40145985401459855,
     "ci95": [
-     0.3743859298110868,
-     0.4181086781691024
+     0.37973975622049283,
+     0.4235738987654333
     ],
-    "k": 760,
-    "n": 1919,
+    "k": 770,
+    "n": 1918,
     "low_n": false
    },
-   "n_with_visible_extension": 1295,
-   "k_visible": 760,
+   "n_with_visible_extension": 1313,
+   "k_visible": 770,
    "rate_visible": {
-    "rate": 0.5868725868725869,
+    "rate": 0.5864432597105864,
     "ci95": [
-     0.5598355617678923,
-     0.613395723709875
+     0.5595906065187807,
+     0.6127915539475958
     ],
-    "k": 760,
-    "n": 1295,
+    "k": 770,
+    "n": 1313,
     "low_n": false
    },
    "misses": [
@@ -3239,10 +3240,10 @@
  },
  "perfective": {
   "other/eo": {
-   "n": 2670,
+   "n": 2677,
    "finals": {
-    "e": 2269,
-    "ie": 394,
+    "e": 2270,
+    "ie": 400,
     "ere": 7
    },
    "examples": {
@@ -3309,9 +3310,9 @@
    }
   },
   "palatal/eo": {
-   "n": 57,
+   "n": 61,
    "finals": {
-    "ere": 43,
+    "ere": 47,
     "e": 14
    },
    "examples": {
@@ -3343,25 +3344,25 @@
       "dav_root": "kos"
      },
      {
-      "pair_id": "train:671",
-      "sw_word": "nilivyokosa",
-      "dav_word": "nikosere",
-      "dav_root": "kos"
+      "pair_id": "train:14916",
+      "sw_word": "ulikitarajia.�",
+      "dav_word": "koregheshereghe",
+      "dav_root": "ghesh"
      },
      {
-      "pair_id": "bible:NEN:GEN.26.9",
-      "sw_word": "nilifikiri",
-      "dav_word": "neregheshereghe",
+      "pair_id": "train:14976",
+      "sw_word": "tulivyotarajia",
+      "dav_word": "digheshere",
       "dav_root": "ghesh"
      }
     ]
    }
   },
   "palatal/aiu": {
-   "n": 141,
+   "n": 143,
    "finals": {
-    "ire": 127,
-    "e": 14
+    "ire": 130,
+    "e": 13
    },
    "examples": {
     "ire": [
@@ -3407,11 +3408,11 @@
    }
   },
   "other/aiu": {
-   "n": 1211,
+   "n": 1209,
    "finals": {
-    "ie": 870,
-    "e": 274,
-    "ire": 67
+    "ie": 866,
+    "e": 273,
+    "ire": 70
    },
    "examples": {
     "e": [
@@ -3477,9 +3478,9 @@
    }
   },
   "vowel/aiu": {
-   "n": 496,
+   "n": 485,
    "finals": {
-    "e": 496
+    "e": 485
    },
    "examples": {
     "e": [
@@ -3505,9 +3506,9 @@
    }
   },
   "vowel/eo": {
-   "n": 20,
+   "n": 21,
    "finals": {
-    "e": 20
+    "e": 21
    },
    "examples": {
     "e": [
@@ -3535,86 +3536,86 @@
  },
  "post_final_ghe": {
   "tam:me": {
-   "n": 3740,
-   "ghe": 300,
+   "n": 3829,
+   "ghe": 288,
    "rate": {
-    "rate": 0.08021390374331551,
+    "rate": 0.07521546095586315,
     "ci95": [
-     0.07193306725362647,
-     0.08935623515703109
+     0.06728069527339349,
+     0.084001737060883
     ],
-    "k": 300,
-    "n": 3740,
+    "k": 288,
+    "n": 3829,
     "low_n": false
    }
   },
   "tam:li": {
-   "n": 4589,
-   "ghe": 2202,
+   "n": 4632,
+   "ghe": 2198,
    "rate": {
-    "rate": 0.47984310307256484,
+    "rate": 0.4745250431778929,
     "ci95": [
-     0.46541114089765034,
-     0.49430878499746445
+     0.4601714855098262,
+     0.4889208216992898
     ],
-    "k": 2202,
-    "n": 4589,
+    "k": 2198,
+    "n": 4632,
     "low_n": false
    }
   },
   "neg:ku": {
-   "n": 564,
+   "n": 557,
    "ghe": 191,
    "rate": {
-    "rate": 0.33865248226950356,
+    "rate": 0.34290843806104127,
     "ci95": [
-     0.30080321573823676,
-     0.3786848668538101
+     0.30468371943367983,
+     0.3832852186764745
     ],
     "k": 191,
-    "n": 564,
+    "n": 557,
     "low_n": false
    }
   },
   "tam:na": {
-   "n": 3154,
+   "n": 3167,
    "ghe": 29,
    "rate": {
-    "rate": 0.009194673430564362,
+    "rate": 0.009156930849384275,
     "ci95": [
-     0.006409559208542217,
-     0.01317394364986588
+     0.006383218847573026,
+     0.013119994431828881
     ],
     "k": 29,
-    "n": 3154,
+    "n": 3167,
     "low_n": false
    }
   },
   "tam:ta": {
-   "n": 3722,
-   "ghe": 35,
+   "n": 3854,
+   "ghe": 34,
    "rate": {
-    "rate": 0.009403546480386889,
+    "rate": 0.008822003113648157,
     "ci95": [
-     0.006769257165033009,
-     0.013049513445075593
+     0.006320027999714059,
+     0.012302198480502234
     ],
-    "k": 35,
-    "n": 3722,
+    "k": 34,
+    "n": 3854,
     "low_n": false
    }
   },
   "reltam:li": {
-   "n": 2222,
-   "ghe": 829,
+   "n": 2126,
+   "ghe": 821,
    "rate": {
-    "rate": 0.3730873087308731,
+    "rate": 0.3861712135465663,
     "ci95": [
-     0.35321340698168247,
-     0.3933992899865115
+     0.365698104459015,
+     0.4070549491013999
     ],
-    "k": 829,
-    "n": 2222,
+    "k": 821,
+    "n": 2126,
     "low_n": false
    }
   }
