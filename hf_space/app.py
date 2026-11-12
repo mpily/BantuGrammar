@@ -24,6 +24,7 @@ from __future__ import annotations
 
 import json
 import os
+import re
 import random
 import uuid
 from datetime import datetime, timezone
@@ -119,6 +120,14 @@ def translate_finetuned(text: str, clauses=None):
     return r["kitaita"], b["kitaita"], report
 
 
+_UNKNOWN_MARK = re.compile(r"\[\?([^\]]+)\]")
+
+
+def unmark(text: str) -> str:
+    """2026-11-12, user request: show Swahili words with no Kitaita as plain words, without [?...] brackets."""
+    return _UNKNOWN_MARK.sub(r"\1", text or "")
+
+
 def haiku_report(c: dict, e: dict) -> str:
     """Not for blind raters: which system made translations 2 and 3, and how translation 2 was built."""
     if c["kitaita"] is None:
@@ -127,7 +136,8 @@ def haiku_report(c: dict, e: dict) -> str:
     else:
         head = (f"**Translation 2 = Claude Haiku + rule-book tools ({haiku_mt.rulebook_tag()}).** "
                 f"{len(c['tool_calls'])} tool calls, {c.get('n_requests', 0)} model requests, est. ${c['usd']:.4f}; "
-                f"retrieval corpus: {c['corpus']}. `[?word]` = no Kidaw'ida found, Swahili kept.")
+                f"retrieval corpus: {c['corpus']}. Marked by the model as having no Kidaw'ida (Swahili kept): "
+                f"{', '.join(_UNKNOWN_MARK.findall(c['kitaita'])) or 'none'}.")
         calls = [f"- `{x['name']}({json.dumps(x['input'], ensure_ascii=False)[:90]})` -> {x['status']}"
                  for x in c["tool_calls"]]
     tail = (f"\n\n**Translation 3 = Claude Haiku zero-shot (no tools, no dictionary)**: {e['status']}"
@@ -156,10 +166,10 @@ def translate(text: str, request: gr.Request = None):
         yield a_out, msg, msg, f"**Translations 2 and 3 (Haiku):** {why}"
         return
     e = haiku_mt.translate_zero_shot(text)
-    e_out = e["kitaita"] if e["kitaita"] is not None else f"({e['status']})"
+    e_out = unmark(e["kitaita"]) if e["kitaita"] is not None else f"({e['status']})"
     yield a_out, wait, e_out, ""
     c = haiku_mt.translate(text, checked=True)
-    c_out = c["kitaita"] if c["kitaita"] is not None else f"({c['status']})"
+    c_out = unmark(c["kitaita"]) if c["kitaita"] is not None else f"({c['status']})"
     yield a_out, c_out, e_out, haiku_report(c, e)
 
 
@@ -301,8 +311,7 @@ with gr.Blocks(title="Kitaita Translator") as demo:
             gr.Markdown(
                 "# Kitaita Translator\n"
                 "Swahili &rarr; Kitaita (Kidaw'ida, ISO `dav`). Three machine translations of the same "
-                "sentence. Translations 2 and 3 take up to 30 seconds. `[?word]` marks a word with no "
-                "Kitaita found (the Swahili is kept).\n\n"
+                "sentence. Translations 2 and 3 take up to 30 seconds.\n\n"
                 "All three are machine translation awaiting native-speaker review."
             )
             inp = gr.Textbox(label="Swahili sentence", lines=2,

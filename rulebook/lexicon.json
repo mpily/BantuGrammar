@@ -40,7 +40,7 @@
 "corpus_concord_votes": 54,
 "rules.json:CLASS.wu_prefix.modifier_ghu": 22
 },
-"rulebook_version": "v3 (2026-11-12): verified verb roots tagged V",
+"rulebook_version": "v4 (2026-11-12): speaker additions",
 "dev_coverage_swahili_tokens": {
 "V": {
 "covered": 11489,
@@ -124,7 +124,15 @@
 ]
 ],
 "v3_built_by": "rulebook/build_lexicon.py --v3-patch",
-"v3_script_sha16": "a478ad689d3560e5"
+"v3_script_sha16": "a478ad689d3560e5",
+"v4_speaker_additions": [
+[
+"sasa",
+"idana"
+]
+],
+"v4_built_by": "rulebook/build_lexicon.py --v4-patch",
+"v4_additions_sha16": "944b5d4acd39622b"
 },
 "entries": [
 {
@@ -135743,7 +135751,7 @@
 "sw_forms": [
 "sasa"
 ],
-"pos": "N",
+"pos": "ADV",
 "dav": [
 {
 "lemma": "idan",
@@ -135752,7 +135760,7 @@
 "idanaa",
 "diidane"
 ],
-"source": "corpus_attested",
+"source": "speaker_verified",
 "tier": "accepted",
 "evidence_count": 350,
 "domains": {
@@ -135765,7 +135773,12 @@
 "senses": [],
 "conflict": false,
 "mod_class": "ku",
-"mod_class_source": "same_as_class"
+"mod_class_source": "same_as_class",
+"verified": {
+"verified_by": "native speaker, Space test session relayed by the user",
+"date": "2026-11-12",
+"note": "Haiku + tools rendered sasa as idakoni (agent_interpretation, sense 'now, nowadays'); the speaker gave idana. Corpus: idana 354 sasa-pairs (11 dav_swa), idakoni 24 (13 dav_swa). idakoni kept as a lower-ranked alternative."
+}
 },
 {
 "lemma": "idakoni",
@@ -135851,7 +135864,7 @@
 "mod_class_source": "same_as_class"
 }
 ],
-"source": "corpus_attested",
+"source": "speaker_verified",
 "evidence_count": 350,
 "domains": {
 "dav_swa": 11,

@@ -23,7 +23,7 @@ def sha(p):
 
 frozen = ["rulebook/rules.json", "rulebook/RULEBOOK.md", "rulebook/lexicon.json", "rulebook/bootstrap_lexicon.json",
           "rulebook/dav_vocab.json", "rulebook/split_manifest.json", "rulebook/induced_verb_rules.json",
-          "rulebook/induced_extension_rules.json", "rulebook/validation_results.json",
+          "rulebook/induced_extension_rules.json", "rulebook/validation_results.json", "rulebook/speaker_additions.json",
           "agent_translate/tools.py", "agent_translate/tool_schemas.json", "agent_translate/tests/test_tools.py"]
 code = sorted(str(p.relative_to(ROOT)) for p in HERE.glob("*.py"))
 inputs = ["hf_space/kitaita_speaker_verified.json", "hf_space/kitaita_verified_corrections.py", "hf_space/kitaita_verb.py",
@@ -59,7 +59,11 @@ man = {
                        ("v2 + rules.json: FV.perfective.other_eo.ie_by_root (e/o roots -ie, kogh keeps -e), "
                         "FV.perfective.no_vowel.ie (ch -> chie), EXT.passive.w_final.flag; lexicon.json: verified verb "
                         "roots p, li tagged V; tools.py: lookup_word short-root fallback (alimpa -> p -> nek), the two "
-                        "perfective rules, the passive flag") if TAG == "rulebook-v3" else None,
+                        "perfective rules, the passive flag") if TAG == "rulebook-v3" else
+                       ("v3 + lexicon.json: speaker additions (rulebook/speaker_additions.json: sasa -> idana); "
+                        "tools.py lookup_word: pos mismatch keeps candidates (pos_note), non-verb candidates carry the "
+                        "full `word`, bare one-syllable verbs (pa -> p -> nek); tool_schemas: lookup_word description")
+                       if TAG == "rulebook-v4" else None,
     "rule": "No rule or lexicon edits after this tag until arm C/E/A results are in; fixes go to rulebook-v2 and are reported as such.",
 }
 sm = json.loads((HERE / "split_manifest.json").read_text())

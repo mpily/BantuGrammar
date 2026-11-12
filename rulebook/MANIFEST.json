@@ -1,29 +1,30 @@
 {
- "tag": "rulebook-v3",
- "git_commit": "efa69bfb120ccac4dd6c7d7a423d6d2b127ad9b7",
+ "tag": "rulebook-v4",
+ "git_commit": "15b084f4b6b8fc5a25048fa11ce7eafbe708c114",
  "frozen_sha256": {
   "rulebook/rules.json": "a423f71adc8bab71c4b231054fe84c8da26e24a915ee6913b0e979bbbe54fa55",
   "rulebook/RULEBOOK.md": "814f8700151cbc54a9e32eca8f7044eea7b502fcc3fc0451679b50929fa74eae",
-  "rulebook/lexicon.json": "2e30ca9a32b21be5fe2ccc4012741bcafd299b17fc75a8c15c4a9d9e335172fc",
+  "rulebook/lexicon.json": "ba8d6254974ade78c3e11f234ea6694e31909ab5cc652279197a1d2f77e65132",
   "rulebook/bootstrap_lexicon.json": "817e0ea6a4c0a3d75e445f6920233e8848acae705bd9045ef189e526c77b4da8",
   "rulebook/dav_vocab.json": "3c64c3a04998a44b1132f3c50f1ae2cd0349aef5c1ffb02f0155fcc816e1e121",
   "rulebook/split_manifest.json": "5de67491af00d63a433d84df179105098251fc6e7b5633ea90e1bf9720b0c137",
   "rulebook/induced_verb_rules.json": "2f949ce15b5dd8e50d6b3cd03fbc19c56429c04aa1c7074bd2df52a496c50cc3",
   "rulebook/induced_extension_rules.json": "50140cd9c896f7b57924f9233ea09f1c2f05e680ec4350d8cd7bb073c44cf452",
-  "rulebook/validation_results.json": "a41411c323c958aa0c0e0418d400e9d8092492ba38bdc3a502a34f9600776ef0",
-  "agent_translate/tools.py": "d33f6b8d6bc059f2af7cda92e85c354daa44e23de6bacb396c9efd2f27dced6d",
-  "agent_translate/tool_schemas.json": "ccdd4812b0a894bdd8cb0f6c9dc67457c3ed768c748c37df6dd59226c26e674c",
-  "agent_translate/tests/test_tools.py": "5506b08e71e1f90b24c069bae58244e08b4591eb92efc92e44f048a6dcc84049"
+  "rulebook/validation_results.json": "5102da354b669a7de8100cf53526404c688d82459974680499e855e59b197d09",
+  "rulebook/speaker_additions.json": "944b5d4acd39622b45b412bb0370d45dca0cc65dc611336ef61ae6eccbf717aa",
+  "agent_translate/tools.py": "a64967aa2031356be6dacdc11af28ab02ba03926114d6e46d21af830f1e17801",
+  "agent_translate/tool_schemas.json": "24ab9da28af1e307de0376e323f997c1ff8ea5058179f5114c94e60140845d4e",
+  "agent_translate/tests/test_tools.py": "1c5b710a86c6072219020897c5fd4399922624691283f930233c793491abc7d9"
  },
  "code_sha256": {
   "rulebook/agent_batches.py": "f56baa9f1af974852e069820a0444a02ba6e45a2f707f81164ac72dd4abc73ed",
   "rulebook/attest.py": "dd5015998a3fe5a7d89b81e63d376b95448884f27dc22175c4dc1a656a27566a",
   "rulebook/bootstrap_lexicon.py": "78f969bb87312d3b30f900a34efb51090dc4eb7c9393abbda72eca747913a31c",
-  "rulebook/build_lexicon.py": "a478ad689d3560e523889e141bfb6153b8e9eab0c9a6d734f964811f1deac7c8",
+  "rulebook/build_lexicon.py": "494c2f278fc71d5de71a74556274d79336e78d9d40095b71f9babc09bedb16cd",
   "rulebook/build_rules.py": "310513c6ebad6a4f0fc6bcc57ee73a40b69839c7bc010fe8d0d2435d109225c7",
   "rulebook/build_train_filter.py": "93a952eec89a7a31462ab13475311074a387b9e867c3eb6678fd167c6d5b063f",
   "rulebook/build_vocab.py": "9ccad631bdcc3c8bb03096c9e2089ee873150409b552c793c8f2cf166690bfa7",
-  "rulebook/freeze.py": "54f4a96d79cd6fa7787bf9192e2850158144f96ab93e712639bf50b33f97e349",
+  "rulebook/freeze.py": "b8de84de3b5a69179dfff85ae1daece9f1ab0eae757b972e37031c3e930462d7",
   "rulebook/induce_extensions.py": "41794ef100db2d3f885005ddae7a115ed5fd07583228f4083767c08bfd384e3f",
   "rulebook/induce_verb_rules.py": "e2cebfc9274de0f9d0da8731c9d27e5b32d90a7f70aaaf5b7682973affbe668a",
   "rulebook/render.py": "5c469d2be0d6f5af24c84732670212b6120a55685397e1a2bfc1b6e0f2bd0503",
@@ -96,6 +97,6 @@
   "n_dropped_train": 4013,
   "n_dev": 4363
  },
- "changes_from_v1": "v2 + rules.json: FV.perfective.other_eo.ie_by_root (e/o roots -ie, kogh keeps -e), FV.perfective.no_vowel.ie (ch -> chie), EXT.passive.w_final.flag; lexicon.json: verified verb roots p, li tagged V; tools.py: lookup_word short-root fallback (alimpa -> p -> nek), the two perfective rules, the passive flag",
+ "changes_from_v1": "v3 + lexicon.json: speaker additions (rulebook/speaker_additions.json: sasa -> idana); tools.py lookup_word: pos mismatch keeps candidates (pos_note), non-verb candidates carry the full `word`, bare one-syllable verbs (pa -> p -> nek); tool_schemas: lookup_word description",
  "rule": "No rule or lexicon edits after this tag until arm C/E/A results are in; fixes go to rulebook-v2 and are reported as such."
 }

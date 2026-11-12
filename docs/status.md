@@ -29208,3 +29208,23 @@ tools; ratings of the retired fine-tuned + rule book translation are not shown. 
 for the shared precheck); stubbed smoke test of translate / submit-and-clear / Progress in the Space layout.
 Seen in that smoke test: Haiku again rendered alimpa with funy, having looked up bare "pa" (which the v3
 short-root fallback does not catch; live it had looked up "kupa" and found nek). Not fixed here.
+
+## 2026-11-12 (cont.) — rulebook-v4: speaker confirmation sasa -> idana; lookup fixes; no [?] brackets on the Space
+
+**Trigger (user, tests with a native speaker on the Space).** Haiku + tools could not give *sasa* -> *idana*.
+Two causes: (1) the lexicon had *idana* first (corpus_attested, 354 sasa-pairs) but stored as the cut stem
+*idan*, tagged N / class ku, while *idakoni* (agent_interpretation, 24 pairs) carried the sense "now,
+nowadays"; in dav_swa alone idakoni is slightly more frequent (13 vs 11), so Haiku chose idakoni;
+(2) a lookup with pos ADV returned unknown (entry tagged N), giving [?sasa].
+
+**v4 (v3 + these; tag rulebook-v4).** `rulebook/speaker_additions.json` (new): speaker-confirmed pairs with
+who / when / why; *sasa -> idana* becomes speaker_verified (pos ADV), idakoni kept below
+(`build_lexicon.py --v4-patch`). tools.lookup_word: a pos mismatch keeps the candidates (`pos_note`);
+non-verb candidates carry the full `word` (idana, not idan); bare one-syllable verbs reach their root
+(pa -> p -> nek; v3 caught only alimpa / kupa). Prompt: write `word` for non-verbs.
+Checks: Sasa nitaenda nyumbani -> *Idana nichaenda mzinyi*; Watoto wanacheza sasa -> *Wana wawecheza
+idana* (both idakoni / [?sasa] before). Validation unchanged from v3 (65/65, 2427/2490, no leakage, 36 tool
+tests, Space tests pass).
+
+**Space (user request).** Translations show Swahili words without [?...] brackets; the researcher panel still
+lists the words Haiku marked as unknown.

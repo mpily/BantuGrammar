@@ -264,18 +264,29 @@ def lookup_word(sw: str, pos: str | None = None) -> dict:
             e = lex[r]
             note = (f"matched through the short verb root '{r}' of the parse; check that '{w}' really is that verb "
                     f"(nouns and adjectives such as ukali can parse the same way)")
+        # rulebook-v4: the bare citation form of a one-syllable verb (pa 'give', la 'eat') -> its root (p, l)
+        elif len(w) <= 3 and w[-1:] in "aeiou" and lex.get(w[:-1], {}).get("pos") == "V":
+            e = lex[w[:-1]]
+            note = f"matched '{w}' to the one-syllable verb root '{w[:-1]}'"
     if not e:
         return {"status": "unknown", "sw": w, "lemma": lem, "candidates": [], "rule_ids": [], "source": None}
+    # rulebook-v4: a part-of-speech mismatch no longer hides the candidates (the tags are unreliable: sasa
+    # 'now' is tagged N, so a lookup with pos ADV came back unknown and Haiku wrote [?sasa])
+    pos_note = None
     if pos and e["pos"] != pos and not (pos == "N" and e["pos"] in ("N", "NAME")):
-        return {"status": "unknown", "sw": w, "lemma": e["sw"], "pos": e["pos"], "candidates": [],
-                "note": f"entry is {e['pos']}, not {pos}", "rule_ids": [], "source": e["source"]}
-    cands = [{k: c.get(k) for k in ("lemma", "forms", "source", "evidence_count", "domains", "class", "plural",
-                                    "senses", "conflict")} for c in e["dav"]]
+        pos_note = f"entry is tagged {e['pos']}, not {pos}; tags are not reliable, candidates shown anyway"
+    # rulebook-v4: for anything but verbs, `word` is the full form to write (the lemma can be a cut stem:
+    # sasa -> lemma idan, word idana)
+    cands = [{"word": (c["forms"][0] if c.get("forms") else c["lemma"]) if e["pos"] != "V" else None,
+              **{k: c.get(k) for k in ("lemma", "forms", "source", "evidence_count", "domains", "class", "plural",
+                                       "senses", "conflict")}} for c in e["dav"]]
     status = "ok" if e["source"] in ("speaker_verified", "corpus_attested") else "unattested"
     out = {"status": status, "sw": w, "lemma": e["sw"], "pos": e["pos"], "candidates": cands,
            "close_alternatives": e.get("close_alternatives", False), "rule_ids": [], "source": e["source"]}
     if note:
         out.update(note=note, rule_ids=["LEX.short_verb_root"])
+    if pos_note:
+        out["pos_note"] = pos_note
     return out
 
 

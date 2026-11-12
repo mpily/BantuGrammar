@@ -1,0 +1,12 @@
+{
+ "_meta": {
+  "what": "Word pairs confirmed by a native Kidaw'ida speaker after rulebook-v1, added to the lexicon as speaker_verified (rulebook-v4 on). One entry per confirmation, with who/when/how.",
+  "used_by": "rulebook/build_lexicon.py --v4-patch"
+ },
+ "pairs": [
+  {"sw_lemma": "sas", "sw_word": "sasa", "dav_word": "idana", "dav_lemma": "idan",
+   "pos": "ADV", "sense": "now",
+   "verified_by": "native speaker, Space test session relayed by the user", "date": "2026-11-12",
+   "note": "Haiku + tools rendered sasa as idakoni (agent_interpretation, sense 'now, nowadays'); the speaker gave idana. Corpus: idana 354 sasa-pairs (11 dav_swa), idakoni 24 (13 dav_swa). idakoni kept as a lower-ranked alternative."}
+ ]
+}

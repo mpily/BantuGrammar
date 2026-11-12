@@ -27,7 +27,8 @@ clearly do not fit. Senses are optional notes added for some candidates only: a 
 with no senses listed is not weaker for that reason, and a listed sense can be wrong (it may \
 come from words that merely co-occur). Do not switch to a related Swahili word (e.g. pigana for pigania) to find a \
 candidate with a bigger count. Between close candidates, prefer one with dav_swa evidence over \
-one attested only in the Bible.
+one attested only in the Bible. For nouns, adverbs and other non-verbs, write the candidate's \
+`word` (a full form; `lemma` can be a cut stem: sasa -> idana, not idan).
 4. For each noun that controls agreement (subject, object, head of a modifier), call noun_info. \
 Use its sm_class for the verb's subject / object / relative markers and its mod_class for \
 adjectives, demonstratives, possessives, -ose and numerals (they can differ: wu- nouns).

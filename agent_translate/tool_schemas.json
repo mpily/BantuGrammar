@@ -17,7 +17,7 @@
  },
  {
   "name": "lookup_word",
-  "description": "Kidaw'ida translations of a Swahili word or lemma, ranked (speaker_verified > corpus_attested > mined_alignment > agent_interpretation), with noun class, plural, senses and corpus (dav_swa vs bible). Choose the sense; Bible-only words may be archaic. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "description": "Kidaw'ida translations of a Swahili word or lemma, ranked (speaker_verified > corpus_attested > mined_alignment > agent_interpretation), with noun class, plural, senses and corpus (dav_swa vs bible). Choose the sense; Bible-only words may be archaic. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker. For nouns, adverbs and other non-verbs write the candidate's `word` (a full form); `lemma` can be a cut stem (sasa -> lemma idan, word idana). For verbs use `lemma` as dav_root.",
   "input_schema": {
    "type": "object",
    "properties": {

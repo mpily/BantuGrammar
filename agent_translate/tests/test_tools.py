@@ -39,7 +39,9 @@ def test_lookup_word():
     assert r["candidates"] and r["candidates"][0]["lemma"] == "chuo"
     assert _ok(T.lookup_word("anapenda"))["candidates"][0]["lemma"] == "kund"   # speaker-verified root
     assert _ok(T.lookup_word("xyzzyq"))["status"] == "unknown"
-    assert _ok(T.lookup_word("kitabu", pos="V"))["status"] == "unknown"
+    # rulebook-v4: a part-of-speech mismatch keeps the candidates and adds a note (tags are unreliable)
+    r = _ok(T.lookup_word("kitabu", pos="V"))
+    assert r["candidates"][0]["lemma"] == "chuo" and "pos_note" in r
 
 
 def test_noun_info_verified_and_unknown():
@@ -153,3 +155,13 @@ def test_v3_short_roots():
     assert T.generate_verb({"dav_root": "ch", "subj": "3sg", "tense": "past"})["form"] == "orechieghe"
     # passive of a w-final root is flagged, not invented (no lwwa)
     assert T.generate_verb({"dav_root": "lw", "subj": "3sg", "tense": "present", "exts": ["passive"]})["status"] == "flag"
+
+
+def test_v4_lookup():
+    r = _ok(T.lookup_word("sasa", pos="N"))                    # tagged ADV (v4); a wrong pos still finds it
+    assert r["candidates"][0]["word"] == "idana" and "pos_note" in r
+    assert r["candidates"][0]["source"] == "speaker_verified"     # rulebook/speaker_additions.json
+    assert "pos_note" not in T.lookup_word("sasa", pos="ADV")
+    assert _ok(T.lookup_word("pa"))["candidates"][0]["lemma"] == "nek"   # bare one-syllable verb
+    assert T.lookup_word("mtoto")["candidates"][0]["word"] == "mwana"
+    assert T.lookup_word("alimpa")["candidates"][0]["word"] is None     # verbs: use lemma as dav_root

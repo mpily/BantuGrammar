@@ -200,6 +200,29 @@ def main():
                         "domains": top["domains"], "conflict": any(c["conflict"] for c in cands),
                         "close_alternatives": len(cands) > 1 and cands[1]["evidence_count"] >= 0.5 * max(1, top["evidence_count"])})
     entries.sort(key=lambda e: e["sw"])
+    if "--v4-patch" in sys.argv:
+        # rulebook-v4 = v3 lexicon + speaker confirmations from rulebook/speaker_additions.json: the confirmed
+        # candidate becomes source speaker_verified (provenance kept) and moves to the top; others stay below.
+        import subprocess
+        base = json.loads(subprocess.run(["git", "show", "rulebook-v3:rulebook/lexicon.json"], cwd=HERE.parent,
+                                         capture_output=True, text=True, check=True).stdout)
+        adds = json.loads((HERE / "speaker_additions.json").read_text(encoding="utf-8"))["pairs"]
+        by = {e["sw"]: e for e in base["entries"]}
+        done = []
+        for a in adds:
+            e = by[a["sw_lemma"]]
+            c = next(c for c in e["dav"] if c["lemma"] == a["dav_lemma"])
+            c.update(source="speaker_verified", verified={k: a[k] for k in ("verified_by", "date", "note")})
+            e["dav"] = [c] + [x for x in e["dav"] if x is not c]
+            e.update(source="speaker_verified", evidence_count=c["evidence_count"], domains=c["domains"],
+                     pos=a.get("pos", e["pos"]))
+            done.append((a["sw_word"], a["dav_word"]))
+        base["_meta"].update(rulebook_version="v4 (2026-11-12): speaker additions", v4_speaker_additions=done,
+                             v4_built_by="rulebook/build_lexicon.py --v4-patch",
+                             v4_additions_sha16=A.sha16(HERE / "speaker_additions.json"))
+        OUT.write_text(json.dumps(base, ensure_ascii=False, indent=0))
+        print("v4 lexicon: speaker additions", done)
+        return
     if "--v3-patch" in sys.argv:
         # rulebook-v3 = v2 lexicon + pos "V" for speaker-verified verb roots that were tagged otherwise (p 'give'
         # -> nek, li 'cry' -> lil): lookup_word's short-root fallback only uses verb entries.
