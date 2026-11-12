@@ -155,6 +155,39 @@ def _ending_count(ending: str) -> int:
     return sum(c for w, c in _vocab().items() if w.endswith(ending) and len(w) > len(ending))
 
 
+def _speaker_overrides(subj: str, series: str, tense: str, sm: str, tam):
+    """Speaker-verified forms beat corpus forms (CLAUDE_rulebook.md §1.4): verified person markers
+    (2pl future m-), SM+a readings marked default in rules.json (ghu present gha-), and the class-specific
+    past marker (ji: -de-)."""
+    import kitaita_verified_corrections as V
+    extra = []
+    vt = {"future": "future", "present": "present", "past": "past"}.get(tense)
+    if subj in ("1sg", "2sg", "1pl", "2pl") and vt and (subj, vt) in V.PERSON_SUBJECT_MARKERS_BY_TAM \
+            and (subj, vt) not in (("1pl", "past"),):
+        m = V.PERSON_SUBJECT_MARKERS_BY_TAM[(subj, vt)]
+        if m != sm:
+            sm = m
+            extra.append("SM.person.verified")
+    lab = "u" if subj == "3sg" else subj
+    r = _rules().get(f"SM.{lab}.{series}")
+    if series == "a" and r and r.get("readings") and tense in ("present", "present_zero"):   # speaker data: present only
+        d = next((x["form"] for x in r["readings"] if x.get("default")), None)
+        if d and d != sm:
+            sm = d
+            extra.append(r["id"])
+    if tense in ("past", "rel_past") and tam == "re" and lab in V.VERIFIED_PAST_TAM_BY_SM:
+        tam = V.VERIFIED_PAST_TAM_BY_SM[lab]
+        extra.append("TAM.past.verified_by_class")
+    return sm, tam, extra
+
+
+def _sm_before_root(sm: str, row: str, series: str, first: str) -> str:
+    """2pl bare SM: m- before a consonant (1,556 corpus tokens), mu- before a vowel (SM.2pl.bare)."""
+    if row == "2pl" and series == "bare" and sm in ("m", "mu"):
+        return "mu" if first in "aeiou" else "m"
+    return sm
+
+
 def _sw_lemma(word: str) -> str:
     from swahili_verb import parse
     w = _norm(word)
@@ -362,6 +395,8 @@ def _perfective(stem: str, applicative_last: bool, base_root: str) -> tuple[str,
     from rulebook_correct import applicative_perfective
     if applicative_last:
         return applicative_perfective(base_root) + "ie", "EXT.helper.applicative_perfective+ie"
+    if stem.endswith(("ir", "er")) and len(stem) >= 4:
+        return stem + "e", "FV.perfective.r_final"
     end, harm = _root_shape(stem)
     f = {"palatal": "ere" if harm == "eo" else "ire", "vowel": "e"}.get(end, "e" if harm == "eo" else "ie")
     return stem + f, f"FV.perfective.{end}_{harm}.{f}"
@@ -398,10 +433,15 @@ def generate_verb(features: dict) -> dict:
             prefix, ids = "nde" + (tam if tam else "") if tense != "past" else "ndere", ids_3sg
         else:
             sm = SERIES[row][("bare", "a", "e").index(series)]
+            sm = _sm_before_root(sm, row, series, (tam or "")[:1] or (f.get("obj") and "x") or root[:1])
             prefix = "nde" + sm + (tam or "")
     else:
         series, tam, fin, ghe, ids = table[tense]
-        prefix = SERIES[row][("bare", "a", "e").index(series)] + (tam or "")
+        sm = SERIES[row][("bare", "a", "e").index(series)]
+        sm, tam, extra = _speaker_overrides(subj, series, tense, sm, tam)
+        sm = _sm_before_root(sm, row, series, (tam or "")[:1] or (f.get("obj") and "x") or root[:1])
+        prefix = sm + (tam or "")
+        ids = list(ids) + extra
     ids = list(ids)
     tentative = False
     stem, last_app = root, False

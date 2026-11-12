@@ -10,7 +10,7 @@
    6,
    7
   ],
-  "git_sha": "1241a666d2a520473e434540a3058c056db3b6c7",
+  "git_sha": "74f71dfbe87c65a3848350ce10b001f9f581789b",
   "config": {
    "min_evidence": 2,
    "min_lift": 1.5,
@@ -22,7 +22,7 @@
   "hashes_sha256_16": {
    "train.jsonl": "fd25256c6ddfc22b",
    "attest.py": "dd5015998a3fe5a7",
-   "build_rules.py": "d978cc926e12c3c1",
+   "build_rules.py": "ab75df958ccf7506",
    "bootstrap_lexicon.json": "817e0ea6a4c0a3d7",
    "induced_verb_rules.json": "2f949ce15b5dd8e5",
    "induced_extension_rules.json": "50140cd9c896f7b5",
@@ -1126,6 +1126,7 @@
    },
    "then": {
     "forms": [
+     "gha",
      "ghwa"
     ]
    },
@@ -1157,8 +1158,20 @@
     }
    },
    "source": "corpus_attested",
-   "conflict": false,
-   "notes": "present SM+a confirmed against speaker answers (PRESENT_SM_VOWEL_CONFIRMED: gha)",
+   "conflict": true,
+   "readings": [
+    {
+     "form": "gha",
+     "source": "speaker (PRESENT_SM_VOWEL_CONFIRMED)",
+     "default": true
+    },
+    {
+     "form": "ghwa",
+     "source": "corpus",
+     "default": false
+    }
+   ],
+   "notes": "speaker-confirmed present gha- vs corpus ghwa- (validation 2026-11-12)",
    "status": "active"
   },
   {
@@ -6502,7 +6515,7 @@
    "evidence_count": 1487,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ni[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ni[a-z]{3,}",
     "n_pairs_with_sw_feature": 1813,
     "share_of_feature_pairs": 0.8202,
     "lift": 29.68,
@@ -6546,7 +6559,7 @@
    "evidence_count": 1323,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ku[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ku[a-z]{3,}",
     "n_pairs_with_sw_feature": 6174,
     "share_of_feature_pairs": 0.2143,
     "lift": 1.73,
@@ -6590,7 +6603,7 @@
    "evidence_count": 3301,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?m[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?m[a-z]{3,}",
     "n_pairs_with_sw_feature": 4146,
     "share_of_feature_pairs": 0.7962,
     "lift": 3.04,
@@ -6634,7 +6647,7 @@
    "evidence_count": 1911,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?m[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?m[a-z]{3,}",
     "n_pairs_with_sw_feature": 2279,
     "share_of_feature_pairs": 0.8385,
     "lift": 2.92,
@@ -6678,7 +6691,7 @@
    "evidence_count": 416,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?di[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?di[a-z]{3,}",
     "n_pairs_with_sw_feature": 651,
     "share_of_feature_pairs": 0.639,
     "lift": 21.86,
@@ -6722,7 +6735,7 @@
    "evidence_count": 31,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?chi[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?chi[a-z]{3,}",
     "n_pairs_with_sw_feature": 134,
     "share_of_feature_pairs": 0.2313,
     "lift": 20.98,
@@ -6766,7 +6779,7 @@
    "evidence_count": 89,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?vi[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?vi[a-z]{3,}",
     "n_pairs_with_sw_feature": 220,
     "share_of_feature_pairs": 0.4045,
     "lift": 30.77,
@@ -6810,7 +6823,7 @@
    "evidence_count": 95,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ji[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ji[a-z]{3,}",
     "n_pairs_with_sw_feature": 349,
     "share_of_feature_pairs": 0.2722,
     "lift": 12.27,
@@ -6854,7 +6867,7 @@
    "evidence_count": 64,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ji[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ji[a-z]{3,}",
     "n_pairs_with_sw_feature": 952,
     "share_of_feature_pairs": 0.0672,
     "lift": 2.87,
@@ -6898,7 +6911,7 @@
    "evidence_count": 179,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ghi[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ghi[a-z]{3,}",
     "n_pairs_with_sw_feature": 699,
     "share_of_feature_pairs": 0.2561,
     "lift": 16.98,
@@ -6942,7 +6955,7 @@
    "evidence_count": 133,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ri[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ri[a-z]{3,}",
     "n_pairs_with_sw_feature": 502,
     "share_of_feature_pairs": 0.2649,
     "lift": 10.1,
@@ -6986,7 +6999,7 @@
    "evidence_count": 708,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?i[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?i[a-z]{3,}",
     "n_pairs_with_sw_feature": 1437,
     "share_of_feature_pairs": 0.4927,
     "lift": 3.26,
@@ -7030,7 +7043,7 @@
    "evidence_count": 280,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ghu[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ghu[a-z]{3,}",
     "n_pairs_with_sw_feature": 813,
     "share_of_feature_pairs": 0.3444,
     "lift": 24.15,
@@ -7074,7 +7087,7 @@
    "evidence_count": 2784,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?wi[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?wi[a-z]{3,}",
     "n_pairs_with_sw_feature": 4998,
     "share_of_feature_pairs": 0.557,
     "lift": 9.42,
@@ -8014,7 +8027,7 @@
    "evidence_count": 185,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:ghe|che|gho|je|ne|lo|de|re|ye|ko|ve|mo|we|o|e)re(?:ni|ku|m|di|wi|ghi|ri|chi|vi|ji|ghu|lu|i)[a-z]{2,}(?:ie|ire|ere|e)ghe",
+    "dav_regex": "nde(?:ghe|che|gho|re|ko|de|ne|mo|lo|ye|we|je|ve|e|o)re(?:ni|ku|m|di|wi|ghi|ri|chi|vi|ji|ghu|lu|i)[a-z]{2,}(?:ie|ire|ere|e)ghe",
     "n_pairs_with_sw_feature": 37491,
     "share_of_feature_pairs": 0.0049,
     "lift": null,
@@ -8073,7 +8086,7 @@
    "evidence_count": 4414,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|cha|kwa|mwa|gha|lwa|da|ja|wa|ra|ya|va|na)[a-z]{2,}a",
+    "dav_regex": "(?:ghwa|cha|gha|lwa|mwa|kwa|da|ra|va|na|ya|ja|wa)[a-z]{2,}a",
     "n_pairs_with_sw_feature": 6970,
     "share_of_feature_pairs": 0.6333,
     "lift": 1.91,
@@ -8185,7 +8198,7 @@
    "evidence_count": 981,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|cha|kwa|mwa|gha|lwa|da|ja|wa|ra|ya|va|na)[a-z]{2,}(?:ie|ire|ere)",
+    "dav_regex": "(?:ghwa|cha|gha|lwa|mwa|kwa|da|ra|va|na|ya|ja|wa)[a-z]{2,}(?:ie|ire|ere)",
     "n_pairs_with_sw_feature": 6970,
     "share_of_feature_pairs": 0.1407,
     "lift": 5.76,
@@ -8298,7 +8311,7 @@
    "evidence_count": 25,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|cha|kwa|mwa|gha|lwa|da|ja|wa|ra|ya|va|na)[a-z]{2,}a",
+    "dav_regex": "(?:ghwa|cha|gha|lwa|mwa|kwa|da|ra|va|na|ya|ja|wa)[a-z]{2,}a",
     "n_pairs_with_sw_feature": 41,
     "share_of_feature_pairs": 0.6098,
     "lift": 1.58,
@@ -8410,7 +8423,7 @@
    "evidence_count": 3671,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghe|che|gho|je|ne|lo|de|re|ye|ko|ve|mo|we|o|e)re[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
+    "dav_regex": "(?:ghe|che|gho|re|ko|de|ne|mo|lo|ye|we|je|ve|e|o)re[a-z]{2,}(?:ie|ire|ere|e)(?:ghe)?",
     "n_pairs_with_sw_feature": 7609,
     "share_of_feature_pairs": 0.4825,
     "lift": 5.7,
@@ -8484,6 +8497,40 @@
    ]
   },
   {
+   "id": "TAM.past.verified_by_class",
+   "section": 3,
+   "slot": "TAM",
+   "if": {
+    "sw_tam": "li",
+    "subj_class": [
+     "ji"
+    ]
+   },
+   "then": {
+    "tam_by_class": {
+     "ji": "de"
+    },
+    "template": "SM+e-<tam>-ROOT-ie(-ghe)"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {},
+   "source": "speaker_verified",
+   "conflict": false,
+   "verified_examples": [
+    {
+     "ref": "hf_space/kitaita_verified_corrections.py:VERIFIED_PAST_TAM_BY_SM"
+    }
+   ],
+   "notes": "class-specific past marker (ji: -de-) overrides -re- (validation 2026-11-12)",
+   "status": "active",
+   "rank": 1,
+   "default": true,
+   "alternatives": []
+  },
+  {
    "id": "TAM.past.li_e_only",
    "section": 3,
    "slot": "TAM",
@@ -8529,7 +8576,7 @@
    "evidence_count": 1849,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghe|che|gho|je|ne|lo|de|re|ye|ko|ve|mo|we|o|e)(?!re|de)[a-z]{2,}a",
+    "dav_regex": "(?:ghe|che|gho|re|ko|de|ne|mo|lo|ye|we|je|ve|e|o)(?!re|de)[a-z]{2,}a",
     "n_pairs_with_sw_feature": 7609,
     "share_of_feature_pairs": 0.243,
     "lift": 1.74,
@@ -8641,7 +8688,7 @@
    "evidence_count": 4130,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)cha[a-z]{2,}a",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)cha[a-z]{2,}a",
     "n_pairs_with_sw_feature": 6143,
     "share_of_feature_pairs": 0.6723,
     "lift": 20.21,
@@ -8758,7 +8805,7 @@
    "evidence_count": 3493,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|cha|kwa|mwa|gha|lwa|da|ja|wa|ra|ya|va|na)(?!we)[a-z]{2,}a",
+    "dav_regex": "(?:ghwa|cha|gha|lwa|mwa|kwa|da|ra|va|na|ya|ja|wa)(?!we)[a-z]{2,}a",
     "n_pairs_with_sw_feature": 6073,
     "share_of_feature_pairs": 0.5752,
     "lift": 1.78,
@@ -8888,7 +8935,7 @@
    "evidence_count": 584,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|cha|kwa|mwa|gha|lwa|da|ja|wa|ra|ya|va|na)we[a-z]{2,}a",
+    "dav_regex": "(?:ghwa|cha|gha|lwa|mwa|kwa|da|ra|va|na|ya|ja|wa)we[a-z]{2,}a",
     "n_pairs_with_sw_feature": 6073,
     "share_of_feature_pairs": 0.0962,
     "lift": 9.27,
@@ -9057,7 +9104,7 @@
    "evidence_count": 1698,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghe|che|gho|je|ne|lo|de|re|ye|ko|ve|mo|we|o|e)re[a-z]{2,}(?:ie|ire|ere|e)ghe",
+    "dav_regex": "(?:ghe|che|gho|re|ko|de|ne|mo|lo|ye|we|je|ve|e|o)re[a-z]{2,}(?:ie|ire|ere|e)ghe",
     "n_pairs_with_sw_feature": 5053,
     "share_of_feature_pairs": 0.336,
     "lift": 5.93,
@@ -9152,7 +9199,7 @@
    "evidence_count": 98,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)(?!re|de|ka|ki|cha)[a-z]{2,}(?:ie|ire|ere)ghe",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)(?!re|de|ka|ki|cha)[a-z]{2,}(?:ie|ire|ere)ghe",
     "n_pairs_with_sw_feature": 7609,
     "share_of_feature_pairs": 0.0129,
     "lift": 2.57,
@@ -9221,7 +9268,7 @@
    "evidence_count": 1240,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)[a-z]{2,}agha",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)[a-z]{2,}agha",
     "n_pairs_with_sw_feature": 2450,
     "share_of_feature_pairs": 0.5061,
     "lift": 4.64,
@@ -9332,7 +9379,7 @@
    "evidence_count": 54,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghe|che|gho|je|ne|lo|de|re|ye|ko|ve|mo|we|o|e)nda[a-z]{2,}",
+    "dav_regex": "(?:ghe|che|gho|re|ko|de|ne|mo|lo|ye|we|je|ve|e|o)nda[a-z]{2,}",
     "n_pairs_with_sw_feature": 1908,
     "share_of_feature_pairs": 0.0283,
     "lift": 29.62,
@@ -9442,7 +9489,7 @@
    "evidence_count": 989,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|cha|kwa|mwa|gha|lwa|da|ja|wa|ra|ya|va|na)da[a-z]{2,}",
+    "dav_regex": "(?:ghwa|cha|gha|lwa|mwa|kwa|da|ra|va|na|ya|ja|wa)da[a-z]{2,}",
     "n_pairs_with_sw_feature": 1813,
     "share_of_feature_pairs": 0.5455,
     "lift": 13.59,
@@ -9552,7 +9599,7 @@
    "evidence_count": 7995,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)ka[a-z]{2,}",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)ka[a-z]{2,}",
     "n_pairs_with_sw_feature": 9451,
     "share_of_feature_pairs": 0.8459,
     "lift": 4.06,
@@ -9662,7 +9709,7 @@
    "evidence_count": 1173,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)ki[a-z]{2,}",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)ki[a-z]{2,}",
     "n_pairs_with_sw_feature": 3538,
     "share_of_feature_pairs": 0.3315,
     "lift": 5.39,
@@ -9772,7 +9819,7 @@
    "evidence_count": 626,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)se[a-z]{2,}e",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)se[a-z]{2,}e",
     "n_pairs_with_sw_feature": 1402,
     "share_of_feature_pairs": 0.4465,
     "lift": 11.89,
@@ -9884,7 +9931,7 @@
    "evidence_count": 481,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)(?:sake|seke)[a-z]{2,}",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)(?:sake|seke)[a-z]{2,}",
     "n_pairs_with_sw_feature": 1402,
     "share_of_feature_pairs": 0.3431,
     "lift": 51.59,
@@ -10058,7 +10105,7 @@
    "evidence_count": 404,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)?[a-z]{2,}agha",
+    "dav_regex": "nde(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)?[a-z]{2,}agha",
     "n_pairs_with_sw_feature": 1645,
     "share_of_feature_pairs": 0.2456,
     "lift": 24.73,
@@ -10278,7 +10325,7 @@
    "evidence_count": 456,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:ghe|che|gho|je|ne|lo|de|re|ye|ko|ve|mo|we|o|e)?re[a-z]{2,}ghe",
+    "dav_regex": "nde(?:ghe|che|gho|re|ko|de|ne|mo|lo|ye|we|je|ve|e|o)?re[a-z]{2,}ghe",
     "n_pairs_with_sw_feature": 1318,
     "share_of_feature_pairs": 0.346,
     "lift": 50.46,
@@ -10390,7 +10437,7 @@
    "evidence_count": 108,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)[a-z]{2,}(?:ie|ire|ere)",
+    "dav_regex": "nde(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)[a-z]{2,}(?:ie|ire|ere)",
     "n_pairs_with_sw_feature": 1318,
     "share_of_feature_pairs": 0.0819,
     "lift": 4.37,
@@ -10502,7 +10549,7 @@
    "evidence_count": 419,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)?chaa[a-z]{2,}",
+    "dav_regex": "nde(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)?chaa[a-z]{2,}",
     "n_pairs_with_sw_feature": 990,
     "share_of_feature_pairs": 0.4232,
     "lift": 85.82,
@@ -10722,7 +10769,7 @@
    "evidence_count": 167,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:si|nde(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)?)[a-z]{2,}(?:ie|ire|ere)",
+    "dav_regex": "(?:si|nde(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)?)[a-z]{2,}(?:ie|ire|ere)",
     "n_pairs_with_sw_feature": 552,
     "share_of_feature_pairs": 0.3025,
     "lift": 12.6,
@@ -10913,7 +10960,7 @@
    "evidence_count": 342,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghe|che|gho|je|ne|lo|de|re|ye|ko|ve|mo|we|o|e)re[a-z]{2,}(?:il|el|ir|er)o(?:ghe)?",
+    "dav_regex": "(?:ghe|che|gho|re|ko|de|ne|mo|lo|ye|we|je|ve|e|o)re[a-z]{2,}(?:il|el|ir|er)o(?:ghe)?",
     "n_pairs_with_sw_feature": 3428,
     "share_of_feature_pairs": 0.0998,
     "lift": 7.29,
@@ -10984,7 +11031,7 @@
    "evidence_count": 118,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|cha|kwa|mwa|gha|lwa|da|ja|wa|ra|ya|va|na)[a-z]{2,}(?:il|el|ir|er|l|w)o",
+    "dav_regex": "(?:ghwa|cha|gha|lwa|mwa|kwa|da|ra|va|na|ya|ja|wa)[a-z]{2,}(?:il|el|ir|er|l|w)o",
     "n_pairs_with_sw_feature": 3796,
     "share_of_feature_pairs": 0.0311,
     "lift": 5.92,
@@ -11318,7 +11365,7 @@
    "evidence_count": 548,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghwa|cha|kwa|mwa|gha|lwa|da|ja|wa|ra|ya|va|na)a?wuya[a-z]{2,}",
+    "dav_regex": "(?:ghwa|cha|gha|lwa|mwa|kwa|da|ra|va|na|ya|ja|wa)a?wuya[a-z]{2,}",
     "n_pairs_with_sw_feature": 6073,
     "share_of_feature_pairs": 0.0902,
     "lift": 5.1,
@@ -11416,7 +11463,7 @@
    "evidence_count": 116,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)ki[a-z]{2,}",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)ki[a-z]{2,}",
     "n_pairs_with_sw_feature": 177,
     "share_of_feature_pairs": 0.6554,
     "lift": 7.78,
@@ -11943,24 +11990,19 @@
    "status": "active",
    "word_level": {
     "method": "aligned_verbs (bootstrap lexicon)",
-    "n_aligned": 9719,
-    "k_match": 2421,
+    "n_aligned": 9694,
+    "k_match": 2396,
     "rate": {
-     "rate": 0.24909970161539252,
+     "rate": 0.2471631937280792,
      "ci95": [
-      0.24060145586344078,
-      0.25779621421687815
+      0.23867735940273654,
+      0.2558493402290661
      ],
-     "k": 2421,
-     "n": 9719,
+     "k": 2396,
+     "n": 9694,
      "low_n": false
     },
     "examples": [
-     {
-      "pair_id": "train:13418",
-      "sw_word": "mwituni",
-      "dav_word": "isakenyi"
-     },
      {
       "pair_id": "train:11620",
       "sw_word": "mdomoni",
@@ -11970,6 +12012,11 @@
       "pair_id": "train:18061",
       "sw_word": "dukani",
       "dav_word": "idukenyi"
+     },
+     {
+      "pair_id": "train:10551",
+      "sw_word": "angani",
+      "dav_word": "mbeonyi"
      }
     ],
     "counterexamples": [
@@ -12036,7 +12083,7 @@
    "evidence_count": 449,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:chi|che|ghi|ghe|gho|ghu|ji|ku|ye|lo|wi|ni|je|vi|ri|re|mu|ko|di|ne|de|ve|lu|mo|we|u|o|i|m|e)ko",
+    "dav_regex": "(?:ghi|ghe|che|chi|ghu|gho|ni|re|ri|de|ku|we|di|mo|lo|wi|ye|ve|je|ko|ji|ne|mu|vi|lu|e|o|m|i|u)ko",
     "n_pairs_with_sw_feature": 935,
     "share_of_feature_pairs": 0.4802,
     "lift": 4.21,
@@ -12144,7 +12191,7 @@
    "evidence_count": 655,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)?[a-z]{2,}(?:e|o)",
+    "dav_regex": "nde(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)?[a-z]{2,}(?:e|o)",
     "n_pairs_with_sw_feature": 6739,
     "share_of_feature_pairs": 0.0972,
     "lift": 1.74,
@@ -12257,7 +12304,7 @@
    "evidence_count": 4878,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)(?!nde)[a-z]{2,}e",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)(?!nde)[a-z]{2,}e",
     "n_pairs_with_sw_feature": 6739,
     "share_of_feature_pairs": 0.7238,
     "lift": 2.44,
@@ -12371,7 +12418,7 @@
    "evidence_count": 530,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ku[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?ku[a-z]{3,}",
     "n_pairs_with_sw_feature": 952,
     "share_of_feature_pairs": 0.5567,
     "lift": 4.35,
@@ -12481,7 +12528,7 @@
    "evidence_count": 629,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?mmb[a-z]{2,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?mmb[a-z]{2,}",
     "n_pairs_with_sw_feature": 5837,
     "share_of_feature_pairs": 0.1078,
     "lift": 17.14,
@@ -12589,7 +12636,7 @@
    "evidence_count": 536,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:chi|che|ghi|ghe|gho|ghu|ji|ku|ye|lo|wi|ni|je|vi|ri|re|mu|ko|di|ne|de|ve|lu|mo|we|u|o|i|m|e)(?:e?ka|oka|ko)",
+    "dav_regex": "(?:ghi|ghe|che|chi|ghu|gho|ni|re|ri|de|ku|we|di|mo|lo|wi|ye|ve|je|ko|ji|ne|mu|vi|lu|e|o|m|i|u)(?:e?ka|oka|ko)",
     "n_pairs_with_sw_feature": 1212,
     "share_of_feature_pairs": 0.4422,
     "lift": 2.98,
@@ -12952,7 +12999,7 @@
    "evidence_count": 636,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)chaa[a-z]{2,}",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)chaa[a-z]{2,}",
     "n_pairs_with_sw_feature": 6143,
     "share_of_feature_pairs": 0.1035,
     "lift": 13.75,
@@ -13067,7 +13114,7 @@
    "evidence_count": 2400,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:nde|si)?(?:ghwa|gha|chi|che|kwa|mwa|ghi|lwa|ghe|gho|cha|ghu|ji|ku|ye|lo|ja|ra|wi|ni|na|da|je|vi|ri|re|va|mu|ko|di|ne|wa|de|ya|ve|lu|mo|we|u|o|i|m|e)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?mu?(?!mb)[a-z]{3,}",
+    "dav_regex": "(?:nde|si)?(?:ghwa|lwa|kwa|ghi|ghe|che|cha|chi|gha|mwa|ghu|gho|ni|na|ya|re|ri|de|ku|we|da|di|mo|va|lo|wi|ja|wa|ye|je|ve|ko|ji|ne|ra|mu|vi|lu|e|o|m|i|u)(?:chaa|cha|re|de|ka|ki|we|nda|da|se|sake|seke)?mu?(?!mb)[a-z]{3,}",
     "n_pairs_with_sw_feature": 4998,
     "share_of_feature_pairs": 0.4802,
     "lift": 1.67,
@@ -13175,7 +13222,7 @@
    "evidence_count": 122,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:chi|che|ghi|ghe|gho|ghu|ji|ku|ye|lo|wi|ni|je|vi|ri|re|mu|ko|di|ne|de|ve|lu|mo|we|u|o|i|m|e)?n[ae]",
+    "dav_regex": "nde(?:ghi|ghe|che|chi|ghu|gho|ni|re|ri|de|ku|we|di|mo|lo|wi|ye|ve|je|ko|ji|ne|mu|vi|lu|e|o|m|i|u)?n[ae]",
     "n_pairs_with_sw_feature": 1157,
     "share_of_feature_pairs": 0.1054,
     "lift": 76.62,
@@ -13288,7 +13335,7 @@
    "evidence_count": 227,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "nde(?:chi|che|ghi|ghe|gho|ghu|ji|ku|ye|lo|wi|ni|je|vi|ri|re|mu|ko|di|ne|de|ve|lu|mo|we|u|o|i|m|e)?wadie",
+    "dav_regex": "nde(?:ghi|ghe|che|chi|ghu|gho|ni|re|ri|de|ku|we|di|mo|lo|wi|ye|ve|je|ko|ji|ne|mu|vi|lu|e|o|m|i|u)?wadie",
     "n_pairs_with_sw_feature": 1157,
     "share_of_feature_pairs": 0.1962,
     "lift": 85.89,
@@ -13401,7 +13448,7 @@
    "evidence_count": 34,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)sen[ae]",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)sen[ae]",
     "n_pairs_with_sw_feature": 1157,
     "share_of_feature_pairs": 0.0294,
     "lift": 8.54,
@@ -13480,7 +13527,7 @@
    "evidence_count": 19,
    "evidence": {
     "method": "pair_cooccurrence",
-    "dav_regex": "(?:ghu|ghi|chi|vi|ri|ji|ku|mu|wi|di|lu|ni|u|i|m)seche[a-z]{2,}",
+    "dav_regex": "(?:chi|ghu|ghi|ni|wi|ji|ri|di|mu|vi|lu|ku|i|m|u)seche[a-z]{2,}",
     "n_pairs_with_sw_feature": 49,
     "share_of_feature_pairs": 0.3878,
     "lift": 97.44,
@@ -24786,6 +24833,51 @@
    },
    "source": "corpus_attested",
    "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "FV.perfective.r_final",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_ends": "-ir / -er (part of the root)",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-e",
+    "vs": "-ie 235 pairs (mostly applicative -ir-ie)"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:10378",
+     "match": "orebonyereghe"
+    },
+    {
+     "pair_id": "train:14773",
+     "match": "neremanyireghe"
+    },
+    {
+     "pair_id": "train:341",
+     "match": "oreboisireghe"
+    }
+   ],
+   "counterexamples": [],
+   "evidence_count": 540,
+   "evidence": {
+    "method": "pair_cooccurrence",
+    "dav_regex": "(?:ghe|che|gho|re|ko|de|ne|mo|lo|ye|we|je|ve|e|o)re[a-z]{1,}(?:ir|er)eghe",
+    "n_pairs_with_sw_feature": 7609,
+    "share_of_feature_pairs": 0.071,
+    "lift": 4.89,
+    "domains": {
+     "davswa": 10,
+     "bible": 530
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "dev round trip: oresikireghe, oreuzireghe; vocab -ireghe 665 vs -irieghe 412, -ereghe 589 vs -erieghe 159",
    "status": "active"
   },
   {

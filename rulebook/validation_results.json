@@ -1,0 +1,625 @@
+{
+ "_meta": {
+  "built_by": "rulebook/validate.py",
+  "script_sha16": "b7826fdd1bbf904f",
+  "git_sha": "74f71dfbe87c65a3848350ce10b001f9f581789b",
+  "hashes_sha256_16": {
+   "rules.json": "788baead249e2966",
+   "lexicon.json": "4e590724bac356a7",
+   "bootstrap_lexicon.json": "817e0ea6a4c0a3d7",
+   "dav_vocab.json": "3c64c3a04998a44b",
+   "split_manifest.json": "5de67491af00d63a",
+   "tools.py": "3a0a369168518b2b",
+   "dev.jsonl": "971f78495c901e1b",
+   "train.jsonl (retrieval index source)": "fd25256c6ddfc22b"
+  }
+ },
+ "1_speaker_regeneration": {
+  "n": 65,
+  "k": 65,
+  "rate": {
+   "rate": 1.0,
+   "ci95": [
+    0.9441965323292892,
+    0.9999999999999999
+   ],
+   "k": 65,
+   "n": 65,
+   "low_n": false
+  },
+  "misses": []
+ },
+ "2_round_trip_dev": {
+  "per_slot": {
+   "TAM": {
+    "k": 1711,
+    "n": 1717,
+    "rate": {
+     "rate": 0.9965055329062318,
+     "ci95": [
+      0.9923967496058674,
+      0.9983975222201971
+     ],
+     "k": 1711,
+     "n": 1717,
+     "low_n": false
+    }
+   },
+   "NEG": {
+    "k": 150,
+    "n": 155,
+    "rate": {
+     "rate": 0.967741935483871,
+     "ci95": [
+      0.9267147726516284,
+      0.9861443272315257
+     ],
+     "k": 150,
+     "n": 155,
+     "low_n": false
+    }
+   },
+   "EXT": {
+    "k": 515,
+    "n": 561,
+    "rate": {
+     "rate": 0.9180035650623886,
+     "ci95": [
+      0.8923564955108734,
+      0.9379647839416314
+     ],
+     "k": 515,
+     "n": 561,
+     "low_n": false
+    }
+   },
+   "FV": {
+    "k": 48,
+    "n": 57,
+    "rate": {
+     "rate": 0.8421052631578947,
+     "ci95": [
+      0.726365780957114,
+      0.9146430025068315
+     ],
+     "k": 48,
+     "n": 57,
+     "low_n": false
+    }
+   },
+   "all": {
+    "k": 2424,
+    "n": 2490,
+    "rate": {
+     "rate": 0.9734939759036144,
+     "ci95": [
+      0.9664178941433305,
+      0.9791112846144542
+     ],
+     "k": 2424,
+     "n": 2490,
+     "low_n": false
+    }
+   }
+  },
+  "misses": {
+   "EXT": [
+    {
+     "reference": "daendawa",
+     "features": {
+      "dav_root": "enda",
+      "subj": "1pl",
+      "tense": "perfect",
+      "neg": false,
+      "exts": [
+       "passive"
+      ],
+      "post_final": false
+     },
+     "generated": "daendalwa"
+    },
+    {
+     "reference": "ghwadafunya",
+     "features": {
+      "dav_root": "dafun",
+      "subj": "ghu",
+      "tense": "perfect",
+      "neg": false,
+      "exts": [
+       "applicative"
+      ],
+      "post_final": false
+     },
+     "generated": "ghwadafunia"
+    },
+    {
+     "reference": "nawideka",
+     "features": {
+      "dav_root": "wid",
+      "subj": "1sg",
+      "tense": "perfect",
+      "neg": false,
+      "exts": [
+       "stative"
+      ],
+      "post_final": false
+     },
+     "generated": "nawidika"
+    },
+    {
+     "reference": "chitesiane",
+     "features": {
+      "dav_root": "tesi",
+      "subj": "chi",
+      "tense": "subjunctive",
+      "neg": false,
+      "exts": [
+       "reciprocal"
+      ],
+      "post_final": false
+     },
+     "generated": "chitesine"
+    },
+    {
+     "reference": "werelolaneghe",
+     "features": {
+      "dav_root": "lol",
+      "subj": "wi",
+      "tense": "past",
+      "neg": false,
+      "exts": [
+       "reciprocal"
+      ],
+      "post_final": true
+     },
+     "generated": "werelolanieghe"
+    },
+    {
+     "reference": "yadafunya",
+     "features": {
+      "dav_root": "dafun",
+      "subj": "i",
+      "tense": "perfect",
+      "neg": false,
+      "exts": [
+       "applicative"
+      ],
+      "post_final": false
+     },
+     "generated": "yadafunia"
+    },
+    {
+     "reference": "ditesiane",
+     "features": {
+      "dav_root": "tesi",
+      "subj": "1pl",
+      "tense": "subjunctive",
+      "neg": false,
+      "exts": [
+       "reciprocal"
+      ],
+      "post_final": false
+     },
+     "generated": "ditesine"
+    },
+    {
+     "reference": "werekotereghe",
+     "features": {
+      "dav_root": "kot",
+      "subj": "wi",
+      "tense": "past",
+      "neg": false,
+      "exts": [
+       "applicative"
+      ],
+      "post_final": true
+     },
+     "generated": "werekotieghe"
+    }
+   ],
+   "FV": [
+    {
+     "reference": "nerekundeghe",
+     "features": {
+      "dav_root": "kund",
+      "subj": "1sg",
+      "tense": "past",
+      "neg": false,
+      "exts": [],
+      "post_final": true
+     },
+     "generated": "nerekundieghe"
+    },
+    {
+     "reference": "jerekaieghe",
+     "features": {
+      "dav_root": "kai",
+      "subj": "ji",
+      "tense": "past",
+      "neg": false,
+      "exts": [],
+      "post_final": true
+     },
+     "generated": "jedekaieghe"
+    },
+    {
+     "reference": "werekwanyeghe",
+     "features": {
+      "dav_root": "kwany",
+      "subj": "wi",
+      "tense": "past",
+      "neg": false,
+      "exts": [],
+      "post_final": true
+     },
+     "generated": "werekwanyireghe"
+    },
+    {
+     "reference": "orekwanyeghe",
+     "features": {
+      "dav_root": "kwany",
+      "subj": "3sg",
+      "tense": "past",
+      "neg": false,
+      "exts": [],
+      "post_final": true
+     },
+     "generated": "orekwanyireghe"
+    },
+    {
+     "reference": "jerevikieghe",
+     "features": {
+      "dav_root": "viki",
+      "subj": "ji",
+      "tense": "past",
+      "neg": false,
+      "exts": [],
+      "post_final": true
+     },
+     "generated": "jedevikieghe"
+    },
+    {
+     "reference": "ghereghendanyeghe",
+     "features": {
+      "dav_root": "ghendany",
+      "subj": "ghi",
+      "tense": "past",
+      "neg": false,
+      "exts": [],
+      "post_final": true
+     },
+     "generated": "ghereghendanyireghe"
+    },
+    {
+     "reference": "orefwananeghe",
+     "features": {
+      "dav_root": "fwanan",
+      "subj": "3sg",
+      "tense": "past",
+      "neg": false,
+      "exts": [],
+      "post_final": true
+     },
+     "generated": "orefwananieghe"
+    },
+    {
+     "reference": "morekwanyeghe",
+     "features": {
+      "dav_root": "kwany",
+      "subj": "2pl",
+      "tense": "past",
+      "neg": false,
+      "exts": [],
+      "post_final": true
+     },
+     "generated": "morekwanyireghe"
+    }
+   ],
+   "TAM": [
+    {
+     "reference": "ghwawesia",
+     "features": {
+      "dav_root": "si",
+      "subj": "ghu",
+      "tense": "present",
+      "neg": false,
+      "exts": [],
+      "post_final": false
+     },
+     "generated": "ghawesia"
+    },
+    {
+     "reference": "mulale",
+     "features": {
+      "dav_root": "lal",
+      "subj": "2pl",
+      "tense": "subjunctive",
+      "neg": false,
+      "exts": [],
+      "post_final": false
+     },
+     "generated": "mlale"
+    },
+    {
+     "reference": "mujingiagha",
+     "features": {
+      "dav_root": "jingi",
+      "subj": "2pl",
+      "tense": "rel_present",
+      "neg": false,
+      "exts": [],
+      "post_final": false
+     },
+     "generated": "mjingiagha"
+    },
+    {
+     "reference": "mungie",
+     "features": {
+      "dav_root": "ngi",
+      "subj": "2pl",
+      "tense": "subjunctive",
+      "neg": false,
+      "exts": [],
+      "post_final": false
+     },
+     "generated": "mngie"
+    },
+    {
+     "reference": "muche",
+     "features": {
+      "dav_root": "ch",
+      "subj": "2pl",
+      "tense": "subjunctive",
+      "neg": false,
+      "exts": [],
+      "post_final": false
+     },
+     "generated": "mche"
+    },
+    {
+     "reference": "mumdumikie",
+     "features": {
+      "dav_root": "mdumiki",
+      "subj": "2pl",
+      "tense": "subjunctive",
+      "neg": false,
+      "exts": [],
+      "post_final": false
+     },
+     "generated": "mmdumikie"
+    }
+   ],
+   "NEG": [
+    {
+     "reference": "ndemorechieghe",
+     "features": {
+      "dav_root": "ch",
+      "subj": "2pl",
+      "tense": "past",
+      "neg": true,
+      "exts": [
+       "applicative"
+      ],
+      "post_final": true
+     },
+     "generated": "ndemorechirieghe"
+    },
+    {
+     "reference": "ndeweremanyireghe",
+     "features": {
+      "dav_root": "many",
+      "subj": "wi",
+      "tense": "past",
+      "neg": true,
+      "exts": [
+       "applicative"
+      ],
+      "post_final": true
+     },
+     "generated": "ndeweremanyirieghe"
+    },
+    {
+     "reference": "ndekorebonyekieghe",
+     "features": {
+      "dav_root": "bony",
+      "subj": "2sg",
+      "tense": "past",
+      "neg": true,
+      "exts": [
+       "stative"
+      ],
+      "post_final": true
+     },
+     "generated": "ndekorebonyekeghe"
+    },
+    {
+     "reference": "ndekoregheshereghe",
+     "features": {
+      "dav_root": "ghesh",
+      "subj": "2sg",
+      "tense": "past",
+      "neg": true,
+      "exts": [
+       "applicative"
+      ],
+      "post_final": true
+     },
+     "generated": "ndekoreghesherieghe"
+    },
+    {
+     "reference": "ndeghorepataneghe",
+     "features": {
+      "dav_root": "pat",
+      "subj": "ghu",
+      "tense": "past",
+      "neg": true,
+      "exts": [
+       "reciprocal"
+      ],
+      "post_final": true
+     },
+     "generated": "ndeghorepatanieghe"
+    }
+   ]
+  },
+  "n_dav_types_read": 10628
+ },
+ "3_dictionary": {
+  "heldout_speaker_seed_precision": {
+   "accepted": {
+    "correct": 39,
+    "n": 48,
+    "precision_ci": {
+     "rate": 0.8125,
+     "ci95": [
+      0.6805986065115378,
+      0.8980872365179983
+     ],
+     "k": 39,
+     "n": 48,
+     "low_n": false
+    }
+   },
+   "tentative": {
+    "correct": 13,
+    "n": 22,
+    "precision_ci": {
+     "rate": 0.5909090909090909,
+     "ci95": [
+      0.38734477382893806,
+      0.7674444033117963
+     ],
+     "k": 13,
+     "n": 22,
+     "low_n": false
+    }
+   },
+   "n_hidden": 130,
+   "found": 70,
+   "wrong_examples": [
+    "onge: got ded, verified ['ghor']",
+    "simam: got mang, verified ['simam']",
+    "usalam: got wulindiri, verified ['wusalam']",
+    "angush: got potu, verified ['to']",
+    "misitu: got lemb, verified ['misidu']",
+    "jana: got kwau, verified ['ighuo']",
+    "kuchelewa: got kambir, verified ['kuchelewa']",
+    "mvulan: got mdawan, verified ['mndwawomi']",
+    "pit: got id, verified ['si']",
+    "kasirik: got zami, verified ['jok']",
+    "kuogelea: got bung, verified ['ogeli']",
+    "lugha: got viteto, verified ['lumi']",
+    "fuati: got wing, verified ['nughia']",
+    "mawazo: got ghesh, verified ['maririkanyo']",
+    "sababu: got angu, verified ['wundu']"
+   ]
+  },
+  "dev_coverage_swahili_tokens": {
+   "V": {
+    "covered": 11489,
+    "n": 14084,
+    "rate": {
+     "rate": 0.8157483669412099,
+     "ci95": [
+      0.8092596580995429,
+      0.822064873544822
+     ],
+     "k": 11489,
+     "n": 14084,
+     "low_n": false
+    }
+   },
+   "N/other": {
+    "covered": 23133,
+    "n": 26733,
+    "rate": {
+     "rate": 0.8653349792391426,
+     "ci95": [
+      0.8611902925678031,
+      0.8693746818680702
+     ],
+     "k": 23133,
+     "n": 26733,
+     "low_n": false
+    }
+   },
+   "FUNC": {
+    "covered": 5176,
+    "n": 5291,
+    "rate": {
+     "rate": 0.9782649782649783,
+     "ci95": [
+      0.9739749852588493,
+      0.981860974026505
+     ],
+     "k": 5176,
+     "n": 5291,
+     "low_n": false
+    }
+   },
+   "CONCORD": {
+    "covered": 11321,
+    "n": 11321,
+    "rate": {
+     "rate": 1.0,
+     "ci95": [
+      0.9996607811273933,
+      0.9999999999999999
+     ],
+     "k": 11321,
+     "n": 11321,
+     "low_n": false
+    }
+   },
+   "all": {
+    "covered": 51119,
+    "n": 57429,
+    "rate": {
+     "rate": 0.8901251980706611,
+     "ci95": [
+      0.887541264651021,
+      0.892656941665833
+     ],
+     "k": 51119,
+     "n": 57429,
+     "low_n": false
+    }
+   }
+  }
+ },
+ "4_leakage": {
+  "index_pairs": 39265,
+  "index_leaks": [],
+  "rule_example_ids": 1360,
+  "rule_leaks": [],
+  "lexicon_evidence_ids": 3870,
+  "lexicon_leaks": [],
+  "pass": true
+ },
+ "5_unit_tests": {
+  "exit_code": 0,
+  "tail": ".................................                                        [100%]\n33 passed in 3.98s\n"
+ },
+ "6a_hf_space_tests": {
+  "exit_code": 4,
+  "tail": "test '/home/mpily/languagemodels/kitaita-project/hf_space/tests/conftest.py'.\nhf_space/tests/conftest.py:12: in <module>\n    from api.server import create_app  # noqa: E402\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nhf_space/api/server.py:15: in <module>\n    from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Query, Request, WebSocket\nE   ModuleNotFoundError: No module named 'fastapi'\n",
+  "note": "not run if fastapi is missing locally (no local env has it); hf_space/ code was not changed by this job"
+ },
+ "6b_version_b_val": {
+  "exit_code": 0,
+  "same_numbers": true,
+  "n_shared_conditions": 8,
+  "diffs": {},
+  "new_conditions_not_in_committed_file": [
+   "applicative_infinitive",
+   "extension",
+   "polarity",
+   "subject_checked",
+   "subject_probe",
+   "tense",
+   "tense_future",
+   "verified+rerank+fill+unknown+repeat+applicative+subject+subject_probe+subject_checked+tense+extension+polarity+applicative_infinitive+tense_future"
+  ],
+  "log_tail": null
+ }
+}

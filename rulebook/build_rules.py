@@ -176,13 +176,19 @@ def section1():
             if var == "a" and lab in V.PRESENT_SM_VOWEL_CONFIRMED:
                 notes = f"present SM+a confirmed against speaker answers (PRESENT_SM_VOWEL_CONFIRMED: " \
                         f"{V.PRESENT_SM_VOWEL_CONFIRMED[lab]})"
+            if var == "a" and lab in V.PRESENT_SM_VOWEL_CONFIRMED and lab != "gh" \
+                    and V.PRESENT_SM_VOWEL_CONFIRMED[lab] != fs[0]:
+                conflict = True
+                readings = [{"form": V.PRESENT_SM_VOWEL_CONFIRMED[lab], "source": "speaker (PRESENT_SM_VOWEL_CONFIRMED)",
+                             "default": True}, {"form": fs[0], "source": "corpus", "default": False}]
+                notes = f"speaker-confirmed present {V.PRESENT_SM_VOWEL_CONFIRMED[lab]}- vs corpus {fs[0]}- (validation 2026-11-12)"
             if lab == "gh" and var == "a":
                 conflict = True
                 readings = [{"form": "gha", "source": "corpus (PRESENT_SM_VOWEL_CONFIRMED)", "default": True},
                             {"form": "ghwa", "source": "speaker answer", "default": False}]
                 notes = "speaker used ghwa-; corpus had 0 ghwa+root vs 10 gha+root (2026-10-07). Kept both."
             add(f"SM.{lab}.{var}", 1, "SM", {"subj_class": lab, "series": var},
-                {"forms": fs if not readings else ["gha", "ghwa"]}, ev, src, conflict=conflict,
+                {"forms": [x["form"] for x in readings] if readings else fs}, ev, src, conflict=conflict,
                 readings=readings, notes=notes)
         # possessives: SM+a/+e + po/ko/ke/du/nyu/wo
         a0, e0 = forms(row, 1)[0], forms(row, 2)[0]
@@ -353,6 +359,10 @@ def section3():
     tam("TAM.past.li_de", 3, "TAM", "tam:li", f"{E}de{R}(?:ie|ire|ere|e)(?:ghe)?",
         {"template": "SM+e-de-ROOT-ie(-ghe)"}, {"sw_tam": "li", "rel": None},
         notes=f"VERIFIED_PAST_TAM_BY_SM: {V.VERIFIED_PAST_TAM_BY_SM} (ji class uses -de-)")
+    add("TAM.past.verified_by_class", 3, "TAM", {"sw_tam": "li", "subj_class": sorted(V.VERIFIED_PAST_TAM_BY_SM)},
+        {"tam_by_class": V.VERIFIED_PAST_TAM_BY_SM, "template": "SM+e-<tam>-ROOT-ie(-ghe)"}, source="speaker_verified",
+        verified_examples=[{"ref": f"{VREF}:VERIFIED_PAST_TAM_BY_SM"}],
+        notes="class-specific past marker (ji: -de-) overrides -re- (validation 2026-11-12)")
     tam("TAM.past.li_e_only", 3, "TAM", "tam:li", f"{E}(?!re|de){R}a",
         {"template": "SM+e ROOT-a (rulebook_correct _tense_target '-li- past -> SM+e')"}, {"sw_tam": "li", "rel": None})
     tam("TAM.fut.ta", 3, "TAM", "tam:ta", f"{B}cha{R}a", {"template": "SM-cha-ROOT-a"}, {"sw_tam": "ta"},
@@ -558,6 +568,13 @@ def extensions():
                     {"final": f"-{f}", "share_in_condition": f"{k}/{n}"},
                     {"evidence_count": k, "examples": v["examples"].get(f, []), "method": "aligned verbs",
                      "n_condition": n, "lift": None}, status=tier)
+    # roots that already end in -ir / -er take a plain -e perfective (sikir-e-ghe, uzir-e-ghe): validation 2026-11-12
+    B_ = alt(ALL_E)
+    ev = A.cooc("tam:li", f"{B_}re[a-z]{{1,}}(?:ir|er)eghe")
+    alt_ev = A.cooc("tam:li", f"{B_}re[a-z]{{1,}}(?:ir|er)ieghe")
+    add("FV.perfective.r_final", 6, "FV", {"dav_root_ends": "-ir / -er (part of the root)", "tense": "perfective"},
+        {"final": "-e", "vs": f"-ie {alt_ev['evidence_count']} pairs (mostly applicative -ir-ie)"}, ev,
+        notes="dev round trip: oresikireghe, oreuzireghe; vocab -ireghe 665 vs -irieghe 412, -ereghe 589 vs -erieghe 159")
     for t, v in d["post_final_ghe"].items():
         rate = v["rate"]["rate"]
         add(f"FV.ghe.{t.replace(':', '_')}", 6, "FV", {"sw_feature": t},
