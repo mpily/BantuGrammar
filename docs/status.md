@@ -29132,3 +29132,18 @@ Exact match 5/50 (was 3/50). Cost $0.24. 12 sentences lost at least one [?word];
 *nguma* instead of *mzuri* though it had candidates both times). Reading: the instruction does what it says
 (gaps −38%) without a measurable chrF gain or loss at n=50; dev slice, not the test set. Kept in the prompt.
 Next single change to try: proper names stay unmarked (*[?Memukani]*). compare.py added to HaikuHarness/.
+
+## 2026-11-12 (cont.) — prompt: proper names copied unmarked (NOT tested, user decision); *mfalme* -> *nguma* diagnosed
+
+Prompt change (HaikuHarness/prompts.py, untested by user decision): names of people and places are copied
+unchanged and not marked [?], unless lookup_word or the retrieved examples give a Kidaw'ida spelling.
+
+*mfalme* in the pilot. lookup_word gave, in order: *mzuri* (corpus_attested, 1402 pairs, no senses listed),
+*ngum*/form *nguma* (agent_interpretation, 189 Bible-only pairs, sense "king"), *wazuri* (agent note: homograph
+of Swahili *mzuri* 'good'). Run 1 took *mzuri*; the rephrase run took *nguma*, the only candidate with an
+explicit "king" sense (its own note: "Bible-only candidate, class unknown"). Corpus: *nguma* is
+'authority / power / praise' (*Wuaminifu ni nguma iko suti* = 'faithfulness is an important quality';
+*nakuneka nguma* = 'I give you authority'), and *kubonya nguma* 'to reign' (129×; *ukabonya nguma* 95× =
+*akawa mfalme / alitawala*). The agent gloss "king" comes from Bible co-occurrence with *mfalme*; it is wrong.
+Fix for rulebook-v3 (lexicon): *mzuri* sense 'king (pl. wazuri)'; *nguma* 'authority, rule; kubonya nguma =
+reign'. Possible prompt fix (not applied): a candidate without listed senses is not weaker for that reason.
