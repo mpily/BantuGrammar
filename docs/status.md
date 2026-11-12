@@ -29147,3 +29147,26 @@ explicit "king" sense (its own note: "Bible-only candidate, class unknown"). Cor
 *akawa mfalme / alitawala*). The agent gloss "king" comes from Bible co-occurrence with *mfalme*; it is wrong.
 Fix for rulebook-v3 (lexicon): *mzuri* sense 'king (pl. wazuri)'; *nguma* 'authority, rule; kubonya nguma =
 reign'. Possible prompt fix (not applied): a candidate without listed senses is not weaker for that reason.
+
+## 2026-11-12 (cont.) — Space: Translation 2 is now Haiku + tools (replaces fine-tuned + rule book)
+
+User decisions: the Translator shows two systems, fine-tuned NLLB (1) and Haiku + rule-book tools (2,
+rulebook-v2, current prompt incl. rephrase / proper-name / senses lines); spending guarded by a daily cap
+(HAIKU_DAILY_CAP_USD, default $1) + per-visitor limit (HAIKU_PER_VISITOR_PER_HOUR, default 10; salted IP
+hash, in memory, resets on restart); retrieval corpus in a PRIVATE dataset `mpily/kitaita-rulebook-data`
+(train.jsonl, sha16 fd25256c6ddfc22b), downloaded at startup, never in the public Space repo.
+
+Code: `hf_space/haiku_mt.py` wraps HaikuHarness/agent_loop.py (no copy) with the guard, corpus download,
+and a `hf_space -> .` link so the frozen tools.py finds its files in the Space layout (tools.py unchanged).
+`app.py`: translate() streams translation 1, then 2 (~30 s), then the research pipeline; blind A/B feedback
+stores system_b `haiku+tools:rulebook-v2:prompt-<sha16>`; Progress keeps the old pairing (fine-tuned +
+rule book, until today) apart from the new one. /api/translate is unchanged (contract untouched).
+Deploy workflow stages agent_translate/, 4 rule-book JSONs + MANIFEST, and the harness next to hf_space/.
+
+Checks: hf_space tests 106/106 (4 new guard tests; fastapi installed in bert-env for this). Space layout
+rebuilt locally: corpus downloaded from the private dataset with a fresh HOME, retrieval ok, wuhuru
+mod_class ghu; one live sentence through haiku_mt (Waliendelea kuongea -> Weendelia kudeda = reference,
+$0.0017, booked to the cap). app.py smoke test with the heavy models stubbed (gradio 6.30.0 in a throwaway
+venv): streaming order and Progress split correct. NOT tested: the real Space build.
+Needed on the Space: secret ANTHROPIC_API_KEY (the user's earlier exported key was invalid; use a new one,
+ideally with a console spend limit); HF_TOKEN must be able to read the private dataset.

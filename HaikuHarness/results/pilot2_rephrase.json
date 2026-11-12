@@ -1,0 +1,170 @@
+{
+ "run": "pilot2_rephrase",
+ "config": {
+  "run": "pilot2_rephrase",
+  "model": "claude-haiku-5-5",
+  "effort": "medium",
+  "max_tokens": 16000,
+  "max_requests_C": 30,
+  "arms": [
+   "C"
+  ],
+  "dry_run": false,
+  "n": 50,
+  "seed": 20261112,
+  "sample_source": "rulebook dev slice (seed 20261111), stratified half davswa / half bible",
+  "dev_sha16": "971f78495c901e1b",
+  "ids": [
+   "train:25845",
+   "bible:NEN:PSA.102.22",
+   "train:22952",
+   "bible:NEN:MRK.4.30",
+   "train:11359",
+   "bible:NEN:1KI.11.20",
+   "train:12894",
+   "bible:NEN:LEV.14.49",
+   "train:15325",
+   "bible:NEN:JOB.18.8",
+   "train:4656",
+   "bible:NEN:LUK.5.24",
+   "train:13894",
+   "bible:NEN:GEN.29.24",
+   "train:14414",
+   "bible:NEN:LEV.4.1",
+   "train:24000",
+   "bible:NEN:2CO.10.6",
+   "train:22107",
+   "bible:NEN:EST.1.21",
+   "train:26549",
+   "bible:NEN:JOS.16.3",
+   "train:25043",
+   "bible:NEN:JER.1.7",
+   "train:26170",
+   "bible:NEN:PRO.28.28",
+   "train:26024",
+   "bible:NEN:2CH.19.11",
+   "train:3204",
+   "bible:NEN:EXO.32.15",
+   "train:15602",
+   "bible:NEN:EXO.39.20",
+   "train:17687",
+   "bible:NEN:ISA.65.24",
+   "train:225",
+   "bible:NEN:EPH.3.21",
+   "train:3411",
+   "bible:NEN:REV.14.18",
+   "train:15264",
+   "bible:NEN:1CH.8.31",
+   "train:21151",
+   "bible:NEN:DEU.16.12",
+   "train:10303",
+   "bible:NEN:JER.33.26",
+   "train:10986",
+   "bible:NEN:PSA.43.3",
+   "train:10448",
+   "bible:NEN:JDG.14.16",
+   "train:13793",
+   "bible:NEN:REV.14.9"
+  ],
+  "prompt_sha16": "faa739f97a01ad62",
+  "tool_schemas_sha16": "ccdd4812b0a894bd",
+  "tools_py_sha16": "b0975825fa398653",
+  "rulebook_manifest_sha16": "edf94cb77e91bf06",
+  "harness_sha16": {
+   "agent_loop.py": "9665c733df7c6ef9",
+   "one_call.py": "bfc2d83e58af674c",
+   "prompts.py": "eae791cd5d466b3e",
+   "retrieval_demo.py": "61ab95bd6d1cbedd",
+   "run_pilot.py": "3d7d0b8ecdab760a",
+   "score.py": "efda92016ed1eadb",
+   "tool_bridge.py": "5a6f32e76f71825c"
+  },
+  "anthropic_sdk": "2.8.0"
+ },
+ "scored_by": "HaikuHarness/score.py",
+ "metric": "chrF (char 6-gram, beta 2; hf_space/api/stats.py)",
+ "arms": {
+  "C": {
+   "n": 50,
+   "chrf": {
+    "mean": 52.92480446901453,
+    "ci95": [
+     46.87015045773955,
+     58.979458480289516
+    ],
+    "n": 50,
+    "low_n": false
+   },
+   "exact_match": {
+    "rate": 0.1,
+    "ci95": [
+     0.04347512399157111,
+     0.2136049033478839
+    ],
+    "k": 5,
+    "n": 50,
+    "low_n": false
+   },
+   "no_translation_tag": 0,
+   "unknown_word_share": {
+    "rate": 0.07678571428571429,
+    "ci95": [
+     0.05750380052516538,
+     0.10183456684609635
+    ],
+    "k": 43,
+    "n": 560,
+    "low_n": false
+   },
+   "stop_reasons": {
+    "end_turn": 50
+   },
+   "requests_per_sentence": {
+    "mean": 6.66,
+    "ci95": [
+     6.0673388596395155,
+     7.252661140360485
+    ],
+    "n": 50,
+    "low_n": false
+   },
+   "tool_calls_per_sentence": {
+    "mean": 23.64,
+    "ci95": [
+     19.261526727395843,
+     28.018473272604158
+    ],
+    "n": 50,
+    "low_n": false
+   },
+   "tool_calls_by_name": {
+    "retrieve_examples": 52,
+    "parse_swahili_verb": 152,
+    "lookup_word": 614,
+    "generate_verb": 135,
+    "concord": 33,
+    "check_translation": 53,
+    "noun_info": 118,
+    "generate_modifier": 25
+   },
+   "tool_status": {
+    "ok": 644,
+    "unknown": 342,
+    "unattested": 192,
+    "flag": 4
+   },
+   "cost_usd": 0.2368,
+   "seconds_per_sentence": {
+    "mean": 27.656,
+    "ci95": [
+     23.171550806575162,
+     32.140449193424836
+    ],
+    "n": 50,
+    "low_n": false
+   }
+  }
+ },
+ "sentences_expected": 50,
+ "note": "Pilot on the rule-book dev slice, not the fresh test set. n < 8 per stratum: no selection or claims (CLAUDE.md rule 5)."
+}

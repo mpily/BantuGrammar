@@ -77,6 +77,11 @@ load_probes()
 import finetuned_mt  # noqa: E402
 
 finetuned_mt.start_loading()
+# 2026-11-12, user decision: Translation 2 is Claude Haiku + the rule-book tools (study arm C), replacing
+# fine-tuned + rule book. Paid API: daily cap + per-visitor limit inside haiku_mt.
+import haiku_mt  # noqa: E402
+
+haiku_mt.start()
 print("Ready.", flush=True)
 
 
@@ -114,21 +119,41 @@ def translate_finetuned(text: str, clauses=None):
     return r["kitaita"], b["kitaita"], report
 
 
-def translate(text: str, mode: str):
+def haiku_report(h: dict) -> str:
+    """Not for blind raters: how translation 2 was built."""
+    if h["kitaita"] is None:
+        return f"**Translation 2 (Haiku + tools):** {h['status']}"
+    calls = [f"- `{c['name']}({json.dumps(c['input'], ensure_ascii=False)[:90]})` -> {c['status']}" for c in h["tool_calls"]]
+    return ("**Translation 2 = Claude Haiku + rule-book tools (rulebook-v2).** "
+            f"{len(h['tool_calls'])} tool calls, {h.get('n_requests', 0)} model requests, est. ${h['usd']:.4f}; "
+            f"retrieval corpus: {h['corpus']}. `[?word]` = no Kidaw'ida found, Swahili kept.\n\n"
+            + (f"**Model's notes:** {h['notes']}\n\n" if h["notes"] else "")
+            + "**Tool calls:**\n" + "\n".join(calls))
+
+
+def translate(text: str, mode: str, request: gr.Request = None):
+    """Generator: shows translation 1 (fine-tuned) first, then translation 2 (Haiku + tools, ~30 s),
+    then the research pipeline in its accordion."""
     text = (text or "").strip()
     if not text:
-        return "", "", "", "", "", ""
+        yield "", "", "", "", "", ""
+        return
+    ft = finetuned_mt.translate(text)
+    ft_out = ft["kitaita"] if ft["kitaita"] is not None else f"(fine-tuned model {ft['status']})"
+    yield "", "", "", ft_out, "(translating... about 30 seconds)", ""
+    h = haiku_mt.translate(text, haiku_mt.visitor_id(request))
+    b_out = h["kitaita"] if h["kitaita"] is not None else f"({h['status']})"
+    report = haiku_report(h)
+    yield "", "", "", ft_out, b_out, report
     fn = translate_sentence_with_probes if mode.startswith("Probes") else translate_sentence
     try:
         r = fn(text, _tables)
     except Exception as e:  # keep the Space up even if one input trips a bug
         r = None
         err = f"SERVER ERROR: {type(e).__name__}: {e}"
-    # the rule book's subject steps are off (docs/status.md 2026-11-03), so the
-    # pipeline's clauses are passed only when they were computed anyway
-    ft_out, b_out, ft_flags = translate_finetuned(text, (r or {}).get("clauses"))
     if r is None:
-        return "", "", err, ft_out, b_out, ft_flags
+        yield "", "", err, ft_out, b_out, report
+        return
     sentence = r.get("kitaita_sentence") or ""
     error = r.get("error")
     flags = r.get("flags")
@@ -150,7 +175,7 @@ def translate(text: str, mode: str):
         out = f"(no output)\n\nERROR: {error}" if error else "(no output)"
     else:
         out = sentence
-    return out, flags_text, trace_text, ft_out, b_out, ft_flags
+    yield out, flags_text, trace_text, ft_out, b_out, report
 
 
 def random_test_sentence():
@@ -166,9 +191,9 @@ def random_test_sentence():
 
 def submit_ab_feedback(swahili: str, a_output: str, b_output: str, rule_book_report: str,
                        rating_a: str, rating_b: str, correction: str):
-    """2026-11-02: one record per A/B rating (fine-tuned vs fine-tuned + rule
-    book), written to feedback_ab/ in the same private dataset so the Progress
-    tab's rule-pipeline charts (which read feedback/) are not mixed with it."""
+    """2026-11-02: one record per A/B rating, written to feedback_ab/ in the same private dataset.
+    2026-11-12: B is Haiku + tools (system_b "haiku+tools:..."); older records have
+    system_b "finetuned+rulebook" and the Progress tab keeps the two pairings apart."""
     swahili = (swahili or "").strip()
     if not swahili or not (a_output or "").strip():
         return "Nothing to log yet -- translate a sentence first."
@@ -182,7 +207,7 @@ def submit_ab_feedback(swahili: str, a_output: str, b_output: str, rule_book_rep
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "swahili_input": swahili,
         "system_a": "finetuned:" + str(finetuned_mt._CFG.get("model_repo")),
-        "system_b": "finetuned+rulebook",
+        "system_b": haiku_mt.system_label(),
         "a_output": (a_output or "").strip(),
         "b_output": (b_output or "").strip(),
         "b_equals_a": (a_output or "").strip() == (b_output or "").strip(),
@@ -305,7 +330,12 @@ def _load_all_feedback(folder: str = "feedback") -> list[dict]:
         return []
 
 
-_SYSTEMS = ["Translation 1 (fine-tuned)", "Translation 2 (fine-tuned + rule book)"]
+# 2026-11-12: translation 2 changed from fine-tuned + rule book to Haiku + tools; ratings are kept per pairing
+_PAIRINGS = [("haiku", "Haiku + tools"), ("finetuned+rulebook", "fine-tuned + rule book (until 2026-11-12)")]
+
+
+def _pairing(record: dict) -> str:
+    return "haiku" if str(record.get("system_b") or "").startswith("haiku") else "finetuned+rulebook"
 
 
 def compute_all_feedback_overview() -> tuple[str, pd.DataFrame]:
@@ -316,11 +346,15 @@ def compute_all_feedback_overview() -> tuple[str, pd.DataFrame]:
     ab = _load_all_feedback("feedback_ab")
 
     # (system, rating or None, output, correction or None) -- one row per rated output
-    rows = []
-    for r in ab:
-        corr = r.get("native_speaker_correction")
-        rows.append((_SYSTEMS[0], r.get("rating_a"), r.get("a_output"), corr))
-        rows.append((_SYSTEMS[1], r.get("rating_b"), r.get("b_output"), corr))
+    rows, systems = [], []
+    for key, label in _PAIRINGS:
+        t1, t2 = f"Translation 1 (fine-tuned), rated next to {label}", f"Translation 2 ({label})"
+        systems += [t1, t2]
+        for r in ab:
+            if _pairing(r) == key:
+                corr = r.get("native_speaker_correction")
+                rows.append((t1, r.get("rating_a"), r.get("a_output"), corr))
+                rows.append((t2, r.get("rating_b"), r.get("b_output"), corr))
 
     all_recs = ab
     n_sent = len({(r.get("swahili_input") or "").strip().lower() for r in all_recs})
@@ -330,7 +364,7 @@ def compute_all_feedback_overview() -> tuple[str, pd.DataFrame]:
              "| System | Ratings | Mean rating (95% CI) | Corrections | Match to correction (chrF, 0-100) | Exactly matches correction |",
              "|---|---|---|---|---|---|"]
     hist = []
-    for sysname in _SYSTEMS:
+    for sysname in systems:
         sr = [x for x in rows if x[0] == sysname]
         ratings = [int(x[1]) for x in sr if str(x[1] or "").isdigit()]
         m = mean_ci(ratings)
@@ -348,16 +382,17 @@ def compute_all_feedback_overview() -> tuple[str, pd.DataFrame]:
         for star in range(1, 6):
             hist.append({"stars": str(star), "count": ratings.count(star), "system": sysname})
 
-    pairs = [(int(r["rating_a"]), int(r["rating_b"])) for r in ab if not r.get("b_equals_a")
-             and str(r.get("rating_a") or "").isdigit() and str(r.get("rating_b") or "").isdigit()]
-    if pairs:
-        better = rate_ci(sum(1 for a, b in pairs if b > a), len(pairs))
-        ci = better["ci95"]
-        lines.append(f"\nWhere translations 1 and 2 differed and both were rated, translation 2 was rated "
-                     f"higher in {better['k']}/{better['n']} (95% CI {ci[0]:.2f}-{ci[1]:.2f})"
-                     + (", low n." if better["low_n"] else "."))
-    else:
-        lines.append("\nNo submission yet where translations 1 and 2 differed and both were rated.")
+    for key, label in _PAIRINGS:
+        pairs = [(int(r["rating_a"]), int(r["rating_b"])) for r in ab if _pairing(r) == key and not r.get("b_equals_a")
+                 and str(r.get("rating_a") or "").isdigit() and str(r.get("rating_b") or "").isdigit()]
+        if pairs:
+            better = rate_ci(sum(1 for a, b in pairs if b > a), len(pairs))
+            ci = better["ci95"]
+            lines.append(f"\n**{label}:** where translations 1 and 2 differed and both were rated, translation 2 "
+                         f"was rated higher in {better['k']}/{better['n']} (95% CI {ci[0]:.2f}-{ci[1]:.2f})"
+                         + (", low n." if better["low_n"] else "."))
+        else:
+            lines.append(f"\n**{label}:** no submission yet where translations 1 and 2 differed and both were rated.")
     return "\n".join(lines), pd.DataFrame(hist)
 
 
@@ -372,7 +407,8 @@ with gr.Blocks(title="Kitaita Translator") as demo:
             gr.Markdown(
                 "# Kitaita Translator\n"
                 "Swahili &rarr; Kitaita (Kidaw'ida, ISO `dav`). Two machine translations of the same "
-                "sentence, side by side. They are often identical.\n\n"
+                "sentence, side by side. Translation 2 takes about 30 seconds. `[?word]` marks a word "
+                "with no Kitaita found (the Swahili is kept).\n\n"
                 "Both are machine translation awaiting native-speaker review."
             )
             inp = gr.Textbox(label="Swahili sentence", lines=2,
@@ -382,7 +418,7 @@ with gr.Blocks(title="Kitaita Translator") as demo:
                 sample_btn = gr.Button("🎲 Give me a sentence to test")
             with gr.Row():
                 # 2026-11-03, user request: blind comparison -- no system names on the page.
-                # Translation 1 = fine-tuned NLLB (A), Translation 2 = A + rule book (B);
+                # Translation 1 = fine-tuned NLLB (A), Translation 2 = Haiku + tools (B, since 2026-11-12);
                 # submit_ab_feedback stores the ratings under A and B.
                 ft_out = gr.Textbox(label="Translation 1", lines=2)
                 b_out = gr.Textbox(label="Translation 2", lines=2)
@@ -419,8 +455,8 @@ with gr.Blocks(title="Kitaita Translator") as demo:
                     rb_correction = gr.Textbox(label="Correct Kitaita translation (optional)", lines=2)
                 rb_feedback_btn = gr.Button("Submit feedback on the rule-based output")
                 rb_feedback_status = gr.Markdown()
-                # moved here from next to the two translations: it names which one the rule book changed
-                with gr.Accordion("Rule book report (shows which translation is which -- not for blind raters)",
+                # names the systems: kept out of sight for blind raters
+                with gr.Accordion("How translation 2 was built (names the systems -- not for blind raters)",
                                   open=False):
                     ft_flags_box = gr.Markdown()
 
@@ -438,8 +474,9 @@ with gr.Blocks(title="Kitaita Translator") as demo:
         with gr.Tab("📊 Progress"):
             gr.Markdown(
                 "# Evaluation progress\n"
-                "Native-speaker ratings of translation 1 (fine-tuned) and translation 2 "
-                "(fine-tuned + rule book), from the Translator tab's **Submit feedback** button. "
+                "Native-speaker ratings of translation 1 (fine-tuned) and translation 2 (Haiku + tools since "
+                "2026-11-12; before that fine-tuned + rule book, shown separately), from the Translator tab's "
+                "**Submit feedback** button. "
                 "Refreshes automatically every 60s, or click Refresh now."
             )
             refresh_btn = gr.Button("🔄 Refresh now")

@@ -14,3 +14,6 @@ python-multipart>=0.0.9  # form parsing for the Africa's Talking webhooks
 # Multiplayer word game (api/game.py): WebSocket support + the marker-oracle from the app repo
 websockets>=12
 kitaita-oracle @ git+https://github.com/mpily/bantugrammar-app@4c722ab45b214a598a469c7e34489f7244fdab81
+# Translation 2 (2026-11-12): Claude Haiku + rule-book tools (haiku_mt.py); TF-IDF retrieval in agent_translate/tools.py
+anthropic==2.8.0
+scikit-learn>=1.3

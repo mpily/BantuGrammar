@@ -10,7 +10,8 @@ name: sync hf_space to the Hugging Face Space
 on:
   push:
     branches: [main]
-    paths: ["hf_space/**", ".github/workflows/sync_space.yml"]
+    paths: ["hf_space/**", ".github/workflows/sync_space.yml", "agent_translate/**", "HaikuHarness/**",
+            "rulebook/rules.json", "rulebook/lexicon.json", "rulebook/bootstrap_lexicon.json", "rulebook/dav_vocab.json"]
   workflow_dispatch:
     inputs:
       diagnose_only:
@@ -34,7 +35,8 @@ jobs:
         if: ${{ !inputs.diagnose_only }}
         run: |
           pip install "fastapi>=0.110" "uvicorn>=0.29" "pydantic>=2.6" "pyyaml>=6" "httpx>=0.27" \
-                      "huggingface_hub>=0.24" "websockets>=12" "python-multipart>=0.0.9" "pytest>=7"
+                      "huggingface_hub>=0.24" "websockets>=12" "python-multipart>=0.0.9" "pytest>=7" \
+                      "anthropic==2.8.0"
           pip install "$(grep '^kitaita-oracle' hf_space/requirements.txt)"
       - name: API tests (a failure stops the upload)
         if: ${{ !inputs.diagnose_only }}
@@ -49,12 +51,22 @@ jobs:
             echo "::error::Repository secret HF_TOKEN is missing (needs WRITE access to the Space). See the comment at the top of this workflow."
             exit 1
           fi
+          # 2026-11-12: translation 2 (haiku_mt.py) also needs the frozen tools, the rule book's data files
+          # and the harness; they are staged next to the hf_space files (one Space commit, one rebuild).
+          # The training corpus is NOT uploaded here: it lives in a private dataset (haiku_mt.py).
+          rm -rf /tmp/space && cp -r hf_space /tmp/space
+          mkdir -p /tmp/space/rulebook /tmp/space/HaikuHarness
+          cp -r agent_translate /tmp/space/agent_translate
+          cp rulebook/rules.json rulebook/lexicon.json rulebook/bootstrap_lexicon.json rulebook/dav_vocab.json \
+             rulebook/MANIFEST.json /tmp/space/rulebook/
+          cp HaikuHarness/agent_loop.py HaikuHarness/one_call.py HaikuHarness/prompts.py \
+             HaikuHarness/tool_bridge.py HaikuHarness/score.py /tmp/space/HaikuHarness/
           python - <<'PY'
           import os
           from huggingface_hub import HfApi
           api = HfApi(token=os.environ["HF_TOKEN"])
           commit = api.upload_folder(
-              repo_id="mpily/BantuGrammar", repo_type="space", folder_path="hf_space",
+              repo_id="mpily/BantuGrammar", repo_type="space", folder_path="/tmp/space",
               commit_message=f"Sync hf_space from GitHub {os.environ['GITHUB_SHA'][:12]}",
               ignore_patterns=["tests/**", "**/__pycache__/**", "api_data/**", ".env", "*.pyc"],
           )
