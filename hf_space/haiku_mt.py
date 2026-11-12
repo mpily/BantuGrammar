@@ -1,5 +1,6 @@
 """
-haiku_mt.py -- Translation 2 on the Space: Claude Haiku + the rule-book tools (study arm C).
+haiku_mt.py -- the Haiku arms on the Space: Haiku + the rule-book tools (study arm C, translation 2) and,
+since 2026-11-12 (user decision), Haiku zero-shot with no tools (study arm E, translation 3).
 
 2026-11-12, user decision: replaces "fine-tuned + rule book" as Translation 2. This module only wraps
 the existing harness (HaikuHarness/agent_loop.py, prompts.py) and the frozen tools
@@ -148,18 +149,47 @@ def configured() -> bool:
     return bool(os.environ.get("ANTHROPIC_API_KEY") or os.environ.get("ANTHROPIC_AUTH_TOKEN"))
 
 
-def translate(text: str, visitor: str = "unknown") -> dict:
-    """{'kitaita', 'status', 'notes', 'tool_calls', 'usd', ...}; kitaita is None when nothing was produced."""
+def precheck(text: str, visitor: str = "unknown") -> str | None:
+    """Why the Haiku arms cannot run for this sentence, or None. Counts one visit per sentence."""
+    if not configured():
+        return "not configured on this Space (no ANTHROPIC_API_KEY secret)"
+    if len((text or "").strip()) > MAX_CHARS:
+        return f"sentence too long for this mode (max {MAX_CHARS} characters)"
+    if _spent_today() >= DAILY_CAP_USD:
+        return "daily limit reached for this mode; try again tomorrow (UTC)"
+    if not _visitor_ok(visitor):
+        return f"limit of {PER_VISITOR_PER_HOUR} sentences per hour reached; try again later"
+    return None
+
+
+def translate_zero_shot(text: str) -> dict:
+    """Study arm E: one Haiku call, no tools (HaikuHarness/one_call.py), under the same daily cap.
+    Call precheck() first."""
+    base = {"kitaita": None, "usd": 0.0}
+    import anthropic
+    import one_call
+    import prompts
+    client = _GuardedClient(anthropic.Anthropic(timeout=REQUEST_TIMEOUT_S, max_retries=2), one_call.MODEL)
+    try:
+        r = one_call.translate_zero_shot((text or "").strip(), client=client)
+    except BudgetExceeded:
+        return {**base, "status": "daily limit reached for this mode; try again tomorrow (UTC)"}
+    except Exception as e:
+        return {**base, "usd": client.usd, "status": f"error: {type(e).__name__}"}
+    return {**base, "kitaita": r["translation"], "usd": client.usd,
+            "status": "ready" if r["translation"] else f"no translation ({r['stop_reason']})",
+            "prompt_sha16": prompts.prompt_sha16(), "model": one_call.MODEL}
+
+
+def translate(text: str, visitor: str = "unknown", checked: bool = False) -> dict:
+    """Study arm C. {'kitaita', 'status', 'notes', 'tool_calls', 'usd', ...}; kitaita is None when nothing was
+    produced. checked=True: precheck() was already called for this sentence."""
     base = {"kitaita": None, "notes": "", "tool_calls": [], "usd": 0.0, "corpus": _state["corpus"]}
     text = (text or "").strip()
-    if not configured():
-        return {**base, "status": "not configured on this Space (no ANTHROPIC_API_KEY secret)"}
-    if len(text) > MAX_CHARS:
-        return {**base, "status": f"sentence too long for this mode (max {MAX_CHARS} characters)"}
-    if _spent_today() >= DAILY_CAP_USD:
-        return {**base, "status": "daily limit reached for this mode; try again tomorrow (UTC)"}
-    if not _visitor_ok(visitor):
-        return {**base, "status": f"limit of {PER_VISITOR_PER_HOUR} sentences per hour reached; try again later"}
+    if not checked:
+        why = precheck(text, visitor)
+        if why:
+            return {**base, "status": why}
     import anthropic
     import agent_loop
     import prompts
@@ -192,3 +222,11 @@ def system_label() -> str:
         return f"haiku+tools:{rulebook_tag()}:prompt-{prompts.prompt_sha16()}"
     except Exception:
         return f"haiku+tools:{rulebook_tag()}"
+
+
+def zero_shot_label() -> str:
+    try:
+        import prompts
+        return f"haiku-zero-shot:prompt-{prompts.prompt_sha16()}"
+    except Exception:
+        return "haiku-zero-shot"

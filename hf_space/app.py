@@ -119,63 +119,48 @@ def translate_finetuned(text: str, clauses=None):
     return r["kitaita"], b["kitaita"], report
 
 
-def haiku_report(h: dict) -> str:
-    """Not for blind raters: how translation 2 was built."""
-    if h["kitaita"] is None:
-        return f"**Translation 2 (Haiku + tools):** {h['status']}"
-    calls = [f"- `{c['name']}({json.dumps(c['input'], ensure_ascii=False)[:90]})` -> {c['status']}" for c in h["tool_calls"]]
-    return (f"**Translation 2 = Claude Haiku + rule-book tools ({haiku_mt.rulebook_tag()}).** "
-            f"{len(h['tool_calls'])} tool calls, {h.get('n_requests', 0)} model requests, est. ${h['usd']:.4f}; "
-            f"retrieval corpus: {h['corpus']}. `[?word]` = no Kidaw'ida found, Swahili kept.\n\n"
-            + (f"**Model's notes:** {h['notes']}\n\n" if h["notes"] else "")
-            + "**Tool calls:**\n" + "\n".join(calls))
+def haiku_report(c: dict, e: dict) -> str:
+    """Not for blind raters: which system made translations 2 and 3, and how translation 2 was built."""
+    if c["kitaita"] is None:
+        head = f"**Translation 2 (Haiku + tools):** {c['status']}"
+        calls = []
+    else:
+        head = (f"**Translation 2 = Claude Haiku + rule-book tools ({haiku_mt.rulebook_tag()}).** "
+                f"{len(c['tool_calls'])} tool calls, {c.get('n_requests', 0)} model requests, est. ${c['usd']:.4f}; "
+                f"retrieval corpus: {c['corpus']}. `[?word]` = no Kidaw'ida found, Swahili kept.")
+        calls = [f"- `{x['name']}({json.dumps(x['input'], ensure_ascii=False)[:90]})` -> {x['status']}"
+                 for x in c["tool_calls"]]
+    tail = (f"\n\n**Translation 3 = Claude Haiku zero-shot (no tools, no dictionary)**: {e['status']}"
+            + (f", est. ${e['usd']:.4f}" if e.get("usd") else "")
+            + "\n\n**Translation 1 = fine-tuned NLLB-600M.**")
+    notes = f"\n\n**Model's notes (translation 2):** {c['notes']}" if c.get("notes") else ""
+    return head + notes + tail + ("\n\n**Tool calls (translation 2):**\n" + "\n".join(calls) if calls else "")
 
 
-def translate(text: str, mode: str, request: gr.Request = None):
-    """Generator: shows translation 1 (fine-tuned) first, then translation 2 (Haiku + tools, ~30 s),
-    then the research pipeline in its accordion."""
+def translate(text: str, request: gr.Request = None):
+    """Generator, the three study arms: translation 1 = fine-tuned NLLB (A), 2 = Haiku + tools (C),
+    3 = Haiku zero-shot (E). Shows 1 first, then 3 (one call), then 2 (~30 s).
+    2026-11-12, user decision: the probe pipeline is no longer run or shown here (it confused testers);
+    /api/translate still serves it."""
     text = (text or "").strip()
     if not text:
-        yield "", "", "", "", "", ""
+        yield "", "", "", ""
         return
     ft = finetuned_mt.translate(text)
-    ft_out = ft["kitaita"] if ft["kitaita"] is not None else f"(fine-tuned model {ft['status']})"
-    yield "", "", "", ft_out, "(translating... about 30 seconds)", ""
-    h = haiku_mt.translate(text, haiku_mt.visitor_id(request))
-    b_out = h["kitaita"] if h["kitaita"] is not None else f"({h['status']})"
-    report = haiku_report(h)
-    yield "", "", "", ft_out, b_out, report
-    fn = translate_sentence_with_probes if mode.startswith("Probes") else translate_sentence
-    try:
-        r = fn(text, _tables)
-    except Exception as e:  # keep the Space up even if one input trips a bug
-        r = None
-        err = f"SERVER ERROR: {type(e).__name__}: {e}"
-    if r is None:
-        yield "", "", err, ft_out, b_out, report
+    a_out = ft["kitaita"] if ft["kitaita"] is not None else f"(fine-tuned model {ft['status']})"
+    wait = "(translating... about 30 seconds)"
+    yield a_out, wait, wait, ""
+    why = haiku_mt.precheck(text, haiku_mt.visitor_id(request))
+    if why:
+        msg = f"({why})"
+        yield a_out, msg, msg, f"**Translations 2 and 3 (Haiku):** {why}"
         return
-    sentence = r.get("kitaita_sentence") or ""
-    error = r.get("error")
-    flags = r.get("flags")
-    if flags is None:
-        d = r.get("decomposition")
-        flags = getattr(d, "flags", []) if d is not None else []
-    trace = r.get("trace", [])
-    flags_text = "\n".join(f"- {f}" for f in flags) if flags else "(none)"
-    trace_text = "\n".join(f"- {t}" for t in trace) if trace else "(none)"
-    # 2026-10-20: direct user report -- a verbless input (e.g. "Siku zote za
-    # maisha yangu.") produces a real, often fully correct best-effort
-    # translation (every noun/particle/possessive/quantifier still gets
-    # substituted independently; only VERB agreement needs a clause to
-    # compute), but `error` was always prefixed with "ERROR:" regardless,
-    # reading as an outright refusal even when the line above it was right.
-    # Only show the ERROR prefix when there's genuinely nothing to show;
-    # otherwise the detail belongs in the Flags panel, where it already is.
-    if not sentence:
-        out = f"(no output)\n\nERROR: {error}" if error else "(no output)"
-    else:
-        out = sentence
-    yield out, flags_text, trace_text, ft_out, b_out, report
+    e = haiku_mt.translate_zero_shot(text)
+    e_out = e["kitaita"] if e["kitaita"] is not None else f"({e['status']})"
+    yield a_out, wait, e_out, ""
+    c = haiku_mt.translate(text, checked=True)
+    c_out = c["kitaita"] if c["kitaita"] is not None else f"({c['status']})"
+    yield a_out, c_out, e_out, haiku_report(c, e)
 
 
 def random_test_sentence():
@@ -189,32 +174,37 @@ def random_test_sentence():
     return choice["sw"], ""
 
 
-def submit_ab_feedback(swahili: str, a_output: str, b_output: str, rule_book_report: str,
-                       rating_a: str, rating_b: str, correction: str):
-    """2026-11-02: one record per A/B rating, written to feedback_ab/ in the same private dataset.
-    2026-11-12: B is Haiku + tools (system_b "haiku+tools:..."); older records have
-    system_b "finetuned+rulebook" and the Progress tab keeps the two pairings apart."""
+ARMS = [("A", "fine-tuned NLLB"), ("C", "Haiku + tools"), ("E", "Haiku zero-shot")]
+
+
+def submit_ab_feedback(swahili: str, a_output: str, c_output: str, e_output: str, report: str,
+                       rating_a: str, rating_c: str, rating_e: str, correction: str):
+    """One record per blind rating of the three arms, in feedback_ab/ of the private dataset.
+    2026-11-12: arms A (translation 1), C (2), E (3). Legacy fields a_*/b_* are kept so older readers work
+    (b = C). On success the form is cleared so the tester knows to go on (user request)."""
+    keep = (gr.update(),) * 9
     swahili = (swahili or "").strip()
     if not swahili or not (a_output or "").strip():
-        return "Nothing to log yet -- translate a sentence first."
-    if not rating_a and not rating_b:
-        return "Rate translation 1 and/or 2 (1-5) before submitting."
+        return ("Nothing to log yet -- translate a sentence first.",) + keep
+    if not (rating_a or rating_c or rating_e):
+        return ("Rate at least one translation (1-5) before submitting.",) + keep
     token = os.environ.get("HF_TOKEN")
     if not token:
-        return "Feedback was NOT saved: this Space has no HF_TOKEN secret configured."
+        return ("Feedback was NOT saved: this Space has no HF_TOKEN secret configured.",) + keep
+    outs = {"A": (a_output or "").strip(), "C": (c_output or "").strip(), "E": (e_output or "").strip()}
+    ratings = {"A": rating_a or None, "C": rating_c or None, "E": rating_e or None}
+    systems = {"A": "finetuned:" + str(finetuned_mt._CFG.get("model_repo")), "C": haiku_mt.system_label(),
+               "E": haiku_mt.zero_shot_label()}
     record = {
         "id": str(uuid.uuid4()),
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "swahili_input": swahili,
-        "system_a": "finetuned:" + str(finetuned_mt._CFG.get("model_repo")),
-        "system_b": haiku_mt.system_label(),
-        "a_output": (a_output or "").strip(),
-        "b_output": (b_output or "").strip(),
-        "b_equals_a": (a_output or "").strip() == (b_output or "").strip(),
-        "rule_book_report": rule_book_report,
-        "blind": True,  # 2026-11-03: labels hidden; translation 1 = A, translation 2 = B (fixed order)
-        "rating_a": rating_a or None,
-        "rating_b": rating_b or None,
+        "arms": {k: {"system": systems[k], "output": outs[k], "rating": ratings[k]} for k in outs},
+        "display_order": ["A", "C", "E"],   # translation 1, 2, 3 (fixed order, labels hidden)
+        "system_a": systems["A"], "system_b": systems["C"], "a_output": outs["A"], "b_output": outs["C"],
+        "b_equals_a": outs["A"] == outs["C"], "rating_a": ratings["A"], "rating_b": ratings["C"],
+        "report": report,
+        "blind": True,
         "native_speaker_correction": (correction or "").strip() or None,
     }
     try:
@@ -225,86 +215,12 @@ def submit_ab_feedback(swahili: str, a_output: str, b_output: str, rule_book_rep
             path_in_repo=f"feedback_ab/{record['timestamp'].replace(':', '-')}_{record['id']}.json",
             repo_id=FEEDBACK_DATASET_REPO, repo_type="dataset")
     except Exception as e:
-        return f"Feedback was NOT saved -- upload failed: {type(e).__name__}: {e}"
-    return "Thanks -- logged for review." + (" (your correction was included.)" if record["native_speaker_correction"] else "")
-
-
-def submit_feedback(swahili: str, kitaita_output: str, mode: str, rating: str, correction: str):
-    """Logs ONE rating (+ optional corrected translation) as its own small
-    JSON file in a private HF Dataset -- one file per submission (not a
-    shared CSV/JSON Claude read-modifies-writes) so two people submitting
-    at the same moment can never clobber each other, and a failed/partial
-    upload never corrupts anything else already logged. Requires an
-    HF_TOKEN secret on THIS Space with write access to the dataset repo
-    (Space Settings -> Variables and secrets) -- without it, this fails
-    closed with a clear message rather than silently losing the feedback
-    or crashing the whole Space for every other visitor."""
-    swahili = (swahili or "").strip()
-    if not swahili:
-        return "Nothing to log yet -- translate a sentence first."
-    if not rating:
-        return "Pick a rating (1-5) before submitting."
-    token = os.environ.get("HF_TOKEN")
-    if not token:
-        return ("Feedback was NOT saved: this Space has no HF_TOKEN secret configured, so it "
-                "can't write to the feedback dataset. (Space owner: add one under Settings -> "
-                "Variables and secrets.)")
-    record = {
-        "id": str(uuid.uuid4()),
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-        "swahili_input": swahili,
-        "kitaita_output": (kitaita_output or "").strip(),
-        "mode": mode,
-        "rating": rating,
-        "native_speaker_correction": (correction or "").strip() or None,
-    }
-    # 2026-10-26: direct user request ("add summary charts for all three
-    # [evaluation] tests that automatically update") -- the 3 metrics
-    # (kitaita_eval_metrics.py) need the pipeline's own structured
-    # CONCORD-SLOT ledger (Decomposition.slots) to compare against a
-    # native speaker's correction, not just the holistic rating this
-    # form already captured. Re-running translation here (same swahili+
-    # mode already submitted) is the least invasive way to get that --
-    # no change to the existing Translate button/UI, and feedback
-    # submission is rare enough (one click per rated sentence, not per
-    # keystroke) that the repeated inference cost is a non-issue. Never
-    # blocks the feedback save on this -- if it fails, the rating/
-    # correction above is still logged, just without slot-level detail
-    # for the dashboard to use.
-    try:
-        fn = translate_sentence_with_probes if mode.startswith("Probes") else translate_sentence
-        r2 = fn(swahili, _tables)
-        d2 = r2.get("decomposition")
-        if d2 is not None:
-            record["slots"] = [{"token_idx": s.token_idx, "slot_type": s.slot_type,
-                                 "predicted_form": s.predicted_form} for s in d2.slots]
-            # vocabulary choices: content-word substitutions NOT already a
-            # concord slot (see kitaita_eval_metrics.py's own "slots are
-            # concord, not vocabulary" scoping) -- d.secondary_nouns is
-            # this project's own existing ledger for exactly that, reused
-            # rather than re-derived.
-            slot_idxs = {s.token_idx for s in d2.slots}
-            record["vocab_choices"] = [{"token_idx": idx, "kitaita": kit}
-                                        for idx, _lemma, kit in d2.secondary_nouns
-                                        if kit and idx not in slot_idxs]
-        else:
-            record["slots"], record["vocab_choices"] = [], []
-    except Exception:
-        record["slots"], record["vocab_choices"] = [], []
-    try:
-        from huggingface_hub import HfApi
-        import io
-        api = HfApi(token=token)
-        path_in_repo = f"feedback/{record['timestamp'].replace(':', '-')}_{record['id']}.json"
-        api.upload_file(
-            path_or_fileobj=io.BytesIO(json.dumps(record, ensure_ascii=False, indent=1).encode("utf-8")),
-            path_in_repo=path_in_repo,
-            repo_id=FEEDBACK_DATASET_REPO,
-            repo_type="dataset",
-        )
-    except Exception as e:
-        return f"Feedback was NOT saved -- upload failed: {type(e).__name__}: {e}"
-    return "Thanks -- logged for review." + (" (your correction was included.)" if record["native_speaker_correction"] else "")
+        return (f"Feedback was NOT saved -- upload failed: {type(e).__name__}: {e}",) + keep
+    msg = ("### ✅ Thank you! Your feedback was saved."
+           + (" (Your correction was included.)" if record["native_speaker_correction"] else "")
+           + "\nThe form has been cleared: type or pick the next sentence to continue.")
+    # cleared: input, 3 outputs, report, 3 ratings, correction
+    return (msg, "", "", "", "", "", None, None, None, "")
 
 
 # --------------------------------------------------------------------------- progress dashboard
@@ -330,70 +246,48 @@ def _load_all_feedback(folder: str = "feedback") -> list[dict]:
         return []
 
 
-# 2026-11-12: translation 2 changed from fine-tuned + rule book to Haiku + tools; ratings are kept per pairing
-_PAIRINGS = [("haiku", "Haiku + tools"), ("finetuned+rulebook", "fine-tuned + rule book (until 2026-11-12)")]
-
-
-def _pairing(record: dict) -> str:
-    return "haiku" if str(record.get("system_b") or "").startswith("haiku") else "finetuned+rulebook"
+# 2026-11-12, user decision: the Progress tab tracks only the three study arms -- A (fine-tuned NLLB),
+# C (Haiku + tools), E (Haiku zero-shot): number of ratings, mean rating, and chrF against native-speaker
+# corrections. Ratings of the retired "fine-tuned + rule book" translation are not shown.
+def _arm_rows(record: dict) -> list[tuple]:
+    """(arm, rating, output, correction) for the A / C / E outputs in one feedback record."""
+    corr = record.get("native_speaker_correction")
+    if "arms" in record:
+        return [(k, v.get("rating"), v.get("output"), corr) for k, v in record["arms"].items() if k in ("A", "C", "E")]
+    rows = [("A", record.get("rating_a"), record.get("a_output"), corr)]
+    if str(record.get("system_b") or "").startswith("haiku+tools"):
+        rows.append(("C", record.get("rating_b"), record.get("b_output"), corr))
+    return rows
 
 
 def compute_all_feedback_overview() -> tuple[str, pd.DataFrame]:
-    """Blind A/B feedback (feedback_ab/, the Translator tab's Submit feedback
-    button). Ratings stay labelled by system, never averaged into one mean."""
-    from api.stats import mean_ci, rate_ci, chrf
-    from api.util import normalize_kitaita
+    from api.stats import mean_ci, chrf
     ab = _load_all_feedback("feedback_ab")
-
-    # (system, rating or None, output, correction or None) -- one row per rated output
-    rows, systems = [], []
-    for key, label in _PAIRINGS:
-        t1, t2 = f"Translation 1 (fine-tuned), rated next to {label}", f"Translation 2 ({label})"
-        systems += [t1, t2]
-        for r in ab:
-            if _pairing(r) == key:
-                corr = r.get("native_speaker_correction")
-                rows.append((t1, r.get("rating_a"), r.get("a_output"), corr))
-                rows.append((t2, r.get("rating_b"), r.get("b_output"), corr))
-
-    all_recs = ab
-    n_sent = len({(r.get("swahili_input") or "").strip().lower() for r in all_recs})
-    n_corr = sum(1 for r in all_recs if r.get("native_speaker_correction"))
-    lines = [f"**{len(all_recs)}** feedback submissions, covering **{n_sent}** different Swahili "
-             f"sentences; **{n_corr}** include a native-speaker correction.", "",
-             "| System | Ratings | Mean rating (95% CI) | Corrections | Match to correction (chrF, 0-100) | Exactly matches correction |",
-             "|---|---|---|---|---|---|"]
+    rows = [x for r in ab for x in _arm_rows(r)]
+    lines = ["| Arm | Ratings | Mean rating (95% CI) | Corrections | Mean chrF vs correction (95% CI) |",
+             "|---|---|---|---|---|"]
     hist = []
-    for sysname in systems:
-        sr = [x for x in rows if x[0] == sysname]
+    for arm, name in ARMS:
+        sr = [x for x in rows if x[0] == arm]
         ratings = [int(x[1]) for x in sr if str(x[1] or "").isdigit()]
         m = mean_ci(ratings)
-        if m["n"] == 0:
-            mean_txt = "--"
-        else:
-            mean_txt = f"{m['mean']:.2f}" + (f" ({m['ci95'][0]:.2f}-{m['ci95'][1]:.2f})" if m["ci95"] else "")
-            mean_txt += " low n" if m["low_n"] else ""
-        with_corr = [x for x in sr if (x[3] or "").strip() and (x[2] or "").strip()]
+        def fmt(v, digits, lo, hi):
+            """mean (95% CI clipped to the scale's range: at low n the t interval runs past it)"""
+            if v["n"] == 0:
+                return "--"
+            ci = v["ci95"]
+            t = f"{v['mean']:.{digits}f}" + (f" ({max(lo, ci[0]):.{digits}f}-{min(hi, ci[1]):.{digits}f})" if ci else "")
+            return t + (" low n" if v["low_n"] else "")
+        with_corr = [x for x in sr if (x[3] or "").strip() and (x[2] or "").strip() and not str(x[2]).startswith("(")]
         c = mean_ci([chrf(x[2], x[3]) for x in with_corr])
-        chrf_txt = "--" if c["n"] == 0 else f"{c['mean']:.1f}" + (" low n" if c["low_n"] else "")
-        ex = rate_ci(sum(1 for x in with_corr if normalize_kitaita(x[2]) == normalize_kitaita(x[3])), len(with_corr))
-        ex_txt = "--" if ex["n"] == 0 else f"{ex['k']}/{ex['n']}"
-        lines.append(f"| {sysname} | {m['n']} | {mean_txt} | {len(with_corr)} | {chrf_txt} | {ex_txt} |")
+        lines.append(f"| {arm}: {name} | {m['n']} | {fmt(m, 2, 1, 5)} | {c['n']} | {fmt(c, 1, 0, 100)} |")
         for star in range(1, 6):
-            hist.append({"stars": str(star), "count": ratings.count(star), "system": sysname})
-
-    for key, label in _PAIRINGS:
-        pairs = [(int(r["rating_a"]), int(r["rating_b"])) for r in ab if _pairing(r) == key and not r.get("b_equals_a")
-                 and str(r.get("rating_a") or "").isdigit() and str(r.get("rating_b") or "").isdigit()]
-        if pairs:
-            better = rate_ci(sum(1 for a, b in pairs if b > a), len(pairs))
-            ci = better["ci95"]
-            lines.append(f"\n**{label}:** where translations 1 and 2 differed and both were rated, translation 2 "
-                         f"was rated higher in {better['k']}/{better['n']} (95% CI {ci[0]:.2f}-{ci[1]:.2f})"
-                         + (", low n." if better["low_n"] else "."))
-        else:
-            lines.append(f"\n**{label}:** no submission yet where translations 1 and 2 differed and both were rated.")
-    return "\n".join(lines), pd.DataFrame(hist)
+            hist.append({"stars": str(star), "count": ratings.count(star), "system": f"{arm}: {name}"})
+    n_sent = len({(r.get("swahili_input") or "").strip().lower() for r in ab if _arm_rows(r)})
+    head = (f"Ratings from **{n_sent}** different Swahili sentences. Mean rating: 1 = way off, 5 = correct. "
+            "chrF (0-100) compares each arm's output with the native speaker's correction, when one was given. "
+            "\"low n\" = fewer than 5.\n\n")
+    return head + "\n".join(lines), pd.DataFrame(hist)
 
 
 def refresh_dashboard():
@@ -406,92 +300,69 @@ with gr.Blocks(title="Kitaita Translator") as demo:
         with gr.Tab("Translator"):
             gr.Markdown(
                 "# Kitaita Translator\n"
-                "Swahili &rarr; Kitaita (Kidaw'ida, ISO `dav`). Two machine translations of the same "
-                "sentence, side by side. Translation 2 takes about 30 seconds. `[?word]` marks a word "
-                "with no Kitaita found (the Swahili is kept).\n\n"
-                "Both are machine translation awaiting native-speaker review."
+                "Swahili &rarr; Kitaita (Kidaw'ida, ISO `dav`). Three machine translations of the same "
+                "sentence. Translations 2 and 3 take up to 30 seconds. `[?word]` marks a word with no "
+                "Kitaita found (the Swahili is kept).\n\n"
+                "All three are machine translation awaiting native-speaker review."
             )
             inp = gr.Textbox(label="Swahili sentence", lines=2,
-                             placeholder="e.g. Mbwa mkubwa aliona Kijana mdogo akitembea.")
+                             placeholder="e.g. Mama alimpa mtoto maji ya kunywa.")
             with gr.Row():
                 btn = gr.Button("Translate", variant="primary")
                 sample_btn = gr.Button("🎲 Give me a sentence to test")
             with gr.Row():
-                # 2026-11-03, user request: blind comparison -- no system names on the page.
-                # Translation 1 = fine-tuned NLLB (A), Translation 2 = Haiku + tools (B, since 2026-11-12);
-                # submit_ab_feedback stores the ratings under A and B.
-                ft_out = gr.Textbox(label="Translation 1", lines=2)
-                b_out = gr.Textbox(label="Translation 2", lines=2)
+                # blind comparison: no system names on the page. 1 = A (fine-tuned), 2 = C (Haiku + tools),
+                # 3 = E (Haiku zero-shot); submit_ab_feedback stores the ratings under A, C, E.
+                out_a = gr.Textbox(label="Translation 1", lines=2)
+                out_c = gr.Textbox(label="Translation 2", lines=2)
+                out_e = gr.Textbox(label="Translation 3", lines=2)
 
             gr.Markdown("### Are these translations right?")
             gr.Markdown(
-                "If you speak Kitaita: rate **each translation** separately and, if both are wrong, write "
+                "If you speak Kitaita: rate **each translation** separately and, if none is right, write "
                 "the correct translation. Logged for review, not applied automatically."
             )
             with gr.Row():
-                rating_a = gr.Radio(["1", "2", "3", "4", "5"], label="Rating for translation 1 (1 = way off, 5 = correct)")
-                rating_b = gr.Radio(["1", "2", "3", "4", "5"], label="Rating for translation 2 (1 = way off, 5 = correct)")
+                rating_a = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 1 (1 = way off, 5 = correct)")
+                rating_c = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 2 (1 = way off, 5 = correct)")
+                rating_e = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 3 (1 = way off, 5 = correct)")
             correction = gr.Textbox(label="Correct Kitaita translation (optional)", lines=2,
-                                    placeholder="If neither output is right, what should it be?")
-            feedback_btn = gr.Button("Submit feedback")
+                                    placeholder="If no translation is right, what should it be?")
+            feedback_btn = gr.Button("Submit feedback", variant="primary")
             feedback_status = gr.Markdown()
 
-            with gr.Accordion("Research: the earlier rule-based pipeline (NLLB probes + concord rewriting)",
+            # names the systems: kept out of sight for blind raters
+            with gr.Accordion("For researchers: which system made each translation (not for blind raters)",
                               open=False):
-                gr.Markdown(
-                    "Translates directly from Swahili with dictionaries and concord rules; kept for "
-                    "research. **Probes** mode uses the NLLB encoder + trained relation probes; "
-                    "**heuristic** mode is an adjacency-based decomposer."
-                )
-                mode = gr.Radio(["Probes (full pipeline)", "Heuristic (for comparison)"],
-                                value="Probes (full pipeline)", label="Mode")
-                out = gr.Textbox(label="Rule-based pipeline output", lines=2)
-                with gr.Accordion("Flags (identification/translation caveats on this sentence)", open=False):
-                    flags_box = gr.Markdown()
-                with gr.Accordion("Evidence trail (full per-step trace)", open=False):
-                    trace_box = gr.Markdown()
-                with gr.Row():
-                    rating = gr.Radio(["1", "2", "3", "4", "5"], label="Rating for the rule-based output")
-                    rb_correction = gr.Textbox(label="Correct Kitaita translation (optional)", lines=2)
-                rb_feedback_btn = gr.Button("Submit feedback on the rule-based output")
-                rb_feedback_status = gr.Markdown()
-                # names the systems: kept out of sight for blind raters
-                with gr.Accordion("How translation 2 was built (names the systems -- not for blind raters)",
-                                  open=False):
-                    ft_flags_box = gr.Markdown()
+                report_box = gr.Markdown()
 
-            outputs = [out, flags_box, trace_box, ft_out, b_out, ft_flags_box]
-            btn.click(translate, inputs=[inp, mode], outputs=outputs)
-            inp.submit(translate, inputs=[inp, mode], outputs=outputs)
+            outputs = [out_a, out_c, out_e, report_box]
+            btn.click(translate, inputs=[inp], outputs=outputs)
+            inp.submit(translate, inputs=[inp], outputs=outputs)
             sample_btn.click(random_test_sentence, inputs=[], outputs=[inp, feedback_status])
             feedback_btn.click(submit_ab_feedback,
-                               inputs=[inp, ft_out, b_out, ft_flags_box, rating_a, rating_b, correction],
-                               outputs=[feedback_status])
-            rb_feedback_btn.click(submit_feedback, inputs=[inp, out, mode, rating, rb_correction],
-                                  outputs=[rb_feedback_status])
-            gr.Examples(examples=EXAMPLES, inputs=[inp, mode])
+                               inputs=[inp, out_a, out_c, out_e, report_box, rating_a, rating_c, rating_e, correction],
+                               outputs=[feedback_status, inp, out_a, out_c, out_e, report_box,
+                                        rating_a, rating_c, rating_e, correction])
+            gr.Examples(examples=[[e[0]] for e in EXAMPLES], inputs=[inp])
 
         with gr.Tab("📊 Progress"):
             gr.Markdown(
                 "# Evaluation progress\n"
-                "Native-speaker ratings of translation 1 (fine-tuned) and translation 2 (Haiku + tools since "
-                "2026-11-12; before that fine-tuned + rule book, shown separately), from the Translator tab's "
-                "**Submit feedback** button. "
+                "Native-speaker ratings of the three systems being tested -- **A**: fine-tuned NLLB "
+                "(translation 1), **C**: Haiku + rule-book tools (translation 2), **E**: Haiku zero-shot "
+                "(translation 3) -- from the Translator tab's **Submit feedback** button. "
                 "Refreshes automatically every 60s, or click Refresh now."
             )
             refresh_btn = gr.Button("🔄 Refresh now")
             overview_md = gr.Markdown()
             ratings_plot = gr.BarPlot(x="stars", y="count", color="system",
-                                      title="Ratings by system (1 = way off, 5 = correct)", height=300)
+                                      title="Ratings by arm (1 = way off, 5 = correct)", height=300)
 
             dash_outputs = [overview_md, ratings_plot]
             refresh_btn.click(refresh_dashboard, inputs=[], outputs=dash_outputs)
             demo.load(refresh_dashboard, inputs=[], outputs=dash_outputs)
-            # 2026-10-26: Gradio 6's auto-refresh mechanism is gr.Timer (the
-            # `every=` kwarg on .load()/.click() from older Gradio versions
-            # was removed, confirmed directly -- TypeError on import until
-            # this was fixed) -- a real, ticking component wired to the same
-            # refresh function, not a cosmetic difference.
+            # Gradio 6: auto-refresh is gr.Timer (the old `every=` kwarg was removed)
             dash_timer = gr.Timer(60)
             dash_timer.tick(refresh_dashboard, inputs=[], outputs=dash_outputs)
 

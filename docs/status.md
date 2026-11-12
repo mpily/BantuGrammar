@@ -29193,3 +29193,18 @@ Not changed (too little evidence): fw 'die' / nyw 'drink' past (corpus orefwa 2,
 
 **Validation.** 65/65 speaker forms; dev round trip 2427/2490 (v2 2424); no leakage; version B unchanged;
 tool tests 35/35 (new v3 test); hf_space tests 106/106. Space label now read from MANIFEST (rulebook-v3).
+
+## 2026-11-12 (cont.) — Space UI: three blind arms (A, C, E), probe pipeline hidden, submit clears the form
+
+User requests: (1) remove the "NLLB probes + concord rewriting" section (confused testers): no longer run or
+shown in the Translator (still loaded for /api/translate, contract unchanged); (2) after a successful submit,
+show a success message and clear the input, outputs, ratings and correction; (3) Progress tracks only the
+three study arms. User decision (question asked): arms = A fine-tuned NLLB, C Haiku + tools, E Haiku
+zero-shot — so E was added as blind translation 3 (one Haiku call, same daily cap; one per-visitor count per
+sentence for C and E). Feedback records now store `arms` {A, C, E: system, output, rating} plus the legacy
+a/b fields (b = C). Progress: per arm, number of ratings, mean rating and mean chrF vs native-speaker
+correction, 95% CIs clipped to the scale; older records count for A, and for C when system_b was Haiku +
+tools; ratings of the retired fine-tuned + rule book translation are not shown. Tests 107/107 (guard tests
+for the shared precheck); stubbed smoke test of translate / submit-and-clear / Progress in the Space layout.
+Seen in that smoke test: Haiku again rendered alimpa with funy, having looked up bare "pa" (which the v3
+short-root fallback does not catch; live it had looked up "kupa" and found nek). Not fixed here.

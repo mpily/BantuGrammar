@@ -38,3 +38,12 @@ def test_budget_client_books_cost(monkeypatch):
     except H.BudgetExceeded:
         pass
     H._spent.update(day=H._today(), usd=0.0)
+
+
+def test_precheck_counts_one_visit(monkeypatch):
+    monkeypatch.setenv("ANTHROPIC_API_KEY", "test")
+    monkeypatch.setattr(H, "DAILY_CAP_USD", 10.0)
+    monkeypatch.setattr(H, "PER_VISITOR_PER_HOUR", 1)
+    H._visits.pop("one-visit", None)
+    assert H.precheck("Habari", "one-visit") is None          # arms C and E share this one visit
+    assert "per hour" in H.precheck("Habari", "one-visit")
