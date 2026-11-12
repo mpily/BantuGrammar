@@ -39,7 +39,17 @@
    "grammar_notes",
    "mined_alignment"
   ],
-  "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment"
+  "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment",
+  "rulebook_version": "v2",
+  "v2_patch": {
+   "date": "2026-11-12",
+   "added": [
+    "CLASS.wu_prefix.modifier_ghu"
+   ],
+   "base": "tag rulebook-v1",
+   "built_by": "rulebook/build_rules.py --v2-patch",
+   "build_rules_sha16": "2c3090744c31ddec"
+  }
  },
  "rules": [
   {
@@ -25082,6 +25092,77 @@
    "source": "corpus_attested",
    "conflict": false,
    "notes": "-ghe marks narrative / remote past; rare with -me- and present / future",
+   "status": "active"
+  },
+  {
+   "id": "CLASS.wu_prefix.modifier_ghu",
+   "section": 1,
+   "slot": "CLASS",
+   "if": {
+    "kitaita_noun_prefix": "wu- / w'u-",
+    "slots": [
+     "ADJ",
+     "DEM_near",
+     "DEM_mid",
+     "DEM_far",
+     "POSS",
+     "ASSOC",
+     "OSE",
+     "SELF",
+     "num"
+    ]
+   },
+   "then": {
+    "modifier_class": "ghu",
+    "subject_class": "unchanged (speaker table or concord votes)"
+   },
+   "phonology": [],
+   "examples": [
+    {
+     "pair_id": "train:6667"
+    },
+    {
+     "pair_id": "train:9920"
+    },
+    {
+     "pair_id": "train:13389"
+    }
+   ],
+   "counterexamples": [
+    {
+     "pair_id": "train:1392"
+    },
+    {
+     "pair_id": "train:1440"
+    },
+    {
+     "pair_id": "train:1465"
+    }
+   ],
+   "evidence_count": 3188,
+   "evidence": {
+    "method": "concord word after wu- noun",
+    "pattern": "^w'?u[^aeiou']",
+    "ghu_series_tokens": 3188,
+    "u_series_tokens": 8,
+    "share_ghu": 0.9975,
+    "speaker_sm_u_nouns": [
+     "wubanana",
+     "wughadi",
+     "wughanga",
+     "wughosi",
+     "wuhuru",
+     "wulacha",
+     "wulemeri",
+     "wurigha",
+     "wushapa",
+     "wushu",
+     "wuwana"
+    ]
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "rulebook-v2. Subject marker and modifier concord differ for these nouns (e.g. speaker: 'wuhuru ghodu' with SM u-). Used only for modifiers; subject markers are not changed.",
    "status": "active"
   }
  ]

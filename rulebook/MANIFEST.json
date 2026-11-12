@@ -1,29 +1,29 @@
 {
- "tag": "rulebook-v1",
- "git_commit": "075dabc63e1959d5dcd0f9b412b810be471bb187",
+ "tag": "rulebook-v2",
+ "git_commit": "8344188c735eac1008aea3ce87c64142c2c7c149",
  "frozen_sha256": {
-  "rulebook/rules.json": "788baead249e2966fc47ef06ceac954cf4cd79a3bb6bc79eb6d0478b80cc98d7",
-  "rulebook/RULEBOOK.md": "98452eaa18ddeb0196998d5dd12fedfb384a473c043ab5c022bea833c77671f4",
-  "rulebook/lexicon.json": "4e590724bac356a7510da5c98c618f645f08d7b5243ccf6f02e57f1edd4604da",
+  "rulebook/rules.json": "61cc97147730469b9a10cd854f894528e8fad99f5ec2b5ed9d109a2926534246",
+  "rulebook/RULEBOOK.md": "e370b2fcf23541c9aebd17952d27e8c024a0dc55ff00459d00ff8232b36de994",
+  "rulebook/lexicon.json": "ddc852cc2201a265199d18f6179303ab1a51e105440f2ce9eb4ea6eef803e0c6",
   "rulebook/bootstrap_lexicon.json": "817e0ea6a4c0a3d75e445f6920233e8848acae705bd9045ef189e526c77b4da8",
   "rulebook/dav_vocab.json": "3c64c3a04998a44b1132f3c50f1ae2cd0349aef5c1ffb02f0155fcc816e1e121",
   "rulebook/split_manifest.json": "5de67491af00d63a433d84df179105098251fc6e7b5633ea90e1bf9720b0c137",
   "rulebook/induced_verb_rules.json": "2f949ce15b5dd8e50d6b3cd03fbc19c56429c04aa1c7074bd2df52a496c50cc3",
   "rulebook/induced_extension_rules.json": "50140cd9c896f7b57924f9233ea09f1c2f05e680ec4350d8cd7bb073c44cf452",
-  "rulebook/validation_results.json": "a481b282bcf098a88ea1de07a121ec5f78add4142571e5fde1ac67713c2e8bab",
-  "agent_translate/tools.py": "3a0a369168518b2b40df41eab1ca6bd4c8e15b089cedbee7116323c17ce1a5a8",
-  "agent_translate/tool_schemas.json": "59cc7173d20ca495096b710d0f3e5c5f2ac40ab3c997e3194bdd0d272232a290",
-  "agent_translate/tests/test_tools.py": "d0561fea065b511befb767a36541f6f175b319444714eaba22dc41a44cdb3f70"
+  "rulebook/validation_results.json": "3b4abd9f27f58dbb0760641e2a235e2cce94c41f90aa877461f41c4ecffac888",
+  "agent_translate/tools.py": "b0975825fa398653f4ce49ada50f4e010aff6aea94528f9463f13dce89fb2a9a",
+  "agent_translate/tool_schemas.json": "ccdd4812b0a894bdd8cb0f6c9dc67457c3ed768c748c37df6dd59226c26e674c",
+  "agent_translate/tests/test_tools.py": "10415fe072ab71e9dbb9f12a0c33bdc6667a26589fb6eace4a9e7a54cf265480"
  },
  "code_sha256": {
   "rulebook/agent_batches.py": "f56baa9f1af974852e069820a0444a02ba6e45a2f707f81164ac72dd4abc73ed",
   "rulebook/attest.py": "dd5015998a3fe5a7d89b81e63d376b95448884f27dc22175c4dc1a656a27566a",
   "rulebook/bootstrap_lexicon.py": "78f969bb87312d3b30f900a34efb51090dc4eb7c9393abbda72eca747913a31c",
-  "rulebook/build_lexicon.py": "11c302c691ea57732ff82a42ab8813d19cc38e8106c8f6401104f3c183ef7082",
-  "rulebook/build_rules.py": "ab75df958ccf7506bd65d3f4f372d344b3c3293bd5a58637dccf4904e8ea4e8c",
+  "rulebook/build_lexicon.py": "73acb9577236054d512b9f15249890cecc26903a26006741c5d015227fdb7240",
+  "rulebook/build_rules.py": "2c3090744c31ddeccd04fc753ac4dd1316cabe8adb68274c20ee67be65f69bdc",
   "rulebook/build_train_filter.py": "93a952eec89a7a31462ab13475311074a387b9e867c3eb6678fd167c6d5b063f",
   "rulebook/build_vocab.py": "9ccad631bdcc3c8bb03096c9e2089ee873150409b552c793c8f2cf166690bfa7",
-  "rulebook/freeze.py": "f7dbc55b750d4528d6989b1bc997c964565fd07ff612840004255fbd32965401",
+  "rulebook/freeze.py": "5120e49dfc1bf41753d41ccfb85ae6cfcc3ce6ed382d4fe3973e76f96a07a426",
   "rulebook/induce_extensions.py": "41794ef100db2d3f885005ddae7a115ed5fd07583228f4083767c08bfd384e3f",
   "rulebook/induce_verb_rules.py": "e2cebfc9274de0f9d0da8731c9d27e5b32d90a7f70aaaf5b7682973affbe668a",
   "rulebook/render.py": "5c469d2be0d6f5af24c84732670212b6120a55685397e1a2bfc1b6e0f2bd0503",
@@ -96,5 +96,6 @@
   "n_dropped_train": 4013,
   "n_dev": 4363
  },
+ "changes_from_v1": "rules.json: + CLASS.wu_prefix.modifier_ghu; lexicon.json: look-alike classes (gh/ghu) vote as one group -> 94 candidates get class ghu (25 plurals follow), new mod_class fields; tools.py: noun_info returns mod_class; tool_schemas.json: descriptions say which class to pass",
  "rule": "No rule or lexicon edits after this tag until arm C/E/A results are in; fixes go to rulebook-v2 and are reported as such."
 }

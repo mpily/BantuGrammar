@@ -80,14 +80,46 @@ def main():
         a0, e0 = R.forms(row, 1)[0], R.forms(row, 2)[0]
         for f in [a0, R.merge_a(a0, "ose")] + [(a0 if v == "a" else e0) + s for v, s, _ in R.POSS.values()]:
             vote_forms[f].add(lab)
+    # rulebook-v2: classes whose modifier forms are all identical (gh / ghu; i / i_nasal) vote as one
+    # group. v1 split each token between them, so neither could reach the 60% share: wundu, 1543 concord
+    # tokens, stayed unclassed. Only the gh / ghu group is resolved (to ghu; gh is the one-noun class of
+    # wukula); an i / i_nasal win stays unresolved, as in v1.
+    forms_of = collections.defaultdict(set)
+    for f, cs in vote_forms.items():
+        for c in cs:
+            forms_of[c].add(f)
+    group = {c: frozenset(d for d in forms_of if forms_of[d] == forms_of[c]) for c in forms_of}
+    RESOLVE = {frozenset({"gh", "ghu"}): "ghu"}
     votes = collections.defaultdict(collections.Counter)
     for r in ps:
         t = r["dv"]
         for j in range(len(t) - 1):
             cs = vote_forms.get(t[j + 1])
             if cs and len(t[j]) >= 3:
-                for c in cs:
-                    votes[t[j]][c] += 1 / len(cs)
+                gs = {group[c] for c in cs}
+                for g in gs:
+                    votes[t[j]][g] += 1 / len(gs)
+
+    def voted_class(form: str):
+        c = votes.get(form)
+        if not c or sum(c.values()) < CLASS_MIN_VOTES:
+            return None
+        top, v = c.most_common(1)[0]
+        if v / sum(c.values()) < CLASS_MIN_SHARE:
+            return None
+        return next(iter(top)) if len(top) == 1 else RESOLVE.get(top)
+    wu_rule = next(r for r in json.loads((HERE / "rules.json").read_text())["rules"]
+                   if r["id"] == "CLASS.wu_prefix.modifier_ghu")
+    WU = re.compile(wu_rule["evidence"].get("pattern", r"^w'?u[^aeiou']"))
+
+    def mod_class(form: str, cls: str | None):
+        """Class for modifiers (adj, dem, poss, ose, num). Differs from the subject class only for wu- nouns."""
+        if not WU.match(form):
+            return cls, "same_as_class"
+        v = voted_class(form)
+        if v:
+            return v, "corpus_concord_votes"
+        return "ghu", f"rules.json:{wu_rule['id']}"
     agent_info = {}
     for f in sorted(G.AGENT_DIR.glob("segment*/out_agent*.jsonl")):
         for line in open(f, encoding="utf-8"):
@@ -113,11 +145,9 @@ def main():
     def noun_class(form: str):
         if form in verified_cls:
             return verified_cls[form], "speaker_verified"
-        c = votes.get(form)
-        if c and sum(c.values()) >= CLASS_MIN_VOTES:
-            top, v = c.most_common(1)[0]
-            if v / sum(c.values()) >= CLASS_MIN_SHARE:
-                return top, "corpus_concord_votes"
+        v = voted_class(form)
+        if v:
+            return v, "corpus_concord_votes"
         a = agent_info.get(("dav", form))
         if a and a.get("noun_class"):
             return str(a["noun_class"]), "agent_root_list"
@@ -151,11 +181,13 @@ def main():
             dom = collections.Counter(ps[i]["src"] for i in both)
             forms = [w for w, _ in dv_forms.get(dl, collections.Counter()).most_common(3)] or [e.get("dav_word", dl)]
             cls, cls_src = (None, None) if is_verb else noun_class(forms[0])
+            mcls, mcls_src = (None, None) if is_verb else mod_class(forms[0], cls)
             src = source_of(e)
             conf = forms[0] in conflict_nouns
             cands.append({"lemma": dl, "forms": forms, "source": src, "tier": e["tier"],
                           "evidence_count": len(both), "domains": {"dav_swa": dom.get("davswa", 0), "bible": dom.get("bible", 0)},
-                          "class": cls, "class_source": cls_src, "plural": None if is_verb else plural(forms[0], cls),
+                          "class": cls, "class_source": cls_src, "mod_class": mcls, "mod_class_source": mcls_src,
+                          "plural": None if is_verb else plural(forms[0], cls),
                           "senses": [m for m, _ in meanings.get((swl, dl), collections.Counter()).most_common(3)],
                           "conflict": conf,
                           **({"conflict_readings": conflict_nouns[forms[0]].get("readings")} if conf else {})})
@@ -168,6 +200,26 @@ def main():
                         "domains": top["domains"], "conflict": any(c["conflict"] for c in cands),
                         "close_alternatives": len(cands) > 1 and cands[1]["evidence_count"] >= 0.5 * max(1, top["evidence_count"])})
     entries.sort(key=lambda e: e["sw"])
+    if "--v2-patch" in sys.argv:
+        # rulebook-v2 = v1 lexicon + new class / mod_class / plural only. A plain rebuild also moves ~8 entries'
+        # forms and counts (tie order in the lemmatizers), which is not part of the v2 change.
+        import subprocess
+        base = json.loads(subprocess.run(["git", "show", "rulebook-v1:rulebook/lexicon.json"], cwd=HERE.parent,
+                                         capture_output=True, text=True, check=True).stdout)["entries"]
+        new_c = {(e["sw"], c["lemma"]): c for e in entries for c in e["dav"]}
+        for e in base:
+            for c in e["dav"]:
+                n = new_c.get((e["sw"], c["lemma"]))
+                if n is None or e["pos"] == "V":
+                    c["mod_class"], c["mod_class_source"] = (None, None) if e["pos"] == "V" else (c["class"], "same_as_class")
+                    continue
+                if c["class"] is None and n["class"] is not None:      # the only class change v2 allows
+                    c["class"], c["class_source"], c["plural"] = n["class"], n["class_source"], n["plural"]
+                if c["class"] == n["class"]:
+                    c["mod_class"], c["mod_class_source"] = n["mod_class"], n["mod_class_source"]
+                else:
+                    c["mod_class"], c["mod_class_source"] = mod_class(c["forms"][0], c["class"])
+        entries = base
 
     # dev coverage by POS (dev never used above)
     csw, cdv = B.concord_words()
@@ -201,6 +253,11 @@ def main():
             "nouns_with_class": sum(1 for e in entries for c in e["dav"][:1] if c["class"]),
             "class_sources": dict(collections.Counter(c["class_source"] for e in entries for c in e["dav"][:1] if c["class"])),
             "close_alternatives": sum(e["close_alternatives"] for e in entries),
+            "mod_class_differs_from_class": sum(1 for e in entries for c in e["dav"][:1]
+                                                if c["mod_class"] and c["mod_class"] != c["class"]),
+            "mod_class_sources": dict(collections.Counter(c["mod_class_source"] for e in entries for c in e["dav"][:1]
+                                                          if c["mod_class_source"])),
+            "rulebook_version": "v2 (2026-11-12): look-alike classes vote as one group (gh/ghu resolved to ghu) + wu- modifier class",
             "dev_coverage_swahili_tokens": coverage}
     OUT.write_text(json.dumps({"_meta": meta, "entries": entries}, ensure_ascii=False, indent=0))
     REPORT.write_text(json.dumps(meta, ensure_ascii=False, indent=1))

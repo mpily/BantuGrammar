@@ -1,8 +1,8 @@
 {
  "built_by": "rulebook/build_lexicon.py",
- "script_sha16": "11c302c691ea5773",
+ "script_sha16": "73acb9577236054d",
  "bootstrap_lexicon_sha16": "817e0ea6a4c0a3d7",
- "rules_sha16": "d22a8110e0ec62c7",
+ "rules_sha16": "61cc97147730469b",
  "train_sha16": "fd25256c6ddfc22b",
  "priority": [
   "speaker_verified",
@@ -26,13 +26,20 @@
   "ADV": 14,
   "ADJ": 10
  },
- "nouns_with_class": 812,
+ "nouns_with_class": 878,
  "class_sources": {
-  "corpus_concord_votes": 488,
+  "corpus_concord_votes": 554,
   "speaker_verified": 222,
   "agent_root_list": 102
  },
  "close_alternatives": 401,
+ "mod_class_differs_from_class": 27,
+ "mod_class_sources": {
+  "same_as_class": 3023,
+  "corpus_concord_votes": 54,
+  "rules.json:CLASS.wu_prefix.modifier_ghu": 22
+ },
+ "rulebook_version": "v2 (2026-11-12): look-alike classes vote as one group (gh/ghu resolved to ghu) + wu- modifier class",
  "dev_coverage_swahili_tokens": {
   "V": {
    "covered": 11489,

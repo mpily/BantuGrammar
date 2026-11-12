@@ -9,6 +9,7 @@ results are in; fixes go to rulebook-v2.
 import hashlib
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -37,8 +38,9 @@ outside = {"train.jsonl (retrieval index source, lexicon/rules evidence)": DATA 
            "dev.jsonl (validation only)": DATA / "dev.jsonl"}
 agents = sorted(DATA.glob("agents/*/out_agent*.jsonl")) + sorted(DATA.glob("agents/*/batch_agent*.json")) + \
     sorted(DATA.glob("agents/segment*/words.json"))
+TAG = sys.argv[1] if len(sys.argv) > 1 else "rulebook-v1"
 man = {
-    "tag": "rulebook-v1",
+    "tag": TAG,
     "git_commit": subprocess.run(["git", "rev-parse", "HEAD"], cwd=ROOT, capture_output=True, text=True).stdout.strip(),
     "frozen_sha256": {p: sha(ROOT / p) for p in frozen},
     "code_sha256": {p: sha(ROOT / p) for p in code},
@@ -50,6 +52,10 @@ man = {
     "outside_git_sha256": {k: sha(v) for k, v in outside.items()},
     "agent_files_sha256": {str(p.relative_to(DATA)): sha(p) for p in agents},
     "excluded_ids": {"source": "rulebook/split_manifest.json", "n_excluded": None, "n_dropped_train": None, "n_dev": None},
+    "changes_from_v1": ("rules.json: + CLASS.wu_prefix.modifier_ghu; lexicon.json: look-alike classes (gh/ghu) vote as "
+                        "one group -> 94 candidates get class ghu (25 plurals follow), new mod_class fields; tools.py: "
+                        "noun_info returns mod_class; tool_schemas.json: descriptions say which class to pass")
+                       if TAG == "rulebook-v2" else None,
     "rule": "No rule or lexicon edits after this tag until arm C/E/A results are in; fixes go to rulebook-v2 and are reported as such.",
 }
 sm = json.loads((HERE / "split_manifest.json").read_text())

@@ -131,3 +131,12 @@ def test_check_translation():
 def test_call_dispatch():
     assert T.call("concord", {"cls": "ji", "slot": "SM"})["forms"] == ["ji"]
     assert T.call("nope", {})["status"] == "unknown"
+
+
+def test_wu_noun_modifier_class_v2():
+    # rulebook-v2: speaker SM u-, modifiers ghu- ("wuhuru ghodu"); subject class unchanged
+    r = _ok(T.noun_info("wuhuru"))
+    assert r["sm_class"] == "u" and r["mod_class"] == "ghu" and "CLASS.wu_prefix.modifier_ghu" in r["rule_ids"]
+    assert T.generate_modifier(r["mod_class"], "1pl", "poss")["form"] == "ghodu"
+    w = T.noun_info("waghosi")
+    assert w["class"] == "wi" and w["mod_class"] == "wi"

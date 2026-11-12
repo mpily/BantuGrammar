@@ -317,6 +317,41 @@ def section1():
              "corpus_votes": votes}, source="speaker_verified", conflict=True,
             readings=[{"class": V.VERIFIED_SUBJECT_MARKERS.get(n), "source": "speaker_verified", "default": True},
                       {"class_votes": votes, "source": "corpus_attested", "default": False}])
+    wu_modifier_rule(vote_forms)
+
+
+WU_NOUN = re.compile(r"^w'?u[^aeiou']")
+
+
+def wu_modifier_rule(vote_forms):
+    """rulebook-v2 (2026-11-12): wu- (class 14) nouns take ghu-series modifiers (ghodu, ghwake, ghose ...)
+    even when their subject marker is u- (speaker table: wuhuru, wushu, wurigha ... SM u). Evidence: the
+    concord word right after any wu- word on clean train, ghu-series vs u-series forms."""
+    ghu = {f for f, cs in vote_forms.items() if "ghu" in cs}
+    u = {f for f, cs in vote_forms.items() if "u" in cs and "ghu" not in cs}
+    ids_g, ids_u, n_g, n_u = [], [], 0, 0
+    for i, r in enumerate(A.pairs()):
+        t = r["dv"]
+        for j, w in enumerate(t[:-1]):
+            if WU_NOUN.match(w) and len(w) >= 5:
+                if t[j + 1] in ghu:
+                    n_g += 1
+                    ids_g.append(i)
+                elif t[j + 1] in u:
+                    n_u += 1
+                    ids_u.append(i)
+    sm_u = sorted(n for n, c in V.VERIFIED_SUBJECT_MARKERS.items() if WU_NOUN.match(norm(n)) and c == "u")
+    r = add("CLASS.wu_prefix.modifier_ghu", 1, "CLASS",
+            {"kitaita_noun_prefix": "wu- / w'u-", "slots": ["ADJ", "DEM_near", "DEM_mid", "DEM_far", "POSS", "ASSOC",
+                                                             "OSE", "SELF", "num"]},
+            {"modifier_class": "ghu", "subject_class": "unchanged (speaker table or concord votes)"},
+            {"evidence_count": n_g, "examples": A._examples(ids_g), "method": "concord word after wu- noun", "pattern": WU_NOUN.pattern,
+             "ghu_series_tokens": n_g, "u_series_tokens": n_u, "share_ghu": round(n_g / max(1, n_g + n_u), 4),
+             "speaker_sm_u_nouns": sm_u},
+            notes="rulebook-v2. Subject marker and modifier concord differ for these nouns (e.g. speaker: "
+                  "'wuhuru ghodu' with SM u-). Used only for modifiers; subject markers are not changed.")
+    if r and ids_u:
+        r["counterexamples"] = A._examples(ids_u)
 
 
 # ------------------------------------------------------------- section 2
@@ -665,5 +700,28 @@ def main():
     print("rejected:", [(r["id"], r["reason"]) for r in rejected])
 
 
+def v2_patch():
+    """rulebook-v2 = rulebook-v1 rules.json unchanged + CLASS.wu_prefix.modifier_ghu. A full rebuild is not
+    used: set ordering reorders regex alternatives in 55 rules (same matches), which would muddy the diff."""
+    base = json.loads(subprocess.run(["git", "show", "rulebook-v1:rulebook/rules.json"], cwd=ROOT,
+                                     capture_output=True, text=True, check=True).stdout)
+    vote_forms = {}
+    for lab, (_, row) in CLASSES.items():
+        a0, e0 = forms(row, 1)[0], forms(row, 2)[0]
+        for f in [a0, merge_a(a0, "ose")] + [(a0 if v == "a" else e0) + s for v, s, _ in POSS.values()]:
+            vote_forms.setdefault(f, set()).add(lab)
+    wu_modifier_rule(vote_forms)
+    new = [r for r in rules if r["id"] == "CLASS.wu_prefix.modifier_ghu"]
+    assert new and not any(r["id"] == new[0]["id"] for r in base["rules"])
+    base["rules"] += new
+    base["_meta"]["rulebook_version"] = "v2"
+    base["_meta"]["v2_patch"] = {"date": "2026-11-12", "added": [r["id"] for r in new], "base": "tag rulebook-v1",
+                                 "built_by": "rulebook/build_rules.py --v2-patch",
+                                 "build_rules_sha16": A.sha16(Path(__file__))}
+    OUT.write_text(json.dumps(base, indent=1, ensure_ascii=False))
+    print("v2:", len(base["rules"]), "rules; added", base["_meta"]["v2_patch"]["added"], new[0]["status"],
+          new[0]["evidence_count"])
+
+
 if __name__ == "__main__":
-    main()
+    v2_patch() if "--v2-patch" in sys.argv else main()

@@ -29056,3 +29056,35 @@ present -we- (speaker preference) vs zero (corpus), 1pl past de/da, gh class pre
 Agent-sourced lexicon entries remain the least reliable (round-4 audit: 6/52 wrong vs 1/48 loop-made).
 
 **Next step**: Haiku harness + 50-sentence pilot (arms C and E) on the fresh held-out set (not built here).
+
+## 2026-11-12 (cont.) — rulebook-v2: modifier class for wu- nouns (one change, before the pilot)
+
+**Why.** Haiku harness test sentence "Hawa wazee ndio walipigania uhuru wetu" (speaker: *... wuhuru ghodu*) came
+out with *odu*: the speaker table gives *wuhuru* SM u-, and the tools used that label for the possessive too.
+User decision: make v2 now and run the pilot on v2 (rulebook-v1 rule: fixes after the freeze go to v2).
+
+**Evidence (clean train, concord word right after a wu-/w'u- word).** ghu-series (ghodu, ghwake, ghose ...)
+3188 tokens vs u-series 8 (share 0.9975). Of the 18 speaker-table wu- nouns, 11 have SM u-; the 10 of them
+with data all take ghu-series modifiers. Second bug: classes with identical modifier forms (gh/ghu) split
+every vote 50/50, so none reached the 60% share — e.g. *wundu*, 1543 concord tokens, unclassed in v1.
+
+**Change.** rules.json = v1 + `CLASS.wu_prefix.modifier_ghu` (active, evidence 3188, 8 counterexamples kept)
+(`build_rules.py --v2-patch`; no full rebuild: set ordering reorders regex alternatives in 55 rules).
+lexicon.json = v1 + (a) look-alike classes vote as one group, only gh/ghu resolved (to ghu): 94 candidates
+None -> ghu, 25 plurals follow; no class that existed in v1 changed; i/i_nasal ties stay unresolved as in v1
+(a full-weight variant was tried and rejected: it nearly ties u/wi on *mundu*/*wandu* and flipped *punda*);
+(b) new `mod_class` field, differs from `class` for 27 top candidates (54 from concord votes, 22 from the
+rule). `build_lexicon.py --v2-patch` (a plain rebuild moves ~8 entries' forms/counts by lemmatizer tie order).
+tools.py: noun_info returns `mod_class` (+ rule id when it differs); schemas say sm_class for SM/OM/REL,
+mod_class for modifiers. New unit test (wuhuru: SM u, mod ghu, possessive *ghodu*).
+
+**Validation (same as v1).** 65/65 speaker forms; dev round trip 2424/2490 (97.3%); no leakage (now 1366
+example IDs checked); version B unchanged; 34/34 tests. hf_space tests not run (no fastapi locally).
+Frozen as tag `rulebook-v2` (MANIFEST.json: rules 61cc9714..., lexicon ddc852cc...).
+
+**Harness (HaikuHarness/, not committed: the user's learning folder).** prompts.py now says to take the
+top-ranked candidate for the exact word, prefer dav_swa evidence, not to add an extension twice
+(luya = lw + applicative), and to use mod_class for modifiers. On the test sentence (not in the pilot
+sample; the prompt's example comes from it, so this shows instruction-following only):
+*awa waghosi niw'o wiluieghe w'uhuru odu* (before v2), verb now exactly the speaker's. Next: 50-sentence
+pilot (arms C, E) on v2.

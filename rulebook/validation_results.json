@@ -2,14 +2,14 @@
  "_meta": {
   "built_by": "rulebook/validate.py",
   "script_sha16": "b7826fdd1bbf904f",
-  "git_sha": "74f71dfbe87c65a3848350ce10b001f9f581789b",
+  "git_sha": "8344188c735eac1008aea3ce87c64142c2c7c149",
   "hashes_sha256_16": {
-   "rules.json": "788baead249e2966",
-   "lexicon.json": "4e590724bac356a7",
+   "rules.json": "61cc97147730469b",
+   "lexicon.json": "ddc852cc2201a265",
    "bootstrap_lexicon.json": "817e0ea6a4c0a3d7",
    "dav_vocab.json": "3c64c3a04998a44b",
    "split_manifest.json": "5de67491af00d63a",
-   "tools.py": "3a0a369168518b2b",
+   "tools.py": "b0975825fa398653",
    "dev.jsonl": "971f78495c901e1b",
    "train.jsonl (retrieval index source)": "fd25256c6ddfc22b"
   }
@@ -590,7 +590,7 @@
  "4_leakage": {
   "index_pairs": 39265,
   "index_leaks": [],
-  "rule_example_ids": 1360,
+  "rule_example_ids": 1366,
   "rule_leaks": [],
   "lexicon_evidence_ids": 3870,
   "lexicon_leaks": [],
@@ -598,7 +598,7 @@
  },
  "5_unit_tests": {
   "exit_code": 0,
-  "tail": ".................................                                        [100%]\n33 passed in 3.98s\n"
+  "tail": "..................................                                       [100%]\n34 passed in 3.98s\n"
  },
  "6a_hf_space_tests": {
   "exit_code": 4,

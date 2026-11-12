@@ -290,6 +290,19 @@ def noun_info(dav_noun: str, sw_noun: str | None = None) -> dict:
             out.update({"class": cls, "sm_class": cls, "source": c.get("class_source"), "sw": c["sw"]})
     lexc = next(iter(_dav_index().get(n, [])), None)
     out["plural"] = lexc.get("plural") if lexc else None
+    # rulebook-v2: modifiers (adj, dem, poss, ose, num) can follow another series than the subject marker
+    if out.get("class"):
+        m = next((x for x in _dav_index().get(n, []) if x.get("mod_class")), None)
+        wu = rules.get("CLASS.wu_prefix.modifier_ghu")
+        if m and m.get("mod_class") and m.get("mod_class_source") != "same_as_class":
+            out["mod_class"] = BANTU_TO_LABEL.get(str(m["mod_class"]), str(m["mod_class"]))
+        elif wu and re.match(wu["evidence"]["pattern"], n):
+            out["mod_class"] = wu["then"]["modifier_class"]
+        else:
+            out["mod_class"] = out["class"]
+        if out["mod_class"] != out["class"] and wu:
+            out["rule_ids"].append(wu["id"])
+        out["use"] = "sm_class for SM / OM / REL in verbs; mod_class for adj, dem, poss, ose, num, assoc"
     if n in V.NUMBER_INVARIANT_NOUNS:
         out.update({"plural": n, "number_invariant": True, "sg_sm": V.NUMBER_INVARIANT_SM_SINGULAR,
                     "pl_sm": V.NUMBER_INVARIANT_SM_PLURAL})

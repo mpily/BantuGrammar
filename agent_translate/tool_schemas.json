@@ -43,7 +43,7 @@
  },
  {
   "name": "noun_info",
-  "description": "Class, plural, number-invariance, animacy and conflicting readings of a Kidaw'ida noun. Call for every subject/object noun before generating agreement. Pass sw_noun to check the animacy-override list. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "description": "Class, plural, number-invariance, animacy and conflicting readings of a Kidaw'ida noun. Call for every subject/object noun before generating agreement. Pass sw_noun to check the animacy-override list. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker. Returns sm_class (use for SM / OM / REL in verbs) and mod_class (use as cls for adjectives, demonstratives, possessives, -ose, numerals, assoc); they differ for some wu- nouns (wuhuru: SM u, modifiers ghu -> wuhuru ghodu).",
   "input_schema": {
    "type": "object",
    "properties": {
@@ -61,7 +61,7 @@
  },
  {
   "name": "concord",
-  "description": "Agreement form for a class or person and slot: SM (bare), SM_a, SM_e, OM, REL, ADJ, DEM_near, DEM_mid, DEM_far, POSS (all persons), ASSOC ('of'), OSE ('all'), SELF. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "description": "Agreement form for a class or person and slot: SM (bare), SM_a, SM_e, OM, REL, ADJ, DEM_near, DEM_mid, DEM_far, POSS (all persons), ASSOC ('of'), OSE ('all'), SELF. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker. For modifier slots pass the noun's mod_class from noun_info; for SM / OM / REL pass its sm_class.",
   "input_schema": {
    "type": "object",
    "properties": {
@@ -176,7 +176,7 @@
  },
  {
   "name": "generate_modifier",
-  "description": "Agreeing modifier for a noun: kind adj (nominal stem, e.g. baa), adj_stative (SM + stem, e.g. zamie), dem_near/dem_mid/dem_far, poss (dav_stem = 1sg..3pl), num (e.g. ingi, mweri), ose, self, assoc. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "description": "Agreeing modifier for a noun: kind adj (nominal stem, e.g. baa), adj_stative (SM + stem, e.g. zamie), dem_near/dem_mid/dem_far, poss (dav_stem = 1sg..3pl), num (e.g. ingi, mweri), ose, self, assoc. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker. cls = the noun's mod_class from noun_info.",
   "input_schema": {
    "type": "object",
    "properties": {
