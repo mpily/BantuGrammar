@@ -124,7 +124,7 @@ def haiku_report(h: dict) -> str:
     if h["kitaita"] is None:
         return f"**Translation 2 (Haiku + tools):** {h['status']}"
     calls = [f"- `{c['name']}({json.dumps(c['input'], ensure_ascii=False)[:90]})` -> {c['status']}" for c in h["tool_calls"]]
-    return ("**Translation 2 = Claude Haiku + rule-book tools (rulebook-v2).** "
+    return (f"**Translation 2 = Claude Haiku + rule-book tools ({haiku_mt.rulebook_tag()}).** "
             f"{len(h['tool_calls'])} tool calls, {h.get('n_requests', 0)} model requests, est. ${h['usd']:.4f}; "
             f"retrieval corpus: {h['corpus']}. `[?word]` = no Kidaw'ida found, Swahili kept.\n\n"
             + (f"**Model's notes:** {h['notes']}\n\n" if h["notes"] else "")

@@ -140,3 +140,16 @@ def test_wu_noun_modifier_class_v2():
     assert T.generate_modifier(r["mod_class"], "1pl", "poss")["form"] == "ghodu"
     w = T.noun_info("waghosi")
     assert w["class"] == "wi" and w["mod_class"] == "wi"
+
+
+def test_v3_short_roots():
+    # one-syllable Swahili roots without ku- (alimpa = a-li-m-p-a) reach their verb entry, with a note
+    r = _ok(T.lookup_word("alimpa"))
+    assert r["candidates"][0]["lemma"] == "nek" and "LEX.short_verb_root" in r["rule_ids"]
+    assert T.lookup_word("hapa")["status"] == "unknown"            # not ha-p-a
+    # e/o roots take -ie in the past (kogh 'be' keeps -e); vowel-less ch takes -ie, not -ire
+    assert T.generate_verb({"dav_root": "nek", "subj": "3sg", "tense": "past", "obj": "3sg"})["form"] == "oremnekieghe"
+    assert T.generate_verb({"dav_root": "kogh", "subj": "3sg", "tense": "past"})["form"] == "orekoghe"
+    assert T.generate_verb({"dav_root": "ch", "subj": "3sg", "tense": "past"})["form"] == "orechieghe"
+    # passive of a w-final root is flagged, not invented (no lwwa)
+    assert T.generate_verb({"dav_root": "lw", "subj": "3sg", "tense": "present", "exts": ["passive"]})["status"] == "flag"

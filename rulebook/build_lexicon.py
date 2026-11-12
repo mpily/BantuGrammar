@@ -200,6 +200,25 @@ def main():
                         "domains": top["domains"], "conflict": any(c["conflict"] for c in cands),
                         "close_alternatives": len(cands) > 1 and cands[1]["evidence_count"] >= 0.5 * max(1, top["evidence_count"])})
     entries.sort(key=lambda e: e["sw"])
+    if "--v3-patch" in sys.argv:
+        # rulebook-v3 = v2 lexicon + pos "V" for speaker-verified verb roots that were tagged otherwise (p 'give'
+        # -> nek, li 'cry' -> lil): lookup_word's short-root fallback only uses verb entries.
+        import subprocess
+        base = json.loads(subprocess.run(["git", "show", "rulebook-v2:rulebook/lexicon.json"], cwd=HERE.parent,
+                                         capture_output=True, text=True, check=True).stdout)
+        vroots = {norm(k) for k in V.VERIFIED_ROOTS}
+        fixed = []
+        for e in base["entries"]:
+            if e["sw"] in vroots and e["pos"] != "V":
+                fixed.append((e["sw"], e["pos"]))
+                e["pos"] = "V"
+                for c in e["dav"]:
+                    c["class"] = c["class_source"] = c["plural"] = c["mod_class"] = c["mod_class_source"] = None
+        base["_meta"].update(rulebook_version="v3 (2026-11-12): verified verb roots tagged V", v3_pos_fixed=fixed,
+                             v3_built_by="rulebook/build_lexicon.py --v3-patch", v3_script_sha16=A.sha16(Path(__file__)))
+        OUT.write_text(json.dumps(base, ensure_ascii=False, indent=0))
+        print("v3 lexicon: pos fixed", fixed)
+        return
     if "--v2-patch" in sys.argv:
         # rulebook-v2 = v1 lexicon + new class / mod_class / plural only. A plain rebuild also moves ~8 entries'
         # forms and counts (tie order in the lemmatizers), which is not part of the v2 change.

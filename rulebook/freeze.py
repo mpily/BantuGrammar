@@ -55,7 +55,11 @@ man = {
     "changes_from_v1": ("rules.json: + CLASS.wu_prefix.modifier_ghu; lexicon.json: look-alike classes (gh/ghu) vote as "
                         "one group -> 94 candidates get class ghu (25 plurals follow), new mod_class fields; tools.py: "
                         "noun_info returns mod_class; tool_schemas.json: descriptions say which class to pass")
-                       if TAG == "rulebook-v2" else None,
+                       if TAG == "rulebook-v2" else
+                       ("v2 + rules.json: FV.perfective.other_eo.ie_by_root (e/o roots -ie, kogh keeps -e), "
+                        "FV.perfective.no_vowel.ie (ch -> chie), EXT.passive.w_final.flag; lexicon.json: verified verb "
+                        "roots p, li tagged V; tools.py: lookup_word short-root fallback (alimpa -> p -> nek), the two "
+                        "perfective rules, the passive flag") if TAG == "rulebook-v3" else None,
     "rule": "No rule or lexicon edits after this tag until arm C/E/A results are in; fixes go to rulebook-v2 and are reported as such.",
 }
 sm = json.loads((HERE / "split_manifest.json").read_text())

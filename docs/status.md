@@ -29170,3 +29170,26 @@ $0.0017, booked to the cap). app.py smoke test with the heavy models stubbed (gr
 venv): streaming order and Progress split correct. NOT tested: the real Space build.
 Needed on the Space: secret ANTHROPIC_API_KEY (the user's earlier exported key was invalid; use a new one,
 ideally with a console spend limit); HF_TOKEN must be able to read the private dataset.
+
+## 2026-11-12 (cont.) — rulebook-v3: short verb roots (lookup and generation), deployed
+
+**Trigger (live Space, user).** "mama alimpa mtoto maji ya kunywa" -> Haiku *mao oremfunyireghe mwana machi
+ghenywa*: wrong verb. Cause: lookup_word ignored Swahili parse roots under 3 letters, so alimpa / pa / nipe
+came back unknown although the lexicon has p -> nek (speaker-verified; also tagged N); the rephrase rule then
+went pa -> toa -> funy ('release'). User asked to also confirm one-syllable Kidaw'ida roots.
+
+**Changes (v2 + these; validated, tag rulebook-v3).**
+1. tools.lookup_word: when nothing else matches, use a short parse root (< 3 letters) that has a VERB entry,
+   no negative reading; result carries a "check the parse" note + LEX.short_verb_root. Lexicon: verified
+   roots p ('give' -> nek) and li ('cry' -> lil) tagged V. Clean train: ~2.5k tokens newly resolved, mostly
+   right (pa/nek, ona/won, ita/wang, lia/lil); known misses ukali/vikali -> lil, alipe/kutupwa -> nek (noted).
+2. FV.perfective.other_eo.ie_by_root: v1/v2's "e/o roots take -e" (2270/2677 tokens) was one verb, kogh 'be'
+   (2383 tokens). Per root: 22 e/o roots take -ie, 1 (kogh) -e. Before -> after: oremnekeghe (0) ->
+   oremnekieghe (26); orewoneghe -> orewonieghe (17); oreghoreghe -> oreghorieghe (76); oreghendeghe ->
+   oreghendieghe (17); orekoghe unchanged (1140).
+3. FV.perfective.no_vowel.ie: ch 'come' got palatal -ire (orechireghe, 0) -> orechieghe (22).
+4. EXT.passive.w_final.flag: passive of lw/fw gave -ww- (wawelwwa); now status flag (no attested form).
+Not changed (too little evidence): fw 'die' / nyw 'drink' past (corpus orefwa 2, orenywa 1).
+
+**Validation.** 65/65 speaker forms; dev round trip 2427/2490 (v2 2424); no leakage; version B unchanged;
+tool tests 35/35 (new v3 test); hf_space tests 106/106. Space label now read from MANIFEST (rulebook-v3).

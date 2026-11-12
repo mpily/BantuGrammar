@@ -40,7 +40,7 @@
    "mined_alignment"
   ],
   "note": "corpus evidence = sentence-pair co-occurrence on clean train, not word alignment",
-  "rulebook_version": "v2",
+  "rulebook_version": "v3",
   "v2_patch": {
    "date": "2026-11-12",
    "added": [
@@ -49,6 +49,17 @@
    "base": "tag rulebook-v1",
    "built_by": "rulebook/build_rules.py --v2-patch",
    "build_rules_sha16": "2c3090744c31ddec"
+  },
+  "v3_patch": {
+   "date": "2026-11-12",
+   "added": [
+    "FV.perfective.other_eo.ie_by_root",
+    "FV.perfective.no_vowel.ie",
+    "EXT.passive.w_final.flag"
+   ],
+   "base": "tag rulebook-v2",
+   "built_by": "rulebook/build_rules.py --v3-patch",
+   "build_rules_sha16": "310513c6ebad6a4f"
   }
  },
  "rules": [
@@ -25164,6 +25175,180 @@
    "conflict": false,
    "notes": "rulebook-v2. Subject marker and modifier concord differ for these nouns (e.g. speaker: 'wuhuru ghodu' with SM u-). Used only for modifiers; subject markers are not changed.",
    "status": "active"
+  },
+  {
+   "id": "FV.perfective.other_eo.ie_by_root",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_shape": "other/eo",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-ie",
+    "exceptions_final_e": [
+     "kogh"
+    ]
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 549,
+   "evidence": {
+    "method": "past forms per root (dav_vocab)",
+    "roots_ie": 22,
+    "roots_e": 1,
+    "per_root": {
+     "ded": [
+      7,
+      0
+     ],
+     "degh": [
+      4,
+      1
+     ],
+     "end": [
+      4,
+      0
+     ],
+     "ghem": [
+      11,
+      0
+     ],
+     "ghend": [
+      39,
+      0
+     ],
+     "ghor": [
+      146,
+      0
+     ],
+     "jok": [
+      16,
+      0
+     ],
+     "kem": [
+      9,
+      0
+     ],
+     "kogh": [
+      0,
+      2383
+     ],
+     "kor": [
+      3,
+      0
+     ],
+     "korong": [
+      4,
+      0
+     ],
+     "legh": [
+      21,
+      0
+     ],
+     "lek": [
+      2,
+      0
+     ],
+     "lol": [
+      16,
+      0
+     ],
+     "lomb": [
+      19,
+      0
+     ],
+     "nek": [
+      111,
+      0
+     ],
+     "non": [
+      8,
+      0
+     ],
+     "potok": [
+      2,
+      0
+     ],
+     "red": [
+      19,
+      0
+     ],
+     "sek": [
+      1,
+      0
+     ],
+     "sow": [
+      5,
+      0
+     ],
+     "won": [
+      92,
+      0
+     ],
+     "wonek": [
+      10,
+      0
+     ]
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "notes": "rulebook-v3: supersedes FV.perfective.other_eo.e / .ie (token counts dominated by kogh).",
+   "status": "active"
+  },
+  {
+   "id": "FV.perfective.no_vowel.ie",
+   "section": 6,
+   "slot": "FV",
+   "if": {
+    "dav_root_shape": "no vowel (ch, fw, nyw ...)",
+    "tense": "perfective"
+   },
+   "then": {
+    "final": "-ie",
+    "not": "palatal -ire (ch is the root, not a palatal ending)"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 70,
+   "evidence": {
+    "method": "past forms per root (dav_vocab)",
+    "per_root": {
+     "ch": [
+      70,
+      0
+     ]
+    }
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "active"
+  },
+  {
+   "id": "EXT.passive.w_final.flag",
+   "section": 4,
+   "slot": "EXT",
+   "if": {
+    "dav_root_ends": "w (lw, fw, ghw, nyw)",
+    "ext": "passive"
+   },
+   "then": {
+    "status": "flag",
+    "why": "passive of a w-final root gives -ww-; no attested form in clean train"
+   },
+   "phonology": [],
+   "examples": [],
+   "counterexamples": [],
+   "evidence_count": 0,
+   "evidence": {
+    "method": "generator check"
+   },
+   "source": "corpus_attested",
+   "conflict": false,
+   "status": "flag_only"
   }
  ]
 }

@@ -723,5 +723,65 @@ def v2_patch():
           new[0]["evidence_count"])
 
 
+PAST_PFX = r"(?:o|e|we|ne|de|me|wi|u|i|ri|ji|ghi|chi|vi|ghu|ku|lu)re(?:m|mu|ni|ku|wi|di|ghi|chi|vi|ri|ji|i|u)?"
+
+
+def v3_perfective_rules():
+    """rulebook-v3 (2026-11-12): past/perfective final for e/o roots and vowel-less roots, counted per ROOT.
+    v1/v2's FV.perfective.other_eo.e (-e, 2270/2677 tokens) is one verb: kogh 'be' (orekoghe, 2383 tokens).
+    Every other e/o root with corpus evidence takes -ie (ghor 146/0, nek 111/0, won 92/0 ...). Vowel-less ch
+    'come' was given the palatal -ire (orechireghe, 0) where the corpus has orechieghe / werechieghe."""
+    vocab = json.loads((HERE / "dav_vocab.json").read_text(encoding="utf-8"))["vocab"]
+    lex = json.loads((HERE / "lexicon.json").read_text(encoding="utf-8"))["entries"]
+    roots = sorted({c["lemma"] for e in lex if e["pos"] == "V" for c in e["dav"][:1] if re.fullmatch(r"[a-z]+", c["lemma"])})
+    per = {}
+    for r in roots:
+        ie = e_ = 0
+        for w, n in vocab.items():
+            m = re.fullmatch(PAST_PFX + re.escape(r) + r"(ieghe|ie|eghe|e)", w)
+            if m:
+                if m.group(1).startswith("ie"):
+                    ie += n
+                else:
+                    e_ += n
+        if ie + e_:
+            per[r] = (ie, e_)
+    eo = {r: v for r, v in per.items() if re.findall(r"[aeiou]", r) and re.findall(r"[aeiou]", r)[-1] in "eo"
+          and not r.endswith(("ir", "er")) and r[-1] not in "aeiou" and not r.endswith(("sh", "ch", "ny", "j", "y"))}
+    exc = sorted(r for r, (ie, e_) in eo.items() if e_ > ie)
+    ie_roots = sorted(r for r, (ie, e_) in eo.items() if ie >= e_)
+    add("FV.perfective.other_eo.ie_by_root", 6, "FV", {"dav_root_shape": "other/eo", "tense": "perfective"},
+        {"final": "-ie", "exceptions_final_e": exc},
+        {"evidence_count": sum(per[r][0] for r in ie_roots), "examples": [], "method": "past forms per root (dav_vocab)",
+         "roots_ie": len(ie_roots), "roots_e": len(exc), "per_root": {r: list(eo[r]) for r in sorted(eo)}},
+        notes="rulebook-v3: supersedes FV.perfective.other_eo.e / .ie (token counts dominated by kogh).")
+    nv = {r: v for r, v in per.items() if not re.search(r"[aeiou]", r)}
+    add("FV.perfective.no_vowel.ie", 6, "FV", {"dav_root_shape": "no vowel (ch, fw, nyw ...)", "tense": "perfective"},
+        {"final": "-ie", "not": "palatal -ire (ch is the root, not a palatal ending)"},
+        {"evidence_count": sum(v[0] for v in nv.values()), "examples": [], "method": "past forms per root (dav_vocab)",
+         "per_root": {r: list(v) for r, v in nv.items()}},
+        status="active" if sum(v[0] for v in nv.values()) >= 2 else None)
+    add("EXT.passive.w_final.flag", 4, "EXT", {"dav_root_ends": "w (lw, fw, ghw, nyw)", "ext": "passive"},
+        {"status": "flag", "why": "passive of a w-final root gives -ww-; no attested form in clean train"},
+        {"evidence_count": 0, "examples": [], "method": "generator check"}, source="corpus_attested", status="flag_only")
+
+
+def v3_patch():
+    base = json.loads(subprocess.run(["git", "show", "rulebook-v2:rulebook/rules.json"], cwd=ROOT,
+                                     capture_output=True, text=True, check=True).stdout)
+    v3_perfective_rules()
+    new = [r for r in rules if r["id"] in ("FV.perfective.other_eo.ie_by_root", "FV.perfective.no_vowel.ie",
+                                           "EXT.passive.w_final.flag")]
+    assert len(new) == 3 and not {r["id"] for r in new} & {r["id"] for r in base["rules"]}
+    base["rules"] += new
+    base["_meta"]["rulebook_version"] = "v3"
+    base["_meta"]["v3_patch"] = {"date": "2026-11-12", "added": [r["id"] for r in new], "base": "tag rulebook-v2",
+                                 "built_by": "rulebook/build_rules.py --v3-patch", "build_rules_sha16": A.sha16(Path(__file__))}
+    OUT.write_text(json.dumps(base, indent=1, ensure_ascii=False))
+    for r in new:
+        print(r["id"], r["status"], r["evidence_count"], {k: r["evidence"][k] for k in ("roots_ie", "roots_e") if k in r["evidence"]},
+              r["then"])
+
+
 if __name__ == "__main__":
-    v2_patch() if "--v2-patch" in sys.argv else main()
+    v3_patch() if "--v3-patch" in sys.argv else v2_patch() if "--v2-patch" in sys.argv else main()

@@ -1,29 +1,29 @@
 {
- "tag": "rulebook-v2",
- "git_commit": "8344188c735eac1008aea3ce87c64142c2c7c149",
+ "tag": "rulebook-v3",
+ "git_commit": "efa69bfb120ccac4dd6c7d7a423d6d2b127ad9b7",
  "frozen_sha256": {
-  "rulebook/rules.json": "61cc97147730469b9a10cd854f894528e8fad99f5ec2b5ed9d109a2926534246",
-  "rulebook/RULEBOOK.md": "e370b2fcf23541c9aebd17952d27e8c024a0dc55ff00459d00ff8232b36de994",
-  "rulebook/lexicon.json": "ddc852cc2201a265199d18f6179303ab1a51e105440f2ce9eb4ea6eef803e0c6",
+  "rulebook/rules.json": "a423f71adc8bab71c4b231054fe84c8da26e24a915ee6913b0e979bbbe54fa55",
+  "rulebook/RULEBOOK.md": "814f8700151cbc54a9e32eca8f7044eea7b502fcc3fc0451679b50929fa74eae",
+  "rulebook/lexicon.json": "2e30ca9a32b21be5fe2ccc4012741bcafd299b17fc75a8c15c4a9d9e335172fc",
   "rulebook/bootstrap_lexicon.json": "817e0ea6a4c0a3d75e445f6920233e8848acae705bd9045ef189e526c77b4da8",
   "rulebook/dav_vocab.json": "3c64c3a04998a44b1132f3c50f1ae2cd0349aef5c1ffb02f0155fcc816e1e121",
   "rulebook/split_manifest.json": "5de67491af00d63a433d84df179105098251fc6e7b5633ea90e1bf9720b0c137",
   "rulebook/induced_verb_rules.json": "2f949ce15b5dd8e50d6b3cd03fbc19c56429c04aa1c7074bd2df52a496c50cc3",
   "rulebook/induced_extension_rules.json": "50140cd9c896f7b57924f9233ea09f1c2f05e680ec4350d8cd7bb073c44cf452",
-  "rulebook/validation_results.json": "3b4abd9f27f58dbb0760641e2a235e2cce94c41f90aa877461f41c4ecffac888",
-  "agent_translate/tools.py": "b0975825fa398653f4ce49ada50f4e010aff6aea94528f9463f13dce89fb2a9a",
+  "rulebook/validation_results.json": "a41411c323c958aa0c0e0418d400e9d8092492ba38bdc3a502a34f9600776ef0",
+  "agent_translate/tools.py": "d33f6b8d6bc059f2af7cda92e85c354daa44e23de6bacb396c9efd2f27dced6d",
   "agent_translate/tool_schemas.json": "ccdd4812b0a894bdd8cb0f6c9dc67457c3ed768c748c37df6dd59226c26e674c",
-  "agent_translate/tests/test_tools.py": "10415fe072ab71e9dbb9f12a0c33bdc6667a26589fb6eace4a9e7a54cf265480"
+  "agent_translate/tests/test_tools.py": "5506b08e71e1f90b24c069bae58244e08b4591eb92efc92e44f048a6dcc84049"
  },
  "code_sha256": {
   "rulebook/agent_batches.py": "f56baa9f1af974852e069820a0444a02ba6e45a2f707f81164ac72dd4abc73ed",
   "rulebook/attest.py": "dd5015998a3fe5a7d89b81e63d376b95448884f27dc22175c4dc1a656a27566a",
   "rulebook/bootstrap_lexicon.py": "78f969bb87312d3b30f900a34efb51090dc4eb7c9393abbda72eca747913a31c",
-  "rulebook/build_lexicon.py": "73acb9577236054d512b9f15249890cecc26903a26006741c5d015227fdb7240",
-  "rulebook/build_rules.py": "2c3090744c31ddeccd04fc753ac4dd1316cabe8adb68274c20ee67be65f69bdc",
+  "rulebook/build_lexicon.py": "a478ad689d3560e523889e141bfb6153b8e9eab0c9a6d734f964811f1deac7c8",
+  "rulebook/build_rules.py": "310513c6ebad6a4f0fc6bcc57ee73a40b69839c7bc010fe8d0d2435d109225c7",
   "rulebook/build_train_filter.py": "93a952eec89a7a31462ab13475311074a387b9e867c3eb6678fd167c6d5b063f",
   "rulebook/build_vocab.py": "9ccad631bdcc3c8bb03096c9e2089ee873150409b552c793c8f2cf166690bfa7",
-  "rulebook/freeze.py": "5120e49dfc1bf41753d41ccfb85ae6cfcc3ce6ed382d4fe3973e76f96a07a426",
+  "rulebook/freeze.py": "54f4a96d79cd6fa7787bf9192e2850158144f96ab93e712639bf50b33f97e349",
   "rulebook/induce_extensions.py": "41794ef100db2d3f885005ddae7a115ed5fd07583228f4083767c08bfd384e3f",
   "rulebook/induce_verb_rules.py": "e2cebfc9274de0f9d0da8731c9d27e5b32d90a7f70aaaf5b7682973affbe668a",
   "rulebook/render.py": "5c469d2be0d6f5af24c84732670212b6120a55685397e1a2bfc1b6e0f2bd0503",
@@ -96,6 +96,6 @@
   "n_dropped_train": 4013,
   "n_dev": 4363
  },
- "changes_from_v1": "rules.json: + CLASS.wu_prefix.modifier_ghu; lexicon.json: look-alike classes (gh/ghu) vote as one group -> 94 candidates get class ghu (25 plurals follow), new mod_class fields; tools.py: noun_info returns mod_class; tool_schemas.json: descriptions say which class to pass",
+ "changes_from_v1": "v2 + rules.json: FV.perfective.other_eo.ie_by_root (e/o roots -ie, kogh keeps -e), FV.perfective.no_vowel.ie (ch -> chie), EXT.passive.w_final.flag; lexicon.json: verified verb roots p, li tagged V; tools.py: lookup_word short-root fallback (alimpa -> p -> nek), the two perfective rules, the passive flag",
  "rule": "No rule or lexicon edits after this tag until arm C/E/A results are in; fixes go to rulebook-v2 and are reported as such."
 }

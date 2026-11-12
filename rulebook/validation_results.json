@@ -2,14 +2,14 @@
  "_meta": {
   "built_by": "rulebook/validate.py",
   "script_sha16": "b7826fdd1bbf904f",
-  "git_sha": "8344188c735eac1008aea3ce87c64142c2c7c149",
+  "git_sha": "efa69bfb120ccac4dd6c7d7a423d6d2b127ad9b7",
   "hashes_sha256_16": {
-   "rules.json": "61cc97147730469b",
-   "lexicon.json": "ddc852cc2201a265",
+   "rules.json": "a423f71adc8bab71",
+   "lexicon.json": "2e30ca9a32b21be5",
    "bootstrap_lexicon.json": "817e0ea6a4c0a3d7",
    "dav_vocab.json": "3c64c3a04998a44b",
    "split_manifest.json": "5de67491af00d63a",
-   "tools.py": "b0975825fa398653",
+   "tools.py": "d33f6b8d6bc059f2",
    "dev.jsonl": "971f78495c901e1b",
    "train.jsonl (retrieval index source)": "fd25256c6ddfc22b"
   }
@@ -46,29 +46,29 @@
     }
    },
    "NEG": {
-    "k": 150,
+    "k": 151,
     "n": 155,
     "rate": {
-     "rate": 0.967741935483871,
+     "rate": 0.9741935483870968,
      "ci95": [
-      0.9267147726516284,
-      0.9861443272315257
+      0.9355304684162196,
+      0.9899197914653228
      ],
-     "k": 150,
+     "k": 151,
      "n": 155,
      "low_n": false
     }
    },
    "EXT": {
-    "k": 515,
+    "k": 517,
     "n": 561,
     "rate": {
-     "rate": 0.9180035650623886,
+     "rate": 0.9215686274509803,
      "ci95": [
-      0.8923564955108734,
-      0.9379647839416314
+      0.8963450113563368,
+      0.941057899477426
      ],
-     "k": 515,
+     "k": 517,
      "n": 561,
      "low_n": false
     }
@@ -88,15 +88,15 @@
     }
    },
    "all": {
-    "k": 2424,
+    "k": 2427,
     "n": 2490,
     "rate": {
-     "rate": 0.9734939759036144,
+     "rate": 0.9746987951807229,
      "ci95": [
-      0.9664178941433305,
-      0.9791112846144542
+      0.9677608259331026,
+      0.9801742794881879
      ],
-     "k": 2424,
+     "k": 2427,
      "n": 2490,
      "low_n": false
     }
@@ -419,20 +419,6 @@
      "generated": "ndeweremanyirieghe"
     },
     {
-     "reference": "ndekorebonyekieghe",
-     "features": {
-      "dav_root": "bony",
-      "subj": "2sg",
-      "tense": "past",
-      "neg": true,
-      "exts": [
-       "stative"
-      ],
-      "post_final": true
-     },
-     "generated": "ndekorebonyekeghe"
-    },
-    {
      "reference": "ndekoregheshereghe",
      "features": {
       "dav_root": "ghesh",
@@ -598,11 +584,11 @@
  },
  "5_unit_tests": {
   "exit_code": 0,
-  "tail": "..................................                                       [100%]\n34 passed in 3.98s\n"
+  "tail": "...................................                                      [100%]\n35 passed in 4.01s\n"
  },
  "6a_hf_space_tests": {
-  "exit_code": 4,
-  "tail": "test '/home/mpily/languagemodels/kitaita-project/hf_space/tests/conftest.py'.\nhf_space/tests/conftest.py:12: in <module>\n    from api.server import create_app  # noqa: E402\n    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^\nhf_space/api/server.py:15: in <module>\n    from fastapi import BackgroundTasks, FastAPI, Header, HTTPException, Query, Request, WebSocket\nE   ModuleNotFoundError: No module named 'fastapi'\n",
+  "exit_code": 0,
+  "tail": "........................................................................ [ 69%]\n................................                                         [100%]\n104 passed, 2 deselected in 7.50s\n",
   "note": "not run if fastapi is missing locally (no local env has it); hf_space/ code was not changed by this job"
  },
  "6b_version_b_val": {

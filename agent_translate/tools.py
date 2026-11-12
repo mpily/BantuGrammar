@@ -251,6 +251,19 @@ def lookup_word(sw: str, pos: str | None = None) -> dict:
     lem = _sw_lemma(w)
     lex = _lexicon()
     e = lex.get(lem) or lex.get(w)
+    note = None
+    if not e:
+        # rulebook-v3: one-syllable verb roots (pa 'give', ona 'see', ita 'call', lia 'cry') lose ku- when an
+        # object marker is present (alimpa, nimeona); _sw_lemma ignores roots under 3 letters, so these came back
+        # unknown. Fallback only when nothing else matched: a short parse root with a verb entry, no negative
+        # reading (hapa is not ha-p-a).
+        from swahili_verb import parse
+        p = parse(w)
+        r = p["root"] if p and not p.get("neg") else None
+        if r and len(r) < 3 and lex.get(r, {}).get("pos") == "V":
+            e = lex[r]
+            note = (f"matched through the short verb root '{r}' of the parse; check that '{w}' really is that verb "
+                    f"(nouns and adjectives such as ukali can parse the same way)")
     if not e:
         return {"status": "unknown", "sw": w, "lemma": lem, "candidates": [], "rule_ids": [], "source": None}
     if pos and e["pos"] != pos and not (pos == "N" and e["pos"] in ("N", "NAME")):
@@ -259,8 +272,11 @@ def lookup_word(sw: str, pos: str | None = None) -> dict:
     cands = [{k: c.get(k) for k in ("lemma", "forms", "source", "evidence_count", "domains", "class", "plural",
                                     "senses", "conflict")} for c in e["dav"]]
     status = "ok" if e["source"] in ("speaker_verified", "corpus_attested") else "unattested"
-    return {"status": status, "sw": w, "lemma": e["sw"], "pos": e["pos"], "candidates": cands,
-            "close_alternatives": e.get("close_alternatives", False), "rule_ids": [], "source": e["source"]}
+    out = {"status": status, "sw": w, "lemma": e["sw"], "pos": e["pos"], "candidates": cands,
+           "close_alternatives": e.get("close_alternatives", False), "rule_ids": [], "source": e["source"]}
+    if note:
+        out.update(note=note, rule_ids=["LEX.short_verb_root"])
+    return out
 
 
 # ------------------------------------------------------------------ 3. noun_info
@@ -410,7 +426,16 @@ def _perfective(stem: str, applicative_last: bool, base_root: str) -> tuple[str,
         return applicative_perfective(base_root) + "ie", "EXT.helper.applicative_perfective+ie"
     if stem.endswith(("ir", "er")) and len(stem) >= 4:
         return stem + "e", "FV.perfective.r_final"
+    # rulebook-v3: vowel-less roots (ch 'come') take -ie, not the palatal -ire
+    if not re.search(r"[aeiou]", stem) and "FV.perfective.no_vowel.ie" in _rules():
+        return stem + "ie", "FV.perfective.no_vowel.ie"
     end, harm = _root_shape(stem)
+    # rulebook-v3: e/o roots take -ie (counted per root); kogh 'be' and other listed roots keep -e
+    v3 = _rules().get("FV.perfective.other_eo.ie_by_root")
+    if v3 and end == "other" and harm == "eo":
+        if stem in v3["then"]["exceptions_final_e"]:
+            return stem + "e", "FV.perfective.other_eo.e"
+        return stem + "ie", v3["id"]
     f = {"palatal": "ere" if harm == "eo" else "ire", "vowel": "e"}.get(end, "e" if harm == "eo" else "ie")
     return stem + f, f"FV.perfective.{end}_{harm}.{f}"
 
@@ -490,6 +515,9 @@ def generate_verb(features: dict) -> dict:
             tail = o + tail
         ids.append(OM_RULE.get(omc, ""))
     form = prefix + tail
+    if "passive" in exts and root.endswith("w") and "EXT.passive.w_final.flag" in _rules():
+        return {"status": "flag", "form": None, "rule_ids": ids + ["EXT.passive.w_final.flag"], "features": f,
+                "flag": "passive of a w-final root (lw, fw ...) is not attested; ask a speaker"}
     ids = list(dict.fromkeys(i for i in ids if i))
     verified_stem = root in _verified_stems() and "applicative" in exts
     ending = tail if not om else tail[len(OM_FORM[BANTU_TO_LABEL.get(str(om), str(om))]):]

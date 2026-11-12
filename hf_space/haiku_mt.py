@@ -177,9 +177,18 @@ def translate(text: str, visitor: str = "unknown") -> dict:
             "stop_reason": r["stop_reason"], "prompt_sha16": prompts.prompt_sha16(), "model": agent_loop.MODEL}
 
 
+def rulebook_tag() -> str:
+    """Frozen rule-book version the tools load (rulebook/MANIFEST.json)."""
+    try:
+        import json
+        return json.loads((APP_ROOT / "rulebook" / "MANIFEST.json").read_text())["tag"]
+    except Exception:
+        return "rulebook-?"
+
+
 def system_label() -> str:
     try:
         import prompts
-        return f"haiku+tools:rulebook-v2:prompt-{prompts.prompt_sha16()}"
+        return f"haiku+tools:{rulebook_tag()}:prompt-{prompts.prompt_sha16()}"
     except Exception:
-        return "haiku+tools:rulebook-v2"
+        return f"haiku+tools:{rulebook_tag()}"

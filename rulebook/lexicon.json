@@ -40,7 +40,7 @@
 "corpus_concord_votes": 54,
 "rules.json:CLASS.wu_prefix.modifier_ghu": 22
 },
-"rulebook_version": "v2 (2026-11-12): look-alike classes vote as one group (gh/ghu resolved to ghu) + wu- modifier class",
+"rulebook_version": "v3 (2026-11-12): verified verb roots tagged V",
 "dev_coverage_swahili_tokens": {
 "V": {
 "covered": 11489,
@@ -112,7 +112,19 @@
 "low_n": false
 }
 }
-}
+},
+"v3_pos_fixed": [
+[
+"li",
+"N"
+],
+[
+"p",
+"N"
+]
+],
+"v3_built_by": "rulebook/build_lexicon.py --v3-patch",
+"v3_script_sha16": "a478ad689d3560e5"
 },
 "entries": [
 {
@@ -78509,7 +78521,7 @@
 "sw_forms": [
 "li"
 ],
-"pos": "N",
+"pos": "V",
 "dav": [
 {
 "lemma": "lil",
@@ -78525,13 +78537,13 @@
 "dav_swa": 0,
 "bible": 0
 },
-"class": "ku",
-"class_source": "speaker_verified",
+"class": null,
+"class_source": null,
 "plural": null,
 "senses": [],
 "conflict": false,
-"mod_class": "ku",
-"mod_class_source": "same_as_class"
+"mod_class": null,
+"mod_class_source": null
 }
 ],
 "source": "speaker_verified",
@@ -123154,7 +123166,7 @@
 {
 "sw": "p",
 "sw_forms": [],
-"pos": "N",
+"pos": "V",
 "dav": [
 {
 "lemma": "nek",
@@ -123176,7 +123188,7 @@
 "senses": [],
 "conflict": false,
 "mod_class": null,
-"mod_class_source": "same_as_class"
+"mod_class_source": null
 }
 ],
 "source": "speaker_verified",
