@@ -29112,3 +29112,23 @@ second row set. (2) Not comparable with the fine-tune (arm A, novel-test chrF 59
 A trained on the split these dev sentences come from. (3) Zero-shot E output often looks like other Bantu
 languages (e.g. *dzitengenezwe*, *mukhulu*), not Kidaw'ida — read, not scored. (4) chrF tracked meaning
 weakly in the earlier human rating (Spearman 0.06–0.14). Next: the fresh held-out test set for A / C / E.
+
+## 2026-11-12 (cont.) — arm C prompt change: rephrase unknown words in Swahili first (user idea): fewer gaps, chrF unchanged
+
+One change vs pilot1_v2 (same 50 dev sentences, same rulebook-v2, arm C only): when lookup_word finds no
+candidate, try up to 3 Swahili synonyms / plainer paraphrases (wakuu -> viongozi ...) before writing [?word].
+
+| | pilot1_v2 | pilot2_rephrase | paired (2 − 1) [95% CI] |
+|---|---|---|---|
+| chrF, n=50 | 51.90 | 52.92 | +1.03 [−2.89, +4.94]; better 18, worse 23 |
+| chrF without ref-in-retrieval, n=45 | 47.46 | 47.82 | +0.36 [−3.87, +4.58] |
+| dav_swa / Bible (n=25 each) | | | +3.74 [−3.18, +10.66] / −1.69 [−5.64, +2.26] |
+| [?word] share of output tokens | 72/576 = 12.5% | **43/560 = 7.7%** | |
+| tool calls / sentence | 21.5 | 23.6 | |
+
+Exact match 5/50 (was 3/50). Cost $0.24. 12 sentences lost at least one [?word]; by hand: good substitutes
+(*sasa* -> *idakoni*, chrF 34 -> 90; *kitani* -> *uzi wa ngundu*; *wawili* -> *iwili*) and bad ones (*miguu* ->
+*indi*, 47 -> 17). Some per-sentence swings are run-to-run variance, not the change (e.g. *mfalme* rendered
+*nguma* instead of *mzuri* though it had candidates both times). Reading: the instruction does what it says
+(gaps −38%) without a measurable chrF gain or loss at n=50; dev slice, not the test set. Kept in the prompt.
+Next single change to try: proper names stay unmarked (*[?Memukani]*). compare.py added to HaikuHarness/.
