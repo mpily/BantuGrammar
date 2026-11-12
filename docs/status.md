@@ -29088,3 +29088,27 @@ top-ranked candidate for the exact word, prefer dav_swa evidence, not to add an 
 sample; the prompt's example comes from it, so this shows instruction-following only):
 *awa waghosi niw'o wiluieghe w'uhuru odu* (before v2), verb now exactly the speaker's. Next: 50-sentence
 pilot (arms C, E) on v2.
+
+## 2026-11-12 (cont.) — Haiku pilot on rulebook-v2: arm C (tools) 51.9 chrF vs arm E (zero-shot) 24.8, paired +27.1 [21.1, 33.1], n=50
+
+**Setup.** `claude-haiku-5-5`, effort medium, prompt sha16 in config. 50 sentences from the rulebook dev slice
+(seed 20261112, 25 dav_swa + 25 Bible), NOT the fresh test set. C = manual tool-use loop over the 8
+agent_translate tools (rulebook-v2), E = one call, no tools. Harness: HaikuHarness/ (run_pilot.py, score.py;
+uncommitted, user's learning folder). Outputs (corpus text) in ~/languagemodels/rulebook_data/pilot/pilot1_v2/;
+numbers in HaikuHarness/results/pilot1_v2.json. All 100 runs ended end_turn with a <translation> tag; 0 errors.
+
+| | n | arm C chrF [95% CI] | arm E chrF | paired C − E [95% CI] |
+|---|---|---|---|---|
+| all | 50 | 51.90 [46.18, 57.62] | 24.79 [21.67, 27.90] | **+27.11 [21.08, 33.15]** |
+| dav_swa | 25 | 57.13 | 21.12 | +36.01 [26.31, 45.71] |
+| Bible | 25 | 46.67 | 28.45 | +18.22 [12.33, 24.12] |
+| without the 5 ref-in-retrieval sentences | 45 | 47.46 | 25.12 | +22.34 [17.45, 27.23] |
+
+Exact match C 3/50, E 0/50. C: 21.5 tool calls and ~25 s per sentence; cost C $0.22, E $0.02 (estimate from usage).
+
+**Caveats.** (1) In 5/50 sentences C's retrieval returned the reference itself (the dev slice was never
+near-duplicate-filtered against train, unlike the test sets); all 3 exact matches are among them — hence the
+second row set. (2) Not comparable with the fine-tune (arm A, novel-test chrF 59.64): different test set, and
+A trained on the split these dev sentences come from. (3) Zero-shot E output often looks like other Bantu
+languages (e.g. *dzitengenezwe*, *mukhulu*), not Kidaw'ida — read, not scored. (4) chrF tracked meaning
+weakly in the earlier human rating (Spearman 0.06–0.14). Next: the fresh held-out test set for A / C / E.
