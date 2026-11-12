@@ -1,0 +1,252 @@
+[
+ {
+  "name": "parse_swahili_verb",
+  "description": "Call first for every Swahili verb. Returns candidate parses (neg, sm, tam, rel, om, root, exts, final) and the tense_key + negative flag to pass to generate_verb. Pick the parse that fits the sentence. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "input_schema": {
+   "type": "object",
+   "properties": {
+    "word": {
+     "type": "string",
+     "description": "one Swahili word"
+    }
+   },
+   "required": [
+    "word"
+   ]
+  }
+ },
+ {
+  "name": "lookup_word",
+  "description": "Kidaw'ida translations of a Swahili word or lemma, ranked (speaker_verified > corpus_attested > mined_alignment > agent_interpretation), with noun class, plural, senses and corpus (dav_swa vs bible). Choose the sense; Bible-only words may be archaic. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "input_schema": {
+   "type": "object",
+   "properties": {
+    "sw": {
+     "type": "string"
+    },
+    "pos": {
+     "type": "string",
+     "enum": [
+      "N",
+      "V",
+      "ADJ",
+      "ADV",
+      "FUNC",
+      "NAME"
+     ]
+    }
+   },
+   "required": [
+    "sw"
+   ]
+  }
+ },
+ {
+  "name": "noun_info",
+  "description": "Class, plural, number-invariance, animacy and conflicting readings of a Kidaw'ida noun. Call for every subject/object noun before generating agreement. Pass sw_noun to check the animacy-override list. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "input_schema": {
+   "type": "object",
+   "properties": {
+    "dav_noun": {
+     "type": "string"
+    },
+    "sw_noun": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "dav_noun"
+   ]
+  }
+ },
+ {
+  "name": "concord",
+  "description": "Agreement form for a class or person and slot: SM (bare), SM_a, SM_e, OM, REL, ADJ, DEM_near, DEM_mid, DEM_far, POSS (all persons), ASSOC ('of'), OSE ('all'), SELF. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "input_schema": {
+   "type": "object",
+   "properties": {
+    "cls": {
+     "type": "string",
+     "description": "Kidaw'ida class label (u, wi, ghu, i, i_nasal, ji, ghi, chi, va, ri, lu, ku), Bantu number (1-15), or person (1sg, 2sg, 3sg, 1pl, 2pl)"
+    },
+    "slot": {
+     "type": "string",
+     "enum": [
+      "SM",
+      "SM_a",
+      "SM_e",
+      "OM",
+      "REL",
+      "ADJ",
+      "DEM_near",
+      "DEM_mid",
+      "DEM_far",
+      "POSS",
+      "ASSOC",
+      "OSE",
+      "SELF"
+     ]
+    }
+   },
+   "required": [
+    "cls",
+    "slot"
+   ]
+  }
+ },
+ {
+  "name": "generate_verb",
+  "description": "Builds the Kidaw'ida verb from features; never write verb morphology yourself. dav_root from lookup_word (root without final vowel), subj = the controlling noun's class (noun_info) or person, tense = tense_key from parse_swahili_verb. Set subj_coordinated for coordinated subjects (returns flag). status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "input_schema": {
+   "type": "object",
+   "properties": {
+    "features": {
+     "type": "object",
+     "properties": {
+      "dav_root": {
+       "type": "string"
+      },
+      "subj": {
+       "type": "string",
+       "description": "Kidaw'ida class label (u, wi, ghu, i, i_nasal, ji, ghi, chi, va, ri, lu, ku), Bantu number (1-15), or person (1sg, 2sg, 3sg, 1pl, 2pl)"
+      },
+      "tense": {
+       "type": "string",
+       "enum": [
+        "conditional",
+        "future",
+        "habitual",
+        "narrative",
+        "not_yet",
+        "past",
+        "perfect",
+        "perfect_ie",
+        "present",
+        "present_zero",
+        "prohibitive",
+        "rel_past",
+        "rel_past_cleft",
+        "rel_present",
+        "subjunctive",
+        "when_past"
+       ]
+      },
+      "neg": {
+       "type": "boolean"
+      },
+      "obj": {
+       "type": "string",
+       "description": "Kidaw'ida class label (u, wi, ghu, i, i_nasal, ji, ghi, chi, va, ri, lu, ku), Bantu number (1-15), or person (1sg, 2sg, 3sg, 1pl, 2pl), or refl"
+      },
+      "exts": {
+       "type": "array",
+       "items": {
+        "type": "string",
+        "enum": [
+         "applicative",
+         "passive",
+         "causative",
+         "stative",
+         "reciprocal"
+        ]
+       }
+      },
+      "post_final": {
+       "type": "boolean",
+       "description": "force/suppress -ghe"
+      },
+      "subj_coordinated": {
+       "type": "boolean"
+      },
+      "subj_noun_sw": {
+       "type": "string"
+      }
+     },
+     "required": [
+      "dav_root",
+      "subj",
+      "tense"
+     ]
+    }
+   },
+   "required": [
+    "features"
+   ]
+  }
+ },
+ {
+  "name": "generate_modifier",
+  "description": "Agreeing modifier for a noun: kind adj (nominal stem, e.g. baa), adj_stative (SM + stem, e.g. zamie), dem_near/dem_mid/dem_far, poss (dav_stem = 1sg..3pl), num (e.g. ingi, mweri), ose, self, assoc. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "input_schema": {
+   "type": "object",
+   "properties": {
+    "cls": {
+     "type": "string",
+     "description": "Kidaw'ida class label (u, wi, ghu, i, i_nasal, ji, ghi, chi, va, ri, lu, ku), Bantu number (1-15), or person (1sg, 2sg, 3sg, 1pl, 2pl)"
+    },
+    "dav_stem": {
+     "type": "string"
+    },
+    "kind": {
+     "type": "string",
+     "enum": [
+      "adj",
+      "adj_stative",
+      "dem_near",
+      "dem_mid",
+      "dem_far",
+      "poss",
+      "num",
+      "ose",
+      "self",
+      "assoc"
+     ]
+    }
+   },
+   "required": [
+    "cls",
+    "dav_stem",
+    "kind"
+   ]
+  }
+ },
+ {
+  "name": "retrieve_examples",
+  "description": "k similar Swahili-Kidaw'ida training pairs for a Swahili sentence. Use to check word choice and idioms, not to copy whole sentences. status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "input_schema": {
+   "type": "object",
+   "properties": {
+    "sw_sentence": {
+     "type": "string"
+    },
+    "k": {
+     "type": "integer",
+     "minimum": 1,
+     "maximum": 20
+    }
+   },
+   "required": [
+    "sw_sentence"
+   ]
+  }
+ },
+ {
+  "name": "check_translation",
+  "description": "After drafting: per Swahili verb, finds the Kidaw'ida verb and checks negation, tense, SM series, subject class and extensions against the rule book. Fix verbs with status flag (see mismatches). status: ok = from active rules/entries and attested; unattested = produced but weakly attested or from a tentative rule; unknown = no rule or entry; flag = do not guess, ask a speaker.",
+  "input_schema": {
+   "type": "object",
+   "properties": {
+    "sw": {
+     "type": "string"
+    },
+    "dav": {
+     "type": "string"
+    }
+   },
+   "required": [
+    "sw",
+    "dav"
+   ]
+  }
+ }
+]
