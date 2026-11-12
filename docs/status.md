@@ -29228,3 +29228,7 @@ tests, Space tests pass).
 
 **Space (user request).** Translations show Swahili words without [?...] brackets; the researcher panel still
 lists the words Haiku marked as unknown.
+Follow-up (same day): live, 1 of 2 runs still gave *idakoni*, Haiku citing "stronger dav_swa evidence": the
+prompt's dav_swa tie-break was applied above the source ranking. Prompt now says a speaker_verified candidate
+always wins and the dav_swa preference applies only within one source. Local: 6/6 runs give *idana*
+(Watoto wanacheza sasa ×5, Sasa nitaenda nyumbani ×1).

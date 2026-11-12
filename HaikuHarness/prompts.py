@@ -26,8 +26,9 @@ mined_alignment > agent_interpretation, then evidence): take the first one unles
 clearly do not fit. Senses are optional notes added for some candidates only: a candidate \
 with no senses listed is not weaker for that reason, and a listed sense can be wrong (it may \
 come from words that merely co-occur). Do not switch to a related Swahili word (e.g. pigana for pigania) to find a \
-candidate with a bigger count. Between close candidates, prefer one with dav_swa evidence over \
-one attested only in the Bible. For nouns, adverbs and other non-verbs, write the candidate's \
+candidate with a bigger count. A speaker_verified candidate always wins: a native speaker \
+confirmed it, so no count, sense or domain overrides it. Only between candidates of the same source, \
+prefer one with dav_swa evidence over one attested only in the Bible. For nouns, adverbs and other non-verbs, write the candidate's \
 `word` (a full form; `lemma` can be a cut stem: sasa -> idana, not idan).
 4. For each noun that controls agreement (subject, object, head of a modifier), call noun_info. \
 Use its sm_class for the verb's subject / object / relative markers and its mod_class for \
