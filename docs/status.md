@@ -29232,3 +29232,22 @@ Follow-up (same day): live, 1 of 2 runs still gave *idakoni*, Haiku citing "stro
 prompt's dav_swa tie-break was applied above the source ranking. Prompt now says a speaker_verified candidate
 always wins and the dav_swa preference applies only within one source. Local: 6/6 runs give *idana*
 (Watoto wanacheza sasa ×5, Sasa nitaenda nyumbani ×1).
+
+## 2026-11-12 (cont.) — pilot on rulebook-v3 (arm C, same 50 dev sentences); idakoni is a dialect variant
+
+Two runs, so the rule-book change and the two untested prompt lines (proper names; senses) are separated:
+A = v3 + pilot-2 prompt (sha16 faa739f97a01ad62, rebuilt in-process and hash-checked), B = v3 + current prompt.
+
+| paired, n=50 | chrF | difference [95% CI] | [?word] share |
+|---|---|---|---|
+| v3 alone (pilot2_rephrase -> A) | 52.92 -> 49.77 | −3.15 [−6.66, +0.35]; better 21, worse 22 | 7.7% -> 9.2% |
+| prompt lines (A -> B) | 49.77 -> 54.52 | **+4.75 [+1.93, +7.57]**; better 29, worse 14 (dav_swa +5.4, Bible +4.1) | 9.2% -> **1.9%** |
+| current vs pilot2 | 52.92 -> 54.52 | +1.60 [−1.16, +4.35] | |
+| C (v3 + current prompt) − E (pilot1 zero-shot) | | **+29.74 [23.61, 35.87]** | |
+
+The v3-alone dip is not v3: its rules fired in 6/50 sentences (mean change −1.6) vs −3.4 in the 44 it never
+touched, i.e. run-to-run variance; the worst case (−17) has the v3 -ie right (oremerieghe ~ ref Wamerie) and
+lost on another word. rulebook-v4 and the speaker_verified prompt line are not in these runs. Cost $0.49.
+User (native-speaker tests): *idakoni* is a different dialect and is acceptable; *idana* stays first
+(speaker_verified), idakoni stays as an alternative. chrF against corpus references counts such dialect
+variants as errors — one more reason to rely on speaker ratings on the Space.
