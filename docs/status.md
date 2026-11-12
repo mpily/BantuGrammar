@@ -29004,3 +29004,55 @@ Remaining errors named by the auditors: Swahili verb lemmas still carrying SM/TA
 wamelipwa), Swahili fragments (fu, po, ota, umb) colliding with other words, substring matches
 (tanda in kitanda), names/loans losing fake prefixes, concord / numeral words paired as vocabulary
 (wenyewe → SM-eni; thelathini → mirongo idadu), sense-limited pairs (ndege plane/bird).
+
+## 2026-11-12 — CLAUDE_rulebook.md job complete: rule book + dictionary + tools frozen as `rulebook-v1`
+
+All steps of the brief done (step 3 replaced by the user's lexicon/rule loop, 2026-11-11 cont. 2–6).
+Frozen files and every input hashed in `rulebook/MANIFEST.json`; tag `rulebook-v1`. From here: no rule
+or lexicon edits until arm C/E/A results are in; fixes go to rulebook-v2.
+
+**Round-4 audit fixes** (before the merge): Swahili verbs the parser can't read lose their SM+TAM
+(+OM) prefix when the stem is shared; Swahili lemmas < 3 letters only from the parser; strings
+identical on both sides of ≥ 2 pairs (names, loans) kept whole; agent lemmas with '/' or a leftover
+ku- cleaned; -enyewe → SM-eni and the tens (ishirini … tisini → mirongo + unit) handled by rules;
+the Swahili root fallback no longer strips noun prefixes; a Kidaw'ida root of ≤ 3 letters needs a
+verb final after it (chuo, chui, vichuku no longer merge into chu).
+
+**Built**
+- `rulebook/rules.json` + generated `RULEBOOK.md`: 418 rules (288 active, 126 tentative, 4 flag-only),
+  sections 1–8. By slot (speaker / corpus / notes): CLASS 24/0/0, CONCORD 15/66/0, SM 1/48/0, OM 0/17/0,
+  REL 0/8/0, TAM 4/105/3, NEG 0/38/0, EXT 0/66/0, FV 0/19/0, COPULA 0/2/0, LOC 0/1/0, TEMPLATE 0/1/0.
+- `rulebook/lexicon.json`: 4,054 Swahili lemmas, 5,251 ranked Kidaw'ida candidates (top source:
+  corpus 2,212, mined 918, agent 794, speaker 130; 401 with a close second candidate kept); noun class
+  for 812 (speaker 222, concord votes 488, agent root list 102). Dev coverage of Swahili tokens 89.0%
+  [88.8, 89.3] (verbs 81.6%, nouns/other 86.5%, function words 97.8%, concord 100%).
+- `agent_translate/tools.py` (8 tools) + `tool_schemas.json` (Anthropic format) + 33 unit tests.
+  Wraps swahili_verb, kitaita_verb, rulebook_correct and kitaita_passive_form; speaker-verified forms
+  override corpus forms in the generator (2pl future m-, ghu present gha-, ji past -de-).
+  Attestation uses a clean-train vocabulary (`dav_vocab.json`), not kitaita_training_vocab.json
+  (contaminated pool).
+
+**Validation** (`rulebook/validation_results.json`; dev = held-out 10% of train):
+| check | result |
+|---|---|
+| speaker-verified forms regenerated | 65/65 (first run 62/65: 2pl future m-, ghu present gha-, ji past -de- were not applied; fixed) |
+| dev round trip, all | 2,424/2,490 = 97.3% [96.6, 97.9] |
+| … TAM / NEG / EXT / FV | 99.7% [99.2, 99.8] / 96.8% [92.7, 98.6] / 91.8% [89.2, 93.8] / 84.2% [72.6, 91.5] |
+| dictionary vs hidden speaker-verified words | accepted 39/48 (81% [68, 90]), tentative 13/22 (59% [39, 77]) |
+| leakage | none (retrieval index, rule examples, lexicon evidence vs excluded / dropped / dev) |
+| unit tests | 33/33 |
+| version B on val | identical on all 8 committed conditions |
+| hf_space tests | NOT RUN: no local environment has fastapi; hf_space/ code was not changed by this job |
+
+Round-trip caveat: it reads only verb shapes the generator itself produces, so it is a consistency
+ceiling, not a translation-quality measure. Remaining misses: 2pl m- vs mu- in a few forms, -ny
+roots (kwany-e vs kwany-ire), passive vs vowel-final (enda-w-a vs enda-lw-a).
+
+**Conflicts recorded (default = speaker)**: chia (chi vs corpus 9/10), maza (ghi vs ri), boi (i vs class 1),
+ngelo (ri vs ya-class), class 14 wu- split u / ghu, ghu present gha- (speaker) vs ghwa- (corpus),
+present -we- (speaker preference) vs zero (corpus), 1pl past de/da, gh class present gha/ghwa.
+**Known gaps (flag-only or tentative)**: coordination agreement, animacy override, -nge- conditional,
+-wia- progressive, stative present, cross-sentence object markers; -awuya- continuative tentative.
+Agent-sourced lexicon entries remain the least reliable (round-4 audit: 6/52 wrong vs 1/48 loop-made).
+
+**Next step**: Haiku harness + 50-sentence pilot (arms C and E) on the fresh held-out set (not built here).
