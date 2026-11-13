@@ -81,6 +81,7 @@ finetuned_mt.start_loading()
 # 2026-11-12, user decision: Translation 2 is Claude Haiku + the rule-book tools (study arm C), replacing
 # fine-tuned + rule book. Paid API: daily cap + per-visitor limit inside haiku_mt.
 import haiku_mt  # noqa: E402
+import testers  # noqa: E402
 
 haiku_mt.start()
 print("Ready.", flush=True)
@@ -188,10 +189,12 @@ ARMS = [("A", "fine-tuned NLLB"), ("C", "Haiku + tools"), ("E", "Haiku zero-shot
 
 
 def submit_ab_feedback(swahili: str, a_output: str, c_output: str, e_output: str, report: str,
-                       rating_a: str, rating_c: str, rating_e: str, correction: str):
+                       rating_a: str, rating_c: str, rating_e: str, correction: str, phone: str = ""):
     """One record per blind rating of the three arms, in feedback_ab/ of the private dataset.
     2026-11-12: arms A (translation 1), C (2), E (3). Legacy fields a_*/b_* are kept so older readers work
-    (b = C). On success the form is cleared so the tester knows to go on (user request)."""
+    (b = C). On success the form is cleared so the tester knows to go on (user request).
+    2026-11-13 (paid testers, testers.py): the record carries only a salted hash of the tester's phone number;
+    the number itself goes to the private testers dataset. The phone box is not cleared."""
     keep = (gr.update(),) * 9
     swahili = (swahili or "").strip()
     if not swahili or not (a_output or "").strip():
@@ -201,6 +204,16 @@ def submit_ab_feedback(swahili: str, a_output: str, c_output: str, e_output: str
     token = os.environ.get("HF_TOKEN")
     if not token:
         return ("Feedback was NOT saved: this Space has no HF_TOKEN secret configured.",) + keep
+    tid, phone_n = None, None
+    if (phone or "").strip():
+        phone_n = testers.normalize_phone(phone)
+        if not phone_n:
+            return ("Feedback was NOT saved: the phone number does not look right (e.g. 0712345678 or "
+                    "+254712345678). Fix it, or clear the box to submit without payment.",) + keep
+        try:
+            tid = testers.tester_id(phone_n)
+        except RuntimeError:
+            return ("Feedback was NOT saved: payments are not set up on this Space (no PHONE_HASH_SALT secret).",) + keep
     outs = {"A": (a_output or "").strip(), "C": (c_output or "").strip(), "E": (e_output or "").strip()}
     ratings = {"A": rating_a or None, "C": rating_c or None, "E": rating_e or None}
     systems = {"A": "finetuned:" + str(finetuned_mt._CFG.get("model_repo")), "C": haiku_mt.system_label(),
@@ -216,19 +229,33 @@ def submit_ab_feedback(swahili: str, a_output: str, c_output: str, e_output: str
         "report": report,
         "blind": True,
         "native_speaker_correction": (correction or "").strip() or None,
+        "tester_id": tid,   # salted hash only; never the number
+        "complete_for_payment": testers.is_complete(ratings, correction),
     }
+    tag = f"_{tid}_{'complete' if record['complete_for_payment'] else 'partial'}" if tid else ""
     try:
         from huggingface_hub import HfApi
         import io
         HfApi(token=token).upload_file(
             path_or_fileobj=io.BytesIO(json.dumps(record, ensure_ascii=False, indent=1).encode("utf-8")),
-            path_in_repo=f"feedback_ab/{record['timestamp'].replace(':', '-')}_{record['id']}.json",
+            path_in_repo=f"feedback_ab/{record['timestamp'].replace(':', '-')}{tag}_{record['id']}.json",
             repo_id=FEEDBACK_DATASET_REPO, repo_type="dataset")
     except Exception as e:
         return (f"Feedback was NOT saved -- upload failed: {type(e).__name__}: {e}",) + keep
     msg = ("### ✅ Thank you! Your feedback was saved."
            + (" (Your correction was included.)" if record["native_speaker_correction"] else "")
            + "\nThe form has been cleared: type or pick the next sentence to continue.")
+    if tid:
+        try:
+            testers.register(phone_n, tid, token)
+            from huggingface_hub import HfApi
+            n = testers.complete_count(HfApi(token=token).list_repo_files(FEEDBACK_DATASET_REPO, repo_type="dataset"), tid)
+            msg += f"\n\n**Paid testing:** {n} complete submission(s) so far (payment every {testers.PAY_EVERY})."
+        except Exception as e:
+            msg += f"\n\n⚠️ Saved, but your phone number could not be registered for payment ({type(e).__name__}); tell the organiser."
+        if not record["complete_for_payment"]:
+            msg += ("\n\nThis one does **not** count for payment: a paid submission rates all three translations "
+                    "**and** gives your own Kitaita translation.")
     # cleared: input, 3 outputs, report, 3 ratings, correction
     return (msg, "", "", "", "", "", None, None, None, "")
 
@@ -314,6 +341,17 @@ with gr.Blocks(title="Kitaita Translator") as demo:
                 "sentence. Translations 2 and 3 take up to 30 seconds.\n\n"
                 "All three are machine translation awaiting native-speaker review."
             )
+            # 2026-11-13, paid testers (testers.py): the number stays in this browser (BrowserState) across
+            # submits and reloads; feedback stores only its salted hash.
+            with gr.Accordion("Paid testers: your phone number", open=True):
+                phone = gr.Textbox(label="Phone number (M-Pesa) -- leave empty if you are not a paid tester",
+                                   placeholder="e.g. 0712345678", max_lines=1)
+                gr.Markdown(
+                    "Used only to pay you. It is stored privately, separately from your ratings (which carry only "
+                    "a code), and deleted after payment. A submission counts when you rate **all three** "
+                    f"translations **and** write your own Kitaita translation; payment every {testers.PAY_EVERY} "
+                    "complete submissions.")
+                phone_store = gr.BrowserState("", storage_key="kitaita_tester_phone")
             inp = gr.Textbox(label="Swahili sentence", lines=2,
                              placeholder="e.g. Mama alimpa mtoto maji ya kunywa.")
             with gr.Row():
@@ -335,8 +373,8 @@ with gr.Blocks(title="Kitaita Translator") as demo:
                 rating_a = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 1 (1 = way off, 5 = correct)")
                 rating_c = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 2 (1 = way off, 5 = correct)")
                 rating_e = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 3 (1 = way off, 5 = correct)")
-            correction = gr.Textbox(label="Correct Kitaita translation (optional)", lines=2,
-                                    placeholder="If no translation is right, what should it be?")
+            correction = gr.Textbox(label="Your Kitaita translation (required for paid testers)", lines=2,
+                                    placeholder="How would you say this sentence in Kitaita?")
             feedback_btn = gr.Button("Submit feedback", variant="primary")
             feedback_status = gr.Markdown()
 
@@ -350,10 +388,13 @@ with gr.Blocks(title="Kitaita Translator") as demo:
             inp.submit(translate, inputs=[inp], outputs=outputs)
             sample_btn.click(random_test_sentence, inputs=[], outputs=[inp, feedback_status])
             feedback_btn.click(submit_ab_feedback,
-                               inputs=[inp, out_a, out_c, out_e, report_box, rating_a, rating_c, rating_e, correction],
+                               inputs=[inp, out_a, out_c, out_e, report_box, rating_a, rating_c, rating_e, correction,
+                                       phone],
                                outputs=[feedback_status, inp, out_a, out_c, out_e, report_box,
                                         rating_a, rating_c, rating_e, correction])
             gr.Examples(examples=[[e[0]] for e in EXAMPLES], inputs=[inp])
+            demo.load(lambda s: s or "", inputs=[phone_store], outputs=[phone])
+            phone.change(lambda p: p, inputs=[phone], outputs=[phone_store])
 
         with gr.Tab("📊 Progress"):
             gr.Markdown(

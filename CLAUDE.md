@@ -255,6 +255,11 @@ Scrabble, the marker-oracle and learner drills live in the separate app repo
   — ask before switching.
 - **Privacy**: never store raw phone numbers; store a salted hash (salt in
   Space secrets). Speaker names only with consent.
+  *Exception (user decision, 2026-11-13, paid testers)*: to pay testers, the
+  raw number may be stored ONLY in the private dataset
+  `mpily/bantugrammar-testers` (number ↔ hash, entered with a consent notice;
+  `hf_space/testers.py`). Feedback and every other table keep only the hash.
+  Delete the numbers after the final payment.
 - **Secrets** (HF token, AT API key, salt) in Space secrets / `.env`, never in
   git.
 - The API is versioned (`api_version` in every response) and its contract is
