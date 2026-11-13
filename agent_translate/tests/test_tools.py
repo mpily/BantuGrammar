@@ -165,3 +165,14 @@ def test_v4_lookup():
     assert _ok(T.lookup_word("pa"))["candidates"][0]["lemma"] == "nek"   # bare one-syllable verb
     assert T.lookup_word("mtoto")["candidates"][0]["word"] == "mwana"
     assert T.lookup_word("alimpa")["candidates"][0]["word"] is None     # verbs: use lemma as dav_root
+
+
+def test_v5_review_and_connectives():
+    # rulebook-v5: final agent review (round 5) + connectives (two agents agree); speaker entries untouched
+    r = _ok(T.lookup_word("sasa"))
+    assert r["candidates"][0]["word"] == "idana" and r["candidates"][0]["source"] == "speaker_verified"
+    assert T.lookup_word("na")["candidates"][0]["word"] == "na"            # was wandu 'people'
+    assert T.lookup_word("kisha")["candidates"][0]["word"] == "nwao"       # exact FUNC entry beats the lemmatizer
+    assert T.lookup_word("kwa kuwa")["candidates"][0]["word"] == "kwa kukaia"   # multi-word connective
+    assert T.lookup_word("Kwa Kuwa")["status"] != "unknown"
+    assert T.lookup_word("moyo")["candidates"][0]["word"] == "ngolo"

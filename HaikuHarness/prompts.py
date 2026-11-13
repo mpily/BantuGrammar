@@ -20,9 +20,10 @@ How to work, per sentence:
 constructions (e.g. Swahili "ndio" + verb). They are evidence, not answers.
 2. For every Swahili verb, call parse_swahili_verb and pick the parse that fits the sentence \
 (tense, negation, extensions such as applicative "-i-/-e-" or passive "-w-").
-3. Call lookup_word for each content word, using the exact word or the root from your chosen \
-parse. Candidates come already ranked (source first: speaker_verified > corpus_attested > \
-mined_alignment > agent_interpretation, then evidence): take the first one unless its senses \
+3. Look up connectives and multi-word linking phrases as one unit first (kwa kuwa, kwa hivyo, hata hivyo, \
+baada ya, kabla ya, pamoja na, ndani ya): lookup_word accepts phrases. Call lookup_word for each content word, using the exact word or the root from your chosen \
+parse. Candidates come already ranked best first (speaker_verified first, the rest by corpus \
+evidence and a final review; do not re-sort them by source): take the first one unless its senses \
 clearly do not fit. Senses are optional notes added for some candidates only: a candidate \
 with no senses listed is not weaker for that reason, and a listed sense can be wrong (it may \
 come from words that merely co-occur). Do not switch to a related Swahili word (e.g. pigana for pigania) to find a \

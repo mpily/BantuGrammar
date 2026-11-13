@@ -1,0 +1,59 @@
+{
+ "round": 5,
+ "review_items_answered": "4023/4023",
+ "bad_lines": 0,
+ "controls": {
+  "n": 100,
+  "of": 100,
+  "verdicts": {
+   "correct": 63,
+   "partly": 19,
+   "wrong": 9,
+   "unclear": 8,
+   "not_vocabulary": 1
+  },
+  "wrong_or_not_vocab": {
+   "rate": 0.1,
+   "ci95": [
+    0.05522854161313613,
+    0.1743673043676654
+   ],
+   "k": 10,
+   "n": 100,
+   "low_n": false
+  },
+  "removals_applied": true,
+  "threshold_upper_ci": 0.2
+ },
+ "verdicts_by_confidence": {
+  "correct/high": 1990,
+  "correct/medium": 888,
+  "partly/medium": 325,
+  "correct/low": 158,
+  "partly/low": 148,
+  "partly/high": 139,
+  "not_vocabulary/high": 84,
+  "wrong/medium": 70,
+  "wrong/high": 37,
+  "wrong/low": 34,
+  "unclear/low": 28,
+  "not_vocabulary/medium": 20,
+  "not_vocabulary/low": 2
+ },
+ "decisions": {
+  "add_top": 37,
+  "promote": 145,
+  "demote_top": 3,
+  "set_word": 199,
+  "remove_top": 60
+ },
+ "skipped": {
+  "new_word_without_support": 31
+ },
+ "connectives": {
+  "answered_A": 104,
+  "answered_B": 104,
+  "applied": 71,
+  "disagreements": 13
+ }
+}

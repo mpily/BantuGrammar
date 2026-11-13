@@ -1,0 +1,4661 @@
+{
+ "_meta": {
+  "built_by": "rulebook/agent_round5_merge.py",
+  "base": "rulebook-v4:rulebook/lexicon.json",
+  "outputs_sha16": {
+   "out_agent1.jsonl": "8d1418c7ab032620",
+   "out_agent10.jsonl": "883b54a3fa432fef",
+   "out_agent2.jsonl": "8a5420dec047deac",
+   "out_agent3.jsonl": "18b7f88c8bb9264d",
+   "out_agent4.jsonl": "8dacfc01f9e0b103",
+   "out_agent5.jsonl": "bd9ad4c2d7bde564",
+   "out_agent6.jsonl": "0f3ee36d730da132",
+   "out_agent7.jsonl": "26251a8b9935e978",
+   "out_agent8.jsonl": "737fff91c9dffa49",
+   "out_agent9.jsonl": "db6ee71af34ca274",
+   "out_connectives_A.jsonl": "f928265193587b3f",
+   "out_connectives_B.jsonl": "ef13d9e56437f559"
+  },
+  "note": "agent judgement, not speaker verification"
+ },
+ "review": [
+  {
+   "sw": "na",
+   "action": "add_top",
+   "lemma": "na",
+   "word": "na",
+   "evidence_count": 13119,
+   "domains": {
+    "dav_swa": 1530,
+    "bible": 11589
+   },
+   "was": "wandu",
+   "confidence": "high",
+   "meaning": "and, with"
+  },
+  {
+   "sw": "chuku",
+   "action": "promote",
+   "lemma": "wad",
+   "was": "chuku",
+   "confidence": "medium"
+  },
+  {
+   "sw": "moyo",
+   "action": "promote",
+   "lemma": "ngolo",
+   "was": "moyo",
+   "confidence": "high"
+  },
+  {
+   "sw": "maneno",
+   "action": "promote",
+   "lemma": "malagho",
+   "was": "dedo",
+   "confidence": "medium"
+  },
+  {
+   "sw": "tafut",
+   "action": "promote",
+   "lemma": "lol",
+   "was": "lole",
+   "confidence": "high"
+  },
+  {
+   "sw": "ndio",
+   "action": "demote_top",
+   "was": "nigho"
+  },
+  {
+   "sw": "tano",
+   "action": "set_word",
+   "lemma": "sanu",
+   "word": "isanu",
+   "was": "misanu"
+  },
+  {
+   "sw": "miguu",
+   "action": "promote",
+   "lemma": "maghu",
+   "was": "indi",
+   "confidence": "medium"
+  },
+  {
+   "sw": "rafiki",
+   "action": "promote",
+   "lemma": "ghenyi",
+   "was": "wape",
+   "confidence": "high"
+  },
+  {
+   "sw": "njaa",
+   "action": "promote",
+   "lemma": "njal",
+   "was": "zughwa",
+   "confidence": "high"
+  },
+  {
+   "sw": "som",
+   "action": "promote",
+   "lemma": "shom",
+   "was": "kusaweshoma",
+   "confidence": "high"
+  },
+  {
+   "sw": "siri",
+   "action": "promote",
+   "lemma": "ngasu",
+   "was": "siri",
+   "confidence": "medium"
+  },
+  {
+   "sw": "maziw",
+   "action": "set_word",
+   "lemma": "mari",
+   "word": "mariwa",
+   "was": "marina"
+  },
+  {
+   "sw": "kukaa",
+   "action": "add_top",
+   "lemma": "kai",
+   "word": "kai",
+   "evidence_count": 70,
+   "domains": {
+    "dav_swa": 11,
+    "bible": 59
+   },
+   "was": "kukaa",
+   "confidence": "medium",
+   "meaning": "stay, live, sit (kukaa)"
+  },
+  {
+   "sw": "kauk",
+   "action": "promote",
+   "lemma": "om",
+   "was": "riome",
+   "confidence": "high"
+  },
+  {
+   "sw": "vizazi",
+   "action": "promote",
+   "lemma": "valw",
+   "was": "vizazi",
+   "confidence": "medium"
+  },
+  {
+   "sw": "kivuli",
+   "action": "promote",
+   "lemma": "kiju",
+   "was": "rerende",
+   "confidence": "medium"
+  },
+  {
+   "sw": "jiko",
+   "action": "promote",
+   "lemma": "iriko",
+   "was": "irik",
+   "confidence": "high"
+  },
+  {
+   "sw": "shoto",
+   "action": "set_word",
+   "lemma": "wak",
+   "word": "kiwaka",
+   "was": "waka"
+  },
+  {
+   "sw": "kond",
+   "action": "promote",
+   "lemma": "darum",
+   "was": "tarum",
+   "confidence": "medium"
+  },
+  {
+   "sw": "hatuna",
+   "action": "remove_top",
+   "was": "dina",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "wajinga",
+   "action": "set_word",
+   "lemma": "kelu",
+   "word": "wakelu",
+   "was": "wukelu"
+  },
+  {
+   "sw": "bidha",
+   "action": "add_top",
+   "lemma": "vilambo",
+   "word": "vilambo",
+   "evidence_count": 12,
+   "domains": {
+    "dav_swa": 4,
+    "bible": 8
+   },
+   "was": "kindo",
+   "confidence": "medium",
+   "meaning": "goods, merchandise"
+  },
+  {
+   "sw": "vaa",
+   "action": "promote",
+   "lemma": "rwa",
+   "was": "kuro",
+   "confidence": "medium"
+  },
+  {
+   "sw": "chumb",
+   "action": "set_word",
+   "lemma": "chumb",
+   "word": "chumba",
+   "was": "kuchumba"
+  },
+  {
+   "sw": "wapishi",
+   "action": "promote",
+   "lemma": "deki",
+   "was": "wapishi",
+   "confidence": "medium"
+  },
+  {
+   "sw": "dini",
+   "action": "set_word",
+   "lemma": "dini",
+   "word": "dini",
+   "was": "ndini"
+  },
+  {
+   "sw": "beg",
+   "action": "set_word",
+   "lemma": "maong",
+   "word": "maonge",
+   "was": "maongenyi"
+  },
+  {
+   "sw": "koti",
+   "action": "set_word",
+   "lemma": "koti",
+   "word": "ikoti",
+   "was": "ukamkotia"
+  },
+  {
+   "sw": "usile",
+   "action": "promote",
+   "lemma": "seje",
+   "was": "lekaja",
+   "confidence": "medium"
+  },
+  {
+   "sw": "shavu",
+   "action": "set_word",
+   "lemma": "dumbu",
+   "word": "madumbu",
+   "was": "kudumbua"
+  },
+  {
+   "sw": "nyati",
+   "action": "set_word",
+   "lemma": "mbogh",
+   "word": "mbogho",
+   "was": "mbogha"
+  },
+  {
+   "sw": "vipya",
+   "action": "set_word",
+   "lemma": "wishi",
+   "word": "viwishi",
+   "was": "mbishi"
+  },
+  {
+   "sw": "uzembe",
+   "action": "set_word",
+   "lemma": "legevu",
+   "word": "wulegevu",
+   "was": "walegevu"
+  },
+  {
+   "sw": "seri",
+   "action": "set_word",
+   "lemma": "seri",
+   "word": "seri",
+   "was": "jeseri"
+  },
+  {
+   "sw": "mikebe",
+   "action": "set_word",
+   "lemma": "kebe",
+   "word": "mikebe",
+   "was": "mkebenyi"
+  },
+  {
+   "sw": "baba",
+   "action": "promote",
+   "lemma": "aba",
+   "was": "nde",
+   "confidence": "medium"
+  },
+  {
+   "sw": "kwamba",
+   "action": "promote",
+   "lemma": "angu",
+   "was": "kwamba",
+   "confidence": "medium"
+  },
+  {
+   "sw": "zuri",
+   "action": "promote",
+   "lemma": "boi",
+   "was": "nich",
+   "confidence": "medium"
+  },
+  {
+   "sw": "mikono",
+   "action": "promote",
+   "lemma": "konu",
+   "was": "mikono",
+   "confidence": "high"
+  },
+  {
+   "sw": "hao",
+   "action": "remove_top",
+   "was": "hao",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "kun",
+   "action": "demote_top",
+   "was": "kedu"
+  },
+  {
+   "sw": "peke",
+   "action": "promote",
+   "lemma": "ueka",
+   "was": "ghieka",
+   "confidence": "medium"
+  },
+  {
+   "sw": "ema",
+   "action": "set_word",
+   "lemma": "boi",
+   "word": "iboie",
+   "was": "jiboie"
+  },
+  {
+   "sw": "mto",
+   "action": "promote",
+   "lemma": "mod",
+   "was": "denyi",
+   "confidence": "high"
+  },
+  {
+   "sw": "tolew",
+   "action": "add_top",
+   "lemma": "funy",
+   "word": null,
+   "evidence_count": 104,
+   "domains": {
+    "dav_swa": 9,
+    "bible": 95
+   },
+   "was": "fum",
+   "confidence": "medium",
+   "meaning": "be given out, be offered"
+  },
+  {
+   "sw": "akamuuliz",
+   "action": "set_word",
+   "lemma": "koti",
+   "word": "koti",
+   "was": "ukamkotia"
+  },
+  {
+   "sw": "imb",
+   "action": "promote",
+   "lemma": "bor",
+   "was": "bori",
+   "confidence": "high"
+  },
+  {
+   "sw": "safari",
+   "action": "add_top",
+   "lemma": "charo",
+   "word": "charo",
+   "evidence_count": 58,
+   "domains": {
+    "dav_swa": 29,
+    "bible": 29
+   },
+   "was": "safari",
+   "confidence": "medium",
+   "meaning": "journey, trip"
+  },
+  {
+   "sw": "napasw",
+   "action": "promote",
+   "lemma": "fwan",
+   "was": "wefaa",
+   "confidence": "medium"
+  },
+  {
+   "sw": "mguu",
+   "action": "set_word",
+   "lemma": "indi",
+   "word": "mwindi",
+   "was": "maindi"
+  },
+  {
+   "sw": "ngumu",
+   "action": "set_word",
+   "lemma": "kuri",
+   "word": "ikurie",
+   "was": "rikurie"
+  },
+  {
+   "sw": "hem",
+   "action": "promote",
+   "lemma": "hema",
+   "was": "hem",
+   "confidence": "medium"
+  },
+  {
+   "sw": "mlimani",
+   "action": "set_word",
+   "lemma": "mghondi",
+   "word": "mghondinyi",
+   "was": "mghondi"
+  },
+  {
+   "sw": "tuko",
+   "action": "remove_top",
+   "was": "dek",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "kufunga",
+   "action": "promote",
+   "lemma": "rugh",
+   "was": "kufunga",
+   "confidence": "medium"
+  },
+  {
+   "sw": "wenzao",
+   "action": "set_word",
+   "lemma": "mbao",
+   "word": "wambao",
+   "was": "mmbao"
+  },
+  {
+   "sw": "mafuriko",
+   "action": "add_top",
+   "lemma": "gharika",
+   "word": "gharika",
+   "evidence_count": 3,
+   "domains": {
+    "dav_swa": 2,
+    "bible": 1
+   },
+   "was": "machi",
+   "confidence": "medium",
+   "meaning": "floods"
+  },
+  {
+   "sw": "pya",
+   "action": "set_word",
+   "lemma": "wishi",
+   "word": "iwishi",
+   "was": "mbishi"
+  },
+  {
+   "sw": "msituni",
+   "action": "set_word",
+   "lemma": "msid",
+   "word": "msidunyi",
+   "was": "msidu"
+  },
+  {
+   "sw": "yeyuk",
+   "action": "add_top",
+   "lemma": "sagh",
+   "word": null,
+   "evidence_count": 10,
+   "domains": {
+    "dav_swa": 0,
+    "bible": 10
+   },
+   "was": "kas",
+   "confidence": "high",
+   "meaning": "melt"
+  },
+  {
+   "sw": "masomo",
+   "action": "set_word",
+   "lemma": "shom",
+   "word": "mashomo",
+   "was": "kushoma"
+  },
+  {
+   "sw": "shimoni",
+   "action": "set_word",
+   "lemma": "mrum",
+   "word": "mrumenyi",
+   "was": "mruma"
+  },
+  {
+   "sw": "pua",
+   "action": "add_top",
+   "lemma": "mbua",
+   "word": "mbua",
+   "evidence_count": 10,
+   "domains": {
+    "dav_swa": 2,
+    "bible": 8
+   },
+   "was": "pua",
+   "confidence": "medium",
+   "meaning": "nose"
+  },
+  {
+   "sw": "kukata",
+   "action": "add_top",
+   "lemma": "legh",
+   "word": null,
+   "evidence_count": 13,
+   "domains": {
+    "dav_swa": 2,
+    "bible": 11
+   },
+   "was": "meny",
+   "confidence": "medium",
+   "meaning": "refuse, reject"
+  },
+  {
+   "sw": "mshita",
+   "action": "promote",
+   "lemma": "mgholek",
+   "was": "mshita",
+   "confidence": "medium"
+  },
+  {
+   "sw": "zilizokuw",
+   "action": "remove_top",
+   "was": "wik",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "mwituni",
+   "action": "set_word",
+   "lemma": "isak",
+   "word": "isakenyi",
+   "was": "isak"
+  },
+  {
+   "sw": "duka",
+   "action": "set_word",
+   "lemma": "duk",
+   "word": "iduka",
+   "was": "kuduka"
+  },
+  {
+   "sw": "maoni",
+   "action": "add_top",
+   "lemma": "maghesho",
+   "word": "maghesho",
+   "evidence_count": 4,
+   "domains": {
+    "dav_swa": 4,
+    "bible": 0
+   },
+   "was": "maoni",
+   "confidence": "high",
+   "meaning": "opinions, views"
+  },
+  {
+   "sw": "huri",
+   "action": "set_word",
+   "lemma": "huri",
+   "word": "huri",
+   "was": "mhuri"
+  },
+  {
+   "sw": "nyanyake",
+   "action": "set_word",
+   "lemma": "waw",
+   "word": "wawaye",
+   "was": "wawa"
+  },
+  {
+   "sw": "wamoja",
+   "action": "set_word",
+   "lemma": "mweri",
+   "word": "wamweri",
+   "was": "imweri"
+  },
+  {
+   "sw": "koroboi",
+   "action": "set_word",
+   "lemma": "lumu",
+   "word": "mwalumu",
+   "was": "lumu"
+  },
+  {
+   "sw": "mabichi",
+   "action": "set_word",
+   "lemma": "wishi",
+   "word": "mawishi",
+   "was": "mbishi"
+  },
+  {
+   "sw": "eremet",
+   "action": "promote",
+   "lemma": "ngalangala",
+   "was": "vingaaongalo",
+   "confidence": "medium"
+  },
+  {
+   "sw": "mhogo",
+   "action": "set_word",
+   "lemma": "mang",
+   "word": "manga",
+   "was": "kumanga"
+  },
+  {
+   "sw": "mbioni",
+   "action": "set_word",
+   "lemma": "mbio",
+   "word": "mbionyi",
+   "was": "mbio"
+  },
+  {
+   "sw": "wake",
+   "action": "remove_top",
+   "was": "wake",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "yangu",
+   "action": "remove_top",
+   "was": "yapo",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "sana",
+   "action": "promote",
+   "lemma": "nandighi",
+   "was": "sana",
+   "confidence": "medium"
+  },
+  {
+   "sw": "wek",
+   "action": "promote",
+   "lemma": "wik",
+   "was": "wek",
+   "confidence": "high"
+  },
+  {
+   "sw": "adui",
+   "action": "set_word",
+   "lemma": "maiz",
+   "word": "mmaiza",
+   "was": "wamaiza"
+  },
+  {
+   "sw": "makuhani",
+   "action": "set_word",
+   "lemma": "kohani",
+   "word": "wakohani",
+   "was": "mkohani"
+  },
+  {
+   "sw": "zaliw",
+   "action": "promote",
+   "lemma": "valw",
+   "was": "valo",
+   "confidence": "high"
+  },
+  {
+   "sw": "pelek",
+   "action": "promote",
+   "lemma": "ghenj",
+   "was": "enje",
+   "confidence": "high"
+  },
+  {
+   "sw": "zee",
+   "action": "promote",
+   "lemma": "waghosi",
+   "was": "ghosi",
+   "confidence": "high"
+  },
+  {
+   "sw": "tendo",
+   "action": "set_word",
+   "lemma": "kazi",
+   "word": "mabonyo",
+   "was": "kazi"
+  },
+  {
+   "sw": "fungu",
+   "action": "promote",
+   "lemma": "rughu",
+   "was": "fungu",
+   "confidence": "medium"
+  },
+  {
+   "sw": "tumiki",
+   "action": "promote",
+   "lemma": "dumiki",
+   "was": "mdumiki",
+   "confidence": "high"
+  },
+  {
+   "sw": "kidogo",
+   "action": "set_word",
+   "lemma": "tini",
+   "word": "kutini",
+   "was": "watini"
+  },
+  {
+   "sw": "harak",
+   "action": "promote",
+   "lemma": "shwashwa",
+   "was": "shw",
+   "confidence": "medium"
+  },
+  {
+   "sw": "hana",
+   "action": "remove_top",
+   "was": "ndeun",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "vilima",
+   "action": "set_word",
+   "lemma": "ghondi",
+   "word": "mighondi",
+   "was": "mighondinyi"
+  },
+  {
+   "sw": "maarifa",
+   "action": "promote",
+   "lemma": "many",
+   "was": "maarifa",
+   "confidence": "medium"
+  },
+  {
+   "sw": "ahadi",
+   "action": "set_word",
+   "lemma": "laghir",
+   "word": "ilaghiro",
+   "was": "oremlaghirieghe"
+  },
+  {
+   "sw": "chung",
+   "action": "promote",
+   "lemma": "lindi",
+   "was": "nyinya",
+   "confidence": "medium"
+  },
+  {
+   "sw": "zawadi",
+   "action": "promote",
+   "lemma": "manosi",
+   "was": "zawadi",
+   "confidence": "medium"
+  },
+  {
+   "sw": "kuangamiz",
+   "action": "add_top",
+   "lemma": "meri",
+   "word": null,
+   "evidence_count": 6,
+   "domains": {
+    "dav_swa": 1,
+    "bible": 5
+   },
+   "was": "bony",
+   "confidence": "medium",
+   "meaning": "destroy"
+  },
+  {
+   "sw": "pori",
+   "action": "set_word",
+   "lemma": "isak",
+   "word": "isaka",
+   "was": "isak"
+  },
+  {
+   "sw": "uasi",
+   "action": "add_top",
+   "lemma": "legh",
+   "word": "kulegha",
+   "evidence_count": 29,
+   "domains": {
+    "dav_swa": 0,
+    "bible": 29
+   },
+   "was": "kaung",
+   "confidence": "medium",
+   "meaning": "rebellion"
+  },
+  {
+   "sw": "bati",
+   "action": "promote",
+   "lemma": "bamb",
+   "was": "bati",
+   "confidence": "high"
+  },
+  {
+   "sw": "ziko",
+   "action": "remove_top",
+   "was": "reka",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "rai",
+   "action": "promote",
+   "lemma": "waisang",
+   "was": "raiya",
+   "confidence": "medium"
+  },
+  {
+   "sw": "waziwazi",
+   "action": "set_word",
+   "lemma": "wori",
+   "word": "worinyi",
+   "was": "wori"
+  },
+  {
+   "sw": "filimbi",
+   "action": "set_word",
+   "lemma": "sherembe",
+   "word": "msherembe",
+   "was": "misherembe"
+  },
+  {
+   "sw": "kuk",
+   "action": "set_word",
+   "lemma": "fumu",
+   "word": "mafumu",
+   "was": "ifumu"
+  },
+  {
+   "sw": "wiki",
+   "action": "promote",
+   "lemma": "njumwa",
+   "was": "wiki",
+   "confidence": "medium"
+  },
+  {
+   "sw": "ulevi",
+   "action": "set_word",
+   "lemma": "wongeri",
+   "word": "wuwongeri",
+   "was": "wawongeri"
+  },
+  {
+   "sw": "kimejaa",
+   "action": "promote",
+   "lemma": "chu",
+   "was": "chachu",
+   "confidence": "high"
+  },
+  {
+   "sw": "mchwa",
+   "action": "set_word",
+   "lemma": "saghu",
+   "word": "msaghu",
+   "was": "wasaghulwa"
+  },
+  {
+   "sw": "mwenzangu",
+   "action": "set_word",
+   "lemma": "ngara",
+   "word": "mngara",
+   "was": "wungara"
+  },
+  {
+   "sw": "muhogo",
+   "action": "set_word",
+   "lemma": "mang",
+   "word": "manga",
+   "was": "kumanga"
+  },
+  {
+   "sw": "mwahohi",
+   "action": "set_word",
+   "lemma": "ahohi",
+   "word": "muahohi",
+   "was": "ahohi"
+  },
+  {
+   "sw": "sefo",
+   "action": "set_word",
+   "lemma": "sefo",
+   "word": "sefo",
+   "was": "usefo"
+  },
+  {
+   "sw": "yakimu",
+   "action": "set_word",
+   "lemma": "kimu",
+   "word": "jakimu",
+   "was": "kimu"
+  },
+  {
+   "sw": "kimaendeleo",
+   "action": "set_word",
+   "lemma": "maendeleo",
+   "word": "kimaendeleo",
+   "was": "maendeleo"
+  },
+  {
+   "sw": "kuw",
+   "action": "promote",
+   "lemma": "kai",
+   "was": "angu",
+   "confidence": "medium"
+  },
+  {
+   "sw": "yey",
+   "action": "add_top",
+   "lemma": "omoni",
+   "word": "omoni",
+   "evidence_count": 65,
+   "domains": {
+    "dav_swa": 64,
+    "bible": 1
+   },
+   "was": "mundu",
+   "confidence": "medium",
+   "meaning": "he/she (pronoun)"
+  },
+  {
+   "sw": "ishi",
+   "action": "promote",
+   "lemma": "kai",
+   "was": "ishi",
+   "confidence": "high"
+  },
+  {
+   "sw": "yenu",
+   "action": "remove_top",
+   "was": "ghenyu",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "yetu",
+   "action": "remove_top",
+   "was": "du",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "mbingu",
+   "action": "set_word",
+   "lemma": "mlungu",
+   "word": "mlungunyi",
+   "was": "mlungu"
+  },
+  {
+   "sw": "vyak",
+   "action": "remove_top",
+   "was": "va",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "babeli",
+   "action": "promote",
+   "lemma": "babuloni",
+   "was": "babeli",
+   "confidence": "high"
+  },
+  {
+   "sw": "funik",
+   "action": "promote",
+   "lemma": "finikir",
+   "was": "shing",
+   "confidence": "medium"
+  },
+  {
+   "sw": "sanduku",
+   "action": "set_word",
+   "lemma": "sanduku",
+   "word": "isanduku",
+   "was": "sanduku"
+  },
+  {
+   "sw": "yohan",
+   "action": "set_word",
+   "lemma": "johan",
+   "word": "johana",
+   "was": "johane"
+  },
+  {
+   "sw": "kelele",
+   "action": "promote",
+   "lemma": "ngemi",
+   "was": "kelele",
+   "confidence": "medium"
+  },
+  {
+   "sw": "idadi",
+   "action": "promote",
+   "lemma": "mtalo",
+   "was": "jieghe",
+   "confidence": "high"
+  },
+  {
+   "sw": "angani",
+   "action": "set_word",
+   "lemma": "mbeo",
+   "word": "mbeonyi",
+   "was": "mbeo"
+  },
+  {
+   "sw": "kifo",
+   "action": "promote",
+   "lemma": "kifw",
+   "was": "kifo",
+   "confidence": "medium"
+  },
+  {
+   "sw": "mazuri",
+   "action": "set_word",
+   "lemma": "poi",
+   "word": "ghipoie",
+   "was": "wadapoilwa"
+  },
+  {
+   "sw": "chach",
+   "action": "promote",
+   "lemma": "tini",
+   "was": "tineri",
+   "confidence": "medium"
+  },
+  {
+   "sw": "shingo",
+   "action": "promote",
+   "lemma": "singo",
+   "was": "mteja",
+   "confidence": "high"
+  },
+  {
+   "sw": "kulala",
+   "action": "promote",
+   "lemma": "lal",
+   "was": "kulala",
+   "confidence": "medium"
+  },
+  {
+   "sw": "hekaluni",
+   "action": "set_word",
+   "lemma": "hekalu",
+   "word": "hekalunyi",
+   "was": "hekalu"
+  },
+  {
+   "sw": "wingu",
+   "action": "set_word",
+   "lemma": "wing",
+   "word": "iwingu",
+   "was": "mawingunyi"
+  },
+  {
+   "sw": "tako",
+   "action": "set_word",
+   "lemma": "shawalat",
+   "word": "kishawalata",
+   "was": "vishawalata"
+  },
+  {
+   "sw": "ubay",
+   "action": "promote",
+   "lemma": "wuwiwi",
+   "was": "kiwiwi",
+   "confidence": "medium"
+  },
+  {
+   "sw": "binadamu",
+   "action": "set_word",
+   "lemma": "damu",
+   "word": "mdamu",
+   "was": "wadamu"
+  },
+  {
+   "sw": "kaa",
+   "action": "set_word",
+   "lemma": "kai",
+   "word": "kai",
+   "was": "kukaia"
+  },
+  {
+   "sw": "ndefu",
+   "action": "set_word",
+   "lemma": "lach",
+   "word": "ndacha",
+   "was": "mlacha"
+  },
+  {
+   "sw": "mavumbini",
+   "action": "set_word",
+   "lemma": "ando",
+   "word": "andoenyi",
+   "was": "andonyi"
+  },
+  {
+   "sw": "akashuk",
+   "action": "set_word",
+   "lemma": "se",
+   "word": "se",
+   "was": "ukasea"
+  },
+  {
+   "sw": "ulivyo",
+   "action": "remove_top",
+   "was": "ni",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "msaidizi",
+   "action": "set_word",
+   "lemma": "tesi",
+   "word": "mtesia",
+   "was": "kutesia"
+  },
+  {
+   "sw": "chum",
+   "action": "promote",
+   "lemma": "way",
+   "was": "wwaya",
+   "confidence": "medium"
+  },
+  {
+   "sw": "zeek",
+   "action": "promote",
+   "lemma": "ghosi",
+   "was": "waghosi",
+   "confidence": "medium"
+  },
+  {
+   "sw": "haina",
+   "action": "remove_top",
+   "was": "ghin",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "kulima",
+   "action": "promote",
+   "lemma": "lim",
+   "was": "kulima",
+   "confidence": "high"
+  },
+  {
+   "sw": "uchawi",
+   "action": "set_word",
+   "lemma": "sawi",
+   "word": "wusawi",
+   "was": "wasawi"
+  },
+  {
+   "sw": "upindo",
+   "action": "set_word",
+   "lemma": "hemu",
+   "word": "hemu",
+   "was": "sehemu"
+  },
+  {
+   "sw": "zozote",
+   "action": "remove_top",
+   "was": "yoyos",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "porini",
+   "action": "set_word",
+   "lemma": "isak",
+   "word": "isakenyi",
+   "was": "isak"
+  },
+  {
+   "sw": "magumu",
+   "action": "set_word",
+   "lemma": "kuri",
+   "word": "ghikurie",
+   "was": "rikurie"
+  },
+  {
+   "sw": "tukufu",
+   "action": "set_word",
+   "lemma": "wuba",
+   "word": "ibaa",
+   "was": "wubaa"
+  },
+  {
+   "sw": "dari",
+   "action": "set_word",
+   "lemma": "dari",
+   "word": "dari",
+   "was": "darinyi"
+  },
+  {
+   "sw": "uteo",
+   "action": "set_word",
+   "lemma": "lungo",
+   "word": "lungo",
+   "was": "vilungo"
+  },
+  {
+   "sw": "kofi",
+   "action": "set_word",
+   "lemma": "koto",
+   "word": "kikoto",
+   "was": "vikotonyi"
+  },
+  {
+   "sw": "migomba",
+   "action": "set_word",
+   "lemma": "ndemb",
+   "word": "ndembo",
+   "was": "ndembe"
+  },
+  {
+   "sw": "muwa",
+   "action": "set_word",
+   "lemma": "ighu",
+   "word": "ighuwa",
+   "was": "ighu"
+  },
+  {
+   "sw": "nyanyako",
+   "action": "set_word",
+   "lemma": "waw",
+   "word": "wawayo",
+   "was": "wawa"
+  },
+  {
+   "sw": "icho",
+   "action": "remove_top",
+   "was": "icho",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "kobe",
+   "action": "promote",
+   "lemma": "nguru",
+   "was": "gjenyu",
+   "confidence": "medium"
+  },
+  {
+   "sw": "mfanyikazi",
+   "action": "set_word",
+   "lemma": "bonyikazi",
+   "word": "mubonyikazi",
+   "was": "wabonyikazi"
+  },
+  {
+   "sw": "adama",
+   "action": "set_word",
+   "lemma": "adam",
+   "word": "adama",
+   "was": "adam"
+  },
+  {
+   "sw": "sem",
+   "action": "promote",
+   "lemma": "ghor",
+   "was": "ghamb",
+   "confidence": "medium"
+  },
+  {
+   "sw": "haki",
+   "action": "promote",
+   "lemma": "hachi",
+   "was": "haki",
+   "confidence": "high"
+  },
+  {
+   "sw": "moto",
+   "action": "promote",
+   "lemma": "modo",
+   "was": "donyi",
+   "confidence": "high"
+  },
+  {
+   "sw": "sisi",
+   "action": "promote",
+   "lemma": "isi",
+   "was": "sisi",
+   "confidence": "high"
+  },
+  {
+   "sw": "lil",
+   "action": "remove_top",
+   "was": "lil",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "afis",
+   "action": "promote",
+   "lemma": "ofisa",
+   "was": "baa",
+   "confidence": "medium"
+  },
+  {
+   "sw": "ana",
+   "action": "remove_top",
+   "was": "oka",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "ovu",
+   "action": "set_word",
+   "lemma": "wiwi",
+   "word": "wawiwi",
+   "was": "mawiwi"
+  },
+  {
+   "sw": "chang",
+   "action": "remove_top",
+   "was": "apo",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "kuja",
+   "action": "add_top",
+   "lemma": "ch",
+   "word": null,
+   "evidence_count": 71,
+   "domains": {
+    "dav_swa": 18,
+    "bible": 53
+   },
+   "was": "kuja",
+   "confidence": "high",
+   "meaning": "to come"
+  },
+  {
+   "sw": "sifa",
+   "action": "set_word",
+   "lemma": "kas",
+   "word": "makaso",
+   "was": "kukukasa"
+  },
+  {
+   "sw": "shuja",
+   "action": "promote",
+   "lemma": "ingoni",
+   "was": "ngoni",
+   "confidence": "medium"
+  },
+  {
+   "sw": "iko",
+   "action": "remove_top",
+   "was": "yeka",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "nataka",
+   "action": "add_top",
+   "lemma": "kund",
+   "word": "kund",
+   "evidence_count": 82,
+   "domains": {
+    "dav_swa": 65,
+    "bible": 17
+   },
+   "was": "wakund",
+   "confidence": "high",
+   "meaning": "I want"
+  },
+  {
+   "sw": "mpate",
+   "action": "add_top",
+   "lemma": "pat",
+   "word": null,
+   "evidence_count": 13,
+   "domains": {
+    "dav_swa": 0,
+    "bible": 13
+   },
+   "was": "mpate",
+   "confidence": "medium",
+   "meaning": "that you (pl) get (subjunctive)"
+  },
+  {
+   "sw": "vijiji",
+   "action": "add_top",
+   "lemma": "mizi",
+   "word": "mizi",
+   "evidence_count": 73,
+   "domains": {
+    "dav_swa": 2,
+    "bible": 71
+   },
+   "was": "mitini",
+   "confidence": "medium",
+   "meaning": "villages"
+  },
+  {
+   "sw": "gumu",
+   "action": "set_word",
+   "lemma": "kuri",
+   "word": "ikurie",
+   "was": "rikurie"
+  },
+  {
+   "sw": "marafiki",
+   "action": "add_top",
+   "lemma": "waghenyu",
+   "word": "waghenyu",
+   "evidence_count": 25,
+   "domains": {
+    "dav_swa": 25,
+    "bible": 0
+   },
+   "was": "wagh",
+   "confidence": "medium",
+   "meaning": "friends"
+  },
+  {
+   "sw": "kizazi",
+   "action": "promote",
+   "lemma": "kivalw",
+   "was": "kizazi",
+   "confidence": "high"
+  },
+  {
+   "sw": "upesi",
+   "action": "promote",
+   "lemma": "shwa-shw",
+   "was": "shw",
+   "confidence": "medium"
+  },
+  {
+   "sw": "niende",
+   "action": "add_top",
+   "lemma": "ghend",
+   "word": null,
+   "evidence_count": 20,
+   "domains": {
+    "dav_swa": 6,
+    "bible": 14
+   },
+   "was": "niende",
+   "confidence": "high",
+   "meaning": "that I go (subjunctive)"
+  },
+  {
+   "sw": "miisho",
+   "action": "set_word",
+   "lemma": "kutu",
+   "word": "kutuonyi",
+   "was": "kutua"
+  },
+  {
+   "sw": "kigeni",
+   "action": "set_word",
+   "lemma": "ghenyi",
+   "word": "kighenyi",
+   "was": "mghenyi"
+  },
+  {
+   "sw": "nyunyizi",
+   "action": "promote",
+   "lemma": "nyinyiri",
+   "was": "nyinyiria",
+   "confidence": "medium"
+  },
+  {
+   "sw": "fukuzw",
+   "action": "promote",
+   "lemma": "wing",
+   "was": "awingwa",
+   "confidence": "medium"
+  },
+  {
+   "sw": "sokoni",
+   "action": "set_word",
+   "lemma": "soko",
+   "word": "sokonyi",
+   "was": "soko"
+  },
+  {
+   "sw": "mapya",
+   "action": "set_word",
+   "lemma": "wishi",
+   "word": "mawishi",
+   "was": "mbishi"
+  },
+  {
+   "sw": "kufundisha",
+   "action": "add_top",
+   "lemma": "fundish",
+   "word": null,
+   "evidence_count": 10,
+   "domains": {
+    "dav_swa": 1,
+    "bible": 9
+   },
+   "was": "kufundisha",
+   "confidence": "high",
+   "meaning": "to teach"
+  },
+  {
+   "sw": "kufungua",
+   "action": "add_top",
+   "lemma": "rughu",
+   "word": null,
+   "evidence_count": 8,
+   "domains": {
+    "dav_swa": 4,
+    "bible": 4
+   },
+   "was": "kufungua",
+   "confidence": "medium",
+   "meaning": "to open"
+  },
+  {
+   "sw": "lina",
+   "action": "remove_top",
+   "was": "eka",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "hakimu",
+   "action": "set_word",
+   "lemma": "tany",
+   "word": "mtanyi",
+   "was": "kutanya"
+  },
+  {
+   "sw": "hospitalini",
+   "action": "set_word",
+   "lemma": "wughang",
+   "word": "wughangenyi",
+   "was": "wughanga"
+  },
+  {
+   "sw": "nyeshew",
+   "action": "promote",
+   "lemma": "nyelwa",
+   "was": "jhanyelwa",
+   "confidence": "medium"
+  },
+  {
+   "sw": "kuandika",
+   "action": "add_top",
+   "lemma": "andik",
+   "word": null,
+   "evidence_count": 10,
+   "domains": {
+    "dav_swa": 1,
+    "bible": 9
+   },
+   "was": "kuandika",
+   "confidence": "high",
+   "meaning": "to write"
+  },
+  {
+   "sw": "nono",
+   "action": "set_word",
+   "lemma": "band",
+   "word": "ibandie",
+   "was": "mbande"
+  },
+  {
+   "sw": "mchawi",
+   "action": "set_word",
+   "lemma": "sawi",
+   "word": "msawi",
+   "was": "wasawi"
+  },
+  {
+   "sw": "majengo",
+   "action": "set_word",
+   "lemma": "aghi",
+   "word": "maaghi",
+   "was": "maghi"
+  },
+  {
+   "sw": "mwembamba",
+   "action": "set_word",
+   "lemma": "sus",
+   "word": "msuse",
+   "was": "susa"
+  },
+  {
+   "sw": "kisasa",
+   "action": "promote",
+   "lemma": "itan",
+   "was": "kisasa",
+   "confidence": "medium"
+  },
+  {
+   "sw": "somo",
+   "action": "set_word",
+   "lemma": "shom",
+   "word": "ishomo",
+   "was": "kushoma"
+  },
+  {
+   "sw": "mistari",
+   "action": "set_word",
+   "lemma": "ishari",
+   "word": "misharia",
+   "was": "ishari"
+  },
+  {
+   "sw": "hewani",
+   "action": "set_word",
+   "lemma": "mbeo",
+   "word": "mbeonyi",
+   "was": "mbeo"
+  },
+  {
+   "sw": "siko",
+   "action": "remove_top",
+   "was": "siko",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "jumapili",
+   "action": "promote",
+   "lemma": "njumwa",
+   "was": "jumapili",
+   "confidence": "medium"
+  },
+  {
+   "sw": "wangapi",
+   "action": "set_word",
+   "lemma": "ling",
+   "word": "walinga",
+   "was": "ilinga"
+  },
+  {
+   "sw": "tegemeo",
+   "action": "add_top",
+   "lemma": "isuwirio",
+   "word": "isuwirio",
+   "evidence_count": 3,
+   "domains": {
+    "dav_swa": 0,
+    "bible": 3
+   },
+   "was": "rumaghio",
+   "confidence": "medium",
+   "meaning": "support, reliance"
+  },
+  {
+   "sw": "ghorofani",
+   "action": "set_word",
+   "lemma": "gorof",
+   "word": "gorofenyi",
+   "was": "gorofa"
+  },
+  {
+   "sw": "wasioju",
+   "action": "promote",
+   "lemma": "many",
+   "was": "wisawemanya",
+   "confidence": "high"
+  },
+  {
+   "sw": "lodi",
+   "action": "set_word",
+   "lemma": "lodi",
+   "word": "lodi",
+   "was": "walodi"
+  },
+  {
+   "sw": "mguuni",
+   "action": "set_word",
+   "lemma": "indi",
+   "word": "mwindi",
+   "was": "maindi"
+  },
+  {
+   "sw": "niburudish",
+   "action": "promote",
+   "lemma": "horesh",
+   "was": "rasisimua",
+   "confidence": "medium"
+  },
+  {
+   "sw": "televisheni",
+   "action": "set_word",
+   "lemma": "kirerendi",
+   "word": "kirerende",
+   "was": "kirerendi"
+  },
+  {
+   "sw": "bafu",
+   "action": "set_word",
+   "lemma": "bafu",
+   "word": "bafu",
+   "was": "bafunyi"
+  },
+  {
+   "sw": "mwanamume",
+   "action": "set_word",
+   "lemma": "ndwawomi",
+   "word": "mndwawomi",
+   "was": "mundwawomi"
+  },
+  {
+   "sw": "mtu",
+   "action": "promote",
+   "lemma": "mndu",
+   "was": "mundu",
+   "confidence": "high"
+  },
+  {
+   "sw": "jibu",
+   "action": "promote",
+   "lemma": "tumbuli",
+   "was": "jibu",
+   "confidence": "high"
+  },
+  {
+   "sw": "mbao",
+   "action": "set_word",
+   "lemma": "mbao",
+   "word": "mbao",
+   "was": "mmbao"
+  },
+  {
+   "sw": "ingi",
+   "action": "promote",
+   "lemma": "ngi",
+   "was": "ingi",
+   "confidence": "high"
+  },
+  {
+   "sw": "nyumb",
+   "action": "set_word",
+   "lemma": "nyumb",
+   "word": "nyumba",
+   "was": "nyumbenyi"
+  },
+  {
+   "sw": "wanadamu",
+   "action": "promote",
+   "lemma": "mdamu",
+   "was": "damu",
+   "confidence": "high"
+  },
+  {
+   "sw": "kwenda",
+   "action": "promote",
+   "lemma": "end",
+   "was": "kuenda",
+   "confidence": "high"
+  },
+  {
+   "sw": "chake",
+   "action": "remove_top",
+   "was": "chake",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "upande",
+   "action": "promote",
+   "lemma": "pand",
+   "was": "upande",
+   "confidence": "medium"
+  },
+  {
+   "sw": "jeng",
+   "action": "promote",
+   "lemma": "agh",
+   "was": "jeng",
+   "confidence": "high"
+  },
+  {
+   "sw": "ungu",
+   "action": "promote",
+   "lemma": "lungu",
+   "was": "milungu",
+   "confidence": "medium"
+  },
+  {
+   "sw": "kwenu",
+   "action": "remove_top",
+   "was": "konyu",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "abudu",
+   "action": "promote",
+   "lemma": "tas",
+   "was": "tasir",
+   "confidence": "high"
+  },
+  {
+   "sw": "kinywa",
+   "action": "add_top",
+   "lemma": "momu",
+   "word": null,
+   "evidence_count": 44,
+   "domains": {
+    "dav_swa": 2,
+    "bible": 42
+   },
+   "was": "kinywa",
+   "confidence": "high",
+   "meaning": "mouth"
+  },
+  {
+   "sw": "kunywa",
+   "action": "promote",
+   "lemma": "nyw",
+   "was": "kunywa",
+   "confidence": "high"
+  },
+  {
+   "sw": "katili",
+   "action": "promote",
+   "lemma": "ngeti",
+   "was": "totesh",
+   "confidence": "medium"
+  },
+  {
+   "sw": "niko",
+   "action": "remove_top",
+   "was": "niko",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "kiburi",
+   "action": "set_word",
+   "lemma": "kas",
+   "word": "lukaso",
+   "was": "kukukasa"
+  },
+  {
+   "sw": "makubwa",
+   "action": "set_word",
+   "lemma": "ibaa",
+   "word": "mabaa",
+   "was": "ibaa"
+  },
+  {
+   "sw": "ono",
+   "action": "promote",
+   "lemma": "wono",
+   "was": "ono",
+   "confidence": "high"
+  },
+  {
+   "sw": "asiy",
+   "action": "remove_top",
+   "was": "seko",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "nacho",
+   "action": "remove_top",
+   "was": "nacho",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "mfano",
+   "action": "add_top",
+   "lemma": "mfwano",
+   "word": "mfwano",
+   "evidence_count": 37,
+   "domains": {
+    "dav_swa": 6,
+    "bible": 31
+   },
+   "was": "mfano",
+   "confidence": "medium",
+   "meaning": "example, likeness"
+  },
+  {
+   "sw": "navyo",
+   "action": "remove_top",
+   "was": "navo",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "kaburi",
+   "action": "set_word",
+   "lemma": "kaburi",
+   "word": "kaburi",
+   "was": "kaburinyi"
+  },
+  {
+   "sw": "chao",
+   "action": "remove_top",
+   "was": "chawo",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "simu",
+   "action": "set_word",
+   "lemma": "tulituli",
+   "word": "mwatulituli",
+   "was": "tulituli"
+  },
+  {
+   "sw": "tamba",
+   "action": "promote",
+   "lemma": "avu",
+   "was": "waavua",
+   "confidence": "high"
+  },
+  {
+   "sw": "wapiganaji",
+   "action": "add_top",
+   "lemma": "masikari",
+   "word": "masikari",
+   "evidence_count": 10,
+   "domains": {
+    "dav_swa": 0,
+    "bible": 10
+   },
+   "was": "wandu",
+   "confidence": "medium",
+   "meaning": "fighters, warriors"
+  },
+  {
+   "sw": "vyenu",
+   "action": "remove_top",
+   "was": "venyu",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "uuliz",
+   "action": "set_word",
+   "lemma": "koti",
+   "word": "koti",
+   "was": "ukamkotia"
+  },
+  {
+   "sw": "chura",
+   "action": "set_word",
+   "lemma": "chul",
+   "word": "kichula",
+   "was": "vichula"
+  },
+  {
+   "sw": "umoj",
+   "action": "set_word",
+   "lemma": "mweri",
+   "word": "umweri",
+   "was": "imweri"
+  },
+  {
+   "sw": "ipo",
+   "action": "remove_top",
+   "was": "ghok",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "anauza",
+   "action": "promote",
+   "lemma": "auza",
+   "was": "dauza",
+   "confidence": "medium"
+  },
+  {
+   "sw": "hayupo",
+   "action": "remove_top",
+   "was": "ndouko",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "kupima",
+   "action": "promote",
+   "lemma": "pim",
+   "was": "kupima",
+   "confidence": "high"
+  },
+  {
+   "sw": "mdomoni",
+   "action": "set_word",
+   "lemma": "momu",
+   "word": "momunyi",
+   "was": "momu"
+  },
+  {
+   "sw": "pilipili",
+   "action": "add_top",
+   "lemma": "mwachaka",
+   "word": "mwachaka",
+   "evidence_count": 10,
+   "domains": {
+    "dav_swa": 10,
+    "bible": 0
+   },
+   "was": "jagha",
+   "confidence": "high",
+   "meaning": "chili pepper"
+  },
+  {
+   "sw": "vioo",
+   "action": "set_word",
+   "lemma": "lol",
+   "word": "vilole",
+   "was": "kulola"
+  },
+  {
+   "sw": "jumatatu",
+   "action": "set_word",
+   "lemma": "ram",
+   "word": "kiramka",
+   "was": "kurama"
+  },
+  {
+   "sw": "wenzako",
+   "action": "set_word",
+   "lemma": "mbenyu",
+   "word": "wambenyu",
+   "was": "mmbenyu"
+  },
+  {
+   "sw": "mjusi",
+   "action": "set_word",
+   "lemma": "chorongo",
+   "word": "mwachorongo",
+   "was": "mwamchorongo"
+  },
+  {
+   "sw": "matopeni",
+   "action": "set_word",
+   "lemma": "zozo",
+   "word": "vizozonyi",
+   "was": "mazozo"
+  },
+  {
+   "sw": "migodi",
+   "action": "set_word",
+   "lemma": "godi",
+   "word": "migodi",
+   "was": "mgodinyi"
+  },
+  {
+   "sw": "kifuli",
+   "action": "set_word",
+   "lemma": "kifu",
+   "word": "kifuli",
+   "was": "kifu"
+  },
+  {
+   "sw": "malaria",
+   "action": "set_word",
+   "lemma": "leri",
+   "word": "maleria",
+   "was": "kileri"
+  },
+  {
+   "sw": "mkango",
+   "action": "set_word",
+   "lemma": "kango",
+   "word": "mkango",
+   "was": "kikango"
+  },
+  {
+   "sw": "kubw",
+   "action": "promote",
+   "lemma": "baa",
+   "was": "mba",
+   "confidence": "high"
+  },
+  {
+   "sw": "weny",
+   "action": "remove_top",
+   "was": "mundu",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "lake",
+   "action": "remove_top",
+   "was": "ja",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "pand",
+   "action": "promote",
+   "lemma": "jok",
+   "was": "kuwa",
+   "confidence": "medium"
+  },
+  {
+   "sw": "mia",
+   "action": "promote",
+   "lemma": "ighan",
+   "was": "agh",
+   "confidence": "high"
+  },
+  {
+   "sw": "mama",
+   "action": "promote",
+   "lemma": "mao",
+   "was": "mae",
+   "confidence": "medium"
+  },
+  {
+   "sw": "nabii",
+   "action": "promote",
+   "lemma": "mlodi",
+   "was": "lodi",
+   "confidence": "high"
+  },
+  {
+   "sw": "mwili",
+   "action": "promote",
+   "lemma": "mumbi",
+   "was": "mmbi",
+   "confidence": "high"
+  },
+  {
+   "sw": "hekima",
+   "action": "promote",
+   "lemma": "hikim",
+   "was": "hekima",
+   "confidence": "high"
+  },
+  {
+   "sw": "langu",
+   "action": "remove_top",
+   "was": "japo",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "ndiyo",
+   "action": "promote",
+   "lemma": "ee",
+   "was": "niyo",
+   "confidence": "medium"
+  },
+  {
+   "sw": "fugo",
+   "action": "promote",
+   "lemma": "mfugho",
+   "was": "fugho",
+   "confidence": "high"
+  },
+  {
+   "sw": "thamani",
+   "action": "promote",
+   "lemma": "zoghori",
+   "was": "thamani",
+   "confidence": "medium"
+  },
+  {
+   "sw": "uchungu",
+   "action": "set_word",
+   "lemma": "lumw",
+   "word": "kuwawa",
+   "was": "walumwa"
+  },
+  {
+   "sw": "wingi",
+   "action": "set_word",
+   "lemma": "ungi",
+   "word": "wungi",
+   "was": "ungi"
+  },
+  {
+   "sw": "wem",
+   "action": "add_top",
+   "lemma": "wucha",
+   "word": "wucha",
+   "evidence_count": 26,
+   "domains": {
+    "dav_swa": 2,
+    "bible": 24
+   },
+   "was": "ch",
+   "confidence": "medium",
+   "meaning": "goodness, kindness"
+  },
+  {
+   "sw": "hawan",
+   "action": "remove_top",
+   "was": "ndewin",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "gerez",
+   "action": "set_word",
+   "lemma": "fung",
+   "word": "kifungo",
+   "was": "kifungonyi"
+  },
+  {
+   "sw": "jali",
+   "action": "promote",
+   "lemma": "tal",
+   "was": "jali",
+   "confidence": "medium"
+  },
+  {
+   "sw": "tafadhali",
+   "action": "set_word",
+   "lemma": "lomb",
+   "word": "nakulomba",
+   "was": "malombi"
+  },
+  {
+   "sw": "lao",
+   "action": "remove_top",
+   "was": "jawo",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "fariki",
+   "action": "add_top",
+   "lemma": "fw",
+   "word": null,
+   "evidence_count": 30,
+   "domains": {
+    "dav_swa": 14,
+    "bible": 16
+   },
+   "was": "fum",
+   "confidence": "medium",
+   "meaning": "die, pass away"
+  },
+  {
+   "sw": "nadhiri",
+   "action": "set_word",
+   "lemma": "ghemi",
+   "word": "ighemi",
+   "was": "maghemi"
+  },
+  {
+   "sw": "andiki",
+   "action": "promote",
+   "lemma": "andik",
+   "was": "mwandiki",
+   "confidence": "high"
+  },
+  {
+   "sw": "ibada",
+   "action": "set_word",
+   "lemma": "ibada",
+   "word": "wutasi",
+   "was": "ibada"
+  },
+  {
+   "sw": "nyuso",
+   "action": "set_word",
+   "lemma": "wushu",
+   "word": "mawushu",
+   "was": "wushu"
+  },
+  {
+   "sw": "jivu",
+   "action": "promote",
+   "lemma": "ivu",
+   "was": "fusifusi",
+   "confidence": "high"
+  },
+  {
+   "sw": "mwerezi",
+   "action": "set_word",
+   "lemma": "msid",
+   "word": "msida",
+   "was": "msidu"
+  },
+  {
+   "sw": "shahidi",
+   "action": "set_word",
+   "lemma": "shahidi",
+   "word": "mshahidi",
+   "was": "wushahidi"
+  },
+  {
+   "sw": "waimbaji",
+   "action": "set_word",
+   "lemma": "bori",
+   "word": "wabori",
+   "was": "mbori"
+  },
+  {
+   "sw": "mna",
+   "action": "remove_top",
+   "was": "mone",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "hayuko",
+   "action": "remove_top",
+   "was": "ndeuko",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "adun",
+   "action": "set_word",
+   "lemma": "kal",
+   "word": "kikala",
+   "was": "kokala"
+  },
+  {
+   "sw": "utumishi",
+   "action": "set_word",
+   "lemma": "dumik",
+   "word": "wudumiki",
+   "was": "kudumika"
+  },
+  {
+   "sw": "andika",
+   "action": "promote",
+   "lemma": "andik",
+   "was": "andika",
+   "confidence": "high"
+  },
+  {
+   "sw": "mkia",
+   "action": "set_word",
+   "lemma": "komb",
+   "word": "mkomba",
+   "was": "lukombe"
+  },
+  {
+   "sw": "mkulima",
+   "action": "set_word",
+   "lemma": "mkulima",
+   "word": "mlimi",
+   "was": "mkulima"
+  },
+  {
+   "sw": "hujui",
+   "action": "remove_top",
+   "was": "ndokumanyire",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "kany",
+   "action": "set_word",
+   "lemma": "kani",
+   "word": "kani",
+   "was": "kukania"
+  },
+  {
+   "sw": "pund",
+   "action": "set_word",
+   "lemma": "pund",
+   "word": "kipunde",
+   "was": "kupunde"
+  },
+  {
+   "sw": "haujui",
+   "action": "remove_top",
+   "was": "ndokuniichi",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "awa",
+   "action": "remove_top",
+   "was": "awa",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "alisema,\"nipe",
+   "action": "remove_top",
+   "was": "ukaghora,\"nineke",
+   "verdict": "wrong",
+   "entry_removed": true
+  },
+  {
+   "sw": "baad",
+   "action": "set_word",
+   "lemma": "baada",
+   "word": "ibada",
+   "was": "baada"
+  },
+  {
+   "sw": "hutujui",
+   "action": "remove_top",
+   "was": "ndokudiichi",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "kijaluo",
+   "action": "set_word",
+   "lemma": "jaluo",
+   "word": "kijaluo",
+   "was": "wajaluo"
+  },
+  {
+   "sw": "mkwachunyi",
+   "action": "set_word",
+   "lemma": "kwachu",
+   "word": "mkwachunyi",
+   "was": "mkwachu"
+  },
+  {
+   "sw": "mmoj",
+   "action": "set_word",
+   "lemma": "mweri",
+   "word": "umweri",
+   "was": "imweri"
+  },
+  {
+   "sw": "je",
+   "action": "set_word",
+   "lemma": "welee",
+   "word": "wele",
+   "was": "welee"
+  },
+  {
+   "sw": "ingin",
+   "action": "set_word",
+   "lemma": "zim",
+   "word": "mzima",
+   "was": "wazima"
+  },
+  {
+   "sw": "kweli",
+   "action": "promote",
+   "lemma": "loli",
+   "was": "kweli",
+   "confidence": "high"
+  },
+  {
+   "sw": "damu",
+   "action": "promote",
+   "lemma": "bagh",
+   "was": "damu",
+   "confidence": "high"
+  },
+  {
+   "sw": "zunguk",
+   "action": "promote",
+   "lemma": "mar",
+   "was": "zunguk",
+   "confidence": "medium"
+  },
+  {
+   "sw": "gani",
+   "action": "promote",
+   "lemma": "iao",
+   "was": "ghuao",
+   "confidence": "medium"
+  },
+  {
+   "sw": "mawe",
+   "action": "set_word",
+   "lemma": "igho",
+   "word": "magho",
+   "was": "igho"
+  },
+  {
+   "sw": "bay",
+   "action": "promote",
+   "lemma": "mbiwi",
+   "was": "zami",
+   "confidence": "medium"
+  },
+  {
+   "sw": "kumbuk",
+   "action": "promote",
+   "lemma": "ghesh",
+   "was": "kumbuk",
+   "confidence": "medium"
+  },
+  {
+   "sw": "tand",
+   "action": "promote",
+   "lemma": "ghoru",
+   "was": "wuli",
+   "confidence": "medium"
+  },
+  {
+   "sw": "hesabiw",
+   "action": "promote",
+   "lemma": "talw",
+   "was": "tali",
+   "confidence": "medium"
+  },
+  {
+   "sw": "zik",
+   "action": "promote",
+   "lemma": "rik",
+   "was": "wamrika",
+   "confidence": "high"
+  },
+  {
+   "sw": "sina",
+   "action": "remove_top",
+   "was": "sina",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "mwanzo",
+   "action": "set_word",
+   "lemma": "zoy",
+   "word": "kuzoya",
+   "was": "ukazoya"
+  },
+  {
+   "sw": "kombo",
+   "action": "promote",
+   "lemma": "kombu",
+   "was": "kombo",
+   "confidence": "high"
+  },
+  {
+   "sw": "zikw",
+   "action": "promote",
+   "lemma": "rik",
+   "was": "warikwa",
+   "confidence": "high"
+  },
+  {
+   "sw": "kipofu",
+   "action": "set_word",
+   "lemma": "tungur",
+   "word": "kitungure",
+   "was": "vitungure"
+  },
+  {
+   "sw": "kambini",
+   "action": "set_word",
+   "lemma": "kambi",
+   "word": "kambinyi",
+   "was": "kambi"
+  },
+  {
+   "sw": "wavu",
+   "action": "set_word",
+   "lemma": "mdegho",
+   "word": "nyavu",
+   "was": "mdegho"
+  },
+  {
+   "sw": "wenzake",
+   "action": "set_word",
+   "lemma": "mbao",
+   "word": "wambao",
+   "was": "mmbao"
+  },
+  {
+   "sw": "mikay",
+   "action": "add_top",
+   "lemma": "Mikaia",
+   "word": "mikaia",
+   "evidence_count": 24,
+   "domains": {
+    "dav_swa": 0,
+    "bible": 24
+   },
+   "was": "kai",
+   "confidence": "high",
+   "meaning": "Micaiah"
+  },
+  {
+   "sw": "eli",
+   "action": "set_word",
+   "lemma": "eli",
+   "word": "eli",
+   "was": "ielie"
+  },
+  {
+   "sw": "msimu",
+   "action": "promote",
+   "lemma": "kimu",
+   "was": "msimu",
+   "confidence": "high"
+  },
+  {
+   "sw": "huna",
+   "action": "remove_top",
+   "was": "ghor",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "mshipi",
+   "action": "set_word",
+   "lemma": "mshipi",
+   "word": "mkowa",
+   "was": "mshipi"
+  },
+  {
+   "sw": "mlevi",
+   "action": "set_word",
+   "lemma": "wongeri",
+   "word": "mwongeri",
+   "was": "wawongeri"
+  },
+  {
+   "sw": "matibabu",
+   "action": "set_word",
+   "lemma": "righiti",
+   "word": "wurighiti",
+   "was": "warighiti"
+  },
+  {
+   "sw": "mabadiliko",
+   "action": "set_word",
+   "lemma": "ghalus",
+   "word": "maghaluso",
+   "was": "kughalusa"
+  },
+  {
+   "sw": "tuzo",
+   "action": "set_word",
+   "lemma": "tuzo",
+   "word": "tuzo",
+   "was": "jituzo"
+  },
+  {
+   "sw": "mazishini",
+   "action": "set_word",
+   "lemma": "mari",
+   "word": "marikonyi",
+   "was": "marina"
+  },
+  {
+   "sw": "vitanda",
+   "action": "set_word",
+   "lemma": "vitanda",
+   "word": "mawuli",
+   "was": "vitanda"
+  },
+  {
+   "sw": "yaredi",
+   "action": "add_top",
+   "lemma": "Jaredi",
+   "word": "jaredi",
+   "evidence_count": 7,
+   "domains": {
+    "dav_swa": 0,
+    "bible": 7
+   },
+   "was": "redi",
+   "confidence": "high",
+   "meaning": "Jared"
+  },
+  {
+   "sw": "nyororo",
+   "action": "set_word",
+   "lemma": "nyororo",
+   "word": "nyororo",
+   "was": "mnyororo"
+  },
+  {
+   "sw": "harusini",
+   "action": "set_word",
+   "lemma": "harusi",
+   "word": "harusinyi",
+   "was": "harusi"
+  },
+  {
+   "sw": "tit",
+   "action": "set_word",
+   "lemma": "dawda",
+   "word": "wadawida",
+   "was": "wadawda"
+  },
+  {
+   "sw": "wanakijiji",
+   "action": "set_word",
+   "lemma": "kijiji",
+   "word": "waisanga",
+   "was": "kijiji"
+  },
+  {
+   "sw": "darasani",
+   "action": "set_word",
+   "lemma": "lasi",
+   "word": "kilasinyi",
+   "was": "kilasi"
+  },
+  {
+   "sw": "mapana",
+   "action": "set_word",
+   "lemma": "shapa",
+   "word": "mashapa",
+   "was": "mshapa"
+  },
+  {
+   "sw": "kama",
+   "action": "promote",
+   "lemma": "sa",
+   "was": "kama",
+   "confidence": "medium"
+  },
+  {
+   "sw": "yao",
+   "action": "remove_top",
+   "was": "ghawo",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "yul",
+   "action": "remove_top",
+   "was": "jh",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "nini",
+   "action": "promote",
+   "lemma": "kii",
+   "was": "kwaki",
+   "confidence": "high"
+  },
+  {
+   "sw": "zaidi",
+   "action": "promote",
+   "lemma": "nandighi",
+   "was": "chumb",
+   "confidence": "medium"
+  },
+  {
+   "sw": "lango",
+   "action": "promote",
+   "lemma": "mnyango",
+   "was": "nyango",
+   "confidence": "high"
+  },
+  {
+   "sw": "tatu",
+   "action": "promote",
+   "lemma": "dadu",
+   "was": "adad",
+   "confidence": "high"
+  },
+  {
+   "sw": "pang",
+   "action": "promote",
+   "lemma": "pang",
+   "was": "lufu",
+   "confidence": "medium"
+  },
+  {
+   "sw": "angu",
+   "action": "remove_top",
+   "was": "vapo",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "badala",
+   "action": "promote",
+   "lemma": "wulalo",
+   "was": "badala",
+   "confidence": "medium"
+  },
+  {
+   "sw": "nywel",
+   "action": "promote",
+   "lemma": "iridi",
+   "was": "mafuri",
+   "confidence": "high"
+  },
+  {
+   "sw": "sini",
+   "action": "promote",
+   "lemma": "sinyi",
+   "was": "sini",
+   "confidence": "medium"
+  },
+  {
+   "sw": "uaminifu",
+   "action": "set_word",
+   "lemma": "loli",
+   "word": "wuloli",
+   "was": "loli"
+  },
+  {
+   "sw": "siyo",
+   "action": "remove_top",
+   "was": "hata",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "mekwish",
+   "action": "set_word",
+   "lemma": "meri",
+   "word": "meri",
+   "was": "wameria"
+  },
+  {
+   "sw": "kiapo",
+   "action": "promote",
+   "lemma": "ighemi",
+   "was": "mtero",
+   "confidence": "medium"
+  },
+  {
+   "sw": "fupi",
+   "action": "promote",
+   "lemma": "vui",
+   "was": "mvui",
+   "confidence": "medium"
+  },
+  {
+   "sw": "barabar",
+   "action": "set_word",
+   "lemma": "barabar",
+   "word": "chienyi",
+   "was": "kibarabara"
+  },
+  {
+   "sw": "nywe",
+   "action": "promote",
+   "lemma": "nyw",
+   "was": "kunyo",
+   "confidence": "high"
+  },
+  {
+   "sw": "familia",
+   "action": "promote",
+   "lemma": "kichuku",
+   "was": "familia",
+   "confidence": "medium"
+  },
+  {
+   "sw": "kanisani",
+   "action": "promote",
+   "lemma": "kanis",
+   "was": "jumo",
+   "confidence": "medium"
+  },
+  {
+   "sw": "mzigo",
+   "action": "promote",
+   "lemma": "msigo",
+   "was": "mzigo",
+   "confidence": "medium"
+  },
+  {
+   "sw": "chak",
+   "action": "set_word",
+   "lemma": "sachi",
+   "word": "kisachi",
+   "was": "kisachinyi"
+  },
+  {
+   "sw": "magoti",
+   "action": "promote",
+   "lemma": "ngokoro",
+   "was": "temberu",
+   "confidence": "medium"
+  },
+  {
+   "sw": "ako",
+   "action": "remove_top",
+   "was": "oka",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "mashua",
+   "action": "promote",
+   "lemma": "ishu",
+   "was": "mashua",
+   "confidence": "medium"
+  },
+  {
+   "sw": "mtoni",
+   "action": "set_word",
+   "lemma": "denyi",
+   "word": "modenyi",
+   "was": "wudenyi"
+  },
+  {
+   "sw": "tambarar",
+   "action": "set_word",
+   "lemma": "kirindi",
+   "word": "kirindi",
+   "was": "kirindinyi"
+  },
+  {
+   "sw": "wakulima",
+   "action": "set_word",
+   "lemma": "wakulima",
+   "word": "walimi",
+   "was": "wakulima"
+  },
+  {
+   "sw": "kaeni",
+   "action": "set_word",
+   "lemma": "kai",
+   "word": "kai",
+   "was": "kukaia"
+  },
+  {
+   "sw": "deni",
+   "action": "set_word",
+   "lemma": "deni",
+   "word": "sile",
+   "was": "deni"
+  },
+  {
+   "sw": "wabaya",
+   "action": "set_word",
+   "lemma": "wiwi",
+   "word": "wawiwi",
+   "was": "mawiwi"
+  },
+  {
+   "sw": "changamoto",
+   "action": "promote",
+   "lemma": "wasi",
+   "was": "changamodo",
+   "confidence": "medium"
+  },
+  {
+   "sw": "majibu",
+   "action": "promote",
+   "lemma": "matumbulio",
+   "was": "majibu",
+   "confidence": "medium"
+  },
+  {
+   "sw": "viota",
+   "action": "set_word",
+   "lemma": "jungi",
+   "word": "vijungi",
+   "was": "kijungi"
+  },
+  {
+   "sw": "machafu",
+   "action": "promote",
+   "lemma": "ghilue",
+   "was": "kish",
+   "confidence": "medium"
+  },
+  {
+   "sw": "watendao",
+   "action": "add_top",
+   "lemma": "bony",
+   "word": "bony",
+   "evidence_count": 9,
+   "domains": {
+    "dav_swa": 0,
+    "bible": 9
+   },
+   "was": "wandu",
+   "confidence": "high",
+   "meaning": "those who do (relative of tenda)"
+  },
+  {
+   "sw": "uchaguzi",
+   "action": "set_word",
+   "lemma": "saghu",
+   "word": "wusaghui",
+   "was": "wasaghulwa"
+  },
+  {
+   "sw": "mbolea",
+   "action": "promote",
+   "lemma": "saru",
+   "was": "mbolea",
+   "confidence": "medium"
+  },
+  {
+   "sw": "halina",
+   "action": "remove_top",
+   "was": "ndejin",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "kibuyu",
+   "action": "set_word",
+   "lemma": "kish",
+   "word": "kishere",
+   "was": "kisha"
+  },
+  {
+   "sw": "ofisi",
+   "action": "set_word",
+   "lemma": "ofisi",
+   "word": "ofisi",
+   "was": "ofisinyi"
+  },
+  {
+   "sw": "mkebe",
+   "action": "set_word",
+   "lemma": "kebe",
+   "word": "mkebe",
+   "was": "mkebenyi"
+  },
+  {
+   "sw": "mvumilivu",
+   "action": "set_word",
+   "lemma": "rumaghi",
+   "word": "urumaghiagha",
+   "was": "kurumaghia"
+  },
+  {
+   "sw": "soda",
+   "action": "set_word",
+   "lemma": "soda",
+   "word": "soda",
+   "was": "kusoda"
+  },
+  {
+   "sw": "uvivu",
+   "action": "set_word",
+   "lemma": "ghad",
+   "word": "wughadi",
+   "was": "oghada"
+  },
+  {
+   "sw": "wako",
+   "action": "remove_top",
+   "was": "wako",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "cha",
+   "action": "remove_top",
+   "was": "cha",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "ambay",
+   "action": "remove_top",
+   "was": "mundu",
+   "verdict": "not_vocabulary",
+   "entry_removed": false
+  },
+  {
+   "sw": "ndugu",
+   "action": "set_word",
+   "lemma": "wanidu",
+   "word": "mwanidu",
+   "was": "wanidu"
+  },
+  {
+   "sw": "hakun",
+   "action": "demote_top",
+   "was": "wad"
+  },
+  {
+   "sw": "ndilo",
+   "action": "remove_top",
+   "was": "bwana",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "kil",
+   "action": "remove_top",
+   "was": "chij",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "mke",
+   "action": "promote",
+   "lemma": "mka",
+   "was": "kape",
+   "confidence": "high"
+  },
+  {
+   "sw": "nend",
+   "action": "promote",
+   "lemma": "ghend",
+   "was": "enda",
+   "confidence": "high"
+  },
+  {
+   "sw": "poke",
+   "action": "add_top",
+   "lemma": "wad",
+   "word": null,
+   "evidence_count": 27,
+   "domains": {
+    "dav_swa": 3,
+    "bible": 24
+   },
+   "was": "nek",
+   "confidence": "medium",
+   "meaning": "receive"
+  },
+  {
+   "sw": "salam",
+   "action": "promote",
+   "lemma": "banan",
+   "was": "mana",
+   "confidence": "medium"
+  },
+  {
+   "sw": "lot",
+   "action": "remove_top",
+   "was": "ose",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "one",
+   "action": "add_top",
+   "lemma": "won",
+   "word": null,
+   "evidence_count": 76,
+   "domains": {
+    "dav_swa": 15,
+    "bible": 61
+   },
+   "was": "kund",
+   "confidence": "high",
+   "meaning": "see (subjunctive ona)"
+  },
+  {
+   "sw": "wili",
+   "action": "set_word",
+   "lemma": "wi",
+   "word": "iwi",
+   "was": "wawi"
+  },
+  {
+   "sw": "chako",
+   "action": "remove_top",
+   "was": "chako",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "matawi",
+   "action": "promote",
+   "lemma": "malemba",
+   "was": "mbashu�ra",
+   "confidence": "medium"
+  },
+  {
+   "sw": "nyakati",
+   "action": "set_word",
+   "lemma": "vimu",
+   "word": "ngelo",
+   "was": "vimu"
+  },
+  {
+   "sw": "sedekia",
+   "action": "promote",
+   "lemma": "zedeki",
+   "was": "sedekia",
+   "confidence": "medium"
+  },
+  {
+   "sw": "majivuno",
+   "action": "set_word",
+   "lemma": "kas",
+   "word": "lukaso",
+   "was": "kukukasa"
+  },
+  {
+   "sw": "miezi",
+   "action": "set_word",
+   "lemma": "meri",
+   "word": "meri",
+   "was": "wameria"
+  },
+  {
+   "sw": "pango",
+   "action": "set_word",
+   "lemma": "mbangeni",
+   "word": "mbanga",
+   "was": "mbangeni"
+  },
+  {
+   "sw": "kioo",
+   "action": "set_word",
+   "lemma": "lol",
+   "word": "kilole",
+   "was": "kulola"
+  },
+  {
+   "sw": "muumb",
+   "action": "promote",
+   "lemma": "muumbi",
+   "was": "umb",
+   "confidence": "high"
+  },
+  {
+   "sw": "rush",
+   "action": "promote",
+   "lemma": "kumb",
+   "was": "rush",
+   "confidence": "medium"
+  },
+  {
+   "sw": "bid",
+   "action": "add_top",
+   "lemma": "suti",
+   "word": "suti",
+   "evidence_count": 9,
+   "domains": {
+    "dav_swa": 8,
+    "bible": 1
+   },
+   "was": "iyabidi",
+   "confidence": "medium",
+   "meaning": "it is necessary (-bidi)"
+  },
+  {
+   "sw": "yamekuwa",
+   "action": "remove_top",
+   "was": "ghak",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "tini",
+   "action": "set_word",
+   "lemma": "tini",
+   "word": "tini",
+   "was": "watini"
+  },
+  {
+   "sw": "ujenzi",
+   "action": "set_word",
+   "lemma": "agh",
+   "word": "iaghi",
+   "was": "agha"
+  },
+  {
+   "sw": "mihogo",
+   "action": "set_word",
+   "lemma": "mang",
+   "word": "manga",
+   "was": "kumanga"
+  },
+  {
+   "sw": "kiri",
+   "action": "add_top",
+   "lemma": "rumiri",
+   "word": null,
+   "evidence_count": 9,
+   "domains": {
+    "dav_swa": 1,
+    "bible": 8
+   },
+   "was": "kiri",
+   "confidence": "medium",
+   "meaning": "admit, confess"
+  },
+  {
+   "sw": "mtoe",
+   "action": "add_top",
+   "lemma": "funy",
+   "word": null,
+   "evidence_count": 9,
+   "domains": {
+    "dav_swa": 2,
+    "bible": 7
+   },
+   "was": "kai",
+   "confidence": "medium",
+   "meaning": "give/take out (subjunctive of toa)"
+  },
+  {
+   "sw": "mazishi",
+   "action": "set_word",
+   "lemma": "mari",
+   "word": "mariko",
+   "was": "marina"
+  },
+  {
+   "sw": "ufundi",
+   "action": "set_word",
+   "lemma": "fundi",
+   "word": "wufundi",
+   "was": "fundi"
+  },
+  {
+   "sw": "chetu",
+   "action": "remove_top",
+   "was": "chedu",
+   "verdict": "not_vocabulary",
+   "entry_removed": true
+  },
+  {
+   "sw": "machinjo",
+   "action": "set_word",
+   "lemma": "bwagh",
+   "word": "kubwaghonyi",
+   "was": "kubwagha"
+  },
+  {
+   "sw": "umedi",
+   "action": "set_word",
+   "lemma": "med",
+   "word": "media",
+   "was": "meda"
+  },
+  {
+   "sw": "amezaa",
+   "action": "promote",
+   "lemma": "wava",
+   "was": "yeva",
+   "confidence": "medium"
+  },
+  {
+   "sw": "majembe",
+   "action": "set_word",
+   "lemma": "ghembe",
+   "word": "maghembe",
+   "was": "ighembe"
+  },
+  {
+   "sw": "lelew",
+   "action": "promote",
+   "lemma": "lelw",
+   "was": "lelelo",
+   "confidence": "medium"
+  },
+  {
+   "sw": "asanteni",
+   "action": "set_word",
+   "lemma": "wuch",
+   "word": "chawuchenyi",
+   "was": "chawucha"
+  },
+  {
+   "sw": "msalani",
+   "action": "set_word",
+   "lemma": "choro",
+   "word": "choronyi",
+   "was": "choro"
+  },
+  {
+   "sw": "wakikuyu",
+   "action": "set_word",
+   "lemma": "rashu",
+   "word": "mwarashu",
+   "was": "ukarashua"
+  },
+  {
+   "sw": "pepe",
+   "action": "set_word",
+   "lemma": "pepe",
+   "word": "pepe",
+   "was": "kipepe"
+  }
+ ],
+ "connectives": [
+  {
+   "sw": "lakini",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "ela",
+     "evidence_count": 1932,
+     "domains": {
+      "dav_swa": 78,
+      "bible": 1854
+     },
+     "sense": "but"
+    }
+   ]
+  },
+  {
+   "sw": "ila",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "ela",
+     "evidence_count": 60,
+     "domains": {
+      "dav_swa": 18,
+      "bible": 42
+     },
+     "sense": "but / except"
+    }
+   ]
+  },
+  {
+   "sw": "bali",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "ela",
+     "evidence_count": 542,
+     "domains": {
+      "dav_swa": 2,
+      "bible": 540
+     },
+     "sense": "but rather"
+    }
+   ]
+  },
+  {
+   "sw": "ingawa",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "hata ngera",
+     "evidence_count": 88,
+     "domains": {
+      "dav_swa": 0,
+      "bible": 88
+     },
+     "sense": "although"
+    }
+   ]
+  },
+  {
+   "sw": "ijapokuwa",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "hata ngera",
+     "evidence_count": 15,
+     "domains": {
+      "dav_swa": 0,
+      "bible": 15
+     },
+     "sense": "although"
+    }
+   ]
+  },
+  {
+   "sw": "hata kama",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "hata ngera",
+     "evidence_count": 35,
+     "domains": {
+      "dav_swa": 6,
+      "bible": 29
+     },
+     "sense": "even if"
+    }
+   ]
+  },
+  {
+   "sw": "hata hivyo",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "elaima",
+     "evidence_count": 23,
+     "domains": {
+      "dav_swa": 0,
+      "bible": 23
+     },
+     "sense": "however / nevertheless"
+    }
+   ]
+  },
+  {
+   "sw": "kama",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "sa",
+     "evidence_count": 1511,
+     "domains": {
+      "dav_swa": 164,
+      "bible": 1347
+     },
+     "sense": "like / as (comparison) - commonest"
+    }
+   ]
+  },
+  {
+   "sw": "vilevile",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "wokoni",
+     "evidence_count": 5,
+     "domains": {
+      "dav_swa": 0,
+      "bible": 5
+     },
+     "sense": "likewise / in the same way - commonest"
+    }
+   ]
+  },
+  {
+   "sw": "kwamba",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "angu",
+     "evidence_count": 344,
+     "domains": {
+      "dav_swa": 10,
+      "bible": 334
+     },
+     "sense": "that (complement)"
+    }
+   ]
+  },
+  {
+   "sw": "kuwa",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "kukaia",
+     "evidence_count": 838,
+     "domains": {
+      "dav_swa": 109,
+      "bible": 729
+     },
+     "sense": "to be / to have (kuwa na) - commonest"
+    }
+   ]
+  },
+  {
+   "sw": "ili",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "eri",
+     "evidence_count": 486,
+     "domains": {
+      "dav_swa": 51,
+      "bible": 435
+     },
+     "sense": "so that / in order to"
+    }
+   ]
+  },
+  {
+   "sw": "kwa sababu",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "angu",
+     "evidence_count": 548,
+     "domains": {
+      "dav_swa": 36,
+      "bible": 512
+     },
+     "sense": "because (+ clause)"
+    }
+   ]
+  },
+  {
+   "sw": "sababu",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "angu",
+     "evidence_count": 569,
+     "domains": {
+      "dav_swa": 40,
+      "bible": 529
+     },
+     "sense": "because (conjunction, also in kwa sababu + clause) - commonest"
+    },
+    {
+     "word": "w'undu",
+     "evidence_count": 375,
+     "domains": {
+      "dav_swa": 38,
+      "bible": 337
+     },
+     "sense": "reason / cause (noun, in kwa sababu ya = because of)"
+    }
+   ]
+  },
+  {
+   "sw": "kwa kuwa",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "kwa kukaia",
+     "evidence_count": 254,
+     "domains": {
+      "dav_swa": 4,
+      "bible": 250
+     },
+     "sense": "because / since"
+    }
+   ]
+  },
+  {
+   "sw": "kwani",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "kwani",
+     "evidence_count": 14,
+     "domains": {
+      "dav_swa": 11,
+      "bible": 3
+     },
+     "sense": "question particle (so ...? / why ...?) - commonest in modern text"
+    }
+   ]
+  },
+  {
+   "sw": "kwa maana",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "angu",
+     "evidence_count": 438,
+     "domains": {
+      "dav_swa": 4,
+      "bible": 434
+     },
+     "sense": "because / for"
+    }
+   ]
+  },
+  {
+   "sw": "maana",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "angu",
+     "evidence_count": 487,
+     "domains": {
+      "dav_swa": 7,
+      "bible": 480
+     },
+     "sense": "because / for (conjunction)"
+    },
+    {
+     "word": "mana",
+     "evidence_count": 23,
+     "domains": {
+      "dav_swa": 23,
+      "bible": 0
+     },
+     "sense": "meaning / importance (noun: wa maana, yasio na maana)"
+    }
+   ]
+  },
+  {
+   "sw": "kwa sababu ya",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "kwa w'undu ghwa",
+     "evidence_count": 193,
+     "domains": {
+      "dav_swa": 26,
+      "bible": 167
+     },
+     "sense": "because of (+ noun)"
+    }
+   ]
+  },
+  {
+   "sw": "kutokana na",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "na",
+     "evidence_count": 93,
+     "domains": {
+      "dav_swa": 1,
+      "bible": 92
+     },
+     "sense": "from (save/protect/keep from)"
+    }
+   ]
+  },
+  {
+   "sw": "basi",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "basi",
+     "evidence_count": 12,
+     "domains": {
+      "dav_swa": 6,
+      "bible": 6
+     },
+     "sense": "bus (noun)"
+    }
+   ]
+  },
+  {
+   "sw": "hivyo",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "huw'o",
+     "evidence_count": 293,
+     "domains": {
+      "dav_swa": 35,
+      "bible": 258
+     },
+     "sense": "so / like that (manner) - commonest in modern text"
+    }
+   ]
+  },
+  {
+   "sw": "kwa hivyo",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "kwa huw'o",
+     "evidence_count": 13,
+     "domains": {
+      "dav_swa": 10,
+      "bible": 3
+     },
+     "sense": "therefore"
+    }
+   ]
+  },
+  {
+   "sw": "kwa hiyo",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "kwa huwo",
+     "evidence_count": 249,
+     "domains": {
+      "dav_swa": 2,
+      "bible": 247
+     },
+     "sense": "therefore"
+    }
+   ]
+  },
+  {
+   "sw": "hivyo basi",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "kwa huw'o",
+     "evidence_count": 8,
+     "domains": {
+      "dav_swa": 1,
+      "bible": 7
+     },
+     "sense": "therefore / so then"
+    }
+   ]
+  },
+  {
+   "sw": "ndiyo maana",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "niko",
+     "evidence_count": 9,
+     "domains": {
+      "dav_swa": 0,
+      "bible": 9
+     },
+     "sense": "that is why"
+    }
+   ]
+  },
+  {
+   "sw": "ndipo",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "niko",
+     "evidence_count": 389,
+     "domains": {
+      "dav_swa": 8,
+      "bible": 381
+     },
+     "sense": "that is when / where; (only) then"
+    }
+   ]
+  },
+  {
+   "sw": "ndio",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "niw'o",
+     "evidence_count": 47,
+     "domains": {
+      "dav_swa": 10,
+      "bible": 37
+     },
+     "sense": "focus copula 'is/are the one(s) that' - commonest; agrees with the noun class"
+    },
+    {
+     "word": "hee",
+     "evidence_count": 3,
+     "domains": {
+      "dav_swa": 3,
+      "bible": 0
+     },
+     "sense": "yes"
+    }
+   ]
+  },
+  {
+   "sw": "ndiyo",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "niyo",
+     "evidence_count": 33,
+     "domains": {
+      "dav_swa": 5,
+      "bible": 28
+     },
+     "sense": "focus copula 'is the one that' - commonest; agrees with the noun class"
+    },
+    {
+     "word": "hee",
+     "evidence_count": 5,
+     "domains": {
+      "dav_swa": 1,
+      "bible": 4
+     },
+     "sense": "yes"
+    }
+   ]
+  },
+  {
+   "sw": "hata",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "hata",
+     "evidence_count": 509,
+     "domains": {
+      "dav_swa": 52,
+      "bible": 457
+     },
+     "sense": "even - commonest"
+    }
+   ]
+  },
+  {
+   "sw": "au",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "angu",
+     "evidence_count": 599,
+     "domains": {
+      "dav_swa": 35,
+      "bible": 564
+     },
+     "sense": "or"
+    }
+   ]
+  },
+  {
+   "sw": "ama",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "angu",
+     "evidence_count": 42,
+     "domains": {
+      "dav_swa": 25,
+      "bible": 17
+     },
+     "sense": "or"
+    }
+   ]
+  },
+  {
+   "sw": "wala",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "hata",
+     "evidence_count": 624,
+     "domains": {
+      "dav_swa": 4,
+      "bible": 620
+     },
+     "sense": "nor / and not (+ negative clause) - commonest"
+    }
+   ]
+  },
+  {
+   "sw": "na",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "na",
+     "evidence_count": 13039,
+     "domains": {
+      "dav_swa": 1459,
+      "bible": 11580
+     },
+     "sense": "and - commonest"
+    },
+    {
+     "word": "ni",
+     "evidence_count": 3434,
+     "domains": {
+      "dav_swa": 610,
+      "bible": 2824
+     },
+     "sense": "by (agent of a passive)"
+    }
+   ]
+  },
+  {
+   "sw": "pamoja na",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "chiaimweri na",
+     "evidence_count": 256,
+     "domains": {
+      "dav_swa": 1,
+      "bible": 255
+     },
+     "sense": "together with"
+    }
+   ]
+  },
+  {
+   "sw": "pia",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "w'ori",
+     "evidence_count": 181,
+     "domains": {
+      "dav_swa": 12,
+      "bible": 169
+     },
+     "sense": "also / too"
+    }
+   ]
+  },
+  {
+   "sw": "tena",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "sena",
+     "evidence_count": 448,
+     "domains": {
+      "dav_swa": 87,
+      "bible": 361
+     },
+     "sense": "again / any more"
+    }
+   ]
+  },
+  {
+   "sw": "halafu",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "nwao",
+     "evidence_count": 9,
+     "domains": {
+      "dav_swa": 9,
+      "bible": 0
+     },
+     "sense": "then / and then"
+    }
+   ]
+  },
+  {
+   "sw": "kisha",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "nwao",
+     "evidence_count": 7,
+     "domains": {
+      "dav_swa": 7,
+      "bible": 0
+     },
+     "sense": "then / and then"
+    }
+   ]
+  },
+  {
+   "sw": "baada ya",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "nyuma ya",
+     "evidence_count": 202,
+     "domains": {
+      "dav_swa": 4,
+      "bible": 198
+     },
+     "sense": "after (+ noun / time / infinitive)"
+    }
+   ]
+  },
+  {
+   "sw": "kabla",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "imbiri",
+     "evidence_count": 134,
+     "domains": {
+      "dav_swa": 15,
+      "bible": 119
+     },
+     "sense": "before (+ clause)"
+    }
+   ]
+  },
+  {
+   "sw": "kabla ya",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "imbiri ya",
+     "evidence_count": 18,
+     "domains": {
+      "dav_swa": 5,
+      "bible": 13
+     },
+     "sense": "before (+ noun / infinitive)"
+    }
+   ]
+  },
+  {
+   "sw": "mpaka",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "mpaka",
+     "evidence_count": 56,
+     "domains": {
+      "dav_swa": 24,
+      "bible": 32
+     },
+     "sense": "until / up to / as far as - commonest"
+    },
+    {
+     "word": "mwano",
+     "evidence_count": 16,
+     "domains": {
+      "dav_swa": 4,
+      "bible": 12
+     },
+     "sense": "boundary / border (noun)"
+    }
+   ]
+  },
+  {
+   "sw": "hadi",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "mpaka",
+     "evidence_count": 58,
+     "domains": {
+      "dav_swa": 33,
+      "bible": 25
+     },
+     "sense": "until / up to"
+    }
+   ]
+  },
+  {
+   "sw": "iwapo",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "ngera",
+     "evidence_count": 6,
+     "domains": {
+      "dav_swa": 2,
+      "bible": 4
+     },
+     "sense": "if / whether"
+    }
+   ]
+  },
+  {
+   "sw": "wakati",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "ngelo",
+     "evidence_count": 472,
+     "domains": {
+      "dav_swa": 72,
+      "bible": 400
+     },
+     "sense": "time / when"
+    }
+   ]
+  },
+  {
+   "sw": "wakati wa",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "ngelo ya",
+     "evidence_count": 78,
+     "domains": {
+      "dav_swa": 6,
+      "bible": 72
+     },
+     "sense": "during / at the time of"
+    }
+   ]
+  },
+  {
+   "sw": "wakati huo",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "ngelo iyo",
+     "evidence_count": 53,
+     "domains": {
+      "dav_swa": 1,
+      "bible": 52
+     },
+     "sense": "at that time / then"
+    }
+   ]
+  },
+  {
+   "sw": "ambapo",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "andu",
+     "evidence_count": 39,
+     "domains": {
+      "dav_swa": 3,
+      "bible": 36
+     },
+     "sense": "where (mahali ambapo = the place where)"
+    }
+   ]
+  },
+  {
+   "sw": "huku",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "ichia",
+     "evidence_count": 11,
+     "domains": {
+      "dav_swa": 11,
+      "bible": 0
+     },
+     "sense": "while (+ -ki- verb)"
+    },
+    {
+     "word": "ichia na ichia",
+     "evidence_count": 4,
+     "domains": {
+      "dav_swa": 4,
+      "bible": 0
+     },
+     "sense": "here and there (huku na huku / huku na kule)"
+    }
+   ]
+  },
+  {
+   "sw": "mbali na",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "kula na",
+     "evidence_count": 30,
+     "domains": {
+      "dav_swa": 7,
+      "bible": 23
+     },
+     "sense": "far from; apart from"
+    }
+   ]
+  },
+  {
+   "sw": "badala ya",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "wulalo ghwa",
+     "evidence_count": 29,
+     "domains": {
+      "dav_swa": 2,
+      "bible": 27
+     },
+     "sense": "instead of"
+    }
+   ]
+  },
+  {
+   "sw": "kwa ajili ya",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "kwa w'undu ghwa",
+     "evidence_count": 429,
+     "domains": {
+      "dav_swa": 6,
+      "bible": 423
+     },
+     "sense": "for / for the sake of / because of"
+    }
+   ]
+  },
+  {
+   "sw": "kuhusu",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "aighu ya",
+     "evidence_count": 82,
+     "domains": {
+      "dav_swa": 4,
+      "bible": 78
+     },
+     "sense": "about / concerning"
+    }
+   ]
+  },
+  {
+   "sw": "juu ya",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "aighu ya",
+     "evidence_count": 368,
+     "domains": {
+      "dav_swa": 8,
+      "bible": 360
+     },
+     "sense": "on / on top of / over; about"
+    }
+   ]
+  },
+  {
+   "sw": "hasa",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "hasa",
+     "evidence_count": 5,
+     "domains": {
+      "dav_swa": 5,
+      "bible": 0
+     },
+     "sense": "especially / exactly"
+    }
+   ]
+  },
+  {
+   "sw": "tu",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "tu",
+     "evidence_count": 74,
+     "domains": {
+      "dav_swa": 27,
+      "bible": 47
+     },
+     "sense": "only / just"
+    }
+   ]
+  },
+  {
+   "sw": "pekee",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "uekeri",
+     "evidence_count": 11,
+     "domains": {
+      "dav_swa": 3,
+      "bible": 8
+     },
+     "sense": "alone / only (after a noun or pronoun; agrees with it) - commonest"
+    }
+   ]
+  },
+  {
+   "sw": "labda",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "ngera",
+     "evidence_count": 19,
+     "domains": {
+      "dav_swa": 16,
+      "bible": 3
+     },
+     "sense": "maybe / perhaps"
+    }
+   ]
+  },
+  {
+   "sw": "huenda",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "kew'ada",
+     "evidence_count": 17,
+     "domains": {
+      "dav_swa": 1,
+      "bible": 16
+     },
+     "sense": "maybe / might (huenda + -ka-)"
+    }
+   ]
+  },
+  {
+   "sw": "kwanza",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "imbiri",
+     "evidence_count": 253,
+     "domains": {
+      "dav_swa": 25,
+      "bible": 228
+     },
+     "sense": "first (ordinal: wa/la/ya kwanza) - commonest"
+    }
+   ]
+  },
+  {
+   "sw": "kweli",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "loli",
+     "evidence_count": 279,
+     "domains": {
+      "dav_swa": 79,
+      "bible": 200
+     },
+     "sense": "true / truth (wa kweli, noun kweli) - commonest"
+    }
+   ]
+  },
+  {
+   "sw": "bado",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "bado",
+     "evidence_count": 35,
+     "domains": {
+      "dav_swa": 35,
+      "bible": 0
+     },
+     "sense": "still / not yet (adverb)"
+    },
+    {
+     "word": "waduagha",
+     "evidence_count": 15,
+     "domains": {
+      "dav_swa": 1,
+      "bible": 14
+     },
+     "sense": "still is / remains (verb -dua-)"
+    }
+   ]
+  },
+  {
+   "sw": "tayari",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "tayari",
+     "evidence_count": 45,
+     "domains": {
+      "dav_swa": 15,
+      "bible": 30
+     },
+     "sense": "already"
+    }
+   ]
+  },
+  {
+   "sw": "sasa",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "idana",
+     "evidence_count": 348,
+     "domains": {
+      "dav_swa": 9,
+      "bible": 339
+     },
+     "sense": "now (time) - commonest"
+    }
+   ]
+  },
+  {
+   "sw": "mara",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "indo",
+     "evidence_count": 61,
+     "domains": {
+      "dav_swa": 14,
+      "bible": 47
+     },
+     "sense": "time(s), occasion (mara ya pili, mara kumi) - commonest"
+    }
+   ]
+  },
+  {
+   "sw": "mara moja",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "shwa wori",
+     "evidence_count": 18,
+     "domains": {
+      "dav_swa": 0,
+      "bible": 18
+     },
+     "sense": "immediately / at once"
+    },
+    {
+     "word": "indo jimweri",
+     "evidence_count": 12,
+     "domains": {
+      "dav_swa": 2,
+      "bible": 10
+     },
+     "sense": "once (one time)"
+    }
+   ]
+  },
+  {
+   "sw": "ndani ya",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "andenyi ya",
+     "evidence_count": 155,
+     "domains": {
+      "dav_swa": 9,
+      "bible": 146
+     },
+     "sense": "inside / in / within"
+    }
+   ]
+  },
+  {
+   "sw": "nje ya",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "shighadi ya",
+     "evidence_count": 57,
+     "domains": {
+      "dav_swa": 5,
+      "bible": 52
+     },
+     "sense": "outside / out of"
+    }
+   ]
+  },
+  {
+   "sw": "kati ya",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "aghadi ya",
+     "evidence_count": 64,
+     "domains": {
+      "dav_swa": 7,
+      "bible": 57
+     },
+     "sense": "between / among"
+    }
+   ]
+  },
+  {
+   "sw": "karibu na",
+   "action": "connective",
+   "renderings": [
+    {
+     "word": "kavui na",
+     "evidence_count": 15,
+     "domains": {
+      "dav_swa": 15,
+      "bible": 0
+     },
+     "sense": "near / close to"
+    }
+   ]
+  }
+ ],
+ "connective_disagreements": [
+  {
+   "sw": "ingawaje",
+   "A": [
+    "hata ngera"
+   ],
+   "B": [],
+   "agreed_without_support": []
+  },
+  {
+   "sw": "kama vile",
+   "A": [
+    "sa",
+    "seji koni"
+   ],
+   "B": [
+    "sa iji koni"
+   ],
+   "agreed_without_support": []
+  },
+  {
+   "sw": "baadaye",
+   "A": [
+    "nyuma yaro"
+   ],
+   "B": [
+    "konyuma"
+   ],
+   "agreed_without_support": []
+  },
+  {
+   "sw": "ikiwa",
+   "A": [],
+   "B": [
+    "ikakaia"
+   ],
+   "agreed_without_support": []
+  },
+  {
+   "sw": "zaidi ya",
+   "A": [
+    "zaidi ya"
+   ],
+   "B": [
+    "kuchumba"
+   ],
+   "agreed_without_support": []
+  },
+  {
+   "sw": "isipokuwa",
+   "A": [
+    "ela"
+   ],
+   "B": [],
+   "agreed_without_support": []
+  },
+  {
+   "sw": "je",
+   "A": [
+    "wele"
+   ],
+   "B": [
+    "welee"
+   ],
+   "agreed_without_support": []
+  },
+  {
+   "sw": "kumbe",
+   "A": [
+    "nakila"
+   ],
+   "B": [
+    "kila wuja"
+   ],
+   "agreed_without_support": []
+  },
+  {
+   "sw": "aidha",
+   "A": [
+    "sena"
+   ],
+   "B": [
+    "sena"
+   ],
+   "agreed_without_support": [
+    "sena"
+   ]
+  },
+  {
+   "sw": "mwishowe",
+   "A": [
+    "mwisho"
+   ],
+   "B": [
+    "mwisho"
+   ],
+   "agreed_without_support": [
+    "mwisho"
+   ]
+  },
+  {
+   "sw": "kwa kweli",
+   "A": [
+    "kwa loli"
+   ],
+   "B": [
+    "kwa loli"
+   ],
+   "agreed_without_support": [
+    "kwa loli"
+   ]
+  },
+  {
+   "sw": "wala si",
+   "A": [],
+   "B": [
+    "hata si"
+   ],
+   "agreed_without_support": []
+  },
+  {
+   "sw": "chini ya",
+   "A": [],
+   "B": [
+    "aisi ya"
+   ],
+   "agreed_without_support": []
+  }
+ ]
+}

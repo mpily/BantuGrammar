@@ -250,7 +250,8 @@ def lookup_word(sw: str, pos: str | None = None) -> dict:
     w = _norm(sw)
     lem = _sw_lemma(w)
     lex = _lexicon()
-    e = lex.get(lem) or lex.get(w)
+    # rulebook-v5: an exact connective / function-word entry wins over the lemmatizer's guess (kisha -> kish 'nao')
+    e = (lex[w] if lex.get(w, {}).get("pos") == "FUNC" else None) or lex.get(lem) or lex.get(w)
     note = None
     if not e:
         # rulebook-v3: one-syllable verb roots (pa 'give', ona 'see', ita 'call', lia 'cry') lose ku- when an

@@ -200,6 +200,82 @@ def main():
                         "domains": top["domains"], "conflict": any(c["conflict"] for c in cands),
                         "close_alternatives": len(cands) > 1 and cands[1]["evidence_count"] >= 0.5 * max(1, top["evidence_count"])})
     entries.sort(key=lambda e: e["sw"])
+    if "--v5-patch" in sys.argv:
+        # rulebook-v5 = v4 lexicon + the final agent review (round 5, Fable 5.2 agents, 2026-11-12) as decided by
+        # agent_round5_merge.py (rulebook/agent_round5_decisions.json). Speaker-verified candidates stay first.
+        import subprocess
+        base = json.loads(subprocess.run(["git", "show", "rulebook-v4:rulebook/lexicon.json"], cwd=HERE.parent,
+                                         capture_output=True, text=True, check=True).stdout)
+        dec = json.loads((HERE / "agent_round5_decisions.json").read_text(encoding="utf-8"))
+        by = {e["sw"]: e for e in base["entries"]}
+        tag = {"round": 5, "note": "agent judgement, not speaker verification"}
+        applied = collections.Counter()
+
+        def new_cand(word, lemma, n, dom, sense=None):
+            return {"lemma": lemma, "forms": [word] if word else [lemma], "source": "agent_interpretation", "tier": "agent",
+                    "evidence_count": n, "domains": dom, "class": None, "class_source": None, "plural": None,
+                    "senses": [sense] if sense else [], "conflict": False, "mod_class": None,
+                    "mod_class_source": "same_as_class", "agent_review": {**tag, "action": "added"}}
+
+        def refresh(e):
+            spk = [c for c in e["dav"] if c["source"] == "speaker_verified"]
+            e["dav"] = spk + [c for c in e["dav"] if c["source"] != "speaker_verified"]
+            t = e["dav"][0]
+            e.update(source=t["source"], evidence_count=t["evidence_count"], domains=t["domains"],
+                     conflict=any(c["conflict"] for c in e["dav"]),
+                     close_alternatives=len(e["dav"]) > 1 and e["dav"][1]["evidence_count"] >= 0.5 * max(1, t["evidence_count"]))
+
+        for d in dec["review"]:
+            e = by.get(d["sw"])
+            if not e or e["dav"][0]["source"] == "speaker_verified":
+                continue
+            if d["action"] == "promote":
+                c = next(c for c in e["dav"] if c["lemma"] == d["lemma"])
+                c["agent_review"] = {**tag, "action": "promoted", "over": d["was"]}
+                e["dav"] = [c] + [x for x in e["dav"] if x is not c]
+            elif d["action"] == "add_top":
+                e["dav"] = [new_cand(d["word"], d["lemma"], d["evidence_count"], d["domains"], d.get("meaning"))] + e["dav"]
+            elif d["action"] == "demote_top":
+                e["dav"] = e["dav"][1:] + [{**e["dav"][0], "agent_review": {**tag, "action": "demoted"}}]
+            elif d["action"] == "remove_top":
+                if len(e["dav"]) == 1:
+                    del by[d["sw"]]
+                    applied["entry_removed"] += 1
+                    continue
+                e["dav"] = e["dav"][1:]
+            elif d["action"] == "set_word":
+                c = next((c for c in e["dav"] if c["lemma"] == d["lemma"]), None)
+                if c is None:
+                    continue
+                c["forms"] = [d["word"]] + [f for f in c.get("forms", []) if f != d["word"]]
+            refresh(e)
+            applied[d["action"]] += 1
+        sys.path.insert(0, str(HERE.parent / "agent_translate"))
+        import tools as T
+        for d in dec["connectives"]:
+            # single words resolve through the tools' lemmatizer (sasa -> sas, kisha -> kish), so the entry
+            # lookup_word reaches is the one patched (and a speaker-verified one is never shadowed)
+            e = by.get(d["sw"]) or (by.get(T._sw_lemma(T._norm(d["sw"]))) if " " not in d["sw"] else None)
+            new = [new_cand(r["word"], r["word"], r["evidence_count"], r["domains"], r.get("sense")) for r in d["renderings"]]
+            for c in new:
+                c["agent_review"]["action"] = "connective (two agents agree)"
+            if e is None:
+                e = by[d["sw"]] = {"sw": d["sw"], "sw_forms": [d["sw"]], "pos": "FUNC", "dav": []}
+            elif e["dav"] and e["dav"][0]["source"] == "speaker_verified":
+                continue
+            words = {c["lemma"] for c in new}
+            e["dav"] = new + [c for c in e["dav"] if c["lemma"] not in words and (c.get("forms") or [None])[0] not in words]
+            e["pos"] = "FUNC"
+            refresh(e)
+            applied["connective"] += 1
+        base["entries"] = sorted(by.values(), key=lambda e: e["sw"])
+        base["_meta"].update(rulebook_version="v5 (2026-11-12): final agent review + connectives",
+                             n_entries=len(base["entries"]), n_candidates=sum(len(e["dav"]) for e in base["entries"]),
+                             v5_applied=dict(applied), v5_built_by="rulebook/build_lexicon.py --v5-patch",
+                             v5_decisions_sha16=A.sha16(HERE / "agent_round5_decisions.json"))
+        OUT.write_text(json.dumps(base, ensure_ascii=False, indent=0))
+        print("v5 lexicon:", dict(applied))
+        return
     if "--v4-patch" in sys.argv:
         # rulebook-v4 = v3 lexicon + speaker confirmations from rulebook/speaker_additions.json: the confirmed
         # candidate becomes source speaker_verified (provenance kept) and moves to the top; others stay below.

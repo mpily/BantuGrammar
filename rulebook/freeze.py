@@ -23,7 +23,7 @@ def sha(p):
 
 frozen = ["rulebook/rules.json", "rulebook/RULEBOOK.md", "rulebook/lexicon.json", "rulebook/bootstrap_lexicon.json",
           "rulebook/dav_vocab.json", "rulebook/split_manifest.json", "rulebook/induced_verb_rules.json",
-          "rulebook/induced_extension_rules.json", "rulebook/validation_results.json", "rulebook/speaker_additions.json",
+          "rulebook/induced_extension_rules.json", "rulebook/validation_results.json", "rulebook/speaker_additions.json", "rulebook/agent_round5_decisions.json",
           "agent_translate/tools.py", "agent_translate/tool_schemas.json", "agent_translate/tests/test_tools.py"]
 code = sorted(str(p.relative_to(ROOT)) for p in HERE.glob("*.py"))
 inputs = ["hf_space/kitaita_speaker_verified.json", "hf_space/kitaita_verified_corrections.py", "hf_space/kitaita_verb.py",
@@ -37,7 +37,8 @@ not_used = ["hf_space/kitaita_mined_lexicon_round1.json", "hf_space/kitaita_verb
 outside = {"train.jsonl (retrieval index source, lexicon/rules evidence)": DATA / "train.jsonl",
            "dev.jsonl (validation only)": DATA / "dev.jsonl"}
 agents = sorted(DATA.glob("agents/*/out_agent*.jsonl")) + sorted(DATA.glob("agents/*/batch_agent*.json")) + \
-    sorted(DATA.glob("agents/segment*/words.json"))
+    sorted(DATA.glob("agents/segment*/words.json")) + \
+    sorted(DATA.glob("agents/round5/out_connectives_*.jsonl")) + sorted(DATA.glob("agents/round5/batch_connectives.json"))
 TAG = sys.argv[1] if len(sys.argv) > 1 else "rulebook-v1"
 man = {
     "tag": TAG,
@@ -63,7 +64,11 @@ man = {
                        ("v3 + lexicon.json: speaker additions (rulebook/speaker_additions.json: sasa -> idana); "
                         "tools.py lookup_word: pos mismatch keeps candidates (pos_note), non-verb candidates carry the "
                         "full `word`, bare one-syllable verbs (pa -> p -> nek); tool_schemas: lookup_word description")
-                       if TAG == "rulebook-v4" else None,
+                       if TAG == "rulebook-v4" else
+                       ("v4 + lexicon.json: final agent review (round 5; Fable 5.2 agents until the usage limit, then Opus; rulebook/agent_round5_merge.py "
+                        "-> agent_round5_decisions.json): first candidates promoted / added with corpus support / removed, "
+                        "full words for non-verbs, connectives incl. multi-word (two agents agree, >= 3 pairs). Agent "
+                        "judgement, not speaker verification") if TAG == "rulebook-v5" else None,
     "rule": "No rule or lexicon edits after this tag until arm C/E/A results are in; fixes go to rulebook-v2 and are reported as such.",
 }
 sm = json.loads((HERE / "split_manifest.json").read_text())

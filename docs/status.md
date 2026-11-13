@@ -29251,3 +29251,44 @@ lost on another word. rulebook-v4 and the speaker_verified prompt line are not i
 User (native-speaker tests): *idakoni* is a different dialect and is acceptable; *idana* stays first
 (speaker_verified), idakoni stays as an alternative. chrF against corpus references counts such dialect
 variants as errors — one more reason to rely on speaker ratings on the Space.
+
+## 2026-11-13 — rulebook-v5: final dictionary review by agents + connectives; paid testers on the Space
+
+**User request**: "run through the dictionary one last time" (Fable 5.2 agents; after the 5-hour usage limit the
+user asked to continue on Opus — 455 + 4 finished agents' items came from Fable, the rest from Opus) and,
+mid-turn, "particularly the connecting words like lakini, kwa kuwa, ila, kwa hivyo, kama".
+
+**Design (merge rules fixed before any output was read; `rulebook/agent_round5_merge.py`)**
+- Review: every non-speaker entry of the v4 lexicon (3,923) shown blind (no source labels) with clean-train
+  evidence, most frequent first; 10 agents. 100 speaker-verified entries hidden among them as controls.
+- Connectives: 104 Swahili connectives incl. multi-word (`agent_connective_batch.py`), two agents independently;
+  only renderings both give (conf >= medium) with >= 3 co-occurring pairs are applied.
+- Applied: promote an existing candidate (wrong/partly, conf >= medium); new top word only with corpus support
+  (>= 1 pair high, >= 3 medium); remove the top (conf high) only if controls' wrong-rate upper CI <= 20%.
+
+**Controls** (speaker-verified, blind): correct 63, partly 19, unclear 8, wrong 9, not_vocabulary 1 →
+wrong-or-not-vocab 10/100 = 10% [5.5, 17.4]. Under the 20% gate, so removals applied — but ~1 in 10 agent
+"wrong" calls may hit a good entry. Agent judgement is not speaker verification.
+
+**Result** (4,023/4,023 items answered, 0 bad lines): promoted 145, new top word 37 (31 proposals rejected for no
+corpus support), demoted 3, full word for non-verbs 199, removed 60 (41 whole entries; all high-confidence
+grammar words — possessives, SM+ko/na "have/there is", demonstratives — which the rules/tools generate),
+connectives 70 entries (13 left out: agents disagree or unsupported). Entries 4,054 → 4,044. Examples:
+na wandu → na/ni; moyo → ngolo; mtu → mndu; kuja → ch; kivuli kirerende 'television' → kiju; rafiki → mghenyi;
+kwa kuwa → kwa kukaia; kwa hiyo → kwa huwo; kisha → nwao; baada ya → nyuma ya; hata hivyo → elaima.
+All 131 speaker-verified entries unchanged (sasa → idana still first).
+
+**Code**: tools.lookup_word: an exact FUNC entry wins over the lemmatizer (kisha -> kish 'nao'); single-word
+connectives patch the lemmatized entry (a first build shadowed the speaker sasa entry, caught and fixed).
+Prompt (`HaikuHarness/prompts.py`, sha16 e59d24104c0c23bc): look up connectives / multi-word phrases as one unit;
+candidates are ranked best first — do not re-sort by source (the review puts agent candidates above corpus ones).
+Schema description to match. Bug caught: the merge first read the working-copy lexicon (a partial test build),
+dropping decisions such as moyo / mtu; it now always reads `rulebook-v4:rulebook/lexicon.json`.
+
+**Validation (v5)**: speaker forms 65/65; dev round trip 2,421/2,484 (97.5%, = v4 rate); leakage none; tool tests
+37/37; hf_space tests 121/121. These check nothing broke; they do not measure dictionary quality. NOT yet
+measured: a pilot (v4 vs v5, arm C) — and the lexicon and prompt changed together (two changes, confounded).
+
+**Paid testers (user decisions 2026-11-13)**: phone field on the Translator tab (kept in the browser), feedback
+stores only the salted hash, raw number only in private `mpily/bantugrammar-testers` (CLAUDE.md exception);
+complete = 3 ratings + own translation, one payment per 100 (`scripts/tester_payouts.py`). Commit 543acd2.
