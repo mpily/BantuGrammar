@@ -29292,3 +29292,15 @@ measured: a pilot (v4 vs v5, arm C) — and the lexicon and prompt changed toget
 **Paid testers (user decisions 2026-11-13)**: phone field on the Translator tab (kept in the browser), feedback
 stores only the salted hash, raw number only in private `mpily/bantugrammar-testers` (CLAUDE.md exception);
 complete = 3 ratings + own translation, one payment per 100 (`scripts/tester_payouts.py`). Commit 543acd2.
+
+## 2026-11-14 — Test-sentence pool: news + storybook + encyclopedia (user request)
+
+`scripts/build_test_sentences.py` rebuilt `hf_space/test_sentences.json`: 400 African Storybook (filtered: no
+fragments / stray quotes), 250 Tanzanian news (community-datasets/swahili_news, CC BY 4.0), 250 MasakhaNEWS
+Swahili (AFL-3.0; 35-36 each of business, health, politics, religion, sports, technology, entertainment),
+200 Swahili Wikipedia (CC BY-SA 3.0). 1,100 sentences, 5-18 words (storybook >= 4), no digits / quotes /
+brackets, <= 25% capitalised words; none appears in the training / dev Swahili (rulebook train + dev, all Bible
+parallel files, Colab bundle: 101,909 normalised strings). The 60 Bible verses were dropped: they are in arm A's
+training data. The button picks a register uniformly, then a sentence; feedback records now carry
+`test_sentence` {id, register, source} (None when typed), so ratings can be split by register. Sources credited
+on the Translator tab.

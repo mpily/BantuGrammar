@@ -62,10 +62,19 @@ FEEDBACK_DATASET_REPO = "mpily/kitaita-translation-feedback"
 # Space, and it would make every click dependent on a 3rd-party site
 # being up) -- flagged here rather than silently narrower than asked.
 _SENTENCES_PATH = Path(__file__).parent / "test_sentences.json"
+# 2026-11-14, user request ("news sources as well as the storybooks"): rebuilt by
+# scripts/build_test_sentences.py -- 400 storybook, 500 news (Tanzanian newspapers + MasakhaNEWS: business,
+# health, politics, religion, sports, technology, entertainment), 200 Swahili Wikipedia; Bible top-up dropped
+# (it is in the fine-tuned model's training data); every sentence checked against the training data.
+# The button picks a register first, then a sentence, so each register comes up equally often.
 try:
     TEST_SENTENCES = json.loads(_SENTENCES_PATH.read_text(encoding="utf-8"))
 except Exception:
     TEST_SENTENCES = []
+_BY_REGISTER: dict[str, list[dict]] = {}
+for _s in TEST_SENTENCES:
+    _BY_REGISTER.setdefault(_s.get("register", "other"), []).append(_s)
+_SENTENCE_INFO = {" ".join(_s["sw"].split()): _s for _s in TEST_SENTENCES}
 
 print("Loading vocabulary/grammar tables...", flush=True)
 _tables = build_lookup_tables(*load_pages())
@@ -181,7 +190,7 @@ def random_test_sentence():
     doesn't linger next to a brand-new, not-yet-rated sentence."""
     if not TEST_SENTENCES:
         return gr.update(), ""
-    choice = random.choice(TEST_SENTENCES)
+    choice = random.choice(_BY_REGISTER[random.choice(sorted(_BY_REGISTER))])
     return choice["sw"], ""
 
 
@@ -222,6 +231,9 @@ def submit_ab_feedback(swahili: str, a_output: str, c_output: str, e_output: str
         "id": str(uuid.uuid4()),
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "swahili_input": swahili,
+        # where a "Give me a sentence" sentence came from (None = typed by the tester)
+        "test_sentence": {k: _SENTENCE_INFO[" ".join(swahili.split())].get(k) for k in ("id", "register", "source")}
+                         if " ".join(swahili.split()) in _SENTENCE_INFO else None,
         "arms": {k: {"system": systems[k], "output": outs[k], "rating": ratings[k]} for k in outs},
         "display_order": ["A", "C", "E"],   # translation 1, 2, 3 (fixed order, labels hidden)
         "system_a": systems["A"], "system_b": systems["C"], "a_output": outs["A"], "b_output": outs["C"],
@@ -339,7 +351,9 @@ with gr.Blocks(title="Kitaita Translator") as demo:
                 "# Kitaita Translator\n"
                 "Swahili &rarr; Kitaita (Kidaw'ida, ISO `dav`). Three machine translations of the same "
                 "sentence. Translations 2 and 3 take up to 30 seconds.\n\n"
-                "All three are machine translation awaiting native-speaker review."
+                "All three are machine translation awaiting native-speaker review.\n\n"
+                "<small>Test sentences: African Storybook Initiative (CC BY / CC BY-NC), Swahili News Dataset "
+                "(CC BY 4.0), MasakhaNEWS (AFL-3.0), Swahili Wikipedia (CC BY-SA 3.0).</small>"
             )
             # 2026-11-13, paid testers (testers.py): the number stays in this browser (BrowserState) across
             # submits and reloads; feedback stores only its salted hash.
