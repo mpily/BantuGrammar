@@ -29304,3 +29304,23 @@ parallel files, Colab bundle: 101,909 normalised strings). The 60 Bible verses w
 training data. The button picks a register uniformly, then a sentence; feedback records now carry
 `test_sentence` {id, register, source} (None when typed), so ratings can be split by register. Sources credited
 on the Translator tab.
+
+## 2026-11-15 — Space: shuffled display order + private researcher page (before inviting testers)
+
+User request. UI-only change (no pipeline or arm changes):
+- **Random display order per sentence.** `translate` draws a random permutation of arms A/C/E for each
+  sentence; Translation i shows arm `order[i]`. The order is server-side state (not sent to the browser);
+  `submit_ab_feedback` maps slot ratings back to arms and saves `display_order` in each record (it was the
+  fixed `["A","C","E"]` before; records before this date all have that order). Checked with stubbed models:
+  all 6 orders occur (300 draws, 38–62 each), slot→arm mapping round-trips.
+- **All three appear together** once the slowest arm is done (~30 s). Before, A appeared at once and C last,
+  so timing would have revealed which slot is which.
+- **Researcher view moved to `/research`** (Gradio login, user `researcher`, password = Space secret
+  `RESEARCHER_PASSWORD`; not served if the secret is unset). It has the Translator with the report naming
+  each system and the display order, plus the Progress tab (it names the systems and their scores, so it
+  left the public page too). The public page keeps the report only as server-side state, still saved with
+  each feedback record. Docstrings of UI callbacks are published in Gradio's page config, so the ones naming
+  the systems became comments; checked that `/` and `/config` contain no system names and `/research/config`
+  returns 401 without login.
+- Analysis note: ratings before 2026-11-15 had a fixed order (1 = A, 2 = C, 3 = E) and staggered arrival,
+  so they are not blind to position/timing; analyse them separately from later ones.

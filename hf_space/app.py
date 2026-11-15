@@ -139,48 +139,66 @@ def unmark(text: str) -> str:
 
 
 def haiku_report(c: dict, e: dict) -> str:
-    """Not for blind raters: which system made translations 2 and 3, and how translation 2 was built."""
+    """Not for blind raters: how arms C (Haiku + tools) and E (Haiku zero-shot) were built."""
     if c["kitaita"] is None:
-        head = f"**Translation 2 (Haiku + tools):** {c['status']}"
+        head = f"**Arm C (Haiku + tools):** {c['status']}"
         calls = []
     else:
-        head = (f"**Translation 2 = Claude Haiku + rule-book tools ({haiku_mt.rulebook_tag()}).** "
+        head = (f"**Arm C = Claude Haiku + rule-book tools ({haiku_mt.rulebook_tag()}).** "
                 f"{len(c['tool_calls'])} tool calls, {c.get('n_requests', 0)} model requests, est. ${c['usd']:.4f}; "
                 f"retrieval corpus: {c['corpus']}. Marked by the model as having no Kidaw'ida (Swahili kept): "
                 f"{', '.join(_UNKNOWN_MARK.findall(c['kitaita'])) or 'none'}.")
         calls = [f"- `{x['name']}({json.dumps(x['input'], ensure_ascii=False)[:90]})` -> {x['status']}"
                  for x in c["tool_calls"]]
-    tail = (f"\n\n**Translation 3 = Claude Haiku zero-shot (no tools, no dictionary)**: {e['status']}"
+    tail = (f"\n\n**Arm E = Claude Haiku zero-shot (no tools, no dictionary)**: {e['status']}"
             + (f", est. ${e['usd']:.4f}" if e.get("usd") else "")
-            + "\n\n**Translation 1 = fine-tuned NLLB-600M.**")
-    notes = f"\n\n**Model's notes (translation 2):** {c['notes']}" if c.get("notes") else ""
-    return head + notes + tail + ("\n\n**Tool calls (translation 2):**\n" + "\n".join(calls) if calls else "")
+            + "\n\n**Arm A = fine-tuned NLLB-600M.**")
+    notes = f"\n\n**Model's notes (arm C):** {c['notes']}" if c.get("notes") else ""
+    return head + notes + tail + ("\n\n**Tool calls (arm C):**\n" + "\n".join(calls) if calls else "")
+
+
+ARMS = [("A", "fine-tuned NLLB"), ("C", "Haiku + tools"), ("E", "Haiku zero-shot")]
+ARM_KEYS = [k for k, _ in ARMS]
+
+
+def order_key(order: list[str]) -> str:
+    """Researcher view: which arm sits behind each displayed translation this time."""
+    names = dict(ARMS)
+    return "**Display order this time:** " + ", ".join(
+        f"Translation {i} = {k} ({names[k]})" for i, k in enumerate(order, 1))
 
 
 def translate(text: str, request: gr.Request = None):
-    """Generator, the three study arms: translation 1 = fine-tuned NLLB (A), 2 = Haiku + tools (C),
-    3 = Haiku zero-shot (E). Shows 1 first, then 3 (one call), then 2 (~30 s).
-    2026-11-12, user decision: the probe pipeline is no longer run or shown here (it confused testers);
-    /api/translate still serves it."""
+    """Translate one Swahili sentence three ways."""
+    # (Docstrings of UI callbacks are published in the page config, so system details live in comments.)
+    # Generator, the three study arms: A = fine-tuned NLLB, C = Haiku + tools, E = Haiku zero-shot.
+    # 2026-11-15, user request (before inviting testers): the arms are shown in a fresh random order for
+    # every sentence (`order[i]` = the arm in Translation i+1), and all three appear together when the
+    # slowest is done -- showing the fast arm first would reveal which slot it is.
+    # 2026-11-12, user decision: the probe pipeline is no longer run or shown here (it confused testers);
+    # /api/translate still serves it.
+    # Yields (translation 1, 2, 3, order, researcher report).
     text = (text or "").strip()
     if not text:
-        yield "", "", "", ""
+        yield "", "", "", [], ""
         return
+    order = random.sample(ARM_KEYS, len(ARM_KEYS))
+    wait = "(translating... up to about 30 seconds)"
+    yield wait, wait, wait, order, ""
     ft = finetuned_mt.translate(text)
     a_out = ft["kitaita"] if ft["kitaita"] is not None else f"(fine-tuned model {ft['status']})"
-    wait = "(translating... about 30 seconds)"
-    yield a_out, wait, wait, ""
     why = haiku_mt.precheck(text, haiku_mt.visitor_id(request))
     if why:
-        msg = f"({why})"
-        yield a_out, msg, msg, f"**Translations 2 and 3 (Haiku):** {why}"
-        return
-    e = haiku_mt.translate_zero_shot(text)
-    e_out = unmark(e["kitaita"]) if e["kitaita"] is not None else f"({e['status']})"
-    yield a_out, wait, e_out, ""
-    c = haiku_mt.translate(text, checked=True)
-    c_out = unmark(c["kitaita"]) if c["kitaita"] is not None else f"({c['status']})"
-    yield a_out, c_out, e_out, haiku_report(c, e)
+        outs = {"A": a_out, "C": f"({why})", "E": f"({why})"}
+        report = order_key(order) + f"\n\n**Arms C and E (Haiku):** {why}"
+    else:
+        e = haiku_mt.translate_zero_shot(text)
+        c = haiku_mt.translate(text, checked=True)
+        outs = {"A": a_out,
+                "C": unmark(c["kitaita"]) if c["kitaita"] is not None else f"({c['status']})",
+                "E": unmark(e["kitaita"]) if e["kitaita"] is not None else f"({e['status']})"}
+        report = order_key(order) + "\n\n" + haiku_report(c, e)
+    yield outs[order[0]], outs[order[1]], outs[order[2]], order, report
 
 
 def random_test_sentence():
@@ -194,21 +212,22 @@ def random_test_sentence():
     return choice["sw"], ""
 
 
-ARMS = [("A", "fine-tuned NLLB"), ("C", "Haiku + tools"), ("E", "Haiku zero-shot")]
-
-
-def submit_ab_feedback(swahili: str, a_output: str, c_output: str, e_output: str, report: str,
-                       rating_a: str, rating_c: str, rating_e: str, correction: str, phone: str = ""):
-    """One record per blind rating of the three arms, in feedback_ab/ of the private dataset.
-    2026-11-12: arms A (translation 1), C (2), E (3). Legacy fields a_*/b_* are kept so older readers work
-    (b = C). On success the form is cleared so the tester knows to go on (user request).
-    2026-11-13 (paid testers, testers.py): the record carries only a salted hash of the tester's phone number;
-    the number itself goes to the private testers dataset. The phone box is not cleared."""
-    keep = (gr.update(),) * 9
+def submit_ab_feedback(swahili: str, out1: str, out2: str, out3: str, order: list, report: str,
+                       rating1: str, rating2: str, rating3: str, correction: str, phone: str = ""):
+    """Save one blind rating of the three translations."""
+    # One record per blind rating of the three arms, in feedback_ab/ of the private dataset.
+    # 2026-11-15: the arms are shown in a random order per sentence; `order[i]` is the arm in Translation
+    # i+1, so slot outputs/ratings are mapped back to arms A, C, E here and `display_order` records the order.
+    # Legacy fields a_*/b_* are kept so older readers work (b = C). On success the form is cleared so the
+    # tester knows to go on (user request).
+    # 2026-11-13 (paid testers, testers.py): the record carries only a salted hash of the tester's phone number;
+    # the number itself goes to the private testers dataset. The phone box is not cleared.
+    keep = (gr.update(),) * 10
     swahili = (swahili or "").strip()
-    if not swahili or not (a_output or "").strip():
+    slots = [(out1 or "").strip(), (out2 or "").strip(), (out3 or "").strip()]
+    if not swahili or not any(slots) or sorted(order or []) != sorted(ARM_KEYS):
         return ("Nothing to log yet -- translate a sentence first.",) + keep
-    if not (rating_a or rating_c or rating_e):
+    if not (rating1 or rating2 or rating3):
         return ("Rate at least one translation (1-5) before submitting.",) + keep
     token = os.environ.get("HF_TOKEN")
     if not token:
@@ -223,8 +242,8 @@ def submit_ab_feedback(swahili: str, a_output: str, c_output: str, e_output: str
             tid = testers.tester_id(phone_n)
         except RuntimeError:
             return ("Feedback was NOT saved: payments are not set up on this Space (no PHONE_HASH_SALT secret).",) + keep
-    outs = {"A": (a_output or "").strip(), "C": (c_output or "").strip(), "E": (e_output or "").strip()}
-    ratings = {"A": rating_a or None, "C": rating_c or None, "E": rating_e or None}
+    outs = dict(zip(order, slots))
+    ratings = dict(zip(order, [rating1 or None, rating2 or None, rating3 or None]))
     systems = {"A": "finetuned:" + str(finetuned_mt._CFG.get("model_repo")), "C": haiku_mt.system_label(),
                "E": haiku_mt.zero_shot_label()}
     record = {
@@ -235,7 +254,7 @@ def submit_ab_feedback(swahili: str, a_output: str, c_output: str, e_output: str
         "test_sentence": {k: _SENTENCE_INFO[" ".join(swahili.split())].get(k) for k in ("id", "register", "source")}
                          if " ".join(swahili.split()) in _SENTENCE_INFO else None,
         "arms": {k: {"system": systems[k], "output": outs[k], "rating": ratings[k]} for k in outs},
-        "display_order": ["A", "C", "E"],   # translation 1, 2, 3 (fixed order, labels hidden)
+        "display_order": list(order),   # arm shown as translation 1, 2, 3 (random per sentence, labels hidden)
         "system_a": systems["A"], "system_b": systems["C"], "a_output": outs["A"], "b_output": outs["C"],
         "b_equals_a": outs["A"] == outs["C"], "rating_a": ratings["A"], "rating_b": ratings["C"],
         "report": report,
@@ -268,8 +287,8 @@ def submit_ab_feedback(swahili: str, a_output: str, c_output: str, e_output: str
         if not record["complete_for_payment"]:
             msg += ("\n\nThis one does **not** count for payment: a paid submission rates all three translations "
                     "**and** gives your own Kitaita translation.")
-    # cleared: input, 3 outputs, report, 3 ratings, correction
-    return (msg, "", "", "", "", "", None, None, None, "")
+    # cleared: input, 3 outputs, order, report, 3 ratings, correction
+    return (msg, "", "", "", "", [], "", None, None, None, "")
 
 
 # --------------------------------------------------------------------------- progress dashboard
@@ -344,91 +363,110 @@ def refresh_dashboard():
     return compute_all_feedback_overview()
 
 
+def build_translator_tab(blocks: gr.Blocks, researcher: bool) -> None:
+    """Translator tab contents. researcher=False: the public, blind page for testers;
+    researcher=True: the same page plus the report naming each system (password-protected)."""
+    gr.Markdown(
+        "# Kitaita Translator\n"
+        "Swahili &rarr; Kitaita (Kidaw'ida, ISO `dav`). Three machine translations of the same "
+        "sentence, in a different order each time. They take up to 30 seconds.\n\n"
+        "All three are machine translation awaiting native-speaker review.\n\n"
+        "<small>Test sentences: African Storybook Initiative (CC BY / CC BY-NC), Swahili News Dataset "
+        "(CC BY 4.0), MasakhaNEWS (AFL-3.0), Swahili Wikipedia (CC BY-SA 3.0).</small>"
+    )
+    # 2026-11-13, paid testers (testers.py): the number stays in this browser (BrowserState) across
+    # submits and reloads; feedback stores only its salted hash.
+    with gr.Accordion("Paid testers: your phone number", open=True):
+        phone = gr.Textbox(label="Phone number (M-Pesa) -- leave empty if you are not a paid tester",
+                           placeholder="e.g. 0712345678", max_lines=1)
+        gr.Markdown(
+            "Used only to pay you. It is stored privately, separately from your ratings (which carry only "
+            "a code), and deleted after payment. A submission counts when you rate **all three** "
+            f"translations **and** write your own Kitaita translation; payment every {testers.PAY_EVERY} "
+            "complete submissions.")
+        phone_store = gr.BrowserState("", storage_key="kitaita_tester_phone")
+    inp = gr.Textbox(label="Swahili sentence", lines=2,
+                     placeholder="e.g. Mama alimpa mtoto maji ya kunywa.")
+    with gr.Row():
+        btn = gr.Button("Translate", variant="primary")
+        sample_btn = gr.Button("🎲 Give me a sentence to test")
+    with gr.Row():
+        # blind comparison: no system names on the page, and the arm behind each slot is drawn at random
+        # per sentence (translate); `order` is server-side state, submit_ab_feedback maps slots back to arms.
+        out1 = gr.Textbox(label="Translation 1", lines=2)
+        out2 = gr.Textbox(label="Translation 2", lines=2)
+        out3 = gr.Textbox(label="Translation 3", lines=2)
+    order = gr.State([])
+
+    gr.Markdown("### Are these translations right?")
+    gr.Markdown(
+        "If you speak Kitaita: rate **each translation** separately and, if none is right, write "
+        "the correct translation. Logged for review, not applied automatically."
+    )
+    with gr.Row():
+        rating1 = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 1 (1 = way off, 5 = correct)")
+        rating2 = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 2 (1 = way off, 5 = correct)")
+        rating3 = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 3 (1 = way off, 5 = correct)")
+    correction = gr.Textbox(label="Your Kitaita translation (required for paid testers)", lines=2,
+                            placeholder="How would you say this sentence in Kitaita?")
+    feedback_btn = gr.Button("Submit feedback", variant="primary")
+    feedback_status = gr.Markdown()
+
+    # names the systems. 2026-11-15, user request: only on the password-protected /research page; on the
+    # public page the report is server-side state (never sent to the browser) and still saved with feedback.
+    if researcher:
+        with gr.Accordion("For researchers: which system made each translation", open=True):
+            report_box = gr.Markdown()
+    else:
+        report_box = gr.State("")
+
+    outputs = [out1, out2, out3, order, report_box]
+    btn.click(translate, inputs=[inp], outputs=outputs)
+    inp.submit(translate, inputs=[inp], outputs=outputs)
+    sample_btn.click(random_test_sentence, inputs=[], outputs=[inp, feedback_status])
+    feedback_btn.click(submit_ab_feedback,
+                       inputs=[inp, out1, out2, out3, order, report_box, rating1, rating2, rating3, correction,
+                               phone],
+                       outputs=[feedback_status, inp, out1, out2, out3, order, report_box,
+                                rating1, rating2, rating3, correction])
+    gr.Examples(examples=[[e[0]] for e in EXAMPLES], inputs=[inp])
+    blocks.load(lambda s: s or "", inputs=[phone_store], outputs=[phone])
+    phone.change(lambda p: p, inputs=[phone], outputs=[phone_store])
+
+
+def build_progress_tab(blocks: gr.Blocks) -> None:
+    """Progress dashboard. Names the systems and their scores, so research page only (2026-11-15)."""
+    gr.Markdown(
+        "# Evaluation progress\n"
+        "Native-speaker ratings of the three systems being tested -- **A**: fine-tuned NLLB, "
+        "**C**: Haiku + rule-book tools, **E**: Haiku zero-shot -- from the Translator tab's "
+        "**Submit feedback** button (testers see them in a random order, unnamed). "
+        "Refreshes automatically every 60s, or click Refresh now."
+    )
+    refresh_btn = gr.Button("🔄 Refresh now")
+    overview_md = gr.Markdown()
+    ratings_plot = gr.BarPlot(x="stars", y="count", color="system",
+                              title="Ratings by arm (1 = way off, 5 = correct)", height=300)
+
+    dash_outputs = [overview_md, ratings_plot]
+    refresh_btn.click(refresh_dashboard, inputs=[], outputs=dash_outputs)
+    blocks.load(refresh_dashboard, inputs=[], outputs=dash_outputs)
+    # Gradio 6: auto-refresh is gr.Timer (the old `every=` kwarg was removed)
+    dash_timer = gr.Timer(60)
+    dash_timer.tick(refresh_dashboard, inputs=[], outputs=dash_outputs)
+
+
+# Public page (testers): blind Translator only. 2026-11-15, user request: the researcher report and the
+# Progress tab (both name the systems) moved to the password-protected /research page.
 with gr.Blocks(title="Kitaita Translator") as demo:
+    build_translator_tab(demo, researcher=False)
+
+with gr.Blocks(title="Kitaita Research") as research_demo:
     with gr.Tabs():
-        with gr.Tab("Translator"):
-            gr.Markdown(
-                "# Kitaita Translator\n"
-                "Swahili &rarr; Kitaita (Kidaw'ida, ISO `dav`). Three machine translations of the same "
-                "sentence. Translations 2 and 3 take up to 30 seconds.\n\n"
-                "All three are machine translation awaiting native-speaker review.\n\n"
-                "<small>Test sentences: African Storybook Initiative (CC BY / CC BY-NC), Swahili News Dataset "
-                "(CC BY 4.0), MasakhaNEWS (AFL-3.0), Swahili Wikipedia (CC BY-SA 3.0).</small>"
-            )
-            # 2026-11-13, paid testers (testers.py): the number stays in this browser (BrowserState) across
-            # submits and reloads; feedback stores only its salted hash.
-            with gr.Accordion("Paid testers: your phone number", open=True):
-                phone = gr.Textbox(label="Phone number (M-Pesa) -- leave empty if you are not a paid tester",
-                                   placeholder="e.g. 0712345678", max_lines=1)
-                gr.Markdown(
-                    "Used only to pay you. It is stored privately, separately from your ratings (which carry only "
-                    "a code), and deleted after payment. A submission counts when you rate **all three** "
-                    f"translations **and** write your own Kitaita translation; payment every {testers.PAY_EVERY} "
-                    "complete submissions.")
-                phone_store = gr.BrowserState("", storage_key="kitaita_tester_phone")
-            inp = gr.Textbox(label="Swahili sentence", lines=2,
-                             placeholder="e.g. Mama alimpa mtoto maji ya kunywa.")
-            with gr.Row():
-                btn = gr.Button("Translate", variant="primary")
-                sample_btn = gr.Button("🎲 Give me a sentence to test")
-            with gr.Row():
-                # blind comparison: no system names on the page. 1 = A (fine-tuned), 2 = C (Haiku + tools),
-                # 3 = E (Haiku zero-shot); submit_ab_feedback stores the ratings under A, C, E.
-                out_a = gr.Textbox(label="Translation 1", lines=2)
-                out_c = gr.Textbox(label="Translation 2", lines=2)
-                out_e = gr.Textbox(label="Translation 3", lines=2)
-
-            gr.Markdown("### Are these translations right?")
-            gr.Markdown(
-                "If you speak Kitaita: rate **each translation** separately and, if none is right, write "
-                "the correct translation. Logged for review, not applied automatically."
-            )
-            with gr.Row():
-                rating_a = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 1 (1 = way off, 5 = correct)")
-                rating_c = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 2 (1 = way off, 5 = correct)")
-                rating_e = gr.Radio(["1", "2", "3", "4", "5"], label="Translation 3 (1 = way off, 5 = correct)")
-            correction = gr.Textbox(label="Your Kitaita translation (required for paid testers)", lines=2,
-                                    placeholder="How would you say this sentence in Kitaita?")
-            feedback_btn = gr.Button("Submit feedback", variant="primary")
-            feedback_status = gr.Markdown()
-
-            # names the systems: kept out of sight for blind raters
-            with gr.Accordion("For researchers: which system made each translation (not for blind raters)",
-                              open=False):
-                report_box = gr.Markdown()
-
-            outputs = [out_a, out_c, out_e, report_box]
-            btn.click(translate, inputs=[inp], outputs=outputs)
-            inp.submit(translate, inputs=[inp], outputs=outputs)
-            sample_btn.click(random_test_sentence, inputs=[], outputs=[inp, feedback_status])
-            feedback_btn.click(submit_ab_feedback,
-                               inputs=[inp, out_a, out_c, out_e, report_box, rating_a, rating_c, rating_e, correction,
-                                       phone],
-                               outputs=[feedback_status, inp, out_a, out_c, out_e, report_box,
-                                        rating_a, rating_c, rating_e, correction])
-            gr.Examples(examples=[[e[0]] for e in EXAMPLES], inputs=[inp])
-            demo.load(lambda s: s or "", inputs=[phone_store], outputs=[phone])
-            phone.change(lambda p: p, inputs=[phone], outputs=[phone_store])
-
+        with gr.Tab("Translator (with system names)"):
+            build_translator_tab(research_demo, researcher=True)
         with gr.Tab("📊 Progress"):
-            gr.Markdown(
-                "# Evaluation progress\n"
-                "Native-speaker ratings of the three systems being tested -- **A**: fine-tuned NLLB "
-                "(translation 1), **C**: Haiku + rule-book tools (translation 2), **E**: Haiku zero-shot "
-                "(translation 3) -- from the Translator tab's **Submit feedback** button. "
-                "Refreshes automatically every 60s, or click Refresh now."
-            )
-            refresh_btn = gr.Button("🔄 Refresh now")
-            overview_md = gr.Markdown()
-            ratings_plot = gr.BarPlot(x="stars", y="count", color="system",
-                                      title="Ratings by arm (1 = way off, 5 = correct)", height=300)
-
-            dash_outputs = [overview_md, ratings_plot]
-            refresh_btn.click(refresh_dashboard, inputs=[], outputs=dash_outputs)
-            demo.load(refresh_dashboard, inputs=[], outputs=dash_outputs)
-            # Gradio 6: auto-refresh is gr.Timer (the old `every=` kwarg was removed)
-            dash_timer = gr.Timer(60)
-            dash_timer.tick(refresh_dashboard, inputs=[], outputs=dash_outputs)
+            build_progress_tab(research_demo)
 
 # 2026-10-26 (hackathon Space API, CLAUDE.md "Space API" section): the REST
 # API (api/ package) and this Gradio UI share ONE process and ONE loaded
@@ -438,6 +476,14 @@ with gr.Blocks(title="Kitaita Translator") as demo:
 from api.server import build_app  # noqa: E402
 
 app = build_app(_tables)
+# /research must be mounted before "/", which would otherwise catch it. Login: user "researcher", password =
+# Space secret RESEARCHER_PASSWORD; without the secret the page is not served at all.
+if os.environ.get("RESEARCHER_PASSWORD"):
+    app = gr.mount_gradio_app(app, research_demo, path="/research",
+                              auth=("researcher", os.environ["RESEARCHER_PASSWORD"]),
+                              auth_message="Kitaita research page (system names). Not for testers.")
+else:
+    print("RESEARCHER_PASSWORD not set: the /research page is disabled.", flush=True)
 app = gr.mount_gradio_app(app, demo, path="/")
 
 if __name__ == "__main__":
