@@ -29364,3 +29364,25 @@ each other); stars are an absolute 1-5 scale, not forced choice; one rating per 
 sentences; the tester's own translation is one reference among dialect variants (chrF penalises variants,
 e.g. idakoni/idana). The 2026-11-12 pilots compared C with E only (C 54.5 vs E ~25 chrF on 50 dev
 sentences), never A with C, so this is the first A-vs-C comparison; it agrees with the automatic C-vs-E gap.
+
+## 2026-11-17 (cont.) — Space: tester counts match the payout script; no repeated sentences; no double saves
+
+User request, after three testers were told "100 complete" while `scripts/tester_payouts.py` (one count per
+Swahili sentence) found 99 / 98 / 92. Two causes, checked in the records: (1) the sentence button drew with
+replacement (same sentence given again hours or days later: 3 + 4 cases for two testers, ~5 per 100 draws
+expected); (2) one Submit saved several times -- clicks queued while the upload ran (6 identical saves in 12 s;
+another pair 18 s apart). User decision: pay the three now (they stopped in good faith).
+Fixes (UI and tooling only; no arm or pipeline change):
+- `testers.norm_sentence` is the one sentence key for the page, the payout script and the analysis.
+- The page's "N complete submission(s)" now counts unique sentences (tester's records loaded once per process
+  from the feedback dataset, then updated in memory) -- the same number the payout script computes.
+- The button skips sentences the browser was already given (`BrowserState`) and, for a paid tester, sentences
+  they already rated (loaded in the background).
+- Submit is disabled while saving; the server drops an identical resubmission (same tester, sentence,
+  ratings, translation) within 120 s and says "already saved"; a failed save is forgotten so a retry works.
+- `scripts/blind_eval_summary.py` drops repeated saves (same key, <= 120 s) and lists them; a sentence the
+  button gave again later stays as a separate rating. On the current data: 5 dropped of 498; A - C
+  +0.53 (0.40-0.67), n=487 -- unchanged.
+Checked: 3 new unit tests (126 pass); stubbed-model run of the app: 300 button draws all distinct, second
+identical click not uploaded, repeat sentence counted once, an already-rated sentence never drawn (3000
+draws), Submit toggled by two chained events.

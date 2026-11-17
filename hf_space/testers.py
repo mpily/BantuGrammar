@@ -8,7 +8,7 @@ browser); every submission carries only a salted hash of it. User decisions (202
     "never store raw phone numbers"; delete the numbers after the final payment.
   - paid unit: a COMPLETE submission = all three translations rated AND the tester's own Kitaita translation.
     Payment once per 100 complete submissions (scripts/tester_payouts.py). Each Swahili sentence counts once
-    per tester.
+    per tester (norm_sentence; the page shows the same count since 2026-11-17).
 The hash is the same as the SMS API's (api.util.hash_identifier, prefix "ph", PHONE_HASH_SALT), so one person
 is one tester across channels.
 """
@@ -76,5 +76,101 @@ def register(phone: str, tid: str, token: str) -> None:
 
 def complete_count(files: list[str], tid: str) -> int:
     """Complete submissions of one tester, from feedback file names (feedback_ab/<ts>_<tid>_complete_<id>.json).
-    An upper bound: the payout script also counts each Swahili sentence once."""
+    An upper bound (repeats counted); the page uses unique_complete since 2026-11-17."""
     return sum(1 for f in files if f"_{tid}_complete_" in f)
+
+
+# --------------------------------------------------------------------------- 2026-11-17, user request
+# Three testers were told "100 complete" while the payout script (one count per Swahili sentence) found 92-99:
+# the page counted repeats. Repeats came from (1) the sentence button drawing with replacement and (2) one
+# Submit saved several times (clicks queued while the upload ran: 6 saves in 12 s). Fixes: one sentence key
+# shared by the page and the payout script; the page counts unique sentences; per-tester memory of rated
+# sentences (for the button); and a short window that drops an identical resubmission.
+
+def norm_sentence(s: str | None) -> str:
+    """The key under which a Swahili sentence counts once per tester (page, payout script, analysis)."""
+    return " ".join((s or "").lower().split()).rstrip(" .!?")
+
+
+DUPLICATE_WINDOW_S = 120
+_recent: dict[tuple, float] = {}
+_rated: dict[str, dict[str, bool]] = {}   # tester id -> {sentence key: complete?}
+_loading: set[str] = set()
+_loaded: set[str] = set()
+
+
+def is_duplicate_submit(key: tuple, now: float) -> bool:
+    """True if the identical submission (key) was already accepted within DUPLICATE_WINDOW_S seconds;
+    otherwise remembers it and returns False."""
+    with _lock:
+        for k in [k for k, t in _recent.items() if now - t > DUPLICATE_WINDOW_S]:
+            del _recent[k]
+        if key in _recent:
+            return True
+        _recent[key] = now
+        return False
+
+
+def forget_submit(key: tuple) -> None:
+    """Undo is_duplicate_submit's memory (the save failed, so a retry must go through)."""
+    with _lock:
+        _recent.pop(key, None)
+
+
+def load_rated(tid: str, token: str, repo: str, cache_dir: str | None = None) -> dict[str, bool]:
+    """{sentence key: complete?} for one tester, from their feedback files (downloaded once per process,
+    then kept up to date by record_rated)."""
+    with _lock:
+        if tid in _loaded:
+            return dict(_rated[tid])
+    import glob
+    from huggingface_hub import snapshot_download
+    d = snapshot_download(repo, repo_type="dataset", token=token, allow_patterns=[f"feedback_ab/*_{tid}_*"],
+                          local_dir=cache_dir or f"/tmp/kitaita_rated/{tid}", max_workers=8)
+    out: dict[str, bool] = {}
+    for f in glob.glob(f"{d}/feedback_ab/*_{tid}_*.json"):
+        try:
+            r = json.load(open(f, encoding="utf-8"))
+        except Exception:
+            continue
+        k = norm_sentence(r.get("swahili_input"))
+        ratings = {a: (r.get("arms", {}).get(a) or {}).get("rating") for a in ("A", "C", "E")}
+        out[k] = out.get(k, False) or is_complete(ratings, r.get("native_speaker_correction"))
+    with _lock:
+        d = _rated.setdefault(tid, {})
+        for k, v in out.items():
+            d[k] = d.get(k, False) or v
+        _loading.discard(tid)
+        _loaded.add(tid)
+        return dict(d)
+
+
+def load_rated_in_background(tid: str, token: str, repo: str) -> None:
+    with _lock:
+        if tid in _loaded or tid in _loading:
+            return
+        _loading.add(tid)
+    def run():
+        try:
+            load_rated(tid, token, repo)
+        except Exception:
+            with _lock:
+                _loading.discard(tid)
+    threading.Thread(target=run, daemon=True).start()
+
+
+def rated_if_loaded(tid: str) -> set[str]:
+    with _lock:
+        return set(_rated.get(tid, {}))
+
+
+def record_rated(tid: str, sentence: str, complete: bool) -> None:
+    with _lock:
+        d = _rated.setdefault(tid, {})
+        k = norm_sentence(sentence)
+        d[k] = d.get(k, False) or complete
+
+
+def unique_complete(tid: str) -> int:
+    with _lock:
+        return sum(_rated.get(tid, {}).values())

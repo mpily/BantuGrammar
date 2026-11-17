@@ -26,6 +26,7 @@ import json
 import os
 import re
 import random
+import time
 import uuid
 from datetime import datetime, timezone
 from pathlib import Path
@@ -201,15 +202,44 @@ def translate(text: str, request: gr.Request = None):
     yield outs[order[0]], outs[order[1]], outs[order[2]], order, report
 
 
-def random_test_sentence():
+def _tester_of(phone: str) -> str | None:
+    """Salted tester id for a phone box value, or None (empty / invalid number / no salt)."""
+    p = testers.normalize_phone(phone or "")
+    if not p:
+        return None
+    try:
+        return testers.tester_id(p)
+    except RuntimeError:
+        return None
+
+
+def random_test_sentence(seen: list | None = None, phone: str = ""):
     """Direct user request: a button that hands the user a real Swahili
     sentence to try, instead of them having to think one up. Also clears
     the previous feedback status so an old "thanks, logged" message
-    doesn't linger next to a brand-new, not-yet-rated sentence."""
+    doesn't linger next to a brand-new, not-yet-rated sentence.
+    2026-11-17, user request: no repeats -- skips sentences this browser was already given (`seen`, kept in
+    the browser) and, for a paid tester, sentences they already rated (loaded in the background on first use).
+    Returns (sentence, status, updated seen)."""
+    seen = list(seen or [])
     if not TEST_SENTENCES:
-        return gr.update(), ""
-    choice = random.choice(_BY_REGISTER[random.choice(sorted(_BY_REGISTER))])
-    return choice["sw"], ""
+        return gr.update(), "", seen
+    skip = set(seen)
+    tid = _tester_of(phone)
+    if tid and os.environ.get("HF_TOKEN"):
+        testers.load_rated_in_background(tid, os.environ["HF_TOKEN"], FEEDBACK_DATASET_REPO)
+        skip |= testers.rated_if_loaded(tid)
+    regs = sorted(_BY_REGISTER)
+    random.shuffle(regs)
+    for reg in regs:   # register first (even mix), then an unseen sentence in it
+        fresh = [x for x in _BY_REGISTER[reg] if testers.norm_sentence(x["sw"]) not in skip]
+        if fresh:
+            choice = random.choice(fresh)
+            break
+    else:              # everything seen: start over
+        seen = []
+        choice = random.choice(_BY_REGISTER[random.choice(sorted(_BY_REGISTER))])
+    return choice["sw"], "", seen + [testers.norm_sentence(choice["sw"])]
 
 
 def submit_ab_feedback(swahili: str, out1: str, out2: str, out3: str, order: list, report: str,
@@ -244,6 +274,13 @@ def submit_ab_feedback(swahili: str, out1: str, out2: str, out3: str, order: lis
             return ("Feedback was NOT saved: payments are not set up on this Space (no PHONE_HASH_SALT secret).",) + keep
     outs = dict(zip(order, slots))
     ratings = dict(zip(order, [rating1 or None, rating2 or None, rating3 or None]))
+    # 2026-11-17: one click was saved up to 6 times (clicks queued during the upload); drop an identical
+    # resubmission within testers.DUPLICATE_WINDOW_S and say it is already saved.
+    dup_key = (tid or "anon", testers.norm_sentence(swahili), tuple(sorted(ratings.items())),
+               (correction or "").strip())
+    if testers.is_duplicate_submit(dup_key, time.time()):
+        return ("### ✅ Already saved -- this submission was received a moment ago.\n"
+                "Type or pick the next sentence to continue.", "", "", "", "", [], "", None, None, None, "")
     systems = {"A": "finetuned:" + str(finetuned_mt._CFG.get("model_repo")), "C": haiku_mt.system_label(),
                "E": haiku_mt.zero_shot_label()}
     record = {
@@ -272,6 +309,7 @@ def submit_ab_feedback(swahili: str, out1: str, out2: str, out3: str, order: lis
             path_in_repo=f"feedback_ab/{record['timestamp'].replace(':', '-')}{tag}_{record['id']}.json",
             repo_id=FEEDBACK_DATASET_REPO, repo_type="dataset")
     except Exception as e:
+        testers.forget_submit(dup_key)
         return (f"Feedback was NOT saved -- upload failed: {type(e).__name__}: {e}",) + keep
     msg = ("### ✅ Thank you! Your feedback was saved."
            + (" (Your correction was included.)" if record["native_speaker_correction"] else "")
@@ -279,9 +317,12 @@ def submit_ab_feedback(swahili: str, out1: str, out2: str, out3: str, order: lis
     if tid:
         try:
             testers.register(phone_n, tid, token)
-            from huggingface_hub import HfApi
-            n = testers.complete_count(HfApi(token=token).list_repo_files(FEEDBACK_DATASET_REPO, repo_type="dataset"), tid)
-            msg += f"\n\n**Paid testing:** {n} complete submission(s) so far (payment every {testers.PAY_EVERY})."
+            # 2026-11-17: count unique sentences, as the payout script does (load includes the file just saved)
+            testers.load_rated(tid, token, FEEDBACK_DATASET_REPO)
+            testers.record_rated(tid, swahili, record["complete_for_payment"])
+            n = testers.unique_complete(tid)
+            msg += (f"\n\n**Paid testing:** {n} complete submission(s) so far (payment every {testers.PAY_EVERY}; "
+                    "each sentence counts once).")
         except Exception as e:
             msg += f"\n\n⚠️ Saved, but your phone number could not be registered for payment ({type(e).__name__}); tell the organiser."
         if not record["complete_for_payment"]:
@@ -383,8 +424,9 @@ def build_translator_tab(blocks: gr.Blocks, researcher: bool) -> None:
             "Used only to pay you. It is stored privately, separately from your ratings (which carry only "
             "a code), and deleted after payment. A submission counts when you rate **all three** "
             f"translations **and** write your own Kitaita translation; payment every {testers.PAY_EVERY} "
-            "complete submissions.")
+            "complete submissions. Each sentence counts once.")
         phone_store = gr.BrowserState("", storage_key="kitaita_tester_phone")
+    seen_store = gr.BrowserState([], storage_key="kitaita_seen_sentences")   # sentences this browser was given
     inp = gr.Textbox(label="Swahili sentence", lines=2,
                      placeholder="e.g. Mama alimpa mtoto maji ya kunywa.")
     with gr.Row():
@@ -423,12 +465,14 @@ def build_translator_tab(blocks: gr.Blocks, researcher: bool) -> None:
     outputs = [out1, out2, out3, order, report_box]
     btn.click(translate, inputs=[inp], outputs=outputs)
     inp.submit(translate, inputs=[inp], outputs=outputs)
-    sample_btn.click(random_test_sentence, inputs=[], outputs=[inp, feedback_status])
-    feedback_btn.click(submit_ab_feedback,
-                       inputs=[inp, out1, out2, out3, order, report_box, rating1, rating2, rating3, correction,
-                               phone],
-                       outputs=[feedback_status, inp, out1, out2, out3, order, report_box,
-                                rating1, rating2, rating3, correction])
+    sample_btn.click(random_test_sentence, inputs=[seen_store, phone], outputs=[inp, feedback_status, seen_store])
+    # Submit is disabled while saving (2026-11-17: queued extra clicks were saved as extra submissions)
+    feedback_btn.click(lambda: gr.update(interactive=False), None, feedback_btn, queue=False).then(
+        submit_ab_feedback,
+        inputs=[inp, out1, out2, out3, order, report_box, rating1, rating2, rating3, correction, phone],
+        outputs=[feedback_status, inp, out1, out2, out3, order, report_box,
+                 rating1, rating2, rating3, correction]).then(
+        lambda: gr.update(interactive=True), None, feedback_btn, queue=False)
     gr.Examples(examples=[[e[0]] for e in EXAMPLES], inputs=[inp])
     blocks.load(lambda s: s or "", inputs=[phone_store], outputs=[phone])
     phone.change(lambda p: p, inputs=[phone], outputs=[phone_store])

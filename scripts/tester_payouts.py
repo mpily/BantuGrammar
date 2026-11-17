@@ -72,7 +72,7 @@ def main():
             continue
         ratings = {k: (r.get("arms", {}).get(k) or {}).get("rating") for k in ("A", "C", "E")}
         if testers.is_complete(ratings, r.get("native_speaker_correction")):
-            done[tid].add(" ".join((r.get("swahili_input") or "").lower().split()).rstrip(" .!?"))
+            done[tid].add(testers.norm_sentence(r.get("swahili_input")))   # same key as the page
         else:
             partial[tid] += 1
     print(f"{'tester':30} {'phone':15} {'complete':>8} {'partial':>7} {'earned':>6} {'paid':>4} {'owed':>4}")

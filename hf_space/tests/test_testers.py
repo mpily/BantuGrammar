@@ -44,3 +44,36 @@ def test_complete_count():
     files = ["feedback_ab/t1_ph_aa_complete_x.json", "feedback_ab/t2_ph_aa_partial_y.json",
              "feedback_ab/t3_ph_bb_complete_z.json", "feedback_ab/t4_old.json"]
     assert testers.complete_count(files, "ph_aa") == 1
+
+
+def test_norm_sentence_shared_key():
+    assert testers.norm_sentence("  Walifanya kazi  zao.") == testers.norm_sentence("walifanya kazi zao")
+
+
+def test_duplicate_submit_window_and_forget():
+    k = ("ph_x", "sentence", (("A", "4"),), "corr")
+    assert not testers.is_duplicate_submit(k, 1000.0)
+    assert testers.is_duplicate_submit(k, 1010.0)                 # second click 10 s later: dropped
+    assert not testers.is_duplicate_submit(k, 1000.0 + testers.DUPLICATE_WINDOW_S + 11)   # window passed
+    testers.forget_submit(k)
+    assert not testers.is_duplicate_submit(k, 2000.0)             # failed save forgotten: retry goes through
+
+
+def test_unique_complete_counts_each_sentence_once(tmp_path, monkeypatch):
+    import json
+    tid = "ph_test_unique"
+    d = tmp_path / "feedback_ab"
+    d.mkdir()
+    full = {a: {"rating": "4"} for a in "ACE"}
+    for i, (sw, arms, corr) in enumerate([("Habari yako.", full, "x"), ("habari yako", full, "y"),
+                                          ("Nyumba", full, None), ("Mti", full, "z")]):
+        (d / f"t{i}_{tid}_x.json").write_text(json.dumps({"swahili_input": sw, "arms": arms,
+                                                           "native_speaker_correction": corr}))
+    import huggingface_hub
+    monkeypatch.setattr(huggingface_hub, "snapshot_download", lambda *a, **k: str(tmp_path))
+    testers.record_rated(tid, "Mti", True)          # recorded before loading: load must still happen
+    testers.load_rated(tid, "tok", "repo")
+    assert testers.unique_complete(tid) == 2        # habari yako (twice) + mti; nyumba not complete
+    assert "nyumba" in testers.rated_if_loaded(tid)
+    testers.record_rated(tid, "Nyumba.", True)
+    assert testers.unique_complete(tid) == 3

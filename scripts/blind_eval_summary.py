@@ -10,6 +10,9 @@ record files used (snapshot) and their hash, and:
   - mean rating per display slot (position check)
   - agreement between testers on sentences rated by >= 2 testers
   - how often the tester's translation is an exact copy of an arm's output
+Repeated saves (same tester, sentence, ratings and translation within 120 s of the kept record: one click saved
+several times, seen 2026-11-17) are dropped and counted; a sentence the button gave a tester again later is a
+separate rating and kept.
 Tester ids are salted hashes; no phone numbers are read or written.
 
 Usage: bert-env python scripts/blind_eval_summary.py [--since 2026-11-15] [--out Results/blind_eval_<date>.json]
@@ -38,7 +41,7 @@ ARMS = {"A": "fine-tuned NLLB-600M (arm 2)", "C": "Haiku + rule-book tools", "E"
 
 
 def norm(s: str | None) -> str:
-    return " ".join((s or "").lower().replace(".", "").split())
+    return " ".join((s or "").lower().split()).rstrip(" .!?")   # = testers.norm_sentence
 
 
 def rating(r: dict, arm: str) -> int | None:
@@ -100,6 +103,18 @@ def main() -> None:
         if r.get("timestamp", "") >= args.since and r.get("display_order") and "arms" in r:
             recs.append((Path(f).name, r))
     recs.sort(key=lambda x: x[1]["timestamp"])
+    kept, last_seen, dropped = [], {}, []
+    for n, r in recs:
+        key = (r.get("tester_id") or "anon", norm(r.get("swahili_input")),
+               tuple(sorted((a, (v or {}).get("rating")) for a, v in r["arms"].items())),
+               (r.get("native_speaker_correction") or "").strip())
+        t = datetime.fromisoformat(r["timestamp"])
+        if key in last_seen and (t - last_seen[key]).total_seconds() <= 120:
+            dropped.append(n)
+            continue
+        last_seen[key] = t
+        kept.append((n, r))
+    recs = kept
     names = [n for n, _ in recs]
     R = [r for _, r in recs]
 
@@ -110,7 +125,7 @@ def main() -> None:
                    "stats_sha256": hashlib.sha256((ROOT / "hf_space/api/stats.py").read_bytes()).hexdigest()},
         "snapshot": {"n_files": len(names), "files_sha256": hashlib.sha256("\n".join(names).encode()).hexdigest(),
                      "first": R[0]["timestamp"] if R else None, "last": R[-1]["timestamp"] if R else None,
-                     "files": names},
+                     "files": names, "dropped_repeated_saves": dropped},
         "systems_seen": sorted({f"{a}={r['arms'][a].get('system')}" for r in R for a in r["arms"]}),
         "overall": summarize(R, args.seed, args.n_boot),
     }
@@ -158,7 +173,7 @@ def main() -> None:
     out = Path(args.out or ROOT / f"Results/blind_eval_{datetime.now().date().isoformat()}.json")
     out.write_text(json.dumps(res, ensure_ascii=False, indent=1), encoding="utf-8")
     o = res["overall"]
-    print(f"wrote {out}: n={o['n_records']}, A-C {o['paired_A_minus_C']}")
+    print(f"wrote {out}: n={o['n_records']} (dropped {len(dropped)} repeated saves), A-C {o['paired_A_minus_C']}")
     print(json.dumps(res["inter_tester"], indent=1))
     print(json.dumps(res["copy_check"]))
 
