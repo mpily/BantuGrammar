@@ -4,3 +4,4 @@ __pycache__/
 .env
 # local feedback buffer (pushed to the HF dataset, never to git)
 hf_space/api_data/
+.cache/

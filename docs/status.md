@@ -29324,3 +29324,43 @@ User request. UI-only change (no pipeline or arm changes):
   returns 401 without login.
 - Analysis note: ratings before 2026-11-15 had a fixed order (1 = A, 2 = C, 3 = E) and staggered arrival,
   so they are not blind to position/timing; analyse them separately from later ones.
+
+## 2026-11-17 — PRELIMINARY: blind native-speaker evaluation of the three arms (Space, 2026-11-15/16)
+
+Preliminary (collection ongoing; two paid testers finished their 100). Snapshot: 369 feedback_ab records,
+2026-11-15 08:42 to 2026-11-16 21:22 UTC, all with the random display order (shuffle live since 2026-11-15;
+earlier fixed-order records excluded). Script `scripts/blind_eval_summary.py` (seed 0, 10k bootstrap);
+full output with config, file hashes and the record list: `Results/blind_eval_2026-11-17.json`.
+Arms: **A** fine-tuned NLLB-600M arm 2 (`mpily/nllb-600m-swh-dav-bible`, dav_swa + Bible NEN),
+**C** Claude Haiku + rule-book tools (rulebook-v5), **E** Claude Haiku zero-shot. Sentences: held-out
+storybook / news / Swahili Wikipedia (none in any training data; Bible excluded). 7 paid testers (salted
+hashes), 5 with > 1 rating; 307 unique sentences.
+
+| Arm | Mean stars (95% CI), n | Rated >= 4 | chrF vs tester's own translation (n=352) |
+|---|---|---|---|
+| A fine-tuned NLLB | **3.85** (3.75-3.96), 367 | 72% | **67.1** (65.0-69.3) |
+| C Haiku + tools | 3.33 (3.22-3.45), 368 | 53% | 59.8 (57.8-61.9) |
+| E Haiku zero-shot | 1.24 (1.17-1.31), 368 | 3% | 30.7 (29.3-32.1) |
+
+- **Paired A - C = +0.52 stars** (bootstrap 95% CI 0.36-0.68), n=367: A better 184, tie 92, C better 91.
+- **Per tester** (n >= 46 each): A > C for all 5, from +0.22 (0.05-0.41, n=116) to +1.06 (0.53-1.57, n=51);
+  CI excludes 0 for 4 of 5 (the fifth: +0.47, 0.00-0.93, n=46). Testers differ in leniency (C mean 2.69-3.94).
+- **Per register**: storybook +0.37 (0.13-0.60, n=184), news +0.54 (0.25-0.83, n=105), Wikipedia
+  **+0.87** (0.54-1.19, n=79). A ahead on chrF in all three. (A 2-day n=7/5 hint that C led news/Wikipedia
+  on chrF did not hold up -- it was small-n noise.)
+- **Over time**: A - C by batches of 80: 0.61, 0.49, 0.32, 0.55, 0.71 (last n=49). The early decline did
+  not continue.
+- **Position check**: mean rating by display slot 2.77 / 2.85 / 2.81 -- no position effect.
+- **Copying**: the tester's translation equals an arm's output exactly in 33 (A), 10 (C), 0 (E) of 352.
+  Excluding those 43 records, chrF A 63.6 (61.6-65.7) vs C 59.2 (57.1-61.2), n=313: A's lead shrinks but
+  remains.
+- **Inter-tester agreement** (49 sentences rated by >= 2 testers, 55 rating pairs): exact agreement A 33%,
+  C 27%, E 70%; within 1 star A 80%, C 73%. On *which of A/C is better* for the same sentence, pairs agree in
+  sign only 44%. So: the population-level preference for A is clear, but per-sentence judgements are noisy;
+  don't present sentence-level wins as reliable.
+
+Caveats: paid testers recruited informally (not naive annotators as CLAUDE.md §3 F prefers; some may know
+each other); stars are an absolute 1-5 scale, not forced choice; one rating per sentence for most
+sentences; the tester's own translation is one reference among dialect variants (chrF penalises variants,
+e.g. idakoni/idana). The 2026-11-12 pilots compared C with E only (C 54.5 vs E ~25 chrF on 50 dev
+sentences), never A with C, so this is the first A-vs-C comparison; it agrees with the automatic C-vs-E gap.
